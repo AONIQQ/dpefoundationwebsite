@@ -204,13 +204,17 @@ export default function Home() {
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { name: "Joseph Picozzi", role: "President" },
-              { name: "Carlos Roa", role: "Secretary" },
-              { name: "Albert Grasso", role: "Treasurer" },
+              { name: "Joseph Picozzi", role: "President", chapter: "Alpha Chapter", line: "" },
+              { name: "Carlos Roa", role: "Secretary", chapter: "Alpha Chapter", line: "" },
+              { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
             ].map((officer, index) => (
               <div key={index} className="bg-white dark:bg-black p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
                 <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-white">{officer.role}</p>
+                <p className="text-gray-600 dark:text-white mb-1">{officer.role}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
+                {officer.line && (
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.line}</p>
+                )}
               </div>
             ))}
           </div>
@@ -220,20 +224,22 @@ export default function Home() {
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-
-
-              { name: "Joseph Picozzi", role: "Alpha Chapter"},
-              { name: "Carlos Roa", role: "Alpha Chapter"},
-              { name: "Albert Grasso", role: "Alpha Chapter"  },
-              { name: "Timothy J. Rosenberger", role: "Alpha Chapter"},
-              { name: "Michael D. Eriksen", role: "Alpha Chapter" },
-              { name: "Thomas Stewart", role: "Alpha Chapter" },
-
-
-            ].map((officer, index) => (
+              { name: "Joseph Picozzi", role: "Alpha Chapter", denomination: "", occupation: "Politician" },
+              { name: "Carlos Roa", role: "Alpha Chapter", denomination: "", occupation: "" },
+              { name: "Albert Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
+              { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "", occupation: "Attorney" },
+              { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
+              { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "", occupation: "" },
+            ].map((trustee, index) => (
               <div key={index} className="bg-white dark:bg-black p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-white">{officer.role}</p>
+                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>
+                <p className="text-gray-600 dark:text-white mb-1">{trustee.role}</p>
+                {trustee.denomination && (
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">{trustee.denomination}</p>
+                )}
+                {trustee.occupation && (
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{trustee.occupation}</p>
+                )}
               </div>
             ))}
           </div>
