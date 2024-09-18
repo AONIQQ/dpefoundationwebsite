@@ -394,15 +394,16 @@ export default function ScholarshipApplication() {
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid grid-cols-2 gap-8">
             {[
-              { name: "Charles J. Skuba", role: "Chairman" },
-              { name: "Carlos Roa", role: "Member" },
-              { name: "Albert Grasso", role: "Member" },
-              { name: "Timothy J. Rosenberger", role: "Member" },
+              { name: "Charles J. Skuba", role: "Chairman", chapter: "Alpha Chapter", occupation: "Professor", company: "Georgetown University" },
+              { name: "Carlos Roa", role: "Member", chapter: "Alpha Chapter", occupation: "Former Editor", company: "International Journal" },
+              { name: "Albert Grasso", role: "Member", chapter: "Alpha Chapter", occupation: "Former Associate Professor", company: "Roosevelt University" },
+              { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow", company: "Stanford University" },
             ].map((officer, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-[#d4af36]">
                 <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">Alpha Chapter</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation} at {officer.company}</p>
               </div>
             ))}
           </div>

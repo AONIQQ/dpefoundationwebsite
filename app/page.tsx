@@ -227,7 +227,7 @@ export default function Home() {
               { name: "Joseph Picozzi", role: "Alpha Chapter", denomination: "", occupation: "Politician" },
               { name: "Carlos Roa", role: "Alpha Chapter", denomination: "", occupation: "" },
               { name: "Albert Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
-              { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Fellow - Stanford University" },
+              { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
               { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "", occupation: "" },
             ].map((trustee, index) => (
