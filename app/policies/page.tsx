@@ -162,14 +162,28 @@ export default function PoliciesPage() {
         </AnimatePresence>
       </main>
 
-      <footer className="bg-black text-white py-8 sm:py-10">
+      <footer className="bg-black text-white py-8">
         <div className="container mx-auto px-4 text-center">
-          <p className="mb-6 sm:mb-8 text-[#d4af36] text-sm sm:text-base max-w-3xl mx-auto">
+          <p className="mb-6 text-[#d4af36]">
             Delta Phi Epsilon Foundation for Foreign Service Education is a 501(c)(3) tax-exempt organization and is not affiliated with Georgetown University, the government of the United States or any of its subdivisions, agencies or departments.
           </p>
-          <Button variant="link" className="text-[#d4af36] hover:text-white transition duration-300 text-lg">
-            Contact Us
-          </Button>
+          <div className="flex flex-col items-center">
+            <Link href="/contact">
+              <Button 
+                variant="link" 
+                className="text-[#d4af36] hover:text-white transition duration-300"
+              >
+                Contact Us
+              </Button>
+            </Link>
+            <Button 
+              variant="link" 
+              className="text-[#d4af36] hover:text-white transition duration-300 underline"
+              onClick={() => window.open('https://www.aoniqq.com/websitecreation', '_blank')}
+            >
+              Site by Aoniqq LLC
+            </Button>
+          </div>
         </div>
       </footer>
     </div>
