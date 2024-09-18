@@ -24,6 +24,7 @@ export default function PoliciesPage() {
     { title: "Conflict of Interest Policy", file: "/DPE_Conflict_of_Interest_Policy.pdf" },
     { title: "Document Retention Policy", file: "/DPE_Document_Retention_Policy.pdf" },
     { title: "Scholarship Guidelines and Procedures", file: "/DPE_Scholarship_Guidelines_and_Procedures.pdf" },
+    { title: "Certificate of Incorporation", file: "/DPE_Certificate_of_Incorporation.pdf" },
   ]
 
   return (
@@ -103,7 +104,7 @@ export default function PoliciesPage() {
           className="w-32 sm:w-40 h-1 bg-[#d4af36] mx-auto mb-12 sm:mb-16"
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
           {policies.map((policy, index) => (
             <motion.div
               key={index}
