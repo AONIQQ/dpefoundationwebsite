@@ -394,10 +394,10 @@ export default function ScholarshipApplication() {
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid grid-cols-2 gap-8">
             {[
-              { name: "Charles J. Skuba", role: "Chairman", chapter: "Alpha Chapter", occupation: "Professor", company: "Georgetown University" },
+              { name: "Albert L. Grasso", role: "Member", chapter: "Alpha Chapter", occupation: "Former Associate Professor", company: "Roosevelt University" },
               { name: "Carlos Roa", role: "Member", chapter: "Alpha Chapter", occupation: "Former Editor", company: "International Journal" },
-              { name: "Albert Grasso", role: "Member", chapter: "Alpha Chapter", occupation: "Former Associate Professor", company: "Roosevelt University" },
               { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow", company: "Stanford University" },
+              { name: "Charles J. Skuba", role: "Chairman", chapter: "Alpha Chapter", occupation: "Professor", company: "Georgetown University" },
             ].map((officer, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-[#d4af36]">
                 <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>

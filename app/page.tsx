@@ -103,6 +103,9 @@ export default function Home() {
           <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed text-center">
             Founded in 1962, the Delta Phi Epsilon Foundation for Foreign Service Education was created to promote the virtues of foreign service and to help educate the next generation of American global statesmen. We organize sophisticated programming and deliver scholarships in pursuit of this mission.
           </p>
+          <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed text-center">
+            For a complete description of our founding objectives, review the <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28]">certificate of Incorporation</Link> on our policy page.
+          </p>
         </section>
 
         <section className="mb-20 max-w-4xl mx-auto">
@@ -204,9 +207,10 @@ export default function Home() {
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { name: "Joseph Picozzi", role: "President", chapter: "Alpha Chapter", line: "" },
-              { name: "Carlos Roa", role: "Secretary", chapter: "Alpha Chapter", line: "" },
               { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
+              { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "" },
+              { name: "Carlos Roa", role: "Secretary", chapter: "Alpha Chapter", line: "" },
+             
             ].map((officer, index) => (
               <div key={index} className="bg-white dark:bg-black p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
                 <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
@@ -224,12 +228,13 @@ export default function Home() {
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { name: "Joseph Picozzi", role: "Alpha Chapter", denomination: "", occupation: "Politician" },
-              { name: "Carlos Roa", role: "Alpha Chapter", denomination: "", occupation: "" },
-              { name: "Albert Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
-              { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
+              { name: "Albert L. Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
+              { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "", occupation: "Politician" },
+              { name: "Carlos Roa", role: "Alpha Chapter", denomination: "", occupation: "" },
+              { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "", occupation: "" },
+
             ].map((trustee, index) => (
               <div key={index} className="bg-white dark:bg-black p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
                 <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>
