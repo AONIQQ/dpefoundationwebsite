@@ -350,12 +350,12 @@ export default function ScholarshipApplication() {
           <iframe 
             src="/Kenneth W. Bleakley Foreign Service Officer Scholarship.pdf" 
             className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
-            title="Kenneth W. Bleakley Foreign Service Officer Scholarship Application"
+            title="Kenneth W. Bleakley Senior Foreign Service Officer Scholarship Application"
           />
         </div>
 
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Foreign Service Officer Scholarships</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
           <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
             <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">

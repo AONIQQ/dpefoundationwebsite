@@ -25,6 +25,7 @@ export default function PoliciesPage() {
     { title: "Document Retention Policy", file: "/DPE_Document_Retention_Policy.pdf" },
     { title: "Scholarship Guidelines and Procedures", file: "/DPE_Scholarship_Guidelines_and_Procedures.pdf" },
     { title: "Certificate of Incorporation", file: "/DPE_Certificate_of_Incorporation.pdf" },
+    { title: "IRS Tax Exemption Letter", file: "/DPE_IRS_Tax_Exemption_Letter.pdf" },
   ]
 
   return (
@@ -152,7 +153,7 @@ export default function PoliciesPage() {
                 </div>
                 <div className="flex-grow bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
                   <iframe 
-                    src={activePolicy} 
+                    src={`${activePolicy}#toolbar=0&navpanes=0&scrollbar=0`}
                     className="w-full h-full border-none"
                     title="Policy PDF Viewer"
                   />
