@@ -42,7 +42,7 @@ export default function Home() {
               alt="Delta Phi Epsilon logo" 
               width={240} 
               height={60} 
-              className="h-16 w-auto sm:h-18 md:h-18"
+              className="h-12 w-auto sm:h-14 md:h-16"
             />
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
@@ -80,15 +80,18 @@ export default function Home() {
                 <X className="h-6 w-6 text-[#d4af36]" />
               </Button>
             </div>
-            <Link href="/scholarship-application" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+            <Link href="/scholarship-application" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
               Scholarship Application
             </Link>
-            <Link href="/contact" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+            <Link href="/policies" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
+              Policies
+            </Link>
+            <Link href="/contact" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
               Contact Us
             </Link>
             <button
               onClick={() => setDarkMode(!darkMode)}
-              className="w-full text-left py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg"
+              className="w-full text-center py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg"
             >
               {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             </button>
@@ -96,18 +99,18 @@ export default function Home() {
         )}
       </header>
 
-      <main className="container mx-auto px-4 py-12">
-        <section className="mb-16 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Who We Are</h2>
-          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
-          <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed text-center">
+      <main className="container mx-auto px-4 py-8 sm:py-12">
+        <section className="mb-12 sm:mb-16 max-w-3xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Who We Are</h2>
+          <div className="w-24 sm:w-32 h-1 bg-[#d4af36] mx-auto mb-6 sm:mb-8"></div>
+          <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed text-center">
             Founded in 1962, the Delta Phi Epsilon Foundation for Foreign Service Education was created to promote the virtues of foreign service and to help educate the next generation of American global statesmen. We organize sophisticated programming and deliver scholarships in pursuit of this mission.
           </p>
         </section>
 
-        <section className="mb-16 max-w-5xl mx-auto">
-          <h3 className="text-3xl font-bold mb-4 text-black dark:text-white text-center">Certificate of Incorporation</h3>
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+        <section className="mb-12 sm:mb-16 max-w-5xl mx-auto">
+          <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-black dark:text-white text-center">Certificate of Incorporation</h3>
+          <div className="bg-gray-100 dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-lg text-sm sm:text-base">
             <p className="mb-4"><strong>FIRST.</strong> The name and title by which this corporation shall be known in law shall be DELTA PHI EPSILON FOUNDATION FOR FOREIGN SERVICE EDUCATION.</p>
             <p className="mb-4"><strong>SECOND.</strong> The term for which it is organized is perpetual.</p>
             <p className="mb-4"><strong>THIRD.</strong> The particular business and objects of the society shall be to promote the calling of Foreign Service and the various sciences which are a part thereof by education and mutual improvement of members; to promote better understanding by assisting centers for the study and appreciation of international relations; to diffuse knowledge concerning law, languages, and the many other subjects related thereto; to serve as a reference for all that relates to the calling; and to serve as a repository for Foreign Service literature.</p>
@@ -118,17 +121,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mb-20 max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Purpose & Mission</h2>
-          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-10"></div>
-          <p className="text-xl text-gray-800 dark:text-white mb-12 text-center max-w-4xl mx-auto leading-relaxed">
+        <section className="mb-16 sm:mb-20 max-w-6xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Purpose & Mission</h2>
+          <div className="w-24 sm:w-32 h-1 bg-[#d4af36] mx-auto mb-8 sm:mb-10"></div>
+          <p className="text-lg sm:text-xl text-gray-800 dark:text-white mb-8 sm:mb-12 text-center max-w-4xl mx-auto leading-relaxed">
             The foundation aims to equip the next generation of leaders in foreign service with the skills, knowledge, and support they need to succeed in their careers and contribute to global peace and understanding.
           </p>
           
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white dark:bg-black p-8 rounded-2xl shadow-xl border-2 border-transparent dark:border-white">
-              <h3 className="text-3xl font-bold mb-8 text-[#d4af36] text-center">Purpose</h3>
-              <ul className="space-y-8">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
+            <div className="bg-white dark:bg-black p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-transparent dark:border-white">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#d4af36] text-center">Purpose</h3>
+              <ul className="space-y-6 sm:space-y-8">
                 {[
                   { icon: Users, title: "Empower Future Leaders", content: "Equip students with the necessary knowledge, skills, and experiences to excel in careers related to foreign service while cultivating critical thinking, leadership, and a deep understanding of global issues." },
                   { icon: Globe, title: "Enhance International Understanding", content: "Promote mutual understanding and cooperation among nations through education and cultural exchange. We strive to foster peaceful, productive relationships." },
@@ -136,20 +139,20 @@ export default function Home() {
                 ].map((item, index) => (
                   <li key={index} className="flex items-start">
                     <div className="mr-4 mt-1">
-                      <item.icon className="w-8 h-8 text-[#d4af36]" />
+                      <item.icon className="w-6 h-6 sm:w-8 sm:h-8 text-[#d4af36]" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-semibold mb-2 text-black dark:text-white">{item.title}</h4>
-                      <p className="text-gray-700 dark:text-white">{item.content}</p>
+                      <h4 className="text-lg sm:text-xl font-semibold mb-2 text-black dark:text-white">{item.title}</h4>
+                      <p className="text-sm sm:text-base text-gray-700 dark:text-white">{item.content}</p>
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-black p-8 rounded-2xl shadow-xl border-2 border-transparent dark:border-white">
-              <h3 className="text-3xl font-bold mb-8 text-[#d4af36] text-center">Mission</h3>
-              <ul className="space-y-8">
+            <div className="bg-white dark:bg-black p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-transparent dark:border-white">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#d4af36] text-center">Mission</h3>
+              <ul className="space-y-6 sm:space-y-8">
                 {[
                   { icon: GraduationCap, title: "Provide Scholarships and Financial Aid", content: "The foundation aims to offer scholarships and other financial assistance to individuals studying foreign service and international relations, helping them to achieve their academic and professional goals." },
                   { icon: Award, title: "Promote Academic Excellence", content: "By supporting students and educational programs, the foundation seeks to foster a high standard of academic achievement in the field of foreign service." },
@@ -157,11 +160,11 @@ export default function Home() {
                 ].map((item, index) => (
                   <li key={index} className="flex items-start">
                     <div className="mr-4 mt-1">
-                      <item.icon className="w-8 h-8 text-[#d4af36]" />
+                      <item.icon className="w-6 h-6 sm:w-8 sm:h-8 text-[#d4af36]" />
                     </div>
                     <div>
-                      <h4 className="text-xl font-semibold mb-2 text-black dark:text-white">{item.title}</h4>
-                      <p className="text-gray-700 dark:text-white">{item.content}</p>
+                      <h4 className="text-lg sm:text-xl font-semibold mb-2 text-black dark:text-white">{item.title}</h4>
+                      <p className="text-sm sm:text-base text-gray-700 dark:text-white">{item.content}</p>
                     </div>
                   </li>
                 ))}
@@ -170,19 +173,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
-          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
-          <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
-              Kenneth W Bleakley had a distinguished 29-year career as a U.S. Foreign Service Officer included serving as President George H.W. Bush&apos;s Senior Deputy U.S. Coordinator for International Communications and Information Policy, Deputy Chief of Mission in San Salvador, Director of U.S. Operations in Central America and Director of the U.S. International Refugee Program. He was President of the American Foreign Service Association and Delta Phi Epsilon Professional Foreign Service Fraternity.
+        <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
+          <div className="w-24 sm:w-32 h-1 bg-[#d4af36] mx-auto mb-6 sm:mb-8"></div>
+          <div className="bg-gray-100 dark:bg-black p-6 sm:p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-4 sm:mb-6">
+              Kenneth W Bleakley had a distinguished 29-year career as a U.S. Foreign Service Officer included serving as President George H.W. Bush&apos;s Senior Deputy U.S. Coordinator for International Communications and Information Policy, Deputy Chief of Mission in San Salvador, Director of U.S. Operations in Central America an Director of the U.S. International Refugee Program. He was President of the American Foreign Service Association and Delta Phi Epsilon Professional Foreign Service Fraternity.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-4 sm:mb-6">
               After retiring from the Foreign Service he was a founder and past president of Fonemed LLC, which provides nurse advice services throughout North America and the Caribbean. He graduated from Georgetown&apos;s School of Foreign Service and held a Master&apos;s Degree from American University. An avid skier, poker player and boatsman, Ken lived a full life of gusto and determination.
             </p>
             <div className="text-center">
               <Link href="/scholarship-application">
-                <Button className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                <Button className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-base sm:text-lg py-2 sm:py-3 px-6 sm:px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
                   Apply For Scholarship
                 </Button>
               </Link>
@@ -190,69 +193,70 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Foundation Officers</h2>
-          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
-          <div className="grid md:grid-cols-3 gap-8">
+        <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Foundation Officers</h2>
+          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-8 sm:mb-10"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
               { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
               { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "" },
-              { name: "Carlos Roa", role: "Secretary", chapter: "Alpha Chapter", line: "189 Line" },
+              { name: "Carlos F. Roa", role: "Secretary", chapter: "Alpha Chapter", line: "189 Line" },
              
             ].map((officer, index) => (
-              <div key={index} className="bg-white dark:bg-black p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-white mb-1">{officer.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
+              <div key={index} className="bg-white dark:bg-black p-4 sm:p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-white mb-1">{officer.role}</p>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{officer.chapter}</p>
                 {officer.line && (
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.line}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{officer.line}</p>
                 )}
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Foundation Trustees</h2>
-          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
-          <div className="grid md:grid-cols-3 gap-8">
+        <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Foundation Trustees</h2>
+          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-8 sm:mb-10"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {[
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
               { name: "Albert L. Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
               { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "", occupation: "Politician" },
-              { name: "Carlos Roa", role: "Alpha Chapter", denomination: "189 Line", occupation: "Editor" },
+              { name: "Carlos F. Roa", role: "Alpha Chapter", denomination: "189 Line", occupation: "Editor" },
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "", occupation: "" },
             ].map((trustee, index) => (
-              <div key={index} className="bg-white dark:bg-black p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>
-                <p className="text-gray-600 dark:text-white mb-1">{trustee.role}</p>
+              <div key={index} className="bg-white dark:bg-black p-4 sm:p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-white mb-1">{trustee.role}</p>
                 {trustee.denomination && (
-                  <p className="text-gray-500 dark:text-gray-400 text-sm">{trustee.denomination}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">{trustee.denomination}</p>
                 )}
                 {trustee.occupation && (
-                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{trustee.occupation}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">{trustee.occupation}</p>
                 )}
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Affiliated Organizations</h2>
-          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
-          <div className="bg-white dark:bg-black p-6 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
-            <ul className="space-y-4 text-gray-800 dark:text-white text-center">
+        <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Affiliated Organizations</h2>
+          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-8 sm:mb-10"></div>
+          <div className="bg-white dark:bg-black p-4 sm:p-6 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <ul className="space-y-3 sm:space-y-4 text-gray-800 dark:text-white text-center">
               {[
-                "Delta Phi Epsilon National Professional Foreign Service Fraternity, Inc.",
+                "Delta Phi Epsilon Professional Foreign Service Fraternity, Inc.",
+                "Delta Phi Epsilon Fraternity",
                 "Washington Area Alumni Association",
                 "Alpha Chapter, Delta Phi Epsilon",
                 "Delta Phi Epsilon, Inc."
               ].map((org, index) => (
-                <li key={index} className="text-xl font-bold">{org}</li>
+                <li key={index} className="text-base sm:text-lg md:text-xl font-bold">{org}</li>
               ))}
             </ul>
-            <p className="mt-6 text-gray-800 text-center dark:text-white text-lg">
+            <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-gray-800 text-center dark:text-white">
               Each of the above entities is a separate legal entity which is neither owned nor controlled by 
               the Foundation and has its own management team.
             </p>
@@ -260,23 +264,23 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-black text-white py-8">
+      <footer className="bg-black text-white py-6 sm:py-8">
         <div className="container mx-auto px-4 text-center">
-          <p className="mb-6 text-[#d4af36]">
+          <p className="mb-4 sm:mb-6 text-[#d4af36] text-sm sm:text-base">
             Delta Phi Epsilon Foundation for Foreign Service Education is a 501(c)(3) tax-exempt organization and is not affiliated with Georgetown University, the government of the United States or any of its subdivisions, agencies or departments.
           </p>
           <div className="flex flex-col items-center">
             <Link href="/contact">
               <Button 
                 variant="link" 
-                className="text-[#d4af36] hover:text-white transition duration-300"
+                className="text-[#d4af36] hover:text-white transition duration-300 text-sm sm:text-base"
               >
                 Contact Us
               </Button>
             </Link>
             <Button 
               variant="link" 
-              className="text-[#d4af36] hover:text-white transition duration-300 underline"
+              className="text-[#d4af36] hover:text-white transition duration-300 underline text-sm sm:text-base"
               onClick={() => window.open('https://www.aoniqq.com/websitecreation', '_blank')}
             >
               Site by Aoniqq LLC

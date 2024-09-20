@@ -24,7 +24,6 @@ export default function PoliciesPage() {
     { title: "Conflict of Interest Policy", file: "/DPE_Conflict_of_Interest_Policy.pdf" },
     { title: "Document Retention Policy", file: "/DPE_Document_Retention_Policy.pdf" },
     { title: "Scholarship Guidelines and Procedures", file: "/DPE_Scholarship_Guidelines_and_Procedures.pdf" },
-    { title: "Certificate of Incorporation", file: "/DPE_Certificate_of_Incorporation.pdf" },
     { title: "IRS Tax Exemption Letter", file: "/DPE_IRS_Tax_Exemption_Letter.pdf" },
   ]
 
