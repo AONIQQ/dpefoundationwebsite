@@ -174,26 +174,6 @@ export default function Home() {
         </section>
 
         <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
-          <div className="w-24 sm:w-32 h-1 bg-[#d4af36] mx-auto mb-6 sm:mb-8"></div>
-          <div className="bg-gray-100 dark:bg-black p-6 sm:p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
-            <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-4 sm:mb-6">
-              Kenneth W Bleakley had a distinguished 29-year career as a U.S. Foreign Service Officer included serving as President George H.W. Bush&apos;s Senior Deputy U.S. Coordinator for International Communications and Information Policy, Deputy Chief of Mission in San Salvador, Director of U.S. Operations in Central America an Director of the U.S. International Refugee Program. He was President of the American Foreign Service Association and Delta Phi Epsilon Professional Foreign Service Fraternity.
-            </p>
-            <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-4 sm:mb-6">
-              After retiring from the Foreign Service he was a founder and past president of Fonemed LLC, which provides nurse advice services throughout North America and the Caribbean. He graduated from Georgetown&apos;s School of Foreign Service and held a Master&apos;s Degree from American University. An avid skier, poker player and boatsman, Ken lived a full life of gusto and determination.
-            </p>
-            <div className="text-center">
-              <Link href="/scholarship-application">
-                <Button className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-base sm:text-lg py-2 sm:py-3 px-6 sm:px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
-                  Apply For Scholarship
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Foundation Officers</h2>
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-8 sm:mb-10"></div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
@@ -260,6 +240,21 @@ export default function Home() {
               Each of the above entities is a separate legal entity which is neither owned nor controlled by 
               the Foundation and has its own management team.
             </p>
+          </div>
+        </section>
+
+        <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">Foundation Policies</h2>
+          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-8 sm:mb-10"></div>
+          <div className="bg-white dark:bg-black p-4 sm:p-6 rounded-lg shadow-lg border-2 border-transparent dark:border-white text-center">
+            <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white mb-6">
+              To see our foundation policies, click the button below.
+            </p>
+            <Link href="/policies">
+              <Button className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-base sm:text-lg py-2 sm:py-3 px-6 sm:px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                View Policies
+              </Button>
+            </Link>
           </div>
         </section>
       </main>
