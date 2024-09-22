@@ -205,7 +205,7 @@ export default function Home() {
               { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "", occupation: "Politician" },
               { name: "Carlos F. Roa", role: "Alpha Chapter", denomination: "189 Line", occupation: "Editor" },
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
-              { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "", occupation: "" },
+              { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Data Analyst" },
             ].map((trustee, index) => (
               <div key={index} className="bg-white dark:bg-black p-4 sm:p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-transparent dark:border-white">
                 <h3 className="text-lg sm:text-xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>

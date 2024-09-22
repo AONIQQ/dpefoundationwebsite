@@ -23,8 +23,22 @@ export default function PoliciesPage() {
   const policies = [
     { title: "Conflict of Interest Policy", file: "/DPE_Conflict_of_Interest_Policy.pdf" },
     { title: "Document Retention Policy", file: "/DPE_Document_Retention_Policy.pdf" },
-    { title: "Scholarship Guidelines and Procedures", file: "/DPE_Scholarship_Guidelines_and_Procedures.pdf" },
-    { title: "IRS Tax Exemption Letter", file: "/DPE_IRS_Tax_Exemption_Letter.pdf" },
+    { 
+      title: "IRS Tax Exemption Letters", 
+      files: [
+        { name: "IRS Tax Exemption Letter 1", file: "/DPE_IRS_Tax_Exemption_Letter.pdf" },
+        { name: "IRS Tax Exemption Letter 2", file: "/IRS_Letter.pdf" }
+      ]
+    },
+    { 
+      title: "Scholarship Guidelines and Procedures", 
+      files: [
+        { name: "Scholarship Guidelines", file: "/Scholarship_Guidelines.pdf" },
+        { name: "Scholarship Procedures", file: "/DPE_Scholarship_Guidelines_and_Procedures.pdf" },
+      ]
+    },
+    { title: "Bylaws", file: "/1983_Bylaws.pdf" },
+ 
   ]
 
   return (
@@ -117,13 +131,28 @@ export default function PoliciesPage() {
                   <h2 className="text-xl sm:text-2xl font-semibold text-[#d4af36] mb-4 break-words hyphens-auto">
                     {policy.title}
                   </h2>
-                  <Button 
-                    className="w-full bg-[#d4af36] hover:bg-[#b08d28] text-white transition-colors duration-300"
-                    onClick={() => setActivePolicy(policy.file)}
-                  >
-                    <FileText className="mr-2 h-5 w-5" />
-                    View Policy
-                  </Button>
+                  {Array.isArray(policy.files) ? (
+                    <div className="flex flex-col space-y-2">
+                      {policy.files.map((file, fileIndex) => (
+                        <Button 
+                          key={fileIndex}
+                          className="w-full bg-[#d4af36] hover:bg-[#b08d28] text-white transition-colors duration-300"
+                          onClick={() => setActivePolicy(file.file)}
+                        >
+                          <FileText className="mr-2 h-5 w-5" />
+                          {file.name}
+                        </Button>
+                      ))}
+                    </div>
+                  ) : (
+                    <Button 
+                      className="w-full bg-[#d4af36] hover:bg-[#b08d28] text-white transition-colors duration-300"
+                      onClick={() => setActivePolicy(policy.file || null)} // Provide default value
+                    >
+                      <FileText className="mr-2 h-5 w-5" />
+                      View Policy
+                    </Button>
+                  )}
                 </div>
               </div>
             </motion.div>
