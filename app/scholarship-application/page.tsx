@@ -276,84 +276,6 @@ export default function ScholarshipApplication() {
       )}
 
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
-          Application for the Kenneth W Bleakley Senior Foreign Service Officer Scholarship
-        </h1>
-        <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
-
-        <div className="mb-12 text-center">
-          <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
-            Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and your evidence of taking the FSOT test or good reason for failure to do so by October 31, 2024. You will be contacted if you have been awarded a scholarship.
-          </p>
-          <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
-            Using the file upload module below, please submit your completed application. Recipients must submit proof of enrollment at Georgetown University. Evidence of taking/registering for the FSOT test must be submitted within 60 days of the scheduled test date.
-          </p>
-          <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
-           Submission files must be in PDF format.
-          </p> 
-        </div>
-
-        <form onSubmit={handleSubmit} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
-            <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
-              Full Name <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              id="fullName"
-              name="fullName"
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
-              placeholder="Enter your full name"
-              required
-            />
-          </div>
-
-          <FileUpload 
-            label="Upload completed application" 
-            id="application"
-            name="application"
-            onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
-          />
-          <FileUpload 
-            label="Upload proof of attendance/graduation" 
-            id="proof"
-            name="proof"
-            onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
-          />
-          <FileUpload 
-            label="Upload proof of FSOT test completion or good reason for failure to do so" 
-            id="fsot"
-            name="fsot"
-            onFileChange={(file) => setFiles(prev => ({ ...prev, fsot: file }))}
-          />
-
-          {error && (
-            <div className="text-red-500 text-center font-bold">
-              {error}
-            </div>
-          )}
-
-          <div className="text-center">
-            <Button 
-              type="submit" 
-              className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit Application'}
-            </Button>
-          </div>
-        </form>
-
-        <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
-          <iframe 
-            src="/Kenneth W. Bleakley Foreign Service Officer Scholarship.pdf" 
-            className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
-            title="Kenneth W. Bleakley Senior Foreign Service Officer Scholarship Application"
-          />
-        </div>
-
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
@@ -406,6 +328,86 @@ export default function ScholarshipApplication() {
                 <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation} at {officer.company}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+            Application for the Kenneth W Bleakley Senior Foreign Service Officer Scholarship
+          </h1>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+
+          <div className="mb-12 text-center">
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and your evidence of taking the FSOT test or good reason for failure to do so. You will be contacted if you have been awarded a scholarship.
+            </p>
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Using the file upload module below, please submit your completed application. Recipients must submit proof of enrollment at Georgetown University. Evidence of taking/registering for the FSOT test must be submitted within 60 days of the scheduled test date.
+            </p>
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+             Submission files must be in PDF format.
+            </p> 
+          </div>
+
+          <form onSubmit={handleSubmit} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
+              <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+                Full Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <FileUpload 
+              label="Upload completed application" 
+              id="application"
+              name="application"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of attendance/graduation" 
+              id="proof"
+              name="proof"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of FSOT test completion or good reason for failure to do so" 
+              id="fsot"
+              name="fsot"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, fsot: file }))}
+            />
+
+            {error && (
+              <div className="text-red-500 text-center font-bold">
+                {error}
+              </div>
+            )}
+
+            <div className="text-center">
+              <Button 
+                type="submit" 
+                className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
+            <iframe 
+              src="/Kenneth W. Bleakley Foreign Service Officer Scholarship.pdf" 
+              className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
+              title="Kenneth W. Bleakley Senior Foreign Service Officer Scholarship Application"
+            />
           </div>
         </section>
       </main>
