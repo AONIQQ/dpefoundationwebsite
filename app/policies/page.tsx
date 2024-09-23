@@ -38,7 +38,6 @@ export default function PoliciesPage() {
       ]
     },
     { title: "Bylaws", file: "/1983_Bylaws.pdf" },
- 
   ]
 
   return (
@@ -181,7 +180,7 @@ export default function PoliciesPage() {
                 </div>
                 <div className="flex-grow bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
                   <iframe 
-                    src={`${activePolicy}#toolbar=0&navpanes=0&scrollbar=0`}
+                    src={`${activePolicy}#page=1&toolbar=0&navpanes=0&scrollbar=0`}
                     className="w-full h-full border-none"
                     title="Policy PDF Viewer"
                   />
