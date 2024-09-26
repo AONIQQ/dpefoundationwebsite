@@ -216,6 +216,9 @@ export default function ScholarshipApplication() {
             <Link href="/" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Home
             </Link>
+            <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Programs
+            </Link>
             <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Policies
             </Link>

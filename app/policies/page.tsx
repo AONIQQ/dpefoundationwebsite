@@ -57,6 +57,9 @@ export default function PoliciesPage() {
             <Link href="/scholarship-application" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Scholarship Application
             </Link>
+            <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Programs
+            </Link>
             <Link href="/contact" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Contact Us
             </Link>
