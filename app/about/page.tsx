@@ -18,6 +18,27 @@ export default function AboutUs() {
     }
   }, [darkMode])
 
+  const programs = [
+    "Knowing about Bitcoins & Blockchain",
+    "Career Paths After GU",
+    "China Trade War",
+    "The Truth Behind the Grail Legends",
+    "How Pakistan Will Make Trump Pay",
+    "Trump and Davos",
+    "Hedge Funds & Private Equity",
+    "Foreign Policy in the Trump Era",
+    "Jobs for Those Who've Learned Arabic",
+    "Trump's Trade Policy",
+    "Morality in the Post-Modern World",
+    "The Need for More Warrior Statesmen",
+    "Azarbaijan Development Today",
+    "How Trump Won",
+    "What Next for US-China Trade?",
+    "What Next for Palestine?",
+    "Belarus Today",
+    "US-Iranian Relations"
+  ]
+
   return (
     <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300 font-serif">
       <header className="bg-white dark:bg-black py-4 sticky top-0 z-10 shadow-md">
@@ -115,7 +136,7 @@ export default function AboutUs() {
             <p>In an attempt to assure that all perspectives among the Brothers were represented, the initial Trustees included three undergraduate brothers, three alumni brothers and three Georgetown faculty brothers. The following individuals constituted the initial Board of Trustees:</p>
             <ul className="list-disc list-inside pl-4">
               <li>Louis Postiglione</li>
-              <li>Philip O'Reilly</li>
+              <li>Philip O&apos;Reilly</li>
               <li>James E Condren</li>
               <li>James M vonStroebel</li>
               <li>Bailey G Walsh</li>
@@ -158,7 +179,15 @@ export default function AboutUs() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-black dark:text-white">Programs</h2>
           <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-sm sm:text-base space-y-4">
             <p>The Foundation sponsors education programs directed primarily at the Georgetown University student and faculty community but open to all who share an interest in topics relating to Foreign Service and the purposes of the Foundation. No charge is imposed from attendance at any of the events.</p>
-            <p>Programs ceased during the Covid-19 pandemic due to restrictions on public gatherings.</p>
+            <p>Examples of the programs offered in the past include:</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+              {programs.map((program, index) => (
+                <div key={index} className="bg-white dark:bg-gray-700 p-3 rounded-lg shadow flex items-center justify-center h-full">
+                  <p className="text-gray-800 dark:text-gray-200 text-center">{program}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6">Programs ceased during the Covid-19 pandemic due to restrictions on public gatherings.</p>
             <p>Plans are underway to resume programming in the near future. Future lectures will be announced and listed on this website and by advertisement in the Georgetown University student newspaper.</p>
           </div>
         </section>
