@@ -108,6 +108,62 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-black dark:text-white">History</h2>
+          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-sm sm:text-base space-y-4">
+            <p>The Foundation was originally formed by Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in District of Columbia on May 23, 1962.</p>
+            <p>The original Certificate had four Articles detailing the name, duration, purposes and number of Trustees. These Articles remain unchanged to the current date, although the number of Trustees was reduced to seven in 1984.</p>
+            <p>In an attempt to assure that all perspectives among the Brothers were represented, the initial Trustees included three undergraduate brothers, three alumni brothers and three Georgetown faculty brothers. The following individuals constituted the initial Board of Trustees:</p>
+            <ul className="list-disc list-inside pl-4">
+              <li>Louis Postiglione</li>
+              <li>Philip O'Reilly</li>
+              <li>James E Condren</li>
+              <li>James M vonStroebel</li>
+              <li>Bailey G Walsh</li>
+              <li>Vincent P Morelli</li>
+              <li>John J Leahy</li>
+              <li>Joseph P LeMoine</li>
+              <li>Rocco E Porreco</li>
+            </ul>
+            <p>During the first two decades following formation, the Trustees primarily encouraged the expansion of Fraternity chapters to other universities throughout the United States. No fundraising or meaningful programming activities were conducted.</p>
+            <p>Seven of the initial Trustees remained in office as of January 1983. James Condren and John Leahy had died in the interim. At a meeting on January 25, 1983, the number of Trustees was reduced to seven with the remaining original Trustees continuing to serve. In addition, the following persons were elected as officers:</p>
+            <ul className="list-disc list-inside pl-4">
+              <li>Joseph P LeMoine - President</li>
+              <li>Andrew J Garry - Vice President</li>
+              <li>James M vonStroebel - Secretary</li>
+              <li>Terrence J Boyle - Treasurer</li>
+            </ul>
+            <p>A decision was made to increase the activities of the Foundation and seek tax exempt status for the organization. Alpha Chapter Brother Albert L Grasso, a tax attorney, was recruited to apply to the Internal Revenue Service for exemption pursuant to Section 501(c)(3) of the Internal Revenue Code.</p>
+            <p>Incident to the application, the Certificate of Incorporation was amended on March 29, 1984 to add Articles Five through Seven to comply with IRS requirements for exemption. The complete Certificate of Incorporation is included on the website.</p>
+            <p>In due course, with Brother Boyle serving as the principal contact with the IRS, the Foundation was qualified as a Section 501(c)(3) tax exempt organization. A copy of the IRS Letter dated May 20, 1985, is included on the website. The initial grant of exemption was subject to review within five years by the IRS for compliance with all legal requirements. By Letter dated April 15, 1990, final approval by the IRS of the tax exemption was acknowledged. A copy of the April 1990 letter is also included on the website.</p>
+            <p>Between 1983 and 2005, numerous Alpha Chapter Brothers served as officers and trustees. During this period, Brother Boyle, in his capacity as Treasurer, raised $300,000 as an endowment fund for the Foundation with the intention to acquire a permanent home for the Foundation. Realty prices in the Georgetown area precluded a purchase.</p>
+            <p>In December 2005, the remaining four of the original Trustees (vonStroebel, Walsh, Morelli and Porreco) resigned and were replaced by younger Alpha Chapter brothers. All Trustees were alumni brothers thereafter. Brother Boyle remained as the sole constant throughout this period and until his retirement as Treasurer upon attaining age 80.</p>
+            <p>No additional fundraising activities were conducted during the ensuing periods. The primary focus became educational programming. For example, between October 2013 and February 2019, the Foundation sponsored 19 educational lectures. Since the onset of the Covid-19 pandemic additional lectures have been curtailed but are now expected to be renewed.</p>
+            <p>Following a decision by Georgetown University to require most undergraduate students to reside in university housing, maintenance of the Alpha Chapter fraternity house as a residence for undergraduate brothers became untenable. The officers of Alpha Chapter, with the support of a substantial majority of the undergraduate and alumni Alpha Chapter brothers, decided to donate the house to the Foundation with the expectation of a sale, a decision that was not without controversy. Due to the tax exempt status of the Foundation, the sales proceeds would not be reduced by taxes. A sale by the fraternity would be taxable.</p>
+            <p>The fraternity house was donated to the Foundation and sold. The proceeds were held in escrow pending review by the D.C. Office of the Attorney General and ultimate approval by a judge on the D.C. Municipal Court. On several occasions during the pendency of the review, a substantial majority of the Alpha Chapter brothers reaffirmed the donation to the Foundation. Final review and approval was granted and the escrowed funds were released to the Foundation on August 12, 2024.</p>
+            <p>As of May 11, 2020, the Trustees included:</p>
+            <ul className="list-disc list-inside pl-4">
+              <li>Matthew Ellison</li>
+              <li>Stratton Poland</li>
+              <li>Thomas Stewart</li>
+              <li>Joseph Picozzi</li>
+              <li>Marcus King</li>
+              <li>Michael Eriksen</li>
+              <li>Matthew Mixa</li>
+            </ul>
+            <p>Brothers Stewart, Picozzi and Eriksen continue to serve as of the current date. Their ranks were supplemented by Carlos Roa, Kenneth W Bleakley (recently deceased), Albert L Grasso and Timothy J Rosenberger.</p>
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-black dark:text-white">Programs</h2>
+          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-sm sm:text-base space-y-4">
+            <p>The Foundation sponsors education programs directed primarily at the Georgetown University student and faculty community but open to all who share an interest in topics relating to Foreign Service and the purposes of the Foundation. No charge is imposed from attendance at any of the events.</p>
+            <p>Programs ceased during the Covid-19 pandemic due to restrictions on public gatherings.</p>
+            <p>Plans are underway to resume programming in the near future. Future lectures will be announced and listed on this website and by advertisement in the Georgetown University student newspaper.</p>
+          </div>
+        </section>
+
+        <section className="mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-black dark:text-white">Foundation Officers</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
