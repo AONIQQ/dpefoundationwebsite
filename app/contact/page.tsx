@@ -86,8 +86,14 @@ export default function Contact() {
             />
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+          <Link href="/contact" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Home
+            </Link>
+          <Link href="/about" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              About Us
+            </Link>
+            <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Programs
             </Link>
             <Link href="/scholarship-application" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Scholarship Application
@@ -95,6 +101,7 @@ export default function Contact() {
             <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Policies
             </Link>
+
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="text-[#d4af36] hover:text-[#b08d28] transition duration-300"

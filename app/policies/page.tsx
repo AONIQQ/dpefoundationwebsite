@@ -54,11 +54,17 @@ export default function PoliciesPage() {
             />
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/scholarship-application" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
-              Scholarship Application
+          <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Home
+            </Link>
+            <Link href="/about" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              About Us
             </Link>
             <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Programs
+            </Link>
+            <Link href="/scholarship-application" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Scholarship Application
             </Link>
             <Link href="/contact" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Contact Us
