@@ -23,7 +23,6 @@ export default function Programs() {
     { title: "How Pakistan Will Make Trump Pay", image: "How_Pakistan_Will_Make_Trump_Pay.png" },
     { title: "The Need for More Warrior Statesmen", image: "The_Need_for_More_Warrior_Statesmen.png" },
     { title: "The Truth Behind the Grail Legends", image: "The_Truth_Behind_the_Grail_Legends.png" },
-    { title: "Career Paths After GU", image: "Career_Paths_After_GU.png" },
     { title: "Morality in the Post-Modern World", image: "Morality_in_the_Post_Modern_World.png" },
     { title: "Hedge Funds & Private Equity", image: "Hedge_Funds_and_Private_Equity.png" },
     { title: "Jobs for Those Who've Learned Arabic", image: "Jobs_for_Those_Who_Learned_Arabic.png" },
