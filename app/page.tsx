@@ -150,7 +150,7 @@ export default function Home() {
               <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#d4af36] text-center">Mission</h3>
               <ul className="space-y-6 sm:space-y-8">
                 {[
-                  { icon: GraduationCap, title: "Provide Scholarships and Financial Aid", content: "The foundation aims to offer scholarships and other financial assistance to individuals studying foreign service and international relations, helping them to achieve their academic and professional goals." },
+                  { icon: GraduationCap, title: "Provide Scholarships and Financial Aid", content: "The foundation aims to offer scholarships and other financial assistance to individuals studying foreign service international relations and foreign commerce, helping them to achieve their academic and professional goals." },
                   { icon: Award, title: "Promote Academic Excellence", content: "By supporting students and educational programs, the foundation seeks to foster a high standard of academic achievement in the field of foreign service." },
                   { icon: Briefcase, title: "Support Practical Experience", content: "The foundation encourages and facilitates internships, fellowships, and other opportunities that provide practical experience in diplomacy and international affairs." }
                 ].map((item, index) => (

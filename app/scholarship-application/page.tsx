@@ -353,6 +353,10 @@ export default function ScholarshipApplication() {
             <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
              Submission files must be in PDF format.
             </p> 
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            Applications first received after October 31, 2024 will be denied as untimely.
+            </p> 
+           
           </div>
 
           <form onSubmit={handleSubmit} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
