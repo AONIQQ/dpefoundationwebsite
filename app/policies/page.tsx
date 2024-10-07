@@ -34,10 +34,11 @@ export default function PoliciesPage() {
       title: "Scholarship Guidelines and Procedures", 
       files: [
         { name: "Scholarship Guidelines", file: "/Scholarship_Guidelines.pdf" },
-        { name: "Scholarship Procedures", file: "/DPE_Scholarship_Guidelines_and_Procedures.pdf" },
+        { name: "Scholarship Procedures", file: "/Bleakley_Scholarship_Procedures.pdf" },
       ]
     },
     { title: "Bylaws", file: "/1983_Bylaws.pdf" },
+    { title: "General Committee Guidelines", file: "/General_Committee_Guidelines.pdf" },
   ]
 
   return (
