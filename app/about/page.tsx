@@ -191,6 +191,46 @@ irm the donation to the Foundation. Final review and approval was granted and th
               <div>
             </div>
             <p>At the time final approval was granted only Brothers Stewart, Picozzi and Eriksen continued to serve. Newly appointed trustees include Carlos Roa, Kenneth W Bleakley (recently deceased), Albert L Grasso and Timothy J Rosenberger. The current Board of Trustees has commenced to fulfill the original goals and objectives. Initial scholarships have been awarded and additional scholarships are planned. Efforts have begun to restart educational programs. Contact has been made with real estate agents to secure a home for the Foundation and a situs for its activities.</p>
+        
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">All Those Who Have Ever Served as Trustees</h2>
+  <div className="flex justify-center">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl">
+      <ul className="pl-6 space-y-2">
+        <li>Kenneth Bleakley 2023 - 2024</li>
+        <li>James Condren 1962 - 1970</li>
+        <li>Matthew Ellison 2020 - 2023</li>
+        <li>Michael Eriksen 2005 - present</li>
+        <li>Walter Giles 1960 - 1962</li>
+        <li>Francis Gorman 1989 - 1994</li>
+        <li>Albert Grasso 2023 - present</li>
+        <li>John Herity 1960 - 1962</li>
+        <li>Charles Kaleta 1960 - 1962</li>
+        <li>John Koch 1960 - 1962</li>
+      </ul>
+      <ul className="pl-6 space-y-2">
+        <li>Marcus King 2005 - 2023</li>
+        <li>John Leahy 1960 - 1962</li>
+        <li>Joseph LeMoine 1960 - 1994</li>
+        <li>Marcher Mixa 2005 - 2023</li>
+        <li>Vincent Norelli 1960 - 2005</li>
+        <li>Philip O&apos;Reilly 1962 - 1989</li>
+        <li>Joseph Picozzi 2020 - present</li>
+        <li>Stratton Poland 2020 - 2023</li>
+        <li>Rocco Porecco 1962 - 2013</li>
+      </ul>
+      <ul className="pl-6 space-y-2">
+        <li>Louis Postiglione 1962 - 2005</li>
+        <li>Carlos Roa 2023 - present</li>
+        <li>Timothy Rosenberger 2023 - present</li>
+        <li>Thomas Stewart 2020 - present</li>
+        <li>Andrew Sullivan 2005 - 2020</li>
+        <li>Dirck Teller 1960 - 1962</li>
+        <li>Reginald Tyson 1994 - 2019</li>
+        <li>James-Michael von Stroebel 1960 - 2005</li>
+        <li>Bailey Walsh 1962 - 2005</li>
+      </ul>
+    </div>
+  </div>        
           </div>
         </section>
 
