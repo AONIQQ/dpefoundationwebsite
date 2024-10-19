@@ -133,7 +133,7 @@ export default function AboutUs() {
                 <ul className="list-none pl-0">
                   <li>James M vonStroebel</li>
                   <li>Bailey G Walsh</li>
-                  <li>Vincent P Morelli</li>
+                  <li>Vincent P Norelli</li>
                 </ul>
               </div>
               <div>
@@ -165,7 +165,7 @@ export default function AboutUs() {
             <p>As part of the application process, the Certificate of Incorporation was amended on March 29, 1984 to add Articles Five through Seven to comply with IRS requirements for exemption. The complete Certificate of Incorporation is included on the website.</p>
             <p>In due course, with Brother Boyle as Treasurer and serving as the principal contact with the IRS, the Foundation was qualified as a Section 501(c)(3) tax exempt organization. A copy of the IRS Letter dated May 20, 1985, is included on the website. The initial grant of exemption was subject to review within five years by the IRS for compliance with all legal requirements. By Letter dated April 15, 1990, final approval by the IRS of the tax exemption was granted. A copy of the April 1990 letter is also included on the website.</p>
             <p>Between 1983 and 2005, numerous Alpha Chapter Brothers served as officers and trustees. During this period, Brother Boyle, in his capacity as Treasurer, raised $300,000 as an endowment fund for the Foundation with the intention of investing these donations into a fund to acquire a permanent home for the Foundation and use interest earnings for other Foundation activities, including scholarships and programming. The modest amounts of assets raised by donations plus the realty prices in the Georgetown area precluded a purchase at the time.</p>
-            <p>By December 2005, the remaining four of the original Trustees (vonStroebel, Walsh, Morelli and Porreco) died or resigned and were replaced by younger Alpha Chapter alumni brothers. All Trustees were alumni brothers thereafter. Brother Boyle remained as the sole constant throughout this period and until his retirement in 2021 as Treasurer upon attaining age 80.</p>
+            <p>By December 2005, the remaining four of the original Trustees (vonStroebel, Walsh, Norelli, and Porreco) died or resigned and were replaced by younger Alpha Chapter alumni brothers. All Trustees were alumni brothers thereafter. Brother Boyle remained as the sole constant throughout this period and until his retirement in 2021 as Treasurer upon attaining age 80.</p>
             <p>No additional fundraising activities were conducted during the ensuing periods. The primary focus became educational programming. For example, between October 2013 and February 2019, the Foundation sponsored 19 educational lectures. Since the onset of the Covid-19 pandemic additional lectures have been curtailed but are now expected to be renewed.</p>
             <p>Following a decision by Georgetown University to require most undergraduate students to reside in university housing, maintenance of the Alpha Chapter fraternity house as a residence for undergraduate brothers became untenable. The undergraduate brothers of Alpha Chapter, with the support of a substantial number of alumni Alpha Chapter brothers who expressed an opinion, decided to donate the house to the Foundation with the expectation of a sale. Due to the tax exempt status of the Foundation, a sale by the Foundation meant that the sales proceeds would not be reduced by taxes. Without the donation a sale would be subject to substantial taxes.</p>
             <p>The fraternity house was donated to the Foundation and sold. The proceeds were held in escrow pending review by the D.C. Office of the Attorney General and ultimate approval by a judge on the D.C. Municipal Court. On several occasions during the pendency of the review, a substantial majority of the Alpha Chapter brothers voted to reaff
@@ -239,7 +239,8 @@ irm the donation to the Foundation. Final review and approval was granted and th
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
-              { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "" },
+              { name: "Patrick Hall", role: "Vice President", chapter: "Alpha Chapter", line: "74 Line" },
+              { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "192 Line" },
               { name: "Carlos F. Roa", role: "Secretary", chapter: "Alpha Chapter", line: "189 Line" },
             ].map((officer, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
@@ -258,7 +259,7 @@ irm the donation to the Foundation. Final review and approval was granted and th
             {[
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
               { name: "Albert L. Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
-              { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "", occupation: "Politician" },
+              { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "192 Line", occupation: "Politician" },
               { name: "Carlos F. Roa", role: "Alpha Chapter", denomination: "189 Line", occupation: "Editor" },
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Data Analyst" },
