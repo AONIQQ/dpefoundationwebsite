@@ -205,9 +205,9 @@ export default function AdminDashboard() {
     )
   }
 
-  const handleAdminNotesChange = (id: number, admin_notes: string) => {
-    setEditingNotes({ id, notes: admin_notes })
-  }
+  //const handleAdminNotesChange = (id: number, admin_notes: string) => {
+   // setEditingNotes({ id, notes: admin_notes })
+  //}
 
   const saveAdminNotes = async () => {
     if (editingNotes) {
