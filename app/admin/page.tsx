@@ -51,6 +51,7 @@ export default function AdminDashboard() {
   const [isSaving, setIsSaving] = useState(false)
   const [editingNotes, setEditingNotes] = useState<{ id: number, notes: string } | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [selectedMessage, setSelectedMessage] = useState<string | null>(null)
   const supabase = createClientComponentClient()
   const router = useRouter()
 
@@ -208,16 +209,28 @@ export default function AdminDashboard() {
     setEditingNotes({ id, notes: admin_notes })
   }
 
-  const saveAdminNotes = () => {
+  const saveAdminNotes = async () => {
     if (editingNotes) {
-      setScholarshipSubmissions(prevSubmissions =>
-        prevSubmissions.map(submission =>
-          submission.id === editingNotes.id ? { ...submission, admin_notes: editingNotes.notes } : submission
+      try {
+        const { error } = await supabase
+          .from('scholarship_submissions')
+          .update({ admin_notes: editingNotes.notes })
+          .eq('id', editingNotes.id)
+
+        if (error) throw error
+
+        setScholarshipSubmissions(prevSubmissions =>
+          prevSubmissions.map(submission =>
+            submission.id === editingNotes.id ? { ...submission, admin_notes: editingNotes.notes } : submission
+          )
         )
-      )
-      setEditingNotes(null)
-      setIsDialogOpen(false)
-      toast.success('Admin notes updated. Remember to save changes in the top right to update the records.')
+        setEditingNotes(null)
+        setIsDialogOpen(false)
+        toast.success('Admin notes updated successfully.')
+      } catch (error) {
+        console.error('Error saving admin notes:', error)
+        toast.error('Failed to save admin notes. Please try again.')
+      }
     }
   }
 
@@ -257,15 +270,18 @@ export default function AdminDashboard() {
         router.push('/admin/login');
       } else {
         console.error('Logout failed');
-        // Optionally, you can show an error message to the user
-        // toast.error('Logout failed. Please try again.');
+        toast.error('Logout failed. Please try again.');
       }
     } catch (error) {
       console.error('Logout error:', error);
-      // Optionally, you can show an error message to the user
-      // toast.error('An error occurred during logout. Please try again.');
+      toast.error('An error occurred during logout. Please try again.');
     }
   };
+
+  const handleMessageClick = (message: string) => {
+    setSelectedMessage(message)
+    setIsDialogOpen(true)
+  }
 
   if (error) {
     return <div className="flex items-center justify-center h-screen">Error: {error}</div>
@@ -412,9 +428,12 @@ export default function AdminDashboard() {
                         </Select>
                       </TableCell>
                       <TableCell className="text-black dark:text-white">
-                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <Dialog open={isDialogOpen && editingNotes?.id === submission.id} onOpenChange={(open) => {
+                          setIsDialogOpen(open)
+                          if (!open) setEditingNotes(null)
+                        }}>
                           <DialogTrigger asChild>
-                            <Button variant="outline" className="w-full">
+                            <Button variant="outline" className="w-full" onClick={() => setEditingNotes({ id: submission.id, notes: submission.admin_notes })}>
                               <Edit className="mr-2 h-4 w-4" />
                               {submission.admin_notes ? submission.admin_notes.substring(0, 20) + '...' : 'Add Notes'}
                             </Button>
@@ -424,8 +443,8 @@ export default function AdminDashboard() {
                               <DialogTitle>Admin Notes</DialogTitle>
                             </DialogHeader>
                             <Textarea
-                              value={editingNotes?.id === submission.id ? editingNotes.notes : submission.admin_notes}
-                              onChange={(e) => handleAdminNotesChange(submission.id, e.target.value)}
+                              value={editingNotes?.notes || ''}
+                              onChange={(e) => setEditingNotes(prev => prev ? { ...prev, notes: e.target.value } : null)}
                               placeholder="Add admin notes here..."
                               className="min-h-[100px]"
                             />
@@ -482,9 +501,13 @@ export default function AdminDashboard() {
                       <TableCell className="text-black dark:text-white">{submission.full_name}</TableCell>
                       <TableCell className="text-black dark:text-white">{submission.email}</TableCell>
                       <TableCell className="text-black dark:text-white">
-                        <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                          {submission.message}
-                        </div>
+                        <Button
+                          variant="link"
+                          onClick={() => handleMessageClick(submission.message)}
+                          className="text-left hover:underline"
+                        >
+                          {submission.message.substring(0, 50)}...
+                        </Button>
                       </TableCell>
                       <TableCell className="text-black dark:text-white">{new Date(submission.submission_time).toLocaleString()}</TableCell>
                     </TableRow>
@@ -508,6 +531,20 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
+
+        <Dialog open={isDialogOpen && selectedMessage !== null} onOpenChange={(open) => {
+          setIsDialogOpen(open)
+          if (!open) setSelectedMessage(null)
+        }}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Full Message</DialogTitle>
+            </DialogHeader>
+            <div className="mt-2 text-black dark:text-white">
+              {selectedMessage}
+            </div>
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   )
