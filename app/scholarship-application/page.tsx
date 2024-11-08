@@ -354,7 +354,7 @@ export default function ScholarshipApplication() {
              Submission files must be in PDF format.
             </p> 
             <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
-            Applications first received after October 31, 2024 will be denied as untimely.
+            Applications by persons planning to take the Foreign Service Officer Test in February 2025 may be filed commencing December 1, 2024 and until February 28, 2025. Applications relating to tests prior to October 1, 2024 are untimely and will no longer be accepted.
             </p> 
            
           </div>
