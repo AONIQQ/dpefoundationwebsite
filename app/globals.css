@@ -66,6 +66,92 @@
  
     --ring: 217.2 32.6% 17.5%;
   }
+
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-It.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-BoldIt.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-MediumIt.otf') format('opentype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-Semibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-SemiboldIt.otf') format('opentype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-BoldCn.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: condensed;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Minion Pro';
+    src: url('/fonts/MinionPro-BoldCnIt.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+    font-stretch: condensed;
+    font-display: swap;
+  }
+  
+  body {
+    font-family: 'Minion Pro', serif;
+  }
 }
  
 @layer base {

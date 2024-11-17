@@ -168,9 +168,7 @@ export default function AboutUs() {
             <p>By December 2005, the remaining four of the original Trustees (vonStroebel, Walsh, Norelli, and Porreco) died or resigned and were replaced by younger Alpha Chapter alumni brothers. All Trustees were alumni brothers thereafter. Brother Boyle remained as the sole constant throughout this period and until his retirement in 2021 as Treasurer upon attaining age 80.</p>
             <p>No additional fundraising activities were conducted during the ensuing periods. The primary focus became educational programming. For example, between October 2013 and February 2019, the Foundation sponsored 19 educational lectures. Since the onset of the Covid-19 pandemic additional lectures have been curtailed but are now expected to be renewed.</p>
             <p>Following a decision by Georgetown University to require most undergraduate students to reside in university housing, maintenance of the Alpha Chapter fraternity house as a residence for undergraduate brothers became untenable. The undergraduate brothers of Alpha Chapter, with the support of a substantial number of alumni Alpha Chapter brothers who expressed an opinion, decided to donate the house to the Foundation with the expectation of a sale. Due to the tax exempt status of the Foundation, a sale by the Foundation meant that the sales proceeds would not be reduced by taxes. Without the donation a sale would be subject to substantial taxes.</p>
-            <p>The fraternity house was donated to the Foundation and sold. The proceeds were held in escrow pending review by the D.C. Office of the Attorney General and ultimate approval by a judge on the D.C. Municipal Court. On several occasions during the pendency of the review, a substantial majority of the Alpha Chapter brothers voted to reaff
-
-irm the donation to the Foundation. Final review and approval was granted and the escrowed funds were released to the Foundation on August 12,2024.</p>
+            <p>The fraternity house was donated to the Foundation and sold for $2,650,000. After selling expenses, the net proceeds equaled slightly less than $2,270,000. The proceeds were held in escrow pending review by the D.C. Office of the Attorney General and ultimate approval by a judge on the D.C. Municipal Court. On several occasions during the pendency of the review, a substantial majority of the Alpha Chapter brothers voted to reaffirm the donation to the Foundation and ratified the House Plan. A copy of the House Plan is included on the website. Final review and approval was granted and the escrowed funds were released to the Foundation on August 12, 2024. The Trustees committed to hold the proceeds in interest bearing assets for use in accordance with an Alpha House Fund Plan (the House Plan) subject to approval by the Alpha Chapter Brothers.</p>
             <p>As of May 11, 2020, the Trustees included:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <ul className="list-none pl-0">
@@ -190,7 +188,7 @@ irm the donation to the Foundation. Final review and approval was granted and th
               <p>At the time, these Trustees were the guardians of the original goals and objectives of the Foundation. Upon the donation of the fraternity house they realized that the funds to pursue such goals might soon be available.</p>
               <div>
             </div>
-            <p>At the time final approval was granted only Brothers Stewart, Picozzi and Eriksen continued to serve. Newly appointed trustees include Carlos Roa, Kenneth W Bleakley (recently deceased), Albert L Grasso and Timothy J Rosenberger. The current Board of Trustees has commenced to fulfill the original goals and objectives. Initial scholarships have been awarded and additional scholarships are planned. Efforts have begun to restart educational programs. Contact has been made with real estate agents to secure a home for the Foundation and a situs for its activities.</p>
+            <p>At the time final approval was granted only Brothers Stewart, Picozzi and Eriksen continued to serve. Newly appointed trustees include Carlos Roa, Kenneth W Bleakley (subsequently deceased), Albert L Grasso and Timothy J Rosenberger. The current Board of Trustees has commenced to fulfill the original goals and objectives of the Foundation. The current Trustees are also committed to honoring the terms of the House Plan and have set aside the net proceeds of $2,270,000 plus the additional $300,000 previously accumulated by Brother Terry Boyle in a separate endowment fund. The fund is presently invested in U.S. Treasury obligations. The principal is being held for compliance with the House Plan. Interest income thereof will be used to support other Foundation activities. Within days of receiving the sale proceeds, the Foundation created its first scholarship program. The Foundation has also announced the creation of two additional scholarship programs to commence in 2025. A Program Committee has been created and arrangements are being made to restart the lecture series suspended during the Covid-19 pandemic. Additional information on both the Scholarship Programs and the lecture Program can be found elsewhere on the website.</p>
         
             <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">All Those Who Have Ever Served as Trustees</h2>
   <div className="flex justify-center">
@@ -211,7 +209,7 @@ irm the donation to the Foundation. Final review and approval was granted and th
         <li>Marcus King 2005 - 2023</li>
         <li>John Leahy 1960 - 1962</li>
         <li>Joseph LeMoine 1960 - 1994</li>
-        <li>Marcher Mixa 2005 - 2023</li>
+        <li>Matthew Mixa 2005 - 2023</li>
         <li>Vincent Norelli 1960 - 2005</li>
         <li>Philip O&apos;Reilly 1962 - 1989</li>
         <li>Joseph Picozzi 2020 - present</li>
@@ -236,12 +234,12 @@ irm the donation to the Foundation. Final review and approval was granted and th
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation Officers</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-6">
             {[
-              { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
-              { name: "Patrick Hall", role: "Vice President", chapter: "Alpha Chapter", line: "74 Line" },
               { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "192 Line" },
+              { name: "Patrick Hall", role: "Vice President", chapter: "Alpha Chapter", line: "74 Line" },
               { name: "Carlos F. Roa", role: "Secretary", chapter: "Alpha Chapter", line: "189 Line" },
+              { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
             ].map((officer, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
                 <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
@@ -259,10 +257,10 @@ irm the donation to the Foundation. Final review and approval was granted and th
             {[
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
               { name: "Albert L. Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
-              { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "192 Line", occupation: "Politician" },
+              { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "192 Line", occupation: "State Senator" },
               { name: "Carlos F. Roa", role: "Alpha Chapter", denomination: "189 Line", occupation: "Editor" },
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
-              { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Data Analyst" },
+              { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
             ].map((trustee, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
                 <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>

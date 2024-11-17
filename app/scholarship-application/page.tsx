@@ -213,7 +213,7 @@ export default function ScholarshipApplication() {
             />
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-          <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+          <Link href="/" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Home
             </Link>
          <Link href="/about" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
@@ -306,7 +306,7 @@ export default function ScholarshipApplication() {
               {[
                 { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
                 { title: "Test Evidence", content: "Scholarship recipients must submit evidence of taking the US Foreign Service Officer Test or good reason for failure to do. Failure to do so will preclude eligibility for further scholarships or grants." },
-                { title: "Scholarship Amount", content: "Scholarships in the amount of $250 per recipient will be awarded to Georgetown university degree program students or graduates who apply to take the US Foreign Service Officer Test scheduled for September-October." }
+                { title: "Scholarship Amount", content: "Scholarships in the amount of $250 per recipient will be awarded to Georgetown university degree program students or graduates who apply to take the US Foreign Service Officer Test scheduled throughout the year." }
               ].map((item, index) => (
                 <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
                   <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
@@ -336,6 +336,27 @@ export default function ScholarshipApplication() {
             ))}
           </div>
         </section>
+
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Program Committee</h2>
+          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
+          <div className="grid grid-cols-2 gap-8">
+            {[
+             { name: "Thomas Stewart", role: "Chairman", chapter: "Alpha Chapter", occupation: "Economist" },
+             { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow" },
+            
+            ].map((officer, index) => (
+              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-[#d4af36]">
+                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+
 
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
