@@ -168,7 +168,7 @@ export default function AboutUs() {
             <p>By December 2005, the remaining four of the original Trustees (vonStroebel, Walsh, Norelli, and Porreco) died or resigned and were replaced by younger Alpha Chapter alumni brothers. All Trustees were alumni brothers thereafter. Brother Boyle remained as the sole constant throughout this period and until his retirement in 2021 as Treasurer upon attaining age 80.</p>
             <p>No additional fundraising activities were conducted during the ensuing periods. The primary focus became educational programming. For example, between October 2013 and February 2019, the Foundation sponsored 19 educational lectures. Since the onset of the Covid-19 pandemic additional lectures have been curtailed but are now expected to be renewed.</p>
             <p>Following a decision by Georgetown University to require most undergraduate students to reside in university housing, maintenance of the Alpha Chapter fraternity house as a residence for undergraduate brothers became untenable. The undergraduate brothers of Alpha Chapter, with the support of a substantial number of alumni Alpha Chapter brothers who expressed an opinion, decided to donate the house to the Foundation with the expectation of a sale. Due to the tax exempt status of the Foundation, a sale by the Foundation meant that the sales proceeds would not be reduced by taxes. Without the donation a sale would be subject to substantial taxes.</p>
-            <p>The fraternity house was donated to the Foundation and sold for $2,650,000. After selling expenses, the net proceeds equaled slightly less than $2,270,000. The proceeds were held in escrow pending review by the D.C. Office of the Attorney General and ultimate approval by a judge on the D.C. Municipal Court. On several occasions during the pendency of the review, a substantial majority of the Alpha Chapter brothers voted to reaffirm the donation to the Foundation and ratified the House Plan. A copy of the House Plan is included on the website. Final review and approval was granted and the escrowed funds were released to the Foundation on August 12, 2024. The Trustees committed to hold the proceeds in interest bearing assets for use in accordance with an Alpha House Fund Plan (the House Plan) subject to approval by the Alpha Chapter Brothers.</p>
+            <p>The fraternity house was donated to the Foundation and sold for $2,650,000. After selling expenses, the net proceeds equaled slightly less than $2,270,000. The proceeds were held in escrow pending review by the D.C. Office of the Attorney General and ultimate approval by a judge on the D.C. Municipal Court. The Trustees committed to hold the proceeds in interest bearing assets for use in accordance with an Alpha House Fund Plan (the House Plan) subject to approval by the Alpha Chapter Brothers. On several occasions during the pendency of the review, a substantial majority of the Alpha Chapter brothers voted to reaffirm the donation to the Foundation and ratified the House Plan. A copy of the House Plan is included on the website. Final review and approval was granted and the escrowed funds were released to the Foundation on August 12, 2024. </p>
             <p>As of May 11, 2020, the Trustees included:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <ul className="list-none pl-0">
@@ -269,6 +269,72 @@ export default function AboutUs() {
                 {trustee.occupation && <p className="text-gray-500 dark:text-gray-400 text-base mt-1">{trustee.occupation}</p>}
               </div>
             ))}
+          </div>
+        </section>
+
+
+        <section className="mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Trustee Biographies</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Michael Duke Eriksen</h3>
+              <p>BSFS, International Economic Affairs, Georgetown University (1972)</p>
+              <p>President, Alpha Chapter, Delta Phi Epsilon (1971-72)</p>
+              <p>U.S. Marine ground officer (1972-77)</p>
+              <p>J.D., University of Florida College of Law (1980); Law Review Editor</p>
+              <p>Civil trial practice, West Palm Beach, FL (1981-present)</p>
+              <p>Dual Board-certified by the Florida Bar in Civil Trial Law and Admiralty & Maritime Law</p>
+              <p>Admiralty Proctor, Maritime Law Association of the United States</p>
+              <p>Fisherman</p>
+              <p>Married to Kerry for over 3 decades; 4 adult children</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Albert L. Grasso</h3>
+              <p>Georgetown University: BSFS (1968); JD (1973); LLM (1974)</p>
+              <p>Past President - Chuhak & Tecson</p>
+              <p>Associate Professor - Roosevelt University</p>
+              <p>Author - 21 Books and Articles</p>
+              <p>Lecturer - 50 states and 10 countries</p>
+              <p>World Traveler - 90 countries</p>
+              <p>Sergeant - US Army</p>
+              <p>Organizer - Search for Genghis Khan</p>
+              <p>Amateur Genealogist</p>
+              <p>Collector - Art, stamps and sundry</p>
+              <p>Married to Gwen for 50 years</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Joe Picozzi</h3>
+              <p>Founded Politics Club at Holy Ghost Preparatory School</p>
+              <p>Appointed to Philadelphia Youth Commission by City Councilman Brian O&apos;Neill</p>
+              <p>Eagle Scout</p>
+              <p>George F. Baker Scholar; Member, 192nd line of Delta Phi Epsilon</p>
+              <p>Georgetown University: BSFS (2017)</p>
+              <p>Former Aide to Speaker of the House Kevin McCarthy</p>
+              <p>Former Chief of Staff, Manhattan Institute</p>
+              <p>State Senator-elect, Northeast Philadelphia (youngest in Pennsylvania; first Republican elected to represent Philadelphia in the State Senate since 1996)</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Carlos Roa</h3>
+              <p>Georgetown University: BSFS (2015)</p>
+              <p>Visiting Fellow & Director of Keystone Initiative - Danube Institute</p>
+              <p>Former Executive Editor - The National Interest</p>
+              <p>Board of Directors - Various Startups</p>
+              <p>Aspiring Sitcom Writer</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Tim Rosenberger</h3>
+              <p>Georgetown University: AB English (2016)</p>
+              <p>MDiv &apos;18, DMin &apos;20, LLM &apos;22, JD/MBA &apos;23</p>
+              <p>Fellow - Stanford GSB and Manhattan Institute</p>
+              <p>Amateur musician - Hermit Club of Cleveland</p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Thomas Stewart</h3>
+              <p>Economist</p>
+              <p>Georgetown University Walsh School of Foreign Service: B.S. in Foreign Service - 2019</p>
+              <p>George Mason University: M.A in Economics - 2025</p>
+              <p>Studying the economics of energy market foundations and regulations and the global networks of mineral commodities.</p>
+            </div>
           </div>
         </section>
 

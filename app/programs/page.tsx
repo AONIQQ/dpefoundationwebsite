@@ -118,6 +118,25 @@ export default function Programs() {
       <main className="container mx-auto px-4 py-8 sm:py-12">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-center text-black dark:text-white">Programs</h1>
 
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Program Committee</h2>
+          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
+          <div className="grid grid-cols-2 gap-8">
+            {[
+             { name: "Thomas Stewart", role: "Chairman", chapter: "Alpha Chapter", occupation: "Economist" },
+             { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow at Stanford University" },
+            
+            ].map((officer, index) => (
+              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-[#d4af36]">
+                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="mb-16">
           <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-6 text-center">
             <p className="text-gray-800 dark:text-gray-200">

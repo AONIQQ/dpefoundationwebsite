@@ -281,7 +281,32 @@ export default function ScholarshipApplication() {
         </div>
       )}
 
+      
+
       <main className="container mx-auto px-4 py-12">
+
+      <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
+          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
+          <div className="grid grid-cols-2 gap-8">
+            {[
+              { name: "Albert L. Grasso", role: "Member", chapter: "Alpha Chapter", occupation: "Former Associate Professor", company: "Roosevelt University" },
+              { name: "Carlos F. Roa", role: "Member", chapter: "Alpha Chapter", occupation: "Former Editor", company: "International Journal" },
+              { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow", company: "Stanford University" },
+              { name: "Charles J. Skuba", role: "Chairman", chapter: "Alpha Chapter", occupation: "Professor", company: "Georgetown University" },
+            ].map((officer, index) => (
+              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-[#d4af36]">
+                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation} at {officer.company}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Scholarships</h2>
+
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
@@ -317,46 +342,7 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
-        <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
-          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
-          <div className="grid grid-cols-2 gap-8">
-            {[
-              { name: "Albert L. Grasso", role: "Member", chapter: "Alpha Chapter", occupation: "Former Associate Professor", company: "Roosevelt University" },
-              { name: "Carlos F. Roa", role: "Member", chapter: "Alpha Chapter", occupation: "Former Editor", company: "International Journal" },
-              { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow", company: "Stanford University" },
-              { name: "Charles J. Skuba", role: "Chairman", chapter: "Alpha Chapter", occupation: "Professor", company: "Georgetown University" },
-            ].map((officer, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-[#d4af36]">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation} at {officer.company}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Program Committee</h2>
-          <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
-          <div className="grid grid-cols-2 gap-8">
-            {[
-             { name: "Thomas Stewart", role: "Chairman", chapter: "Alpha Chapter", occupation: "Economist" },
-             { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow" },
-            
-            ].map((officer, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 border-2 border-[#d4af36]">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-
+      
 
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
