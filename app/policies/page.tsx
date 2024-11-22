@@ -31,10 +31,10 @@ export default function PoliciesPage() {
       ]
     },
     { 
-      title: "Bleakley Scholarship Guidelines and Procedures", 
+      title: "Scholarship Guidelines and Procedures", 
       files: [
-        { name: "Bleakley Scholarship Guidelines", file: "/Scholarship_Guidelines.pdf" },
-        { name: "Bleakley Scholarship Procedures", file: "/Bleakley_Scholarship_Procedures.pdf" },
+        { name: "General Scholarship Guidelines", file: "/Scholarship_Guidelines.pdf" },
+        { name: "Bleakley Scholarship Guidelines and Procedures", file: "/Bleakley_Scholarship_Guidelines_and_Procedures.pdf" },
       ]
     },
     { title: "Bylaws", file: "/1983_Bylaws.pdf" },
