@@ -311,7 +311,7 @@ export default function AboutUs() {
       <p>Georgetown University: BSFS (2017)</p>
       <p>George F. Baker Scholar; Member, 192nd line of Delta Phi Epsilon</p>
       <p>Founded Politics Club at Holy Ghost Preparatory School</p>
-      <p>Appointed to Philadelphia Youth Commission by City Councilman Brian O'Neill</p>
+      <p>Appointed to Philadelphia Youth Commission by City Councilman Brian O&apos;Neill</p>
       <p>Eagle Scout</p>
       <p>Former Aide to Speaker of the House Kevin McCarthy</p>
       <p>Former Chief of Staff, Manhattan Institute</p>
