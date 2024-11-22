@@ -38,8 +38,8 @@ export default function AboutUs() {
             <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
               Programs
             </Link>
-            <Link href="/scholarship-application" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
-              Scholarship Application
+            <Link href="/scholarships" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
+              Scholarships
             </Link>
             <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
               Policies
@@ -75,8 +75,8 @@ export default function AboutUs() {
             <Link href="/" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
               Home
             </Link>
-            <Link href="/scholarship-application" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
-              Scholarship Application
+            <Link href="/scholarships" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
+              Scholarships
             </Link>
             <Link href="/policies" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
               Policies

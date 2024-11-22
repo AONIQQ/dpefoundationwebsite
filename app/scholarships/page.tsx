@@ -285,7 +285,12 @@ export default function ScholarshipApplication() {
 
       <main className="container mx-auto px-4 py-12">
 
-      <section className="mb-20 max-w-4xl mx-auto">
+     
+
+        <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Scholarships</h2>
+
+
+        <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid grid-cols-2 gap-8">
@@ -305,14 +310,12 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
-        <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Scholarships</h2>
-
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
           <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
             <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
-              Kenneth W Bleakley had a distinguished 29-year career as a U.S. Foreign Service Officer included serving as President George H.W. Bush&apos;s Senior Deputy U.S. Coordinator for International Communications and Information Policy, Deputy Chief of Mission in San Salvador, Director of U.S. Operations in Central America and Director of the U.S. International Refugee Program. He was President of the American Foreign Service Association and Delta Phi Epsilon Professional Foreign Service Fraternity.
+              Kenneth W Bleakley had a distinguished 29-year career as a U.S. Foreign Service Officer which included serving as President George H.W. Bush&apos;s Senior Deputy U.S. Coordinator for International Communications and Information Policy, Deputy Chief of Mission in San Salvador, Director of U.S. Operations in Central America and Director of the U.S. International Refugee Program. He was President of the American Foreign Service Association and Delta Phi Epsilon Professional Foreign Service Fraternity.
             </p>
             <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed">
               After retiring from the Foreign Service he was a founder and past president of Fonemed LLC, which provides nurse advice services throughout North America and the Caribbean. He graduated from Georgetown&apos;s School of Foreign Service and held a Master&apos;s Degree from American University. An avid skier, poker player and boatsman, Ken lived a full life of gusto and determination.

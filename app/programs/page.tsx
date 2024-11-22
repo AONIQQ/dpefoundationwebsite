@@ -56,8 +56,8 @@ export default function Programs() {
             <Link href="/about" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               About Us
             </Link>
-            <Link href="/scholarship-application" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
-              Scholarship Application
+            <Link href="/scholarships" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Scholarships
             </Link>
             <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Policies
