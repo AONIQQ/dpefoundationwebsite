@@ -260,7 +260,7 @@ export default function AboutUs() {
               { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "192 Line", occupation: "State Senator" },
               { name: "Carlos F. Roa", role: "Alpha Chapter", denomination: "189 Line", occupation: "Editor" },
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
-              { name: "Thomas Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
+              { name: "Thomas M. Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
             ].map((trustee, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
                 <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>
@@ -325,6 +325,12 @@ export default function AboutUs() {
       <p>Georgetown University: BSFS (2015)</p>
       <p>Visiting Fellow & Director of Keystone Initiative - Danube Institute</p>
       <p>Former Executive Editor - The National Interest</p>
+      <p>Associate Fellow: Institute for Peace & Diplomacy</p>
+      <p>Analyst: Center for Int&apos;l Relations & Sustainable Development</p>
+      <p>Research Assistant: Potomac Foundation</p>
+      <p>Author 12 Articles</p>
+      <p>Young Global Leader: Nizami Ganjavi Int&apos;l Center</p>
+      <p>Crypto Investor</p>
       <p>Board of Directors - Various Startups</p>
       <p>Aspiring Sitcom Writer</p>
     </div>
@@ -336,7 +342,7 @@ export default function AboutUs() {
       <p>Amateur musician - Hermit Club of Cleveland</p>
     </div>
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Thomas Stewart</h3>
+      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Thomas M. Stewart</h3>
       <p>Georgetown University Walsh School of Foreign Service: BSFS (2019)</p>
       <p>George Mason University: MA in Economics (2025)</p>
       <p>Economist</p>
