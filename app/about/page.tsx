@@ -308,7 +308,7 @@ export default function AboutUs() {
     </div>
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Joseph S. Picozzi</h3>
-      <p>Georgetown University: BSFS (2017)</p>
+      <p>Georgetown University: AB in Government (2017)</p>
       <p>George F. Baker Scholar; Member, 192nd line of Delta Phi Epsilon</p>
       <p>Founded Politics Club at Holy Ghost Preparatory School</p>
       <p>Appointed to Philadelphia Youth Commission by City Councilman Brian O&apos;Neill</p>
@@ -337,10 +337,9 @@ export default function AboutUs() {
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Timothy J. Rosenberger</h3>
       <p>Georgetown University: AB in English (2016)</p>
-      <p>MDiv (2018); DMin (2020); LLM (2022); JD/MBA (2023)</p>
       <p>United Lutheran Seminary: MDiv (2018)</p>
       <p>Rawlings School of Divinity: DMin (2020)</p>
-      <p>University&apos;s Wien: LLM (2022)</p>
+      <p>Universitas Wien: LLM (2022)</p>
       <p>Stanford University: JD/MBA (2023)</p>
       <p>Fellow: Manhattan Institute, Stanford University</p>
       <p>Fellow: Glen College of Public Affairs, Ohio State University</p>
@@ -350,7 +349,9 @@ export default function AboutUs() {
       <p>Consultant: McKinsey</p>
       <p>Media Consultant</p>
       <p>Chapter President: Federalist Society</p>
+      <p>Amateur Musician: Hermit Club</p>
     </div>
+  
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Thomas M. Stewart</h3>
       <p>Georgetown University: BSFS (2019)</p>
