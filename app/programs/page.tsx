@@ -123,7 +123,7 @@ export default function Programs() {
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid grid-cols-2 gap-8">
             {[
-             { name: "Thomas Stewart", role: "Chairman", chapter: "Alpha Chapter", occupation: "Economist" },
+             { name: "Thomas M. Stewart", role: "Chairman", chapter: "Alpha Chapter", occupation: "Economist" },
              { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow at Stanford University" },
             
             ].map((officer, index) => (

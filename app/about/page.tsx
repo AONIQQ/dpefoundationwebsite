@@ -338,18 +338,29 @@ export default function AboutUs() {
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Timothy J. Rosenberger</h3>
       <p>Georgetown University: AB in English (2016)</p>
       <p>MDiv (2018); DMin (2020); LLM (2022); JD/MBA (2023)</p>
-      <p>Fellow - Stanford GSB and Manhattan Institute</p>
-      <p>Amateur musician - Hermit Club of Cleveland</p>
+      <p>United Lutheran Seminary: MDiv (2018)</p>
+      <p>Rawlings School of Divinity: DMin (2020)</p>
+      <p>University&apos;s Wien: LLM (2022)</p>
+      <p>Stanford University: JD/MBA (2023)</p>
+      <p>Fellow: Manhattan Institute, Stanford University</p>
+      <p>Fellow: Glen College of Public Affairs, Ohio State University</p>
+      <p>Founding COO: Verbum Labs</p>
+      <p>Chaplain: Cleveland Division of Police</p>
+      <p>Parish Pastor</p>
+      <p>Consultant: McKinsey</p>
+      <p>Media Consultant</p>
+      <p>Chapter President: Federalist Society</p>
     </div>
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Thomas M. Stewart</h3>
-      <p>Georgetown University Walsh School of Foreign Service: BSFS (2019)</p>
+      <p>Georgetown University: BSFS (2019)</p>
       <p>George Mason University: MA in Economics (2025)</p>
-      <p>Economist</p>
-      <p>
-        Studying the economics of energy market foundations and regulations and the global networks
-        of mineral commodities.
-      </p>
+      <p>Energy Data Analyst: IMG-Crown</p>
+      <p>Asset Manager: Soltage</p>
+      <p>Econometrics Intern: Brown Williams Moorhead & Quinn</p>
+      <p>Intern: US Department of Commerce</p>
+      <p>Eagle Scout</p>
+      <p>Future Mining Executive</p>
     </div>
   </div>
 </section>
