@@ -281,14 +281,8 @@ export default function ScholarshipApplication() {
         </div>
       )}
 
-      
-
       <main className="container mx-auto px-4 py-12">
-
-     
-
         <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Scholarships</h2>
-
 
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
@@ -324,15 +318,12 @@ export default function ScholarshipApplication() {
         </section>
 
         <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Submission Requirements</h2>
           <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
           <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
-            <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
-              The trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Kenneth W. Bleakley, a Senior Foreign Service Officer, former Trustee of the Foundation and DPE fraternity brother by the establishment of a Scholarship Award Program in his name.
-            </p>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
+                { title: "Application Details", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
                 { title: "Test Evidence", content: "Scholarship recipients must submit evidence of taking the US Foreign Service Officer Test or good reason for failure to do. Failure to do so will preclude eligibility for further scholarships or grants." },
                 { title: "Scholarship Amount", content: "Scholarships in the amount of $250 per recipient will be awarded to Georgetown university degree program students or graduates who apply to take the US Foreign Service Officer Test scheduled throughout the year." }
               ].map((item, index) => (
@@ -345,11 +336,10 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
-      
 
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
-            Application for the Kenneth W Bleakley Senior Foreign Service Officer Scholarship
+          Kenneth W Bleakley Senior Foreign Service Officer Scholarship Application Form
           </h1>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
 
@@ -430,6 +420,88 @@ export default function ScholarshipApplication() {
             />
           </div>
         </section>
+
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Stanley Weiss, Global Business Leader Scholarships</h2>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+          <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <h3 className="text-2xl font-bold mb-4 text-[#d4af36]">Scholarship Information</h3>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              The Trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Stanley Weiss, a global business leader, member of the Board of Visitors of the Georgetown University Walsh School of Foreign Service and DPE fraternity brother by the establishment of a Scholarship Award Program in his name.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              Stanley Weiss enrolled in Georgetown University School of Foreign Service after service in the U.S. Army between 1944 and 1946.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              After graduation from Georgetown, he moved to Mexico to establish mining operations, eventually becoming the largest supplier of magnesia in North America. Later, he was involved with the Soviet - American Trading Corporation (SATC) to import Soviet chromium. At one time, SATC was responsible for 80% of U.S./Soviet trade.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              In addition to his business interests Mr. Weiss was actively involved in various organizations, Including:
+            </p>
+            <ul className="list-disc pl-6 text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              <li>Founder - Business Executives for National Security</li>
+              <li>Board of Visitors - Georgetown University School of Foreign Service</li>
+              <li>Advisory Board - RAND Center for Middle East Public Policy</li>
+              <li>Advisory Board - International Crisis Group</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Submission Requirements</h2>
+          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
+          <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                { title: "Application Details", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
+                { title: "Intern Evidence", content: "Scholarship recipients must submit evidence of completing the Baratta Center Intern Program." },
+                { title: "Scholarship Amount", content: "Scholarships in the amount of $500 per recipient will be awarded to participants in the Baratta Center Intern Program." }
+              ].map((item, index) => (
+                <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
+                  <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
+                  <p className="text-gray-800 dark:text-white flex-grow">{item.content}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Halleck A Butts Scholarships</h2>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+          <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <h3 className="text-2xl font-bold mb-4 text-[#d4af36]">Halleck Allison Butts – Career Diplomat and Educator</h3>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              After service in World War I, Halleck A. Butts graduated from Georgetown University&#39;s School of Foreign Service in 1921 and was the first President of the Alpha Chapter of Delta Phi Epsilon National Professional Foreign Service Fraternity at Georgetown. Prior to his graduation, he was appointed U.S. Trade Commissioner at the American embassy in Tokyo and later became the U.S. Commercial Attaché. He served at the U.S. embassy in Tokyo from 1920 to 1933.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              During World War II, he was Chief of the Japan Section in the U.S. Foreign Economic Administration. He was also associate professor of economics at Duke University, detailed to the Army Finance School to lecture on Far Eastern economics and on Japan's financial institutions and fiscal policy. He was also a lecturer at the Army Civil Affairs Training Schools at Harvard and Northwestern Universities,
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              He joined the Industrial College of the Armed Forces (ICAF – later renamed the National Defense University) in July 1944 as Assistant Director of Research, Foreign Economic Resources Group and then served as Foreign Economic Advisor to the Army Service Forces (ASF). While there, he also returned to Georgetown as an associate professor of economics. After World War II, while still teaching at Georgetown, Mr. Butts became Chief of the Economic Potential Branch of the Industrial College of the Armed Forces (now known as the National Defense University). He then served his country at the Central Intelligence Agency.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Submission Requirements</h2>
+          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
+          <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                { title: "Application Details", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
+                { title: "Additional Requirements", content: "Specific requirements for the Halleck A Butts Scholarship will be provided upon application." },
+                { title: "Scholarship Amount", content: "Scholarship amount details for the Halleck A Butts Scholarship will be provided upon application." }
+              ].map((item, index) => (
+                <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
+                  <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
+                  <p className="text-gray-800 dark:text-white flex-grow">{item.content}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <footer className="bg-black text-white py-8">
