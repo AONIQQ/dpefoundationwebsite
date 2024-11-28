@@ -16,6 +16,8 @@ type FileState = {
   application: File | null;
   proof: File | null;
   fsot: File | null;
+  intern: File | null;
+  requirements: File | null;
 }
 
 function FileUpload({ label, id, name, onFileChange }: { label: string; id: string; name: string; onFileChange: (file: File | null) => void }) {
@@ -72,7 +74,9 @@ export default function ScholarshipApplication() {
   const [files, setFiles] = useState<FileState>({
     application: null,
     proof: null,
-    fsot: null
+    fsot: null,
+    intern: null,
+    requirements: null
   })
   const [error, setError] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -100,7 +104,7 @@ export default function ScholarshipApplication() {
     }
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType: string) => {
     e.preventDefault()
     let hasError = false
 
@@ -109,8 +113,14 @@ export default function ScholarshipApplication() {
       hasError = true
     }
 
-    if (!files.application || !files.proof || !files.fsot) {
-      setError('Please upload all required files.')
+    if (scholarshipType === 'bleakley' && (!files.application || !files.proof || !files.fsot)) {
+      setError('Please upload all required files for the Bleakley Scholarship.')
+      hasError = true
+    } else if (scholarshipType === 'weiss' && (!files.application || !files.proof || !files.intern)) {
+      setError('Please upload all required files for the Weiss Scholarship.')
+      hasError = true
+    } else if (scholarshipType === 'butts' && (!files.application || !files.proof || !files.requirements)) {
+      setError('Please upload all required files for the Butts Scholarship.')
       hasError = true
     }
 
@@ -126,23 +136,35 @@ export default function ScholarshipApplication() {
       const formData = new FormData(e.currentTarget)
 
       // Upload files to Supabase storage
-      const applicationPath = files.application ? await uploadFile(files.application, 'applications') : null
+      const applicationPath = files.application ? await uploadFile(files.application, `${scholarshipType}-applications`) : null
       console.log('Application file uploaded:', applicationPath)
-      const proofPath = files.proof ? await uploadFile(files.proof, 'proofs') : null
+      const proofPath = files.proof ? await uploadFile(files.proof, `${scholarshipType}-attendance-proof`) : null
       console.log('Proof file uploaded:', proofPath)
-      const fsotPath = files.fsot ? await uploadFile(files.fsot, 'fsot') : null
-      console.log('FSOT file uploaded:', fsotPath)
+
+      let additionalFilePath = null
+      if (scholarshipType === 'bleakley') {
+        additionalFilePath = files.fsot ? await uploadFile(files.fsot, 'bleakley-fsot-proof') : null
+        console.log('FSOT file uploaded:', additionalFilePath)
+      } else if (scholarshipType === 'weiss') {
+        additionalFilePath = files.intern ? await uploadFile(files.intern, 'weiss-intern-proof') : null
+        console.log('Intern file uploaded:', additionalFilePath)
+      } else if (scholarshipType === 'butts') {
+        additionalFilePath = files.requirements ? await uploadFile(files.requirements, 'butts-requirements') : null
+        console.log('Requirements file uploaded:', additionalFilePath)
+      }
 
       console.log('Inserting submission into database...')
       // Insert submission into database
       const { data, error } = await supabase
-        .from('scholarship_submissions')
+        .from(`${scholarshipType}_scholarship_submissions`)
         .insert([
           {
             full_name: formData.get('fullName') as string,
             application_file_path: applicationPath,
             attendance_file_path: proofPath,
-            test_completion_file_path: fsotPath,
+            [scholarshipType === 'bleakley' ? 'test_completion_file_path' : 
+             scholarshipType === 'weiss' ? 'intern_completion_file_path' :
+             'additional_requirements_file_path']: additionalFilePath,
           },
         ])
 
@@ -151,7 +173,7 @@ export default function ScholarshipApplication() {
       console.log('Submission successful:', data)
       // Reset form
       setFullName('')
-      setFiles({ application: null, proof: null, fsot: null })
+      setFiles({ application: null, proof: null, fsot: null, intern: null, requirements: null })
       toast.success('Your application has been submitted successfully!')
     } catch (error) {
       console.error('Error submitting application:', error)
@@ -304,6 +326,7 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
+        {/* Kenneth W Bleakley Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
@@ -336,10 +359,9 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
-
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
-          Kenneth W Bleakley Senior Foreign Service Officer Scholarship Application Form
+            Kenneth W Bleakley Senior Foreign Service Officer Scholarship Form
           </h1>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
 
@@ -359,7 +381,7 @@ export default function ScholarshipApplication() {
            
           </div>
 
-          <form onSubmit={handleSubmit} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+          <form onSubmit={(e) => handleSubmit(e, 'bleakley')} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
               <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
                 Full Name <span className="text-red-500">*</span>
@@ -378,19 +400,19 @@ export default function ScholarshipApplication() {
 
             <FileUpload 
               label="Upload completed application" 
-              id="application"
+              id="bleakley-application"
               name="application"
               onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
             />
             <FileUpload 
               label="Upload proof of attendance/graduation" 
-              id="proof"
+              id="bleakley-proof"
               name="proof"
               onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
             />
             <FileUpload 
               label="Upload proof of FSOT test completion or good reason for failure to do so" 
-              id="fsot"
+              id="bleakley-fsot"
               name="fsot"
               onFileChange={(file) => setFiles(prev => ({ ...prev, fsot: file }))}
             />
@@ -421,8 +443,9 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
+        {/* Stanley Weiss Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Stanley Weiss, Global Business Leader Scholarships</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Stanley Weiss Global Business Leader Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
           <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
             <h3 className="text-2xl font-bold mb-4 text-[#d4af36]">Scholarship Information</h3>
@@ -467,6 +490,84 @@ export default function ScholarshipApplication() {
         </section>
 
         <section className="mb-20 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+            Stanley Weiss Global Business Leader Scholarship Form
+          </h1>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+
+          <div className="mb-12 text-center">
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and your evidence of completing the Baratta Center Intern Program. You will be contacted if you have been awarded a scholarship.
+            </p>
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Submission files must be in PDF format.
+            </p>
+          </div>
+
+          <form onSubmit={(e) => handleSubmit(e, 'weiss')} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
+              <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+                Full Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <FileUpload 
+              label="Upload completed application" 
+              id="weiss-application"
+              name="application"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of attendance/graduation" 
+              id="weiss-proof"
+              name="proof"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of completing the Baratta Center Intern Program" 
+              id="weiss-intern"
+              name="intern"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, intern: file }))}
+            />
+
+            {error && (
+              <div className="text-red-500 text-center font-bold">
+                {error}
+              </div>
+            )}
+
+            <div className="text-center">
+              <Button 
+                type="submit" 
+                className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
+            <iframe 
+              src="/Stanley Weiss Global Business Leader Scholarship.pdf" 
+              className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
+              title="Stanley Weiss Global Business Leader Scholarship Application"
+            />
+          </div>
+        </section>
+
+        {/* Halleck A Butts Scholarship Section */}
+        <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Halleck A Butts Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
           <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
@@ -502,6 +603,82 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+            Halleck A Butts Scholarship Application Form
+          </h1>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+
+          <div className="mb-12 text-center">
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and any additional requirements specified for this scholarship. You will be contacted if you have been awarded a scholarship.
+            </p>
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Submission files must be in PDF format.
+            </p>
+          </div>
+
+          <form onSubmit={(e) => handleSubmit(e, 'butts')} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
+              <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+                Full Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <FileUpload 
+              label="Upload completed application" 
+              id="butts-application"
+              name="application"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of attendance/graduation" 
+              id="butts-proof"
+              name="proof"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
+            />
+            <FileUpload 
+              label="Upload additional requirements" 
+              id="butts-requirements"
+              name="requirements"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, requirements: file }))}
+            />
+
+            {error && (
+              <div className="text-red-500 text-center font-bold">
+                {error}
+              </div>
+            )}
+
+            <div className="text-center">
+              <Button 
+                type="submit" 
+                className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
+            <iframe 
+              src="/Halleck A Butts Scholarship.pdf" 
+              className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
+              title="Halleck A Butts Scholarship Application"
+            />
+          </div>
+        </section>
       </main>
 
       <footer className="bg-black text-white py-8">
