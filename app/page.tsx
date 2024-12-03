@@ -129,9 +129,9 @@ export default function Home() {
               <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#d4af36] text-center">Purpose</h3>
               <ul className="space-y-6 sm:space-y-8">
                 {[
-                  { icon: Users, title: "Empower Future Leaders", content: "Equip students with the necessary knowledge, skills, and experiences to excel in careers related to foreign service while cultivating critical thinking, leadership, and a deep understanding of global issues." },
+                  { icon: Users, title: "Empower Future Leaders", content: "Equip students with the necessary knowledge, skills, and experiences to excel in careers related to foreign service, international relations, and international commerce while cultivating critical thinking, leadership, and a deep understanding of global issues." },
                   { icon: Globe, title: "Enhance International Understanding", content: "Promote mutual understanding and cooperation among nations through education and cultural exchange. We strive to foster peaceful, productive relationships." },
-                  { icon: BookOpen, title: "Foster Diplomatic Skills", content: "Improve the capabilities of individuals and institutions involved in diplomacy and international relations through targeted educational initiatives." }
+                  { icon: BookOpen, title: "Foster Diplomatic Skills", content: "Improve the capabilities of individuals and institutions involved in foreign service, international relations and international commerce through targeted educational initiatives." }
                 ].map((item, index) => (
                   <li key={index} className="flex items-start">
                     <div className="mr-4 mt-1">
@@ -150,9 +150,9 @@ export default function Home() {
               <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#d4af36] text-center">Mission</h3>
               <ul className="space-y-6 sm:space-y-8">
                 {[
-                  { icon: GraduationCap, title: "Provide Scholarships and Financial Aid", content: "The foundation aims to offer scholarships and other financial assistance to individuals studying foreign service international relations and foreign commerce, helping them to achieve their academic and professional goals." },
-                  { icon: Award, title: "Promote Academic Excellence", content: "By supporting students and educational programs, the foundation seeks to foster a high standard of academic achievement in the field of foreign service." },
-                  { icon: Briefcase, title: "Support Practical Experience", content: "The foundation encourages and facilitates internships, fellowships, and other opportunities that provide practical experience in diplomacy and international affairs." }
+                  { icon: GraduationCap, title: "Provide Scholarships and Financial Aid", content: "The foundation aims to offer scholarships and other financial assistance to individuals studying foreign service, international relations and international commerce, helping them to achieve their academic and professional goals." },
+                  { icon: Award, title: "Promote Academic Excellence", content: "By supporting students and educational programs, the foundation seeks to foster a high standard of academic achievement in the fields of foreign service, international relations, and international commerce." },
+                  { icon: Briefcase, title: "Support Practical Experience", content: "The foundation encourages and facilitates internships, fellowships, and other opportunities that provide practical experience in diplomacy, international affairs, and international commerce." }
                 ].map((item, index) => (
                   <li key={index} className="flex items-start">
                     <div className="mr-4 mt-1">
