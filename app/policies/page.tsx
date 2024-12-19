@@ -37,10 +37,21 @@ export default function PoliciesPage() {
         { name: "Bleakley Scholarship Guidelines and Procedures", file: "/Bleakley_Scholarship_Guidelines_and_Procedures.pdf" },
       ]
     },
+
+    
     { title: "Bylaws", file: "/1983_Bylaws.pdf" },
     { title: "General Committee Guidelines", file: "/General_Committee_Guidelines.pdf" },
     { title: " Alpha House Fund Plan", file: "/Alpha_House_Fund_Plan.pdf" }
   ]
+
+     {/* { 
+      title: "IRS Revenue Ruling 56-302", 
+      files: [
+        { name: "IRS Revenue Ruling 56-302", file: "/Scholarship_Guidelines.pdf" },
+      ]
+    },
+
+   */}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-black transition-colors duration-300 font-serif">
