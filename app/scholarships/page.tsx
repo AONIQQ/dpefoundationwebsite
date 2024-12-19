@@ -16,6 +16,8 @@ type FileState = {
   application: File | null;
   proof: File | null;
   fsot: File | null;
+  intern: File | null;
+  requirements: File | null;
 }
 
 function FileUpload({ label, id, name, onFileChange }: { label: string; id: string; name: string; onFileChange: (file: File | null) => void }) {
@@ -72,7 +74,9 @@ export default function ScholarshipApplication() {
   const [files, setFiles] = useState<FileState>({
     application: null,
     proof: null,
-    fsot: null
+    fsot: null,
+    intern: null,
+    requirements: null
   })
   const [error, setError] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -100,66 +104,88 @@ export default function ScholarshipApplication() {
     }
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    let hasError = false
+ 
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType: string) => {
+  e.preventDefault()
+  let hasError = false
 
-    if (!fullName) {
-      setError('Please provide your full name.')
-      hasError = true
-    }
-
-    if (!files.application || !files.proof || !files.fsot) {
-      setError('Please upload all required files.')
-      hasError = true
-    }
-
-    if (hasError) {
-      return
-    }
-
-    setError('')
-    setIsSubmitting(true)
-    
-    try {
-      console.log('Starting file uploads...')
-      const formData = new FormData(e.currentTarget)
-
-      // Upload files to Supabase storage
-      const applicationPath = files.application ? await uploadFile(files.application, 'applications') : null
-      console.log('Application file uploaded:', applicationPath)
-      const proofPath = files.proof ? await uploadFile(files.proof, 'proofs') : null
-      console.log('Proof file uploaded:', proofPath)
-      const fsotPath = files.fsot ? await uploadFile(files.fsot, 'fsot') : null
-      console.log('FSOT file uploaded:', fsotPath)
-
-      console.log('Inserting submission into database...')
-      // Insert submission into database
-      const { data, error } = await supabase
-        .from('scholarship_submissions')
-        .insert([
-          {
-            full_name: formData.get('fullName') as string,
-            application_file_path: applicationPath,
-            attendance_file_path: proofPath,
-            test_completion_file_path: fsotPath,
-          },
-        ])
-
-      if (error) throw error
-
-      console.log('Submission successful:', data)
-      // Reset form
-      setFullName('')
-      setFiles({ application: null, proof: null, fsot: null })
-      toast.success('Your application has been submitted successfully!')
-    } catch (error) {
-      console.error('Error submitting application:', error)
-      toast.error(`An error occurred while submitting your application: ${(error as Error).message || 'Unknown error'}`)
-    } finally {
-      setIsSubmitting(false)
-    }
+  if (!fullName) {
+    setError('Please provide your full name.')
+    hasError = true
   }
+
+  if (scholarshipType === 'bleakley' && (!files.application || !files.proof || !files.fsot)) {
+    setError('Please upload all required files for the Bleakley Scholarship.')
+    hasError = true
+  } else if (scholarshipType === 'weiss' && (!files.application || !files.proof || !files.intern)) {
+    setError('Please upload all required files for the Weiss Scholarship.')
+    hasError = true
+  } else if (scholarshipType === 'butts' && (!files.application || !files.proof || !files.requirements)) {
+    setError('Please upload all required files for the Butts Scholarship.')
+    hasError = true
+  }
+
+  if (hasError) {
+    return
+  }
+
+  setError('')
+  setIsSubmitting(true)
+  
+  try {
+    console.log('Starting file uploads...')
+    const formData = new FormData(e.currentTarget)
+
+    // Upload files to Supabase storage
+    let applicationPath, proofPath, additionalFilePath = null
+
+    if (scholarshipType === 'bleakley') {
+      // Use original bucket names for Bleakley scholarship
+      applicationPath = files.application ? await uploadFile(files.application, 'applications') : null
+      proofPath = files.proof ? await uploadFile(files.proof, 'proofs') : null
+      additionalFilePath = files.fsot ? await uploadFile(files.fsot, 'fsot') : null
+    } else if (scholarshipType === 'weiss') {
+      // Use new bucket names for Weiss scholarship
+      applicationPath = files.application ? await uploadFile(files.application, 'weiss-applications') : null
+      proofPath = files.proof ? await uploadFile(files.proof, 'weiss-attendance-proof') : null
+      additionalFilePath = files.intern ? await uploadFile(files.intern, 'weiss-intern-proof') : null
+    } else if (scholarshipType === 'butts') {
+      // Use new bucket names for Butts scholarship
+      applicationPath = files.application ? await uploadFile(files.application, 'butts-applications') : null
+      proofPath = files.proof ? await uploadFile(files.proof, 'butts-attendance-proof') : null
+      additionalFilePath = files.requirements ? await uploadFile(files.requirements, 'butts-requirements') : null
+    }
+
+    console.log('Files uploaded successfully')
+
+    // Insert submission into database
+    const { data, error } = await supabase
+      .from(`${scholarshipType}_scholarship_submissions`)
+      .insert([
+        {
+          full_name: formData.get('fullName') as string,
+          application_file_path: applicationPath,
+          attendance_file_path: proofPath,
+          [scholarshipType === 'bleakley' ? 'test_completion_file_path' : 
+           scholarshipType === 'weiss' ? 'intern_completion_file_path' :
+           'additional_requirements_file_path']: additionalFilePath,
+        },
+      ])
+
+    if (error) throw error
+
+    console.log('Submission successful:', data)
+    // Reset form
+    setFullName('')
+    setFiles({ application: null, proof: null, fsot: null, intern: null, requirements: null })
+    toast.success('Your application has been submitted successfully!')
+  } catch (error) {
+    console.error('Error submitting application:', error)
+    toast.error(`An error occurred while submitting your application: ${(error as Error).message || 'Unknown error'}`)
+  } finally {
+    setIsSubmitting(false)
+  }
+}
 
   const uploadFile = async (file: File, bucket: string): Promise<string> => {
     if (!file) {
@@ -281,17 +307,11 @@ export default function ScholarshipApplication() {
         </div>
       )}
 
-      
-
       <main className="container mx-auto px-4 py-12">
-
-     
-
         <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Scholarships</h2>
 
-
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
+          <h2 className="text-4xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
           <div className="grid grid-cols-2 gap-8">
             {[
@@ -310,6 +330,7 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
+        {/* Kenneth W Bleakley Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
@@ -345,11 +366,9 @@ export default function ScholarshipApplication() {
           </div>
         </section>
 
-      
-
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
-            Application for the Kenneth W Bleakley Senior Foreign Service Officer Scholarship
+            Kenneth W Bleakley Senior Foreign Service Officer Scholarship Form
           </h1>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
 
@@ -369,7 +388,7 @@ export default function ScholarshipApplication() {
            
           </div>
 
-          <form onSubmit={handleSubmit} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+          <form onSubmit={(e) => handleSubmit(e, 'bleakley')} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
               <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
                 Full Name <span className="text-red-500">*</span>
@@ -388,19 +407,19 @@ export default function ScholarshipApplication() {
 
             <FileUpload 
               label="Upload completed application" 
-              id="application"
+              id="bleakley-application"
               name="application"
               onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
             />
             <FileUpload 
               label="Upload proof of attendance/graduation" 
-              id="proof"
+              id="bleakley-proof"
               name="proof"
               onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
             />
             <FileUpload 
               label="Upload proof of FSOT test completion or good reason for failure to do so" 
-              id="fsot"
+              id="bleakley-fsot"
               name="fsot"
               onFileChange={(file) => setFiles(prev => ({ ...prev, fsot: file }))}
             />
@@ -430,6 +449,250 @@ export default function ScholarshipApplication() {
             />
           </div>
         </section>
+
+        {/* Stanley Weiss Scholarship Section */}
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Stanley Weiss Global Business Leader Scholarships</h2>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+          <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              Stanley Weiss enrolled in Georgetown University School of Foreign Service after service in the U.S. Army between 1944 and 1946.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              After graduation from Georgetown, he moved to Mexico to establish mining operations, eventually becoming the largest supplier of magnesia in North America. Later, he was involved with the Soviet - American Trading Corporation (SATC) to import Soviet chromium. At one time, SATC was responsible for 80% of U.S./Soviet trade.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              In addition to his business interests Mr. Weiss was actively involved in various organizations, Including:
+            </p>
+            <ul className="list-disc pl-6 text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              <li>Founder - Business Executives for National Security</li>
+              <li>Board of Visitors - Georgetown University School of Foreign Service</li>
+              <li>Advisory Board - RAND Center for Middle East Public Policy</li>
+              <li>Advisory Board - International Crisis Group</li>
+            </ul>
+          </div>
+        </section>
+
+      
+          <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
+          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
+          <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
+            <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
+            The Trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Stanley Weiss, a global business leader, member of the Board of Visitors of the Georgetown University Walsh School of Foreign Service and DPE fraternity brother by the establishment of a Scholarship Award Program in his name.
+            </p>
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
+                { title: "Intern Evidence", content: "Scholarship recipients must submit evidence of completing the Baratta Center Intern Program." },
+                { title: "Scholarship Amount", content: "Scholarships in the amount of $500 per recipient will be awarded to participants in the Baratta Center Intern Program." }
+              ].map((item, index) => (
+                <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
+                  <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
+                  <p className="text-gray-800 dark:text-white flex-grow">{item.content}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+            Stanley Weiss Global Business Leader Scholarship Form
+          </h1>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+
+          <div className="mb-12 text-center">
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and your evidence of completing the Baratta Center Intern Program. You will be contacted if you have been awarded a scholarship.
+            </p>
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Submission files must be in PDF format.
+            </p>
+          </div>
+
+          <form onSubmit={(e) => handleSubmit(e, 'weiss')} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
+              <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+                Full Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <FileUpload 
+              label="Upload completed application" 
+              id="weiss-application"
+              name="application"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of attendance/graduation" 
+              id="weiss-proof"
+              name="proof"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of completing the Baratta Center Intern Program" 
+              id="weiss-intern"
+              name="intern"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, intern: file }))}
+            />
+
+            {error && (
+              <div className="text-red-500 text-center font-bold">
+                {error}
+              </div>
+            )}
+
+            <div className="text-center">
+              <Button 
+                type="submit" 
+                className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
+            <iframe 
+              src="/Stanley Weiss Global Business Leader Scholarship.pdf" 
+              className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
+              title="Stanley Weiss Global Business Leader Scholarship Application"
+            />
+          </div>
+        </section>
+        */}
+
+        {/* Halleck A Butts Scholarship Section */}
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Halleck A Butts Career Diplomat Scholarships</h2>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+          <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              After service in World War I, Halleck A. Butts graduated from Georgetown University&#39;s School of Foreign Service in 1921 and was the first President of the Alpha Chapter of Delta Phi Epsilon National Professional Foreign Service Fraternity at Georgetown. Prior to his graduation, he was appointed U.S. Trade Commissioner at the American embassy in Tokyo and later became the U.S. Commercial Attaché. He served at the U.S. embassy in Tokyo from 1920 to 1933.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              During World War II, he was Chief of the Japan Section in the U.S. Foreign Economic Administration. He was also associate professor of economics at Duke University, detailed to the Army Finance School to lecture on Far Eastern economics and on Japan&apos;s financial institutions and fiscal policy. He was also a lecturer at the Army Civil Affairs Training Schools at Harvard and Northwestern Universities,
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              He joined the Industrial College of the Armed Forces (ICAF – later renamed the National Defense University) in July 1944 as Assistant Director of Research, Foreign Economic Resources Group and then served as Foreign Economic Advisor to the Army Service Forces (ASF). While there, he also returned to Georgetown as an associate professor of economics. After World War II, while still teaching at Georgetown, Mr. Butts became Chief of the Economic Potential Branch of the Industrial College of the Armed Forces (now known as the National Defense University). He then served his country at the Central Intelligence Agency.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
+          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
+          <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
+          <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
+  The Trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Halleck A. Butts, a distinguished career diplomat, Georgetown University professor, and the first President of the Delta Phi Epsilon National Professional Foreign Service Fraternity, by the establishment of a Scholarship Award Program in his name.
+</p>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
+                { title: "Additional Requirements", content: "Specific requirements for the Halleck A Butts Scholarship will be provided upon application." },
+                { title: "Scholarship Amount", content: "Scholarship amount details for the Halleck A Butts Scholarship will be provided upon application." }
+              ].map((item, index) => (
+                <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
+                  <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
+                  <p className="text-gray-800 dark:text-white flex-grow">{item.content}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+   {/* 
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+            Halleck A Butts Scholarship Application Form
+          </h1>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+
+          <div className="mb-12 text-center">
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and any additional requirements specified for this scholarship. You will be contacted if you have been awarded a scholarship.
+            </p>
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Submission files must be in PDF format.
+            </p>
+          </div>
+
+          <form onSubmit={(e) => handleSubmit(e, 'butts')} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
+              <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+                Full Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <FileUpload 
+              label="Upload completed application" 
+              id="butts-application"
+              name="application"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
+            />
+            <FileUpload 
+              label="Upload proof of attendance/graduation" 
+              id="butts-proof"
+              name="proof"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
+            />
+            <FileUpload 
+              label="Upload additional requirements" 
+              id="butts-requirements"
+              name="requirements"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, requirements: file }))}
+            />
+
+            {error && (
+              <div className="text-red-500 text-center font-bold">
+                {error}
+              </div>
+            )}
+
+            <div className="text-center">
+              <Button 
+                type="submit" 
+                className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
+            <iframe 
+              src="/Halleck A Butts Scholarship.pdf" 
+              className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
+              title="Halleck A Butts Scholarship Career Diplomat Application"
+            />
+          </div>
+        </section>
+        */}
+
       </main>
 
       <footer className="bg-black text-white py-8">
