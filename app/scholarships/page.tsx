@@ -487,7 +487,7 @@ Scholarship Award Program in his name. </p>
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and statement of current enrollment in the Global Business Fellows program at Georgetown University and acceptance in the Baratta Center internships in applied global business and policy. Please submit the form provided." },
-                { title: "Eligibility for The Stanley Weiss Global Business Leader Scholarship", content: "The Delta Phi Epsilon Foundation for Foreign Service Education Stanley Weiss Global Business Leader Scholarships will be awarded to Georgetown University junior or senior students enrolled in the Global Business Fellows program at Georgetown University’s McDonough School of Business and approved by the Baratta Center for Global Business as qualified for internship work on applied global business and policy projects." },
+                { title: "Eligibility for The Stanley Weiss Global Business Leader Scholarship", content: "The Stanley Weiss Global Business Leader Scholarships will be awarded to Georgetown University junior or senior students enrolled in the Global Business Fellows program at Georgetown University’s McDonough School of Business and approved by the Baratta Center for Global Business as qualified for internship work on applied global business and policy projects." },
                 { title: "Scholarship Amount", content: "These $500 scholarships will be awarded to those Global Business Fellows students who are identified by the Baratta Center for Global Business as qualifying for the internship program as one part of the Baratta Center compensation award." }
               ].map((item, index) => (
                 <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
@@ -499,7 +499,7 @@ Scholarship Award Program in his name. </p>
           </div>
         </section>
 
-        {/* 
+   
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
             Stanley Weiss Global Business Leader Scholarship Form
@@ -567,6 +567,9 @@ Scholarship Award Program in his name. </p>
               </Button>
             </div>
           </form>
+          </section>
+
+               {/* 
 
           <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
             <iframe 
@@ -609,7 +612,7 @@ establishment of a Scholarship Award Program in his name.</p>
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and statement of current attendance or graduation from degree programs at Georgetown University. Please submit the form provided." },
-                { title: "Eligibility for The Halleck A. Butts Career Diplomat Scholarship", content: "The Delta Phi Epsilon Foundation for Foreign Service Education Halleck A. Butts Career Diplomat Scholarships will be awarded to Georgetown University students enrolled in the Dikran Izmirlian Program of Business and Global Affairs (BGA) – Georgetown’s joint undergraduate degree program between the Walsh School of Foreign Service and the McDonough School of Business." },
+                { title: "Eligibility for The Halleck A. Butts Career Diplomat Scholarship", content: "The Halleck A. Butts Career Diplomat Scholarships will be awarded to Georgetown University students enrolled in the Dikran Izmirlian Program of Business and Global Affairs (BGA) – Georgetown’s joint undergraduate degree program between the Walsh School of Foreign Service and the McDonough School of Business." },
                 { title: "Scholarship Amount", content: "These $300 scholarships will be awarded to those Izmirlian BGA students who are identified by the program as qualifying for financial need for expenses related to the program's international study and travel requirements." }
               ].map((item, index) => (
                 <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
@@ -620,7 +623,7 @@ establishment of a Scholarship Award Program in his name.</p>
             </div>
           </div>
         </section>
-   {/* 
+
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
             Halleck A Butts Scholarship Application Form
@@ -666,7 +669,7 @@ establishment of a Scholarship Award Program in his name.</p>
               onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
             />
             <FileUpload 
-              label="Upload additional requirements" 
+              label="Upload proof of enrollment in the Dikran Izmirlian Program of Business and Global Affairs program" 
               id="butts-requirements"
               name="requirements"
               onFileChange={(file) => setFiles(prev => ({ ...prev, requirements: file }))}
@@ -688,7 +691,9 @@ establishment of a Scholarship Award Program in his name.</p>
               </Button>
             </div>
           </form>
+          </section>
 
+   {/* 
           <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
             <iframe 
               src="/Halleck A Butts Scholarship.pdf" 
