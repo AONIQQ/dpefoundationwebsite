@@ -479,13 +479,16 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
           <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
             <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
-            The Trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Stanley Weiss, a global business leader, member of the Board of Visitors of the Georgetown University Walsh School of Foreign Service and DPE fraternity brother by the establishment of a Scholarship Award Program in his name.
-            </p>
+            The Trustees of the Delta Phi Epsilon Foundation for Foreign Service
+Education have decided to honor Stanley Weiss, a global business leader,
+member of the Board of Visitors of the Georgetown University Walsh School of
+Foreign Service and DPE fraternity brother by the establishment of a
+Scholarship Award Program in his name. </p>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
-                { title: "Intern Evidence", content: "Scholarship recipients must submit evidence of completing the Baratta Center Intern Program." },
-                { title: "Scholarship Amount", content: "Scholarships in the amount of $500 per recipient will be awarded to participants in the Baratta Center Intern Program." }
+                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and statement of current enrollment in the Global Business Fellows program at Georgetown University and acceptance in the Baratta Center internships in applied global business and policy. Please submit the form provided." },
+                { title: "Eligibility for The Stanley Weiss Global Business Leader Scholarship", content: "The Delta Phi Epsilon Foundation for Foreign Service Education Stanley Weiss Global Business Leader Scholarships will be awarded to Georgetown University junior or senior students enrolled in the Global Business Fellows program at Georgetown University’s McDonough School of Business and approved by the Baratta Center for Global Business as qualified for internship work on applied global business and policy projects." },
+                { title: "Scholarship Amount", content: "These $500 scholarships will be awarded to those Global Business Fellows students who are identified by the Baratta Center for Global Business as qualifying for the internship program as one part of the Baratta Center compensation award." }
               ].map((item, index) => (
                 <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
                   <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
@@ -597,14 +600,17 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
           <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
           <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
-  The Trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Halleck A. Butts, a distinguished career diplomat, Georgetown University professor, and the first President of the Delta Phi Epsilon National Professional Foreign Service Fraternity, by the establishment of a Scholarship Award Program in his name.
-</p>
+          The Trustees of the Delta Phi Epsilon Foundation for Foreign Service
+Education have decided to honor Halleck A. Butts, a distinguished career
+diplomat, Georgetown University professor, and the first President of the
+Delta Phi Epsilon National Professional Foreign Service Fraternity, by the
+establishment of a Scholarship Award Program in his name.</p>
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and evidence of current attendance or graduation from degree programs at Georgetown University." },
-                { title: "Additional Requirements", content: "Specific requirements for the Halleck A Butts Scholarship will be provided upon application." },
-                { title: "Scholarship Amount", content: "Scholarship amount details for the Halleck A Butts Scholarship will be provided upon application." }
+                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and statement of current attendance or graduation from degree programs at Georgetown University. Please submit the form provided." },
+                { title: "Eligibility for The Halleck A. Butts Career Diplomat Scholarship", content: "The Delta Phi Epsilon Foundation for Foreign Service Education Halleck A. Butts Career Diplomat Scholarships will be awarded to Georgetown University students enrolled in the Dikran Izmirlian Program of Business and Global Affairs (BGA) – Georgetown’s joint undergraduate degree program between the Walsh School of Foreign Service and the McDonough School of Business." },
+                { title: "Scholarship Amount", content: "These $300 scholarships will be awarded to those Izmirlian BGA students who are identified by the program as qualifying for financial need for expenses related to the program's international study and travel requirements." }
               ].map((item, index) => (
                 <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
                   <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
