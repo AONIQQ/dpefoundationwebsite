@@ -545,7 +545,7 @@ Scholarship Award Program in his name. </p>
               onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
             />
             <FileUpload 
-              label="Upload proof of completing the Baratta Center Intern Program" 
+              label="Upload proof of approval for the Baratta Center Intern Program" 
               id="weiss-intern"
               name="intern"
               onFileChange={(file) => setFiles(prev => ({ ...prev, intern: file }))}
@@ -567,19 +567,16 @@ Scholarship Award Program in his name. </p>
               </Button>
             </div>
           </form>
-          </section>
-
-               {/* 
 
           <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
             <iframe 
-              src="/Stanley Weiss Global Business Leader Scholarship.pdf" 
+              src="/Weiss.pdf" 
               className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
               title="Stanley Weiss Global Business Leader Scholarship Application"
             />
           </div>
         </section>
-        */}
+    
 
         {/* Halleck A Butts Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
@@ -691,18 +688,16 @@ establishment of a Scholarship Award Program in his name.</p>
               </Button>
             </div>
           </form>
-          </section>
 
-   {/* 
           <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
             <iframe 
-              src="/Halleck A Butts Scholarship.pdf" 
+              src="/Butts.pdf" 
               className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
               title="Halleck A Butts Scholarship Career Diplomat Application"
             />
           </div>
         </section>
-        */}
+    
 
       </main>
 
