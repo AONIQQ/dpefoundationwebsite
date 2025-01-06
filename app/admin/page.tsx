@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/app/components/ui/textarea"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/app/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
-import { Download, Moon, Sun, FileText, Save, Edit, LogOut } from 'lucide-react'
+import { Download, Moon, Sun, FileText, Edit, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
@@ -57,20 +57,15 @@ export default function AdminDashboard() {
   const [weissSubmissions, setWeissSubmissions] = useState<WeissSubmission[]>([])
   const [buttsSubmissions, setButtsSubmissions] = useState<ButtsSubmission[]>([])
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([])
-  const [error, setError] = useState<string | null>(null)
-  const [sortField, setSortField] = useState<string>('submission_time')
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
   const [searchTerm, setSearchTerm] = useState('')
   const [darkMode, setDarkMode] = useState(false)
   const [selectedFile, setSelectedFile] = useState<string | null>(null)
-  const [isSaving, setIsSaving] = useState(false)
   const [editingNotes, setEditingNotes] = useState<{ id: number, notes: string, scholarshipType: ScholarshipType } | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const supabase = createClientComponentClient()
   const router = useRouter()
 
   const fetchSubmissions = useCallback(async () => {
-    setError(null)
     try {
       console.log('Fetching scholarship submissions...')
       // Fetch Bleakley submissions
@@ -111,7 +106,7 @@ export default function AdminDashboard() {
 
     } catch (error) {
       console.error('Error fetching submissions:', error)
-      setError(error instanceof Error ? error.message : 'Failed to fetch submissions')
+      toast.error('Failed to fetch submissions')
     }
   }, [supabase])
 
@@ -218,7 +213,7 @@ export default function AdminDashboard() {
     setSelectedFile(publicUrl)
   }
 
-  const handleStatusChange = async (id: number, status: string) => {
+  const handleStatusChange = async <T extends BaseSubmission>(id: number, status: string, setSubmissions: React.Dispatch<React.SetStateAction<T[]>>) => {
     const table = `${scholarshipType}_scholarship_submissions`
     try {
       const { error } = await supabase
@@ -229,20 +224,9 @@ export default function AdminDashboard() {
       if (error) throw error
 
       // Update local state
-      const updateSubmissions = (submissions: any[]) =>
-        submissions.map(sub => sub.id === id ? { ...sub, status } : sub)
-
-      switch (scholarshipType) {
-        case 'bleakley':
-          setBleakleySubmissions(updateSubmissions)
-          break
-        case 'weiss':
-          setWeissSubmissions(updateSubmissions)
-          break
-        case 'butts':
-          setButtsSubmissions(updateSubmissions)
-          break
-      }
+      setSubmissions(prevSubmissions => 
+        prevSubmissions.map(sub => sub.id === id ? { ...sub, status } : sub)
+      )
 
       toast.success('Status updated successfully')
     } catch (error) {
@@ -251,7 +235,7 @@ export default function AdminDashboard() {
     }
   }
 
-  const handleReviewedChange = async (id: number, reviewed: boolean) => {
+  const handleReviewedChange = async <T extends BaseSubmission>(id: number, reviewed: boolean, setSubmissions: React.Dispatch<React.SetStateAction<T[]>>) => {
     const table = `${scholarshipType}_scholarship_submissions`
     try {
       const { error } = await supabase
@@ -262,20 +246,9 @@ export default function AdminDashboard() {
       if (error) throw error
 
       // Update local state
-      const updateSubmissions = (submissions: any[]) =>
-        submissions.map(sub => sub.id === id ? { ...sub, reviewed: reviewed } : sub)
-
-      switch (scholarshipType) {
-        case 'bleakley':
-          setBleakleySubmissions(updateSubmissions)
-          break
-        case 'weiss':
-          setWeissSubmissions(updateSubmissions)
-          break
-        case 'butts':
-          setButtsSubmissions(updateSubmissions)
-          break
-      }
+      setSubmissions(prevSubmissions => 
+        prevSubmissions.map(sub => sub.id === id ? { ...sub, reviewed } : sub)
+      )
 
       toast.success(`Review status updated to ${reviewed ? 'reviewed' : 'not reviewed'}`)
     } catch (error) {
@@ -296,7 +269,7 @@ export default function AdminDashboard() {
         if (error) throw error
 
         // Update local state
-        const updateSubmissions = (submissions: any[]) =>
+        const updateSubmissions = <T extends BaseSubmission>(submissions: T[]) =>
           submissions.map(sub => sub.id === editingNotes.id ? { ...sub, admin_notes: editingNotes.notes } : sub)
 
         switch (editingNotes.scholarshipType) {
@@ -480,13 +453,37 @@ export default function AdminDashboard() {
                               <TableCell>
                                 <Checkbox
                                   checked={submission.reviewed}
-                                  onCheckedChange={(checked) => handleReviewedChange(submission.id, checked === true)}
+                                  onCheckedChange={(checked) => {
+                                    switch (scholarshipType) {
+                                      case 'bleakley':
+                                        handleReviewedChange<BleakleySubmission>(submission.id, checked === true, setBleakleySubmissions)
+                                        break
+                                      case 'weiss':
+                                        handleReviewedChange<WeissSubmission>(submission.id, checked === true, setWeissSubmissions)
+                                        break
+                                      case 'butts':
+                                        handleReviewedChange<ButtsSubmission>(submission.id, checked === true, setButtsSubmissions)
+                                        break
+                                    }
+                                  }}
                                 />
                               </TableCell>
                               <TableCell>
                                 <Select
                                   value={submission.status}
-                                  onValueChange={(value) => handleStatusChange(submission.id, value)}
+                                  onValueChange={(value) => {
+                                    switch (scholarshipType) {
+                                      case 'bleakley':
+                                        handleStatusChange<BleakleySubmission>(submission.id, value, setBleakleySubmissions)
+                                        break
+                                      case 'weiss':
+                                        handleStatusChange<WeissSubmission>(submission.id, value, setWeissSubmissions)
+                                        break
+                                      case 'butts':
+                                        handleStatusChange<ButtsSubmission>(submission.id, value, setButtsSubmissions)
+                                        break
+                                    }
+                                  }}
                                 >
                                   <SelectTrigger className="w-[200px]">
                                     <SelectValue placeholder="Select status" />
@@ -637,6 +634,12 @@ export default function AdminDashboard() {
           </div>
         )}
       </main>
+
+      <footer className="bg-black text-white py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p>&copy; {new Date().getFullYear()} Delta Phi Epsilon Foundation. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   )
 }
