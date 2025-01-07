@@ -43,6 +43,7 @@ export default function PoliciesPage() {
    
     { title: "Bylaws", file: "/1983_Bylaws.pdf" },
     { title: "IRS Revenue Ruling 56-304", file: "/304.pdf" },
+    { title: "IRS Revenue Ruling 56-403", file: "/403.pdf" },
     { title: "General Committee Guidelines", file: "/General_Committee_Guidelines.pdf" },
     { title: "Alpha House Fund Plan", file: "/Alpha_House_Fund_Plan.pdf" }
   ]
