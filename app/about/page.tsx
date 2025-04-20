@@ -196,6 +196,7 @@ export default function AboutUs() {
       <ul className="pl-6 space-y-2">
         <li>Kenneth Bleakley 2023 - 2024</li>
         <li>James Condren 1962 - 1970</li>
+        <li>Eduardo (Eddie) Deschapelles 2025 - present</li>
         <li>Matthew Ellison 2020 - 2023</li>
         <li>Michael Eriksen 2005 - present</li>
         <li>Walter Giles 1960 - 1962</li>
@@ -255,6 +256,7 @@ export default function AboutUs() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation Trustees</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
+              { name: "Eduardo (Eddie) Deschapelles", role: "Alpha Chapter", denomination: "", occupation: "Finance" },
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
               { name: "Albert L. Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
               { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "192 Line", occupation: "State Senator" },
@@ -278,6 +280,19 @@ export default function AboutUs() {
     Trustee Biographies
   </h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Eduardo (Eddie) Deschapelles</h3>
+      <p>Georgetown University: BSFS – cum laude (1982)</p>
+      <p>Harvard University: MBA – 1988</p>
+      <p>Adjunct Professor: Georgetown University (2017- present)</p>
+      <p>Banking: 1982 – 2004 (Merrill Lynch, Citibank, Chase, Bank of Boston)</p>
+      <p>Hedge Funds: 2004-2017 (Aspect Capital, Permal Group)</p>
+      <p>Private Equity: 2017-2022 (AES Infrastructure Advisors)</p>
+      <p>Board Member: subsidiary companies of Citibank, Aspect, Bank of Boston</p>
+      <p>Seed Investor: SaaS rating software, gaming app, liquor, door fixtures</p>
+      <p>Martial Arts: black belt in shotokan karate</p>
+      <p>Married to Cecilia for 30+ years; 3 adult children</p>
+    </div>
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Michael D. Eriksen</h3>
       <p>Georgetown University: BSFS in International Economic Affairs (1972)</p>
