@@ -141,7 +141,7 @@ export default function AboutUs() {
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation History</h2>
           <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
-            <p>The Foundation was originally formed in 1960 by student, alumni and faculty by Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity and was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
+            <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity and was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
             <p>The original Certificate had four Articles detailing the name, duration, purposes and number of Trustees. These Articles remain unchanged to the current date, although the number of Trustees was reduced to seven in 1984.</p>
             <p>To assure that all three classes of Alpha Chapter Brothers would be represented on the governing board of the Foundation, the initial Trustees included three undergraduate brothers, three alumni brothers and three Georgetown faculty brothers. The following individuals constituted the initial Board of Trustees:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -229,9 +229,9 @@ export default function AboutUs() {
         <li>Albert Grasso 2023 - present</li>
         <li>John Herity 1960 - 1962</li>
         <li>Charles Kaleta 1960 - 1962</li>
-        <li>John Koch 1960 - 1962</li>
       </ul>
       <ul className="pl-6 space-y-2">
+        <li>John Koch 1960 - 1962</li>
         <li>Marcus King 2005 - 2023</li>
         <li>John Leahy 1960 - 1962</li>
         <li>Joseph LeMoine 1960 - 1994</li>

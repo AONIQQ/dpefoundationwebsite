@@ -610,7 +610,7 @@ establishment of a Scholarship Award Program in his name.</p>
               {[
                 { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and statement of current attendance or graduation from degree programs at Georgetown University. Please submit the form provided." },
                 { title: "Eligibility for The Halleck A. Butts Career Diplomat Scholarship", content: "The Halleck A. Butts Career Diplomat Scholarships will be awarded to Georgetown University students enrolled in the Dikran Izmirlian Program of Business and Global Affairs (BGA) – Georgetown’s joint undergraduate degree program between the Walsh School of Foreign Service and the McDonough School of Business." },
-                { title: "Scholarship Amount", content: "These $300 scholarships will be awarded to those Izmirlian BGA students who are identified by the program as qualifying for financial need for expenses related to the program's international study and travel requirements." }
+                { title: "Scholarship Amount", content: "These $500 scholarships will be awarded to those Izmirlian BGA students who are identified by the program as qualifying for financial need for expenses related to the program's international study and travel requirements." }
               ].map((item, index) => (
                 <div key={index} className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
                   <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
