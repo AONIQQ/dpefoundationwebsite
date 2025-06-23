@@ -38,6 +38,9 @@ export default function AboutUs() {
             <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
               Programs
             </Link>
+            <Link href="/facilities" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
+              Facilities
+            </Link>
             <Link href="/scholarships" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
               Scholarships
             </Link>
@@ -84,6 +87,9 @@ export default function AboutUs() {
             <Link href="/programs" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
               Programs
             </Link>
+            <Link href="/facilities" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
+              Facilities
+            </Link>
             <Link href="/contact" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
               Contact Us
             </Link>
@@ -99,31 +105,6 @@ export default function AboutUs() {
 
       <main className="container mx-auto px-4 py-8 sm:py-12">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 text-center text-black dark:text-white">About Us</h1>
-
-        <section className="mb-16">
-          <div className="max-w-4xl mx-auto">
-            <iframe
-              src="/6-9-10 Status Ltr to Brotherhood.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-              className="w-full min-h-screen border-0 shadow-lg rounded-lg"
-              style={{ 
-                border: 'none', 
-                outline: 'none',
-                background: 'white',
-                minHeight: '800px'
-              }}
-              title="Status Letter to Brotherhood"
-            />
-            <div className="mt-4 text-center">
-              <Link 
-                href="/6-9-10 Status Ltr to Brotherhood.pdf" 
-                target="_blank" 
-                className="inline-block font-serif font-semibold text-[#d4af36] hover:text-[#b08d28] transition duration-300 underline"
-              >
-                Download PDF
-              </Link>
-            </div>
-          </div>
-        </section>
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Certificate of Incorporation</h2>
@@ -254,7 +235,32 @@ export default function AboutUs() {
         <li>Bailey Walsh 1962 - 2005</li>
       </ul>
     </div>
-  </div>        
+            </div>        
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <div className="max-w-4xl mx-auto">
+            <iframe
+              src="/6-9-10 Status Ltr to Brotherhood.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+              className="w-full min-h-screen border-0 shadow-lg rounded-lg"
+              style={{ 
+                border: 'none', 
+                outline: 'none',
+                background: 'white',
+                minHeight: '800px'
+              }}
+              title="Status Letter to Brotherhood"
+            />
+            <div className="mt-4 text-center">
+              <Link 
+                href="/6-9-10 Status Ltr to Brotherhood.pdf" 
+                target="_blank" 
+                className="inline-block font-serif font-semibold text-[#d4af36] hover:text-[#b08d28] transition duration-300 underline"
+              >
+                Download PDF
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -356,7 +362,7 @@ export default function AboutUs() {
       <p>Former Aide to Speaker of the House Kevin McCarthy</p>
       <p>Former Chief of Staff, Manhattan Institute</p>
       <p>
-        State Senator-elect, Northeast Philadelphia (youngest in Pennsylvania; first Republican
+        State Senator, Northeast Philadelphia (youngest in Pennsylvania; first Republican
         elected to represent Philadelphia in the State Senate since 1996)
       </p>
     </div>
@@ -428,53 +434,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* === Facilities ▸ House Management Committee === */}
-        <section id="facilities" className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Facilities</h2>
-          <h3 className="text-3xl sm:text-4xl font-bold mb-2 text-center text-[#d4af36]">House Management Committee</h3>
-          <hr className="w-24 mx-auto border-t-2 border-[#d4af36] mb-12" />
 
-          {/* Member grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
-              <h4 className="text-2xl font-semibold mb-2 text-[#d4af36]">Joseph Picozzi</h4>
-              <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">Interim Chair</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base">Alpha Chapter</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base mt-1">State Senator</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
-              <h4 className="text-2xl font-semibold mb-2 text-[#d4af36]">Michael &quot;Duke&quot; Eriksen</h4>
-              <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">Member</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base">Alpha Chapter</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base mt-1">Attorney</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
-              <h4 className="text-2xl font-semibold mb-2 text-[#d4af36]">Vincent Chiarello</h4>
-              <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">Member</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base">Alpha Chapter</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base mt-1">Real Estate</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
-              <h4 className="text-2xl font-semibold mb-2 text-[#d4af36]">Nash Peart</h4>
-              <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">Member</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base">Alpha Chapter</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base mt-1">Contractor</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
-              <h4 className="text-2xl font-semibold mb-2 text-[#d4af36]">Harsh Thacker</h4>
-              <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">Member</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base">Alpha Chapter</p>
-              <p className="text-gray-500 dark:text-gray-400 text-base mt-1">Real Estate</p>
-            </div>
-          </div>
-
-          {/* Explanatory copy */}
-          <p className="max-w-3xl mx-auto text-center text-base sm:text-lg leading-relaxed text-gray-600 dark:text-gray-300">
-            The House Management Committee is responsible for locating an appropriate headquarters
-            facility, assisting in its acquisition, and managing the acquired property. A copy of the
-            Alpha House Fund Plan is available on the website.
-          </p>
-        </section>
       </main>
 
       <footer className="bg-black text-white py-8">

@@ -248,6 +248,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
             <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Programs
             </Link>
+            <Link href="/facilities" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Facilities
+            </Link>
             <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Policies
             </Link>
@@ -289,6 +292,18 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           <nav className="flex flex-col items-center space-y-6 mt-8">
             <Link href="/" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Home
+            </Link>
+            <Link href="/about" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              About Us
+            </Link>
+            <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Programs
+            </Link>
+            <Link href="/facilities" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Facilities
+            </Link>
+            <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Policies
             </Link>
             <Link href="/contact" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Contact Us

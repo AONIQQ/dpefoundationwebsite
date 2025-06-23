@@ -66,7 +66,7 @@ export default function PoliciesPage() {
             />
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-          <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+          <Link href="/" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Home
             </Link>
             <Link href="/about" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
@@ -74,6 +74,9 @@ export default function PoliciesPage() {
             </Link>
             <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Programs
+            </Link>
+            <Link href="/facilities" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+              Facilities
             </Link>
             <Link href="/scholarships" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
               Scholarships
@@ -106,10 +109,22 @@ export default function PoliciesPage() {
                 <X className="h-6 w-6 text-[#d4af36]" />
               </Button>
             </div>
-            <Link href="/scholarship-application" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
-              Scholarship Application
+            <Link href="/" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
+              Home
             </Link>
-            <Link href="/contact" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg">
+            <Link href="/about" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
+              About Us
+            </Link>
+            <Link href="/programs" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
+              Programs
+            </Link>
+            <Link href="/facilities" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
+              Facilities
+            </Link>
+            <Link href="/scholarships" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
+              Scholarships
+            </Link>
+            <Link href="/contact" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-lg text-center">
               Contact Us
             </Link>
             <button
