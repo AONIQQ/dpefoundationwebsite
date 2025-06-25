@@ -345,6 +345,42 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           </div>
         </section>
 
+        {/* Landegger Program Section */}
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Landegger Program in International Business Diplomacy</h2>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+          <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <h3 className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">School of Foreign Service Global Impact Pitch Competition</h3>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              Effective with Spring 2025, the Foundation has partnered with the Landegger Program within the Georgetown School of Foreign Service as a contributing sponsor of the annual Global Impact Pitch Competition (GIPC).
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              The Landegger Program is an honors certificate program within the School of Foreign Service that blends international business with international diplomacy.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              The GIPC is an innovative entrepreneurial event now in its eighth year hosted by the Landegger Program and serving the entire Georgetown University community. The Competition features thousands of dollars in prize money plus networking and mentoring opportunities in support of implementation of entries.
+            </p>
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold mb-4 text-[#d4af36]">Selection criteria include:</h4>
+              <ul className="list-disc pl-6 text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed space-y-2">
+                <li>Potential for positive impact on an international challenge, problem or issue broadly defined.</li>
+                <li>Potential for financial sustainability.</li>
+                <li>Solving a problem or meeting a need that someone is willing to finance.</li>
+                <li>Strong founder fit, high likelihood of implementation and impact of the award.</li>
+              </ul>
+            </div>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              For additional information about the Program and Competition, visit{' '}
+              <a href="https://www.ibd.georgetown.edu" target="_blank" rel="noopener noreferrer" className="text-[#d4af36] hover:underline">
+                www.ibd.georgetown.edu
+              </a>.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed">
+              The Trustees believe that participation as a sponsor of the Competition promotes Foundation objectives similar to the granting of scholarships.
+            </p>
+          </div>
+        </section>
+
         {/* Kenneth W Bleakley Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
