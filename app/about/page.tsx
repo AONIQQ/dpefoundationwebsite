@@ -240,6 +240,7 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Current Developments</h2>
           <div className="max-w-4xl mx-auto">
             <iframe
               src="/6-9-10 Status Ltr to Brotherhood.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"

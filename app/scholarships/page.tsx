@@ -348,9 +348,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
         {/* Landegger Program Section */}
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Landegger Program in International Business Diplomacy</h2>
+          <p className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">School of Foreign Service</p>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
           <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
-            <h3 className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">School of Foreign Service Global Impact Pitch Competition</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">Global Impact Pitch Competition</h3>
             <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
               Effective with Spring 2025, the Foundation has partnered with the Landegger Program within the Georgetown School of Foreign Service as a contributing sponsor of the annual Global Impact Pitch Competition (GIPC).
             </p>
@@ -434,7 +435,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
              Submission files must be in PDF format.
             </p> 
             <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
-            Applications by persons planning to take the Foreign Service Officer Test in February 2025 may be filed commencing December 1, 2024 and until February 28, 2025. Applications relating to tests prior to October 1, 2024 are untimely and will no longer be accepted.
+            The present Administration cancelled the February 2025 test and postponed testing until further notice.
             </p> 
            
           </div>
