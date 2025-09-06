@@ -18,6 +18,9 @@ type FileState = {
   fsot: File | null;
   intern: File | null;
   requirements: File | null;
+  resume: File | null;
+  transcript: File | null;
+  recommendation: File | null;
 }
 
 function FileUpload({ label, id, name, onFileChange }: { label: string; id: string; name: string; onFileChange: (file: File | null) => void }) {
@@ -76,7 +79,10 @@ export default function ScholarshipApplication() {
     proof: null,
     fsot: null,
     intern: null,
-    requirements: null
+    requirements: null,
+    resume: null,
+    transcript: null,
+    recommendation: null
   })
   const [error, setError] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -123,6 +129,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
   } else if (scholarshipType === 'butts' && (!files.application || !files.proof || !files.requirements)) {
     setError('Please upload all required files for the Butts Scholarship.')
     hasError = true
+  } else if (scholarshipType === 'lemoine' && (!files.application || !files.resume || !files.transcript || !files.recommendation)) {
+    setError('Please upload all required files for the LeMoine Scholarship (application, resume, transcript, recommendation).')
+    hasError = true
   }
 
   if (hasError) {
@@ -137,7 +146,12 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
     const formData = new FormData(e.currentTarget)
 
     // Upload files to Supabase storage
-    let applicationPath, proofPath, additionalFilePath = null
+    let applicationPath: string | null = null
+    let proofPath: string | null = null
+    let additionalFilePath: string | null = null
+    let resumePath: string | null = null
+    let transcriptPath: string | null = null
+    let recommendationPath: string | null = null
 
     if (scholarshipType === 'bleakley') {
       // Use original bucket names for Bleakley scholarship
@@ -154,30 +168,61 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
       applicationPath = files.application ? await uploadFile(files.application, 'butts-applications') : null
       proofPath = files.proof ? await uploadFile(files.proof, 'butts-attendance-proof') : null
       additionalFilePath = files.requirements ? await uploadFile(files.requirements, 'butts-requirements') : null
+    } else if (scholarshipType === 'lemoine') {
+      // Use dedicated buckets for LeMoine scholarship
+      applicationPath = files.application ? await uploadFile(files.application, 'lemoine-applications') : null
+      resumePath = files.resume ? await uploadFile(files.resume, 'lemoine-resumes') : null
+      transcriptPath = files.transcript ? await uploadFile(files.transcript, 'lemoine-transcripts') : null
+      recommendationPath = files.recommendation ? await uploadFile(files.recommendation, 'lemoine-recommendations') : null
     }
 
     console.log('Files uploaded successfully')
 
     // Insert submission into database
+    // Build insert payload per scholarship type
+    type InsertPayload = {
+      full_name: string
+      application_file_path: string | null
+      attendance_file_path?: string | null
+      test_completion_file_path?: string | null
+      intern_completion_file_path?: string | null
+      additional_requirements_file_path?: string | null
+      resume_file_path?: string | null
+      transcript_file_path?: string | null
+      recommendation_file_path?: string | null
+    }
+
+    const insertPayload: InsertPayload = {
+      full_name: formData.get('fullName') as string,
+      application_file_path: applicationPath,
+    }
+
+    if (scholarshipType === 'bleakley') {
+      insertPayload.attendance_file_path = proofPath
+      insertPayload.test_completion_file_path = additionalFilePath
+    } else if (scholarshipType === 'weiss') {
+      insertPayload.attendance_file_path = proofPath
+      insertPayload.intern_completion_file_path = additionalFilePath
+    } else if (scholarshipType === 'butts') {
+      insertPayload.attendance_file_path = proofPath
+      insertPayload.additional_requirements_file_path = additionalFilePath
+    } else if (scholarshipType === 'lemoine') {
+      // Requires columns: resume_file_path, transcript_file_path, recommendation_file_path
+      insertPayload.resume_file_path = resumePath
+      insertPayload.transcript_file_path = transcriptPath
+      insertPayload.recommendation_file_path = recommendationPath
+    }
+
     const { data, error } = await supabase
       .from(`${scholarshipType}_scholarship_submissions`)
-      .insert([
-        {
-          full_name: formData.get('fullName') as string,
-          application_file_path: applicationPath,
-          attendance_file_path: proofPath,
-          [scholarshipType === 'bleakley' ? 'test_completion_file_path' : 
-           scholarshipType === 'weiss' ? 'intern_completion_file_path' :
-           'additional_requirements_file_path']: additionalFilePath,
-        },
-      ])
+      .insert([insertPayload])
 
     if (error) throw error
 
     console.log('Submission successful:', data)
     // Reset form
     setFullName('')
-    setFiles({ application: null, proof: null, fsot: null, intern: null, requirements: null })
+    setFiles({ application: null, proof: null, fsot: null, intern: null, requirements: null, resume: null, transcript: null, recommendation: null })
     toast.success('Your application has been submitted successfully!')
   } catch (error) {
     console.error('Error submitting application:', error)
@@ -342,6 +387,135 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
                 <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation} at {officer.company}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* LeMoine Scholarship Info (intro) */}
+        <section id="lemoine-internship" className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Delta Phi Epsilon Foundation / Joe LeMoine Internship Scholarship Program</h2>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+          <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+              Supports Georgetown University undergraduates pursuing unpaid internships in international business or international affairs.
+            </p>
+        
+          </div>
+        </section>
+
+        {/* LeMoine Scholarship Information (cards) */}
+        <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
+          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
+          <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
+                <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Award amounts</h3>
+                <ul className="list-disc pl-6 text-gray-800 dark:text-white">
+                  <li><strong>Summer (10 weeks, full-time):</strong> up to <strong>$5,000</strong></li>
+                  <li><strong>Semester (≈15 hrs/week, part-time):</strong> up to <strong>$500/month</strong></li>
+                </ul>
+              </div>
+              <div className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
+                <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Eligibility &amp; Selection</h3>
+                <ul className="list-disc pl-6 text-gray-800 dark:text-white space-y-1">
+                  <li>Current Georgetown University student (freshman, sophomore, or junior)</li>
+                  <li><strong>Graduating seniors are not eligible</strong></li>
+                  <li>Interest in international business and/or international affairs</li>
+                  <li>Leadership experience; strong academic performance</li>
+                  <li>Commitment to Georgetown’s values; finalists may be interviewed</li>
+                </ul>
+                <p className="text-gray-800 dark:text-white mt-3"><strong>Important:</strong> Applicants must have an internship secured prior to applying. The DPE Foundation does not secure internships.</p>
+              </div>
+              <div className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
+                <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Required materials</h3>
+                <ul className="list-disc pl-6 text-gray-800 dark:text-white mb-4">
+                  <li>Completed application form (fillable PDF)</li>
+                  <li>Resume</li>
+                  <li>Unofficial academic transcript</li>
+                  <li>One letter of recommendation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* LeMoine Scholarship Application Form */}
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+            Joe LeMoine Internship Scholarship Form
+          </h1>
+          <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
+
+          <div className="mb-12 text-center">
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+              Please download the application, fill it out, and use the submission module below to upload your completed application, resume, unofficial transcript, and one letter of recommendation.
+            </p>
+            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">Submission files should be PDF.</p>
+          </div>
+
+          <form onSubmit={(e) => handleSubmit(e, 'lemoine')} className="mb-12 space-y-8 p-8 bg-white dark:bg-gray-900 rounded-lg shadow-xl border-2 border-[#d4af36]">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border-2 border-[#d4af36] transition-all duration-300 hover:shadow-xl">
+              <Label htmlFor="fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+                Full Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="fullName"
+                name="fullName"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-white dark:bg-gray-800 focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                placeholder="Enter your full name"
+                required
+              />
+            </div>
+
+            <FileUpload 
+              label="Upload completed application (fillable PDF)" 
+              id="lemoine-application"
+              name="application"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
+            />
+            <FileUpload 
+              label="Upload resume" 
+              id="lemoine-resume"
+              name="resume"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, resume: file }))}
+            />
+            <FileUpload 
+              label="Upload unofficial academic transcript" 
+              id="lemoine-transcript"
+              name="transcript"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, transcript: file }))}
+            />
+            <FileUpload 
+              label="Upload one letter of recommendation" 
+              id="lemoine-recommendation"
+              name="recommendation"
+              onFileChange={(file) => setFiles(prev => ({ ...prev, recommendation: file }))}
+            />
+
+            {error && (
+              <div className="text-red-500 text-center font-bold">{error}</div>
+            )}
+
+            <div className="text-center">
+              <Button 
+                type="submit" 
+                className="bg-[#d4af36] hover:bg-[#b08d28] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
+            <iframe 
+              src="/DPE_LeMoine_Internship_Scholarship_Application.pdf" 
+              className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
+              title="Joe LeMoine Internship Scholarship Application"
+            />
           </div>
         </section>
 

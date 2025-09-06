@@ -41,7 +41,13 @@ interface ButtsSubmission extends BaseSubmission {
   additional_requirements_file_path: string
 }
 
-type ScholarshipType = 'bleakley' | 'weiss' | 'butts'
+interface LeMoineSubmission extends BaseSubmission {
+  resume_file_path: string
+  transcript_file_path: string
+  recommendation_file_path: string
+}
+
+type ScholarshipType = 'bleakley' | 'weiss' | 'butts' | 'lemoine'
 
 interface ContactSubmission {
   id: number
@@ -56,6 +62,7 @@ export default function AdminDashboard() {
   const [bleakleySubmissions, setBleakleySubmissions] = useState<BleakleySubmission[]>([])
   const [weissSubmissions, setWeissSubmissions] = useState<WeissSubmission[]>([])
   const [buttsSubmissions, setButtsSubmissions] = useState<ButtsSubmission[]>([])
+  const [lemoineSubmissions, setLeMoineSubmissions] = useState<LeMoineSubmission[]>([])
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [darkMode, setDarkMode] = useState(false)
@@ -95,6 +102,15 @@ export default function AdminDashboard() {
       if (buttsError) throw buttsError
       setButtsSubmissions(buttsData || [])
 
+      // Fetch LeMoine submissions
+      const { data: lemoineData, error: lemoineError } = await supabase
+        .from('lemoine_scholarship_submissions')
+        .select('*')
+        .order('submission_time', { ascending: false })
+
+      if (lemoineError) throw lemoineError
+      setLeMoineSubmissions(lemoineData || [])
+
       // Fetch contact submissions
       const { data: contactData, error: contactError } = await supabase
         .from('contact_form_submissions')
@@ -130,6 +146,8 @@ export default function AdminDashboard() {
         return weissSubmissions
       case 'butts':
         return buttsSubmissions
+      case 'lemoine':
+        return lemoineSubmissions
       default:
         return []
     }
@@ -149,24 +167,40 @@ export default function AdminDashboard() {
       filename = 'contact_submissions.csv'
     } else {
       const submissions = getCurrentSubmissions()
-      data = submissions.map(s => [
-        s.full_name,
-        s.application_file_path,
-        s.attendance_file_path,
-        type === 'bleakley' ? (s as BleakleySubmission).test_completion_file_path :
-        type === 'weiss' ? (s as WeissSubmission).intern_completion_file_path :
-        (s as ButtsSubmission).additional_requirements_file_path,
-        new Date(s.submission_time).toLocaleString(),
-        s.reviewed ? 'Yes' : 'No',
-        s.status,
-        s.admin_notes.replace(/"/g, '""') // Escape quotes in the notes
-      ])
+      if (type === 'lemoine') {
+        data = (submissions as LeMoineSubmission[]).map(s => [
+          s.full_name,
+          s.application_file_path,
+          s.resume_file_path,
+          s.transcript_file_path,
+          s.recommendation_file_path,
+          new Date(s.submission_time).toLocaleString(),
+          (s as BaseSubmission).reviewed ? 'Yes' : 'No',
+          (s as BaseSubmission).status,
+          (s as BaseSubmission).admin_notes?.replace(/"/g, '""') || ''
+        ])
+      } else {
+        data = submissions.map(s => [
+          s.full_name,
+          s.application_file_path,
+          s.attendance_file_path,
+          type === 'bleakley' ? (s as BleakleySubmission).test_completion_file_path :
+          type === 'weiss' ? (s as WeissSubmission).intern_completion_file_path :
+          (s as ButtsSubmission).additional_requirements_file_path,
+          new Date(s.submission_time).toLocaleString(),
+          s.reviewed ? 'Yes' : 'No',
+          s.status,
+          s.admin_notes.replace(/"/g, '""') // Escape quotes in the notes
+        ])
+      }
       filename = `${type}_scholarship_submissions.csv`
     }
 
     const headers = type === 'contact' 
       ? ['Full Name', 'Email', 'Message', 'Submitted At']
-      : ['Full Name', 'Application File', 'Attendance File', `${getAdditionalFileLabel(type)}`, 'Submitted At', 'Reviewed', 'Status', 'Admin Notes']
+      : type === 'lemoine'
+      ? ['Full Name', 'Application File', 'Resume File', 'Transcript File', 'Recommendation File', 'Submitted At', 'Reviewed', 'Status', 'Admin Notes']
+      : ['Full Name', 'Application File', 'Attendance File', `${getAdditionalFileLabel(type as ScholarshipType)}`, 'Submitted At', 'Reviewed', 'Status', 'Admin Notes']
 
     const csvContent = [
       headers.join(','),
@@ -201,6 +235,24 @@ export default function AdminDashboard() {
         case 'additional':
           bucket = 'fsot'
           break
+      }
+    } else if (scholarshipType === 'lemoine') {
+      // Dedicated buckets for LeMoine
+      switch (fileType) {
+        case 'application':
+          bucket = 'lemoine-applications'
+          break
+        case 'resume':
+          bucket = 'lemoine-resumes'
+          break
+        case 'transcript':
+          bucket = 'lemoine-transcripts'
+          break
+        case 'recommendation':
+          bucket = 'lemoine-recommendations'
+          break
+        default:
+          bucket = 'lemoine-applications'
       }
     } else {
       // Use new bucket names for Weiss and Butts
@@ -282,6 +334,9 @@ export default function AdminDashboard() {
           case 'butts':
             setButtsSubmissions(updateSubmissions)
             break
+          case 'lemoine':
+            setLeMoineSubmissions(updateSubmissions)
+            break
         }
 
         setEditingNotes(null)
@@ -322,6 +377,8 @@ export default function AdminDashboard() {
         return 'Intern Program'
       case 'butts':
         return 'Requirements'
+      case 'lemoine':
+        return 'Additional File'
       default:
         return 'Additional File'
     }
@@ -364,21 +421,22 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <Tabs value={scholarshipType} onValueChange={(value: string) => setScholarshipType(value as ScholarshipType)}>
-              <TabsList className="mb-4">
-                <TabsTrigger value="bleakley">Bleakley Scholarship</TabsTrigger>
-                <TabsTrigger value="weiss">Weiss Scholarship</TabsTrigger>
-                <TabsTrigger value="butts">Butts Scholarship</TabsTrigger>
-              </TabsList>
+            <TabsList className="mb-4 flex flex-wrap gap-2 h-auto md:h-10 p-0 md:p-1 w-full items-stretch">
+              <TabsTrigger value="bleakley" className="w-1/2 md:w-auto justify-center">Bleakley Scholarship</TabsTrigger>
+              <TabsTrigger value="weiss" className="w-1/2 md:w-auto justify-center">Weiss Scholarship</TabsTrigger>
+              <TabsTrigger value="butts" className="w-1/2 md:w-auto justify-center">Butts Scholarship</TabsTrigger>
+              <TabsTrigger value="lemoine" className="w-1/2 md:w-auto justify-center">LeMoine Scholarship</TabsTrigger>
+            </TabsList>
 
-              {['bleakley', 'weiss', 'butts'].map((type) => (
-                <TabsContent key={type} value={type}>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
+            {(['bleakley', 'weiss', 'butts', 'lemoine'] as ScholarshipType[]).map((type) => (
+              <TabsContent key={type} value={type}>
+                <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
                       <Input
                         placeholder="Search submissions..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-64"
+                        className="w-full md:w-64"
                       />
                       <Button onClick={() => downloadCSV(type as ScholarshipType)} className="bg-[#d4af36]">
                         <Download className="mr-2 h-4 w-4" />
@@ -386,7 +444,8 @@ export default function AdminDashboard() {
                       </Button>
                     </div>
 
-                    <Table>
+                    <div className="hidden md:block overflow-x-auto">
+                    <Table className="min-w-[800px]">
                       <TableHeader>
                         <TableRow>
                           <TableHead>Full Name</TableHead>
@@ -406,47 +465,102 @@ export default function AdminDashboard() {
                             <TableRow key={submission.id}>
                               <TableCell>{submission.full_name}</TableCell>
                               <TableCell>
-                                <div className="flex space-x-2">
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => handleFileClick(
-                                      submission.application_file_path,
-                                      scholarshipType as ScholarshipType,
-                                      'application'
-                                    )}
-                                  >
-                                    <FileText className="h-4 w-4" />
-                                    <span className="sr-only">Application</span>
-                                  </Button>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => handleFileClick(
-                                      submission.attendance_file_path,
-                                      scholarshipType as ScholarshipType,
-                                      'attendance'
-                                    )}
-                                  >
-                                    <FileText className="h-4 w-4" />
-                                    <span className="sr-only">Attendance</span>
-                                  </Button>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => handleFileClick(
-                                      scholarshipType === 'bleakley' 
-                                        ? (submission as BleakleySubmission).test_completion_file_path
-                                        : scholarshipType === 'weiss'
-                                        ? (submission as WeissSubmission).intern_completion_file_path
-                                        : (submission as ButtsSubmission).additional_requirements_file_path,
-                                      scholarshipType as ScholarshipType,
-                                      'additional'
-                                    )}
-                                  >
-                                    <FileText className="h-4 w-4" />
-                                    <span className="sr-only">{getAdditionalFileLabel(scholarshipType)}</span>
-                                  </Button>
+                                <div className="flex flex-wrap gap-2">
+                                  {scholarshipType === 'lemoine' ? (
+                                    <>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleFileClick(
+                                          submission.application_file_path,
+                                          scholarshipType as ScholarshipType,
+                                          'application'
+                                        )}
+                                      >
+                                        <FileText className="h-4 w-4" />
+                                        <span className="sr-only">Application</span>
+                                      </Button>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleFileClick(
+                                          (submission as LeMoineSubmission).resume_file_path,
+                                          scholarshipType as ScholarshipType,
+                                          'resume'
+                                        )}
+                                      >
+                                        <FileText className="h-4 w-4" />
+                                        <span className="sr-only">Resume</span>
+                                      </Button>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleFileClick(
+                                          (submission as LeMoineSubmission).transcript_file_path,
+                                          scholarshipType as ScholarshipType,
+                                          'transcript'
+                                        )}
+                                      >
+                                        <FileText className="h-4 w-4" />
+                                        <span className="sr-only">Transcript</span>
+                                      </Button>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleFileClick(
+                                          (submission as LeMoineSubmission).recommendation_file_path,
+                                          scholarshipType as ScholarshipType,
+                                          'recommendation'
+                                        )}
+                                      >
+                                        <FileText className="h-4 w-4" />
+                                        <span className="sr-only">Recommendation</span>
+                                      </Button>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleFileClick(
+                                          submission.application_file_path,
+                                          scholarshipType as ScholarshipType,
+                                          'application'
+                                        )}
+                                      >
+                                        <FileText className="h-4 w-4" />
+                                        <span className="sr-only">Application</span>
+                                      </Button>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleFileClick(
+                                          submission.attendance_file_path,
+                                          scholarshipType as ScholarshipType,
+                                          'attendance'
+                                        )}
+                                      >
+                                        <FileText className="h-4 w-4" />
+                                        <span className="sr-only">Attendance</span>
+                                      </Button>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleFileClick(
+                                          scholarshipType === 'bleakley' 
+                                            ? (submission as BleakleySubmission).test_completion_file_path
+                                            : scholarshipType === 'weiss'
+                                            ? (submission as WeissSubmission).intern_completion_file_path
+                                            : (submission as ButtsSubmission).additional_requirements_file_path,
+                                          scholarshipType as ScholarshipType,
+                                          'additional'
+                                        )}
+                                      >
+                                        <FileText className="h-4 w-4" />
+                                        <span className="sr-only">{getAdditionalFileLabel(scholarshipType)}</span>
+                                      </Button>
+                                    </>
+                                  )}
                                 </div>
                               </TableCell>
                               <TableCell>{new Date(submission.submission_time).toLocaleString()}</TableCell>
@@ -463,6 +577,9 @@ export default function AdminDashboard() {
                                         break
                                       case 'butts':
                                         handleReviewedChange<ButtsSubmission>(submission.id, checked === true, setButtsSubmissions)
+                                        break
+                                      case 'lemoine':
+                                        handleReviewedChange<LeMoineSubmission>(submission.id, checked === true, setLeMoineSubmissions)
                                         break
                                     }
                                   }}
@@ -482,10 +599,13 @@ export default function AdminDashboard() {
                                       case 'butts':
                                         handleStatusChange<ButtsSubmission>(submission.id, value, setButtsSubmissions)
                                         break
+                                      case 'lemoine':
+                                        handleStatusChange<LeMoineSubmission>(submission.id, value, setLeMoineSubmissions)
+                                        break
                                     }
                                   }}
                                 >
-                                  <SelectTrigger className="w-[200px]">
+                                  <SelectTrigger className="w-[180px] md:w-[200px]">
                                     <SelectValue placeholder="Select status" />
                                   </SelectTrigger>
                                   <SelectContent>
@@ -545,6 +665,168 @@ export default function AdminDashboard() {
                           ))}
                       </TableBody>
                     </Table>
+                    </div>
+
+                    {/* Mobile list view */}
+                    <div className="md:hidden space-y-4">
+                      {getCurrentSubmissions()
+                        .filter(submission => submission.full_name.toLowerCase().includes(searchTerm.toLowerCase()))
+                        .map((submission) => (
+                          <div key={submission.id} className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <div className="font-semibold text-black dark:text-white">{submission.full_name}</div>
+                                <div className="text-sm text-gray-600 dark:text-gray-300">{new Date(submission.submission_time).toLocaleString()}</div>
+                              </div>
+                            </div>
+                            <div className="flex flex-wrap gap-2 mt-3">
+                              {scholarshipType === 'lemoine' ? (
+                                <>
+                                  <Button variant="outline" size="sm" onClick={() => handleFileClick(submission.application_file_path, scholarshipType as ScholarshipType, 'application')}>
+                                    <FileText className="h-4 w-4" />
+                                    <span className="sr-only">Application</span>
+                                  </Button>
+                                  <Button variant="outline" size="sm" onClick={() => handleFileClick((submission as LeMoineSubmission).resume_file_path, scholarshipType as ScholarshipType, 'resume')}>
+                                    <FileText className="h-4 w-4" />
+                                    <span className="sr-only">Resume</span>
+                                  </Button>
+                                  <Button variant="outline" size="sm" onClick={() => handleFileClick((submission as LeMoineSubmission).transcript_file_path, scholarshipType as ScholarshipType, 'transcript')}>
+                                    <FileText className="h-4 w-4" />
+                                    <span className="sr-only">Transcript</span>
+                                  </Button>
+                                  <Button variant="outline" size="sm" onClick={() => handleFileClick((submission as LeMoineSubmission).recommendation_file_path, scholarshipType as ScholarshipType, 'recommendation')}>
+                                    <FileText className="h-4 w-4" />
+                                    <span className="sr-only">Recommendation</span>
+                                  </Button>
+                                </>
+                              ) : (
+                                <>
+                                  <Button variant="outline" size="sm" onClick={() => handleFileClick(submission.application_file_path, scholarshipType as ScholarshipType, 'application')}>
+                                    <FileText className="h-4 w-4" />
+                                    <span className="sr-only">Application</span>
+                                  </Button>
+                                  <Button variant="outline" size="sm" onClick={() => handleFileClick(submission.attendance_file_path, scholarshipType as ScholarshipType, 'attendance')}>
+                                    <FileText className="h-4 w-4" />
+                                    <span className="sr-only">Attendance</span>
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => handleFileClick(
+                                      scholarshipType === 'bleakley'
+                                        ? (submission as BleakleySubmission).test_completion_file_path
+                                        : scholarshipType === 'weiss'
+                                        ? (submission as WeissSubmission).intern_completion_file_path
+                                        : (submission as ButtsSubmission).additional_requirements_file_path,
+                                      scholarshipType as ScholarshipType,
+                                      'additional'
+                                    )}
+                                  >
+                                    <FileText className="h-4 w-4" />
+                                    <span className="sr-only">{getAdditionalFileLabel(scholarshipType)}</span>
+                                  </Button>
+                                </>
+                              )}
+                            </div>
+                            <div className="flex items-center justify-between gap-3 mt-3">
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm text-gray-700 dark:text-gray-200">Reviewed</span>
+                                <Checkbox
+                                  checked={submission.reviewed}
+                                  onCheckedChange={(checked) => {
+                                    switch (scholarshipType) {
+                                      case 'bleakley':
+                                        handleReviewedChange<BleakleySubmission>(submission.id, checked === true, setBleakleySubmissions)
+                                        break
+                                      case 'weiss':
+                                        handleReviewedChange<WeissSubmission>(submission.id, checked === true, setWeissSubmissions)
+                                        break
+                                      case 'butts':
+                                        handleReviewedChange<ButtsSubmission>(submission.id, checked === true, setButtsSubmissions)
+                                        break
+                                      case 'lemoine':
+                                        handleReviewedChange<LeMoineSubmission>(submission.id, checked === true, setLeMoineSubmissions)
+                                        break
+                                    }
+                                  }}
+                                />
+                              </div>
+                              <div className="flex-1 text-right">
+                                <Select
+                                  value={submission.status}
+                                  onValueChange={(value) => {
+                                    switch (scholarshipType) {
+                                      case 'bleakley':
+                                        handleStatusChange<BleakleySubmission>(submission.id, value, setBleakleySubmissions)
+                                        break
+                                      case 'weiss':
+                                        handleStatusChange<WeissSubmission>(submission.id, value, setWeissSubmissions)
+                                        break
+                                      case 'butts':
+                                        handleStatusChange<ButtsSubmission>(submission.id, value, setButtsSubmissions)
+                                        break
+                                      case 'lemoine':
+                                        handleStatusChange<LeMoineSubmission>(submission.id, value, setLeMoineSubmissions)
+                                        break
+                                    }
+                                  }}
+                                >
+                                  <SelectTrigger className="w-full max-w-[220px] ml-auto">
+                                    <SelectValue placeholder="Select status" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="Submitted - Unchecked">Submitted - Unchecked</SelectItem>
+                                    <SelectItem value="Approved - Paid">Approved - Paid</SelectItem>
+                                    <SelectItem value="Approved - Payment Pending">Approved - Payment Pending</SelectItem>
+                                    <SelectItem value="Denied - Reasoning Provided">Denied - Reasoning Provided</SelectItem>
+                                    <SelectItem value="Denied - Final Decision">Denied - Final Decision</SelectItem>
+                                    <SelectItem value="Waiting for Committee Review">Waiting for Committee Review</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </div>
+                            <div className="mt-3">
+                              <Dialog open={isDialogOpen && editingNotes?.id === submission.id} onOpenChange={(open) => {
+                                setIsDialogOpen(open)
+                                if (!open) setEditingNotes(null)
+                              }}>
+                                <DialogTrigger asChild>
+                                  <Button 
+                                    variant="outline" 
+                                    onClick={() => {
+                                      setEditingNotes({ 
+                                        id: submission.id, 
+                                        notes: submission.admin_notes,
+                                        scholarshipType: scholarshipType
+                                      })
+                                      setIsDialogOpen(true)
+                                    }}
+                                  >
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    {submission.admin_notes 
+                                      ? `${submission.admin_notes.substring(0, 20)}...` 
+                                      : 'Add Notes'}
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Admin Notes for {submission.full_name}</DialogTitle>
+                                  </DialogHeader>
+                                  <Textarea
+                                    value={editingNotes?.notes || ''}
+                                    onChange={(e) => setEditingNotes(prev => prev ? { ...prev, notes: e.target.value } : null)}
+                                    placeholder="Add admin notes here..."
+                                    className="min-h-[200px]"
+                                  />
+                                  <DialogFooter>
+                                    <Button onClick={saveAdminNotes} className="mt-4">Save Notes</Button>
+                                  </DialogFooter>
+                                </DialogContent>
+                              </Dialog>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
                   </div>
                 </TabsContent>
               ))}
@@ -559,12 +841,12 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
                 <Input
                   placeholder="Search contact submissions..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-64"
+                  className="w-full md:w-64"
                 />
                 <Button onClick={() => downloadCSV('contact')} className="bg-[#d4af36]">
                   <Download className="mr-2 h-4 w-4" />
@@ -572,7 +854,8 @@ export default function AdminDashboard() {
                 </Button>
               </div>
 
-              <Table>
+              <div className="overflow-x-auto">
+              <Table className="min-w-[800px]">
                 <TableHeader>
                   <TableRow>
                     <TableHead>Full Name</TableHead>
@@ -615,6 +898,7 @@ export default function AdminDashboard() {
                     ))}
                 </TableBody>
               </Table>
+              </div>
             </div>
           </CardContent>
         </Card>
