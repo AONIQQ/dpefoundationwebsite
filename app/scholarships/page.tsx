@@ -435,7 +435,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
              Submission files must be in PDF format.
             </p> 
             <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
-            The present Administration cancelled the February 2025 test and postponed testing until further notice.
+            The U.S. Department of State has announced that the revamped FSOT will be administered for the first time October 18-25, 2025. 
             </p> 
            
           </div>
