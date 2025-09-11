@@ -370,10 +370,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
       <main className="container mx-auto px-4 py-12">
         <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Scholarships</h2>
 
-        <section className="mb-20 max-w-4xl mx-auto">
+        <section className="mb-20 max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
           <div className="w-20 h-1 bg-[#d4af36] mx-auto mb-10"></div>
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {[
               { name: "Albert L. Grasso", role: "Member", chapter: "Alpha Chapter", occupation: "Former Associate Professor", company: "Roosevelt University" },
               { name: "Carlos F. Roa", role: "Member", chapter: "Alpha Chapter", occupation: "Former Editor", company: "International Journal" },
@@ -396,9 +396,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
           <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
             <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
-              Supports Georgetown University undergraduates pursuing unpaid internships in international business or international affairs.
+              Joe LeMoine, a U.S. Army veteran of the Pacific theater and longtime Georgetown faculty member in the School of Foreign Service and the Business School, was a CPA who taught accounting and tax law until 1986. A DPE brother since 1956, he served as Treasurer, President (from 1983), and Trustee of the DPE Foundation (1960–1994), mentoring generations of brothers.
             </p>
-        
           </div>
         </section>
 

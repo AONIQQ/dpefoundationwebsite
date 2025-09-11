@@ -240,6 +240,40 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-2 text-center text-black dark:text-white">Foundation Hall of Fame</h2>
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 text-center mb-6">
+            The Foundation recognizes brothers who have made a significant contribution to the Foundation and Fraternity.
+          </p>
+          <div className="grid grid-cols-1 gap-6 max-w-5xl mx-auto">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Walter I. (Jack) Giles</h3>
+              <div className="space-y-3 text-gray-800 dark:text-gray-200">
+                <p>Walter I. (Jack) Giles was born in Oklahoma in 1920 and entered Georgetown University’s School of Foreign Service in 1938. He graduated with a BSFS in 1942. After serving in the U.S. Army Air Corps during World War II, he received both an M.A. and Ph.D. in Government from Georgetown University.</p>
+                <p>Although he originally intended to pursue a career in the U.S. Foreign Service, he discovered a passion for teaching at Georgetown while taking a required undergraduate U.S. Constitutional Law course from James T. Lowe — a passion he never lost.</p>
+                <p>Professor Giles spent 43 years teaching at Georgetown University, becoming the university’s longest-serving full-time career faculty member.</p>
+                <p>In 1967 he was the first recipient of the School of Foreign Service Faculty Award, and in 1985 he received the Alumni Award for University Service.</p>
+                <p>In 1949 he organized and headed what ultimately became the Georgetown University chapter of the national academic honor society Phi Beta Kappa.</p>
+                <p>Professor Giles was routinely honored by his students; many contributed after his death to endow a Constitutional Law seminar in his name.</p>
+                <p>For several years before he became a teacher, he served as personal secretary to Father Edmund A. Walsh, the founder of Georgetown’s School of Foreign Service.</p>
+                <p>In the mid-1960s he was a favorite professor of then-future U.S. President Bill Clinton and wrote the faculty letter of recommendation that helped Clinton win a Rhodes Scholarship.</p>
+                <p>Professor Giles joined Delta Phi Epsilon Professional Foreign Service Fraternity as a faculty brother in 1949. For several years in the 1950s he served as National Vice President for Alpha Chapter of the fraternity, and in the early 1960s he was a founding trustee of the Delta Phi Epsilon Foundation for Foreign Service Education.</p>
+                <p>Throughout the 1950s, 1960s, 1970s, and 1980s, Brother Giles regularly participated as a faculty inquisitor in the fraternity’s initiation proceedings, often scheduling his course examinations for the day following the initiations.</p>
+                <p>In 1960, when Georgetown University ordered all fraternities to give up their chapter houses, Giles organized and led a faculty committee in hopes of persuading the university to reconsider.</p>
+                <p>In short, Giles was a principal reason the DPE House was able to endure for the next sixty years.</p>
+              </div>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Joseph LeMoine</h3>
+              <div className="space-y-3 text-gray-800 dark:text-gray-200">
+                <p>Joseph “Joe” LeMoine served with the U.S. Army in the Pacific theater during World War II. After the war, he worked for the Army Security Agency in Washington, including a period working for McGeorge Bundy. He attended Georgetown University’s School of Foreign Service, graduating in 1954, then joined the School of Foreign Service faculty in 1955. He later transferred to Georgetown’s Business School, where he taught accounting and tax law until his retirement in 1986, serving as an assistant professor.</p>
+                <p>LeMoine became a certified public accountant and maintained an active practice throughout his life. Early in his career as a CPA, he partnered with two Delta Phi Epsilon (DPE) alumni who had taught him at Georgetown—Edward White and Cecil Yates—who also helped bring him onto the accounting faculty.</p>
+                <p>He entered Delta Phi Epsilon in 1956 while teaching at Georgetown. Though not an undergraduate pledge, he is recorded as a pledge initiate on the 72nd Line. He went on to serve the fraternity in multiple leadership roles, including Treasurer, President (beginning January 1983), and Trustee of the DPE Foundation from 1960 to 1994. Throughout his decades of service, LeMoine remained an engaged member and mentor to many brothers, balancing his academic post, professional practice, and fraternity responsibilities with sustained commitment.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Current Developments</h2>
           <div className="max-w-4xl mx-auto">
             <iframe
