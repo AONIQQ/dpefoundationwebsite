@@ -392,11 +392,14 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 
         {/* LeMoine Scholarship Info (intro) */}
         <section id="lemoine-internship" className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Delta Phi Epsilon Foundation / Joe LeMoine Internship Scholarship Program</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Delta Phi Epsilon Foundation / Joseph LeMoine Internship Scholarship Program</h2>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
           <div className="bg-gray-100 dark:bg-black p-8 rounded-lg shadow-lg border-2 border-transparent dark:border-white">
             <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
-              Joe LeMoine, a U.S. Army veteran of the Pacific theater and longtime Georgetown faculty member in the School of Foreign Service and the Business School, was a CPA who taught accounting and tax law until 1986. A DPE brother since 1956, he served as Treasurer, President (from 1983), and Trustee of the DPE Foundation (1960–1994), mentoring generations of brothers.
+              Joseph LeMoine, a U.S. Army veteran of the Pacific theater and longtime Georgetown faculty member in the School of Foreign Service and the Business School, was a CPA who taught accounting and tax law until 1986. A DPE brother since 1956, he served as Treasurer, President (from 1983), and Trustee of the DPE Foundation (1960–1994), mentoring generations of brothers.
+            </p>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed">
+              The Trustees wish to honor his legacy and service by naming this internship scholarship in his memory.
             </p>
           </div>
         </section>
@@ -441,7 +444,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
         {/* LeMoine Scholarship Application Form */}
         <section className="mb-20 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
-            Joe LeMoine Internship Scholarship Form
+            Joseph LeMoine Internship Scholarship Form
           </h1>
           <div className="w-32 h-1 bg-[#d4af36] mx-auto mb-8"></div>
 
@@ -513,7 +516,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
             <iframe 
               src="/DPE_LeMoine_Internship_Scholarship_Application.pdf" 
               className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
-              title="Joe LeMoine Internship Scholarship Application"
+              title="Joseph LeMoine Internship Scholarship Application"
             />
           </div>
         </section>
