@@ -398,9 +398,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
             <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
               Joseph LeMoine, a U.S. Army veteran of the Pacific theater and longtime Georgetown faculty member in the School of Foreign Service and the Business School, was a CPA who taught accounting and tax law until 1986. A DPE brother since 1956, he served as Treasurer, President (from 1983), and Trustee of the DPE Foundation (1960–1994), mentoring generations of brothers.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed">
-              The Trustees wish to honor his legacy and service by naming this internship scholarship in his memory.
-            </p>
           </div>
         </section>
 
@@ -409,6 +406,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
           <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
           <div className="bg-white dark:bg-black p-6 rounded-lg border-2 border-black dark:border-white">
+            <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
+              The trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Joseph LeMoine, a former Trustee, Treasurer, and President of the Foundation and DPE fraternity brother, by the establishment of an internship scholarship program in his name.
+            </p>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-gray-100 dark:bg-black p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border-2 border-black dark:border-white">
                 <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Award amounts</h3>
