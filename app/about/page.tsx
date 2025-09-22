@@ -214,7 +214,7 @@ export default function AboutUs() {
       <ul className="pl-6 space-y-2">
         <li>John Koch 1960 - 1962</li>
         <li>Marcus King 2005 - 2023</li>
-        <li>John Leahy 1960 - 1962</li>
+        <li>John Leahy 1960 - 1970</li>
         <li>Joseph LeMoine 1960 - 1994</li>
         <li>Matthew Mixa 2005 - 2023</li>
         <li>Vincent Norelli 1960 - 2005</li>
@@ -268,6 +268,14 @@ export default function AboutUs() {
                 <p>Joseph “Joe” LeMoine served with the U.S. Army in the Pacific theater during World War II. After the war, he worked for the Army Security Agency in Washington, including a period working for McGeorge Bundy. He attended Georgetown University’s School of Foreign Service, graduating in 1954, then joined the School of Foreign Service faculty in 1955. He later transferred to Georgetown’s Business School, where he taught accounting and tax law until his retirement in 1986, serving as an assistant professor.</p>
                 <p>LeMoine became a certified public accountant and maintained an active practice throughout his life. Early in his career as a CPA, he partnered with two Delta Phi Epsilon (DPE) alumni who had taught him at Georgetown—Edward White and Cecil Yates—who also helped bring him onto the accounting faculty.</p>
                 <p>He entered Delta Phi Epsilon in 1956 while teaching at Georgetown. Though not an undergraduate pledge, he is recorded as a pledge initiate on the 72nd Line. He went on to serve the fraternity in multiple leadership roles, including Treasurer, President (beginning January 1983), and Trustee of the DPE Foundation from 1960 to 1994. Throughout his decades of service, LeMoine remained an engaged member and mentor to many brothers, balancing his academic post, professional practice, and fraternity responsibilities with sustained commitment.</p>
+              </div>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Andrew Jay Garry</h3>
+              <div className="space-y-3 text-gray-800 dark:text-gray-200">
+                <p>Andrew Jay Garry joined Delta Phi Epsilon fraternity as a pledge initiate on the 77th Line. Following graduation in 1958 from the Georgetown University School of Foreign Service, where he had been president of the Alpha Chapter of the DPE Foreign Service Fraternity during his senior year, Jay enlisted in the U.S. Navy, where he trained as a pilot. He served as a naval pilot both before and during the Vietnam War and retired from the Navy as a Commander.</p>
+                <p>After his military career, he briefly worked for Piper Aircraft International. He subsequently joined Merrill Lynch as a retail broker and later office manager from 1970 until his retirement in 2004.</p>
+                <p>Jay served as Vice President of the Delta Phi Epsilon Foundation for Foreign Service Education from January 1983 until 2005.</p>
               </div>
             </div>
           </div>
