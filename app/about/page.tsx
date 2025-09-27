@@ -122,7 +122,9 @@ export default function AboutUs() {
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation History</h2>
           <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
-            <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity and was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
+            <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity.</p>
+            <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kalevala, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
+            <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
             <p>The original Certificate had four Articles detailing the name, duration, purposes and number of Trustees. These Articles remain unchanged to the current date, although the number of Trustees was reduced to seven in 1984.</p>
             <p>To assure that all three classes of Alpha Chapter Brothers would be represented on the governing board of the Foundation, the initial Trustees included three undergraduate brothers, three alumni brothers and three Georgetown faculty brothers. The following individuals constituted the initial Board of Trustees:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -276,6 +278,16 @@ export default function AboutUs() {
                 <p>Andrew Jay Garry joined Delta Phi Epsilon fraternity as a pledge initiate on the 77th Line. Following graduation in 1958 from the Georgetown University School of Foreign Service, where he had been president of the Alpha Chapter of the DPE Foreign Service Fraternity during his senior year, Jay enlisted in the U.S. Navy, where he trained as a pilot. He served as a naval pilot both before and during the Vietnam War and retired from the Navy as a Commander.</p>
                 <p>After his military career, he briefly worked for Piper Aircraft International. He subsequently joined Merrill Lynch as a retail broker and later office manager from 1970 until his retirement in 2004.</p>
                 <p>Jay served as Vice President of the Delta Phi Epsilon Foundation for Foreign Service Education from January 1983 until 2005.</p>
+              </div>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Henry Cunningham</h3>
+              <div className="space-y-3 text-gray-800 dark:text-gray-200">
+                <p>Henry Cunningham attended Georgetown University, earning a Bachelor&apos;s degree in Economics in 1938 and the first of two law degrees in 1941. He subsequently received a Master&apos;s degree in Business Administration from George Washington University.</p>
+                <p>In 1945, Henry became a Professor of Economic Administration at Georgetown University and was subsequently appointed the Acting Dean of the School of Business Administration, a position he held until 1960.</p>
+                <p>While teaching at Georgetown, he became a faculty brother of Delta Phi Epsilon Fraternity. From 1956 to 1960 he was the National Vice President of Delta Phi Epsilon Professional Foreign Service Fraternity. In 1959 Henry joined with fellow faculty brothers John Leahy and Joe LeMoine to organize what would become the Delta Phi Epsilon Foundation for Foreign Service Education.</p>
+                <p>Henry was principally responsible for recruiting the undergraduate and alumni brothers included as the initial organizers and creating the structural composition of the trustees. Prior to the actual formation of the Foundation, Henry transferred to American University to become an Assistant Professor and Assistant Dean of Business Administration. Although Henry was never an officer or trustee of the Foundation, he was instrumental in its initial organization, structure and the composition of its members.</p>
+                <p>In 1963, Henry left American University to become an Associate Professor at the University of Baltimore. Throughout his professional career, Henry also worked in numerous capacities, including as an analyst at the Interstate Commerce Commission, a consultant to both the State Department and Defense Department and as an instructor at the Army Logistics Center.</p>
               </div>
             </div>
           </div>
