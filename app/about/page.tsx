@@ -227,7 +227,7 @@ export default function AboutUs() {
       </ul>
       <ul className="pl-6 space-y-2">
         <li>Louis Postiglione 1962 - 2005</li>
-        <li>Carlos Roa 2023 - present</li>
+        <li>Carlos F. Roa 2023 - present</li>
         <li>Timothy Rosenberger 2023 - present</li>
         <li>Thomas Stewart 2020 - present</li>
         <li>Andrew Sullivan 2005 - 2020</li>
@@ -238,6 +238,55 @@ export default function AboutUs() {
       </ul>
     </div>
             </div>        
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">
+            Officers of the DPE Foundation
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                title: "President",
+                history: [
+                  { years: "1983 - 1994", name: "Joseph F. LeMoine" },
+                  { years: "1994 - 2018", name: "Reginald M. Tyson" },
+                  { years: "2018 - 2022", name: "Matthew G. Ellison" },
+                  { years: "2022 - present", name: "Joseph S. Picozzi" },
+                ],
+              },
+              {
+                title: "Vice-President",
+                history: [{ years: "1983 - present", name: "Patrick M. Hall" }],
+              },
+              {
+                title: "Secretary",
+                history: [
+                  { years: "20xx - present", name: "Carlos F. Roa" },
+                ],
+              },
+              {
+                title: "Treasurer",
+                history: [
+                  { years: "1983 - 2021", name: "Terrence J. Boyle" },
+                  { years: "2021 - 20xx", name: "Joseph S. Picozzi" },
+                  { years: "20xx - present", name: "Albert L. Grasso" },
+                ],
+              },
+            ].map((officer) => (
+              <div key={officer.title} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                <h3 className="text-2xl font-semibold mb-3 text-[#d4af36] text-center">{officer.title}</h3>
+                <ul className="space-y-2 text-gray-800 dark:text-gray-200 text-center">
+                  {officer.history.map((entry) => (
+                    <li key={`${officer.title}-${entry.years}`}>
+                      <span className="block font-medium">{entry.name}</span>
+                      <span className="text-gray-600 dark:text-gray-400 text-sm">{entry.years}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </section>
 
