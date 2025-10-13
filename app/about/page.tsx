@@ -3,12 +3,122 @@
 import { useState, useEffect } from 'react'
 import Link from "next/link"
 import Image from "next/image"
-import { Moon, Sun, X } from 'lucide-react'
+import { Moon, Sun, X, Folder, FolderOpen } from 'lucide-react'
 import { Button } from "@/app/components/ui/button"
 
 export default function AboutUs() {
   const [darkMode, setDarkMode] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeHonorees, setActiveHonorees] = useState<Set<number>>(() => new Set())
+
+  const hallOfFameHonorees: { name: string; bio: string[] }[] = [
+    {
+      name: "Walter I. (Jack) Giles",
+      bio: [
+        "Walter I. (Jack) Giles was born in Oklahoma in 1920 and entered Georgetown University’s School of Foreign Service in 1938. He graduated with a BSFS in 1942. After serving in the U.S. Army Air Corps during World War II, he received both an M.A. and Ph.D. in Government from Georgetown University.",
+        "Although he originally intended to pursue a career in the U.S. Foreign Service, he discovered a passion for teaching at Georgetown while taking a required undergraduate U.S. Constitutional Law course from James T. Lowe — a passion he never lost.",
+        "Professor Giles spent 43 years teaching at Georgetown University, becoming the university’s longest-serving full-time career faculty member.",
+        "In 1967 he was the first recipient of the School of Foreign Service Faculty Award, and in 1985 he received the Alumni Award for University Service.",
+        "In 1949 he organized and headed what ultimately became the Georgetown University chapter of the national academic honor society Phi Beta Kappa.",
+        "Professor Giles was routinely honored by his students; many contributed after his death to endow a Constitutional Law seminar in his name.",
+        "For several years before he became a teacher, he served as personal secretary to Father Edmund A. Walsh, the founder of Georgetown’s School of Foreign Service.",
+        "In the mid-1960s he was a favorite professor of then-future U.S. President Bill Clinton and wrote the faculty letter of recommendation that helped Clinton win a Rhodes Scholarship.",
+        "Professor Giles joined Delta Phi Epsilon Professional Foreign Service Fraternity as a faculty brother in 1949. For several years in the 1950s he served as National Vice President for Alpha Chapter of the fraternity, and in the early 1960s he was a founding trustee of the Delta Phi Epsilon Foundation for Foreign Service Education.",
+        "Throughout the 1950s, 1960s, 1970s, and 1980s, Brother Giles regularly participated as a faculty inquisitor in the fraternity’s initiation proceedings, often scheduling his course examinations for the day following the initiations.",
+        "In 1960, when Georgetown University ordered all fraternities to give up their chapter houses, Giles organized and led a faculty committee in hopes of persuading the university to reconsider.",
+        "In short, Giles was a principal reason the DPE House was able to endure for the next sixty years."
+      ]
+    },
+    {
+      name: "Joseph “Joe” LeMoine",
+      bio: [
+        "Joseph “Joe” LeMoine served with the U.S. Army in the Pacific theater during World War II. After the war, he worked for the Army Security Agency in Washington, including a period working for McGeorge Bundy. He attended Georgetown University’s School of Foreign Service, graduating in 1954, then joined the School of Foreign Service faculty in 1955. He later transferred to Georgetown’s Business School, where he taught accounting and tax law until his retirement in 1986, serving as an assistant professor.",
+        "LeMoine became a certified public accountant and maintained an active practice throughout his life. Early in his career as a CPA, he partnered with two Delta Phi Epsilon (DPE) alumni who had taught him at Georgetown—Edward White and Cecil Yates—who also helped bring him onto the accounting faculty.",
+        "He entered Delta Phi Epsilon in 1956 while teaching at Georgetown. Though not an undergraduate pledge, he is recorded as a pledge initiate on the 72nd Line. He went on to serve the fraternity in multiple leadership roles, including Treasurer, President (beginning January 1983), and Trustee of the DPE Foundation from 1960 to 1994. Throughout his decades of service, LeMoine remained an engaged member and mentor to many brothers, balancing his academic post, professional practice, and fraternity responsibilities with sustained commitment."
+      ]
+    },
+    {
+      name: "Andrew Jay Garry",
+      bio: [
+        "Andrew Jay Garry joined Delta Phi Epsilon fraternity as a pledge initiate on the 77th Line. Following graduation in 1958 from the Georgetown University School of Foreign Service, where he had been president of the Alpha Chapter of the DPE Foreign Service Fraternity during his senior year, Jay enlisted in the U.S. Navy, where he trained as a pilot. He served as a naval pilot both before and during the Vietnam War and retired from the Navy as a Commander.",
+        "After his military career, he briefly worked for Piper Aircraft International. He subsequently joined Merrill Lynch as a retail broker and later office manager from 1970 until his retirement in 2004.",
+        "Jay served as Vice President of the Delta Phi Epsilon Foundation for Foreign Service Education from January 1983 until 2005."
+      ]
+    },
+    {
+      name: "Henry Cunningham",
+      bio: [
+        "Henry Cunningham attended Georgetown University, earning a Bachelor's degree in Economics in 1938 and the first of two law degrees in 1941. He subsequently received a Master's degree in Business Administration from George Washington University.",
+        "In 1945, Henry became a Professor of Economic Administration at Georgetown University and was subsequently appointed the Acting Dean of the School of Business Administration, a position he held until 1960.",
+        "While teaching at Georgetown, he became a faculty brother of Delta Phi Epsilon Fraternity. From 1956 to 1960 he was the National Vice President of Delta Phi Epsilon Professional Foreign Service Fraternity. In 1959 Henry joined with fellow faculty brothers John Leahy and Joe LeMoine to organize what would become the Delta Phi Epsilon Foundation for Foreign Service Education.",
+        "Henry was principally responsible for recruiting the undergraduate and alumni brothers included as the initial organizers and creating the structural composition of the trustees. Prior to the actual formation of the Foundation, Henry transferred to American University to become an Assistant Professor and Assistant Dean of Business Administration. Although Henry was never an officer or trustee of the Foundation, he was instrumental in its initial organization, structure and the composition of its members.",
+        "In 1963, Henry left American University to become an Associate Professor at the University of Baltimore. Throughout his professional career, Henry also worked in numerous capacities, including as an analyst at the Interstate Commerce Commission, a consultant to both the State Department and Defense Department and as an instructor at the Army Logistics Center."
+      ]
+    },
+    {
+      name: "Reginald “Reggie” Tyson",
+      bio: [
+        "Reginald “Reggie” Tyson entered Georgetown University’s School of Foreign Service in the spring of 1975 and graduated in the spring of 1979. He joined Delta Phi Epsilon fraternity as a pledge initiate on the 113th Line.",
+        "In his senior year, Reggie served as President of Alpha Chapter.",
+        "Reggie succeeded Joe LeMoine as both a Trustee and the President of the Delta Phi Epsilon Foundation for Foreign Service Education, representing a changing of the guard within the Foundation. He served as Trustee and President until his death in 2020. While President, Reggie worked with Foundation Treasurer Brother Terry Boyle to pursue acquisition of the apartment building next to the Alpha House so the Foundation could generate rental income and secure a headquarters.",
+        "When, in 2018-2020, the University required nearly all undergraduates to live on campus, precluding continued use of the Alpha House as a fraternity residence, Reggie supported donating the house to the Foundation and its subsequent sale. Confidence in his judgment and character encouraged many brothers to support the donation.",
+        "Reggie was a big man in stature and character. In his later years he worked in many capacities, especially as both a bouncer and owner of several dance clubs in Washington, D.C."
+      ]
+    },
+    {
+      name: "Kenneth W. Bleakley",
+      bio: [
+        "Kenneth W. Bleakley graduated from Georgetown University’s School of Foreign Service in 1963 and later earned a master’s degree from American University.",
+        "He was initiated in 1960 on the 81st Line of Alpha Chapter of Delta Phi Epsilon Professional Foreign Service Fraternity and later served as the fraternity’s National President.",
+        "Following graduation, Ken joined the U.S. Foreign Service, embarking on a distinguished 29-year career. His assignments included Deputy Chief of Mission in San Salvador, Director of U.S. Operations in Central America, Director of the U.S. International Refugee Program, and Senior Deputy U.S. Coordinator for International Communications and Information Policy under President George H. W. Bush. He also served as President of the American Foreign Service Association.",
+        "After retiring from the Foreign Service, Ken co-founded and served as past president of Fonemed LLC, which provides nurse advice services throughout North America and the Caribbean. In 2023 he became a trustee of the Delta Phi Epsilon Foundation for Foreign Service Education and designed its initial scholarship program, now named in his honor."
+      ]
+    },
+    {
+      name: "John F. “Jack” Herrity",
+      bio: [
+        "John F. “Jack” Herrity graduated from both Georgetown University’s School of Foreign Service and Georgetown University’s School of Law.",
+        "After finishing law school he served a tour of duty with the U.S. Coast Guard. Though trained as a lawyer, Jack spent the remainder of his professional life working in the insurance business in Fairfax County, Virginia.",
+        "Jack is best remembered for his political leadership. From 1975 to 1987 he chaired the Fairfax County Board of Supervisors and was credited with guiding the county’s remarkable growth. He dominated Northern Virginia politics for decades, had the Fairfax County Parkway named in his honor in 1995, and ran unsuccessfully for governor of Virginia in 2001.",
+        "Jack joined Alpha Chapter of Delta Phi Epsilon as an undergraduate pledge initiate, though the precise line and year were not recorded.",
+        "He was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving from 1960 to 1962 in the years before incorporation."
+      ]
+    },
+    {
+      name: "Rocco E. Porreco",
+      bio: [
+        "After completing high school in Colorado, Rocco Porreco entered a seminary intending to become a Jesuit priest. When the United States entered World War II, he left the seminary to join the Army, serving as a combat medic under General George Patton and earning the Silver Star, Bronze Star, and Purple Heart.",
+        "After the war, Rocco returned to Washington, D.C., completed his education, and ultimately earned a Ph.D. in Philosophy at Catholic University while working as an intelligence analyst at the State Department.",
+        "Upon receiving his doctorate, he served as a philosophy professor at Catholic University before joining Georgetown University’s School of Foreign Service faculty. He became chair of Georgetown’s Philosophy Department and later served as dean of both the Graduate School and the Summer School.",
+        "Rocco’s interests extended beyond teaching. He founded the Georgetown University Community Action Program (GUCAP) and the Community Scholars Program for inner-city youth, and co-founded the Georgetown University Employee Credit Union.",
+        "He joined Delta Phi Epsilon as a faculty brother in 1961 with the 83rd Line and became one of the original faculty trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, continuing his service from the Foundation’s incorporation in 1962 until his death in 2015."
+      ]
+    }
+  ]
+
+  const toggleHonoree = (index: number) => {
+    setActiveHonorees((current) => {
+      const updated = new Set(current)
+      const partnerIndex = index % 2 === 0 ? index + 1 : index - 1
+      const indicesToToggle = [index]
+
+      if (partnerIndex >= 0 && partnerIndex < hallOfFameHonorees.length) {
+        indicesToToggle.push(partnerIndex)
+      }
+
+      const isOpen = updated.has(index)
+
+      indicesToToggle.forEach((i) => {
+        if (isOpen) {
+          updated.delete(i)
+        } else {
+          updated.add(i)
+        }
+      })
+
+      return updated
+    })
+  }
 
   useEffect(() => {
     if (darkMode) {
@@ -258,20 +368,22 @@ export default function AboutUs() {
               },
               {
                 title: "Vice-President",
-                history: [{ years: "1983 - present", name: "Patrick M. Hall" }],
+                history: [
+                  { years: "1983 - 2005", name: "Andrew J. Garry" },
+                  { years: "2005 - present", name: "Patrick Hall" },
+                ],
               },
               {
                 title: "Secretary",
                 history: [
-                  { years: "20xx - present", name: "Carlos F. Roa" },
+                  { years: "1983 - present", name: "James M vonStroebel" },
                 ],
               },
               {
                 title: "Treasurer",
                 history: [
-                  { years: "1983 - 2021", name: "Terrence J. Boyle" },
-                  { years: "2021 - 20xx", name: "Joseph S. Picozzi" },
-                  { years: "20xx - present", name: "Albert L. Grasso" },
+                  { years: "2021 - 2023", name: "Picozzi" },
+                  { years: "2024 - present", name: "Grasso" },
                 ],
               },
             ].map((officer) => (
@@ -293,52 +405,47 @@ export default function AboutUs() {
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-2 text-center text-black dark:text-white">Foundation Hall of Fame</h2>
           <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 text-center mb-6">
-            The Foundation recognizes brothers who have made a significant contribution to the Foundation and Fraternity.
+            The Foundation recognizes brothers who have made a significant contribution to the Foundation and Fraternity. A brief biographical sketch is included for each honoree.
           </p>
-          <div className="grid grid-cols-1 gap-6 max-w-5xl mx-auto">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Walter I. (Jack) Giles</h3>
-              <div className="space-y-3 text-gray-800 dark:text-gray-200">
-                <p>Walter I. (Jack) Giles was born in Oklahoma in 1920 and entered Georgetown University’s School of Foreign Service in 1938. He graduated with a BSFS in 1942. After serving in the U.S. Army Air Corps during World War II, he received both an M.A. and Ph.D. in Government from Georgetown University.</p>
-                <p>Although he originally intended to pursue a career in the U.S. Foreign Service, he discovered a passion for teaching at Georgetown while taking a required undergraduate U.S. Constitutional Law course from James T. Lowe — a passion he never lost.</p>
-                <p>Professor Giles spent 43 years teaching at Georgetown University, becoming the university’s longest-serving full-time career faculty member.</p>
-                <p>In 1967 he was the first recipient of the School of Foreign Service Faculty Award, and in 1985 he received the Alumni Award for University Service.</p>
-                <p>In 1949 he organized and headed what ultimately became the Georgetown University chapter of the national academic honor society Phi Beta Kappa.</p>
-                <p>Professor Giles was routinely honored by his students; many contributed after his death to endow a Constitutional Law seminar in his name.</p>
-                <p>For several years before he became a teacher, he served as personal secretary to Father Edmund A. Walsh, the founder of Georgetown’s School of Foreign Service.</p>
-                <p>In the mid-1960s he was a favorite professor of then-future U.S. President Bill Clinton and wrote the faculty letter of recommendation that helped Clinton win a Rhodes Scholarship.</p>
-                <p>Professor Giles joined Delta Phi Epsilon Professional Foreign Service Fraternity as a faculty brother in 1949. For several years in the 1950s he served as National Vice President for Alpha Chapter of the fraternity, and in the early 1960s he was a founding trustee of the Delta Phi Epsilon Foundation for Foreign Service Education.</p>
-                <p>Throughout the 1950s, 1960s, 1970s, and 1980s, Brother Giles regularly participated as a faculty inquisitor in the fraternity’s initiation proceedings, often scheduling his course examinations for the day following the initiations.</p>
-                <p>In 1960, when Georgetown University ordered all fraternities to give up their chapter houses, Giles organized and led a faculty committee in hopes of persuading the university to reconsider.</p>
-                <p>In short, Giles was a principal reason the DPE House was able to endure for the next sixty years.</p>
-              </div>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Joseph LeMoine</h3>
-              <div className="space-y-3 text-gray-800 dark:text-gray-200">
-                <p>Joseph “Joe” LeMoine served with the U.S. Army in the Pacific theater during World War II. After the war, he worked for the Army Security Agency in Washington, including a period working for McGeorge Bundy. He attended Georgetown University’s School of Foreign Service, graduating in 1954, then joined the School of Foreign Service faculty in 1955. He later transferred to Georgetown’s Business School, where he taught accounting and tax law until his retirement in 1986, serving as an assistant professor.</p>
-                <p>LeMoine became a certified public accountant and maintained an active practice throughout his life. Early in his career as a CPA, he partnered with two Delta Phi Epsilon (DPE) alumni who had taught him at Georgetown—Edward White and Cecil Yates—who also helped bring him onto the accounting faculty.</p>
-                <p>He entered Delta Phi Epsilon in 1956 while teaching at Georgetown. Though not an undergraduate pledge, he is recorded as a pledge initiate on the 72nd Line. He went on to serve the fraternity in multiple leadership roles, including Treasurer, President (beginning January 1983), and Trustee of the DPE Foundation from 1960 to 1994. Throughout his decades of service, LeMoine remained an engaged member and mentor to many brothers, balancing his academic post, professional practice, and fraternity responsibilities with sustained commitment.</p>
-              </div>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Andrew Jay Garry</h3>
-              <div className="space-y-3 text-gray-800 dark:text-gray-200">
-                <p>Andrew Jay Garry joined Delta Phi Epsilon fraternity as a pledge initiate on the 77th Line. Following graduation in 1958 from the Georgetown University School of Foreign Service, where he had been president of the Alpha Chapter of the DPE Foreign Service Fraternity during his senior year, Jay enlisted in the U.S. Navy, where he trained as a pilot. He served as a naval pilot both before and during the Vietnam War and retired from the Navy as a Commander.</p>
-                <p>After his military career, he briefly worked for Piper Aircraft International. He subsequently joined Merrill Lynch as a retail broker and later office manager from 1970 until his retirement in 2004.</p>
-                <p>Jay served as Vice President of the Delta Phi Epsilon Foundation for Foreign Service Education from January 1983 until 2005.</p>
-              </div>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4 text-[#d4af36]">Henry Cunningham</h3>
-              <div className="space-y-3 text-gray-800 dark:text-gray-200">
-                <p>Henry Cunningham attended Georgetown University, earning a Bachelor&apos;s degree in Economics in 1938 and the first of two law degrees in 1941. He subsequently received a Master&apos;s degree in Business Administration from George Washington University.</p>
-                <p>In 1945, Henry became a Professor of Economic Administration at Georgetown University and was subsequently appointed the Acting Dean of the School of Business Administration, a position he held until 1960.</p>
-                <p>While teaching at Georgetown, he became a faculty brother of Delta Phi Epsilon Fraternity. From 1956 to 1960 he was the National Vice President of Delta Phi Epsilon Professional Foreign Service Fraternity. In 1959 Henry joined with fellow faculty brothers John Leahy and Joe LeMoine to organize what would become the Delta Phi Epsilon Foundation for Foreign Service Education.</p>
-                <p>Henry was principally responsible for recruiting the undergraduate and alumni brothers included as the initial organizers and creating the structural composition of the trustees. Prior to the actual formation of the Foundation, Henry transferred to American University to become an Assistant Professor and Assistant Dean of Business Administration. Although Henry was never an officer or trustee of the Foundation, he was instrumental in its initial organization, structure and the composition of its members.</p>
-                <p>In 1963, Henry left American University to become an Associate Professor at the University of Baltimore. Throughout his professional career, Henry also worked in numerous capacities, including as an analyst at the Interstate Commerce Commission, a consultant to both the State Department and Defense Department and as an instructor at the Army Logistics Center.</p>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {hallOfFameHonorees.map((honoree, index) => {
+              const contentId = `hall-of-fame-${index}`
+              return (
+                <div key={honoree.name} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+                  <button
+                    type="button"
+                    onClick={() => toggleHonoree(index)}
+                    className="w-full flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-900 text-left transition-colors duration-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+                    aria-expanded={activeHonorees.has(index)}
+                    aria-controls={contentId}
+                  >
+                    <span className="flex items-center space-x-3">
+                      {activeHonorees.has(index) ? (
+                        <FolderOpen className="h-6 w-6 text-[#d4af36]" />
+                      ) : (
+                        <Folder className="h-6 w-6 text-[#d4af36]" />
+                      )}
+                      <span className="text-lg font-semibold text-[#d4af36]">
+                        {honoree.name}
+                      </span>
+                    </span>
+                    <span className="text-sm font-medium text-[#d4af36]">
+                      {activeHonorees.has(index) ? "Hide Biography" : "View Biography"}
+                    </span>
+                  </button>
+                  {activeHonorees.has(index) && (
+                    <div
+                      id={contentId}
+                      className="px-6 py-4 space-y-3 text-gray-800 dark:text-gray-200"
+                    >
+                      {honoree.bio.map((paragraph, paragraphIndex) => (
+                        <p key={`${honoree.name}-paragraph-${paragraphIndex}`}>{paragraph}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </section>
 
