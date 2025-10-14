@@ -13,9 +13,9 @@ export default function AboutUs() {
 
   const hallOfFameHonorees: { name: string; bio: string[] }[] = [
     {
-      name: "Walter I. (Jack) Giles",
+      name: "Walter I. “Jack” Giles",
       bio: [
-        "Walter I. (Jack) Giles was born in Oklahoma in 1920 and entered Georgetown University’s School of Foreign Service in 1938. He graduated with a BSFS in 1942. After serving in the U.S. Army Air Corps during World War II, he received both an M.A. and Ph.D. in Government from Georgetown University.",
+        "Walter I. “Jack” Giles was born in Oklahoma in 1920 and entered Georgetown University’s School of Foreign Service in 1938. He graduated with a BSFS in 1942. After serving in the U.S. Army Air Corps during World War II, he received both an M.A. and Ph.D. in Government from Georgetown University.",
         "Although he originally intended to pursue a career in the U.S. Foreign Service, he discovered a passion for teaching at Georgetown while taking a required undergraduate U.S. Constitutional Law course from James T. Lowe — a passion he never lost.",
         "Professor Giles spent 43 years teaching at Georgetown University, becoming the university’s longest-serving full-time career faculty member.",
         "In 1967 he was the first recipient of the School of Foreign Service Faculty Award, and in 1985 he received the Alumni Award for University Service.",
@@ -80,7 +80,7 @@ export default function AboutUs() {
         "John F. “Jack” Herrity graduated from both Georgetown University’s School of Foreign Service and Georgetown University’s School of Law.",
         "After finishing law school he served a tour of duty with the U.S. Coast Guard. Though trained as a lawyer, Jack spent the remainder of his professional life working in the insurance business in Fairfax County, Virginia.",
         "Jack is best remembered for his political leadership. From 1975 to 1987 he chaired the Fairfax County Board of Supervisors and was credited with guiding the county’s remarkable growth. He dominated Northern Virginia politics for decades, had the Fairfax County Parkway named in his honor in 1995, and ran unsuccessfully for governor of Virginia in 2001.",
-        "Jack joined Alpha Chapter of Delta Phi Epsilon as an undergraduate pledge initiate, though the precise line and year were not recorded.",
+        "Jack joined Alpha Chapter of Delta Phi Epsilon in 1956 as an undergraduate pledge initiate on the 72nd Line.",
         "He was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving from 1960 to 1962 in the years before incorporation."
       ]
     },
@@ -233,7 +233,7 @@ export default function AboutUs() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation History</h2>
           <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
             <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity.</p>
-            <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kalevala, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
+            <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kaleta, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
             <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
             <p>The original Certificate had four Articles detailing the name, duration, purposes and number of Trustees. These Articles remain unchanged to the current date, although the number of Trustees was reduced to seven in 1984.</p>
             <p>To assure that all three classes of Alpha Chapter Brothers would be represented on the governing board of the Foundation, the initial Trustees included three undergraduate brothers, three alumni brothers and three Georgetown faculty brothers. The following individuals constituted the initial Board of Trustees:</p>
@@ -376,14 +376,16 @@ export default function AboutUs() {
               {
                 title: "Secretary",
                 history: [
-                  { years: "1983 - present", name: "James M vonStroebel" },
+                  { years: "1983 -", name: "James M. von Stroebel" },
+                  { years: "- present", name: "Carlos F. Roa" },
                 ],
               },
               {
                 title: "Treasurer",
                 history: [
-                  { years: "2021 - 2023", name: "Picozzi" },
-                  { years: "2024 - present", name: "Grasso" },
+                  { years: "1983 - 2021", name: "Terrence J. Boyle" },
+                  { years: "2021 - 2023", name: "Joseph S. Picozzi" },
+                  { years: "2024 - present", name: "Albert L. Grasso" },
                 ],
               },
             ].map((officer) => (
