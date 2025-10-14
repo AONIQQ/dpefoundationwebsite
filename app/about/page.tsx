@@ -85,6 +85,25 @@ export default function AboutUs() {
       ]
     },
     {
+      name: "James-Michael von Stroebel",
+      bio: [
+        "James-Michael von Stroebel attended Marquette University High School and briefly entered St. Stanislavsky Jesuit Seminary. He traveled to Germany in 1950 to work with the local branch of Catholic Charities. When war broke out in Korea, James enlisted in the Army, serving during 1950-1952 in Germany and France.",
+        "He returned to the United States and enrolled in Georgetown University’s School of Foreign Service and subsequently in the Graduate School.",
+        "In 1954, von Stroebel joined Delta Phi Epsilon Fraternity as a pledge initiate on the 68th Line.",
+        "After graduation from Georgetown’s Graduate School, von Stroebel began his career with the U.S. Department of Commerce in the Foreign Commercial Service.",
+        "From 1957 to 1973, he worked in Washington, D.C., on Latin American affairs, serving as a country desk officer and ultimately as director.",
+        "Between 1973 and 1984, von Stroebel was the deputy director of trade and international marketing centers at American embassies in Mexico City, Tehran, and Bonn.",
+        "In 1982, he was commissioned as a Consular Officer and served in the commercial office of the Consulate General in Montreal.",
+        "Upon retirement, von Stroebel volunteered with the Whitman-Walker Clinic in Washington, D.C.",
+        "During 1985-1994 he served on the management committee for housing services and the food bank, becoming chair after 1987.",
+        "In 1989 he joined the Board of Directors, serving until 1997. During that period he co-founded the Washington AIDS Walk.",
+        "In April 1992, von Stroebel was invested as a Knight of Justice, one of the ruling Knights in the Sovereign Military Hospitaller Order of St. John of Jerusalem, Rhodes, and Malta, an international relief agency with roots in the 1070s.",
+        "In December 1995, he became the second American admitted to the First Class of the Order and joined the Order’s governance with the honorific title of Fra’.",
+        "Brother von Stroebel was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving as a trustee from 1983 until 2005 and as Secretary from 1983 until 2020.",
+        "He was the National President of Delta Phi Epsilon Professional Foreign Service Fraternity from 1998 to 2020."
+      ]
+    },
+    {
       name: "Rocco E. Porreco",
       bio: [
         "After completing high school in Colorado, Rocco Porreco entered a seminary intending to become a Jesuit priest. When the United States entered World War II, he left the seminary to join the Army, serving as a combat medic under General George Patton and earning the Silver Star, Bronze Star, and Purple Heart.",
