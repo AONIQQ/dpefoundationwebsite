@@ -99,7 +99,7 @@ export default function AboutUs() {
         "In 1989 he joined the Board of Directors, serving until 1997. During that period he co-founded the Washington AIDS Walk.",
         "In April 1992, von Stroebel was invested as a Knight of Justice, one of the ruling Knights in the Sovereign Military Hospitaller Order of St. John of Jerusalem, Rhodes, and Malta, an international relief agency with roots in the 1070s.",
         "In December 1995, he became the second American admitted to the First Class of the Order and joined the Order’s governance with the honorific title of Fra’.",
-        "Brother von Stroebel was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving as a trustee from 1983 until 2005 and as Secretary from 1983 until 2020.",
+        "Brother von Stroebel was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving as a trustee from 1962 until 2005 and as Secretary from 1983 until 2020.",
         "He was the National President of Delta Phi Epsilon Professional Foreign Service Fraternity from 1998 to 2020."
       ]
     },
@@ -362,7 +362,7 @@ export default function AboutUs() {
         <li>Andrew Sullivan 2005 - 2020</li>
         <li>Dirck Teller 1960 - 1962</li>
         <li>Reginald Tyson 1994 - 2019</li>
-        <li>James-Michael von Stroebel 1960 - 2005</li>
+        <li>James-Michael von Stroebel 1962 - 2005</li>
         <li>Bailey Walsh 1962 - 2005</li>
       </ul>
     </div>
@@ -395,7 +395,7 @@ export default function AboutUs() {
               {
                 title: "Secretary",
                 history: [
-                  { years: "1983 -", name: "James M. von Stroebel" },
+                  { years: "1983 - 2020", name: "James M. von Stroebel" },
                   { years: "- present", name: "Carlos F. Roa" },
                 ],
               },
