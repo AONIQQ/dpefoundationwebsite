@@ -99,7 +99,7 @@ export default function AboutUs() {
         "In 1989 he joined the Board of Directors, serving until 1997. During that period he co-founded the Washington AIDS Walk.",
         "In April 1992, von Stroebel was invested as a Knight of Justice, one of the ruling Knights in the Sovereign Military Hospitaller Order of St. John of Jerusalem, Rhodes, and Malta, an international relief agency with roots in the 1070s.",
         "In December 1995, he became the second American admitted to the First Class of the Order and joined the Order’s governance with the honorific title of Fra’.",
-        "Brother von Stroebel was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving as a trustee from 1983 until 2005 and as Secretary from 1983 until 2020.",
+        "Brother von Stroebel was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving as a trustee from 1962 until 2005 and as Secretary from 1983 until 2020.",
         "He was the National President of Delta Phi Epsilon Professional Foreign Service Fraternity from 1998 to 2020."
       ]
     },
@@ -268,7 +268,7 @@ export default function AboutUs() {
               <div>
                 <h4 className="font-bold mb-2 text-[#d4af36] text-xl">Alumni Brothers</h4>
                 <ul className="list-none pl-0">
-                  <li>James M vonStroebel</li>
+                  <li>James M. von Stroebel</li>
                   <li>Bailey G Walsh</li>
                   <li>Vincent P Norelli</li>
                 </ul>
@@ -293,7 +293,7 @@ export default function AboutUs() {
               </div>
               <div>
                 <ul className="list-none pl-0">
-                  <li>James M vonStroebel - Secretary</li>
+                  <li>James M. von Stroebel - Secretary</li>
                   <li>Terrence J Boyle - Treasurer</li>
                 </ul>
               </div>
@@ -302,7 +302,7 @@ export default function AboutUs() {
             <p>As part of the application process, the Certificate of Incorporation was amended on March 29, 1984 to add Articles Five through Seven to comply with IRS requirements for exemption. The complete Certificate of Incorporation is included on the website.</p>
             <p>In due course, with Brother Boyle as Treasurer and serving as the principal contact with the IRS, the Foundation was qualified as a Section 501(c)(3) tax exempt organization. A copy of the IRS Letter dated May 20, 1985, is included on the website. The initial grant of exemption was subject to review within five years by the IRS for compliance with all legal requirements. By Letter dated April 15, 1990, final approval by the IRS of the tax exemption was granted. A copy of the April 1990 letter is also included on the website.</p>
             <p>Between 1983 and 2005, numerous Alpha Chapter Brothers served as officers and trustees. During this period, Brother Boyle, in his capacity as Treasurer, raised $300,000 as an endowment fund for the Foundation with the intention of investing these donations into a fund to acquire a permanent home for the Foundation and use interest earnings for other Foundation activities, including scholarships and programming. The modest amounts of assets raised by donations plus the realty prices in the Georgetown area precluded a purchase at the time.</p>
-            <p>By December 2005, the remaining four of the original Trustees (vonStroebel, Walsh, Norelli, and Porreco) died or resigned and were replaced by younger Alpha Chapter alumni brothers. All Trustees were alumni brothers thereafter. Brother Boyle remained as the sole constant throughout this period and until his retirement in 2021 as Treasurer upon attaining age 80.</p>
+            <p>By December 2005, the remaining four of the original Trustees (von Stroebel, Walsh, Norelli, and Porreco) died or resigned and were replaced by younger Alpha Chapter alumni brothers. All Trustees were alumni brothers thereafter. Brother Boyle remained as the sole constant throughout this period and until his retirement in 2021 as Treasurer upon attaining age 80.</p>
             <p>No additional fundraising activities were conducted during the ensuing periods. The primary focus became educational programming. For example, between October 2013 and February 2019, the Foundation sponsored 19 educational lectures. Since the onset of the Covid-19 pandemic additional lectures have been curtailed but are now expected to be renewed.</p>
             <p>Following a decision by Georgetown University to require most undergraduate students to reside in university housing, maintenance of the Alpha Chapter fraternity house as a residence for undergraduate brothers became untenable. The undergraduate brothers of Alpha Chapter, with the support of a substantial number of alumni Alpha Chapter brothers who expressed an opinion, decided to donate the house to the Foundation with the expectation of a sale. Due to the tax exempt status of the Foundation, a sale by the Foundation meant that the sales proceeds would not be reduced by taxes. Without the donation a sale would be subject to substantial taxes.</p>
             <p>The fraternity house was donated to the Foundation and sold for $2,650,000. After selling expenses, the net proceeds equaled slightly less than $2,270,000. The proceeds were held in escrow pending review by the D.C. Office of the Attorney General and ultimate approval by a judge on the D.C. Municipal Court. The Trustees committed to hold the proceeds in interest bearing assets for use in accordance with an Alpha House Fund Plan (the House Plan) subject to approval by the Alpha Chapter Brothers. On several occasions during the pendency of the review, a substantial majority of the Alpha Chapter brothers voted to reaffirm the donation to the Foundation and ratified the House Plan. A copy of the House Plan is included on the website. Final review and approval was granted and the escrowed funds were released to the Foundation on August 12, 2024. </p>
@@ -362,7 +362,7 @@ export default function AboutUs() {
         <li>Andrew Sullivan 2005 - 2020</li>
         <li>Dirck Teller 1960 - 1962</li>
         <li>Reginald Tyson 1994 - 2019</li>
-        <li>James-Michael von Stroebel 1960 - 2005</li>
+        <li>James-Michael von Stroebel 1962 - 2005</li>
         <li>Bailey Walsh 1962 - 2005</li>
       </ul>
     </div>
@@ -395,8 +395,9 @@ export default function AboutUs() {
               {
                 title: "Secretary",
                 history: [
-                  { years: "1983 -", name: "James M. von Stroebel" },
-                  { years: "- present", name: "Carlos F. Roa" },
+                  { years: "1983 - 2020", name: "James M. von Stroebel" },
+                  { years: "2021 - 2023", name: "Joseph S. Picozzi" },
+                  { years: "2023 - present", name: "Carlos F. Roa" },
                 ],
               },
               {
