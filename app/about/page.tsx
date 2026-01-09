@@ -397,7 +397,8 @@ export default function AboutUs() {
                 history: [
                   { years: "1983 - 2020", name: "James M. von Stroebel" },
                   { years: "2021 - 2023", name: "Joseph S. Picozzi" },
-                  { years: "2023 - present", name: "Carlos F. Roa" },
+                  { years: "2023 - 2024", name: "Carlos F. Roa" },
+                  { years: "2024 - present", name: "Michael D. Eriksen" },
                 ],
               },
               {
@@ -503,7 +504,7 @@ export default function AboutUs() {
             {[
               { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "192 Line" },
               { name: "Patrick Hall", role: "Vice President", chapter: "Alpha Chapter", line: "74 Line" },
-              { name: "Carlos F. Roa", role: "Secretary", chapter: "Alpha Chapter", line: "189 Line" },
+              { name: "Michael D. Eriksen", role: "Secretary", chapter: "Alpha Chapter", line: "99 Line" },
               { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
             ].map((officer, index) => (
               <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
