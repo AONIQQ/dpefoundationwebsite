@@ -397,6 +397,7 @@ export default function AboutUs() {
                 history: [
                   { years: "1983 - 2020", name: "James M. von Stroebel" },
                   { years: "2021 - 2023", name: "Joseph S. Picozzi" },
+
                   { years: "2023 - 2026", name: "Carlos F. Roa" },
                   { years: "2026 - present", name: "Michael D. Eriksen" },
                 ],
