@@ -158,6 +158,10 @@ export default function Facilities() {
               facility, assisting in its acquisition, and managing the acquired property. A copy of the
               Alpha House Fund Plan is available on the website.
             </p>
+            <p className="text-gray-800 dark:text-gray-200">
+              Pending acquisition of a permanent home, the Foundation has temporarily rented office space
+              at Georgetown Court, 3222 N Street NW, Washington DC 20007.
+            </p>
             <div className="mt-8">
               <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Committee Responsibilities</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
