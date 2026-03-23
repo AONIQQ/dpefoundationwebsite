@@ -5,6 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Moon, Sun, X, Folder, FolderOpen } from 'lucide-react'
 import { Button } from "@/app/components/ui/button"
+import OrnamentalDivider from '@/app/components/OrnamentalDivider'
+import AnimatedSection from '@/app/components/AnimatedSection'
 
 export default function AboutUs() {
   const [darkMode, setDarkMode] = useState(false)
@@ -148,8 +150,8 @@ export default function AboutUs() {
   }, [darkMode])
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300 font-serif text-base sm:text-lg">
-      <header className="bg-white dark:bg-black py-4 sticky top-0 z-10 shadow-md">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0f1729] transition-colors duration-300 font-serif texture-grain text-base sm:text-lg">
+      <header className="bg-white/80 dark:bg-[#0f1729]/80 backdrop-blur-md py-4 sticky top-0 z-50 shadow-sm border-b border-[#d4af36]/20">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/" className="flex items-center">
             <Image 
@@ -198,7 +200,7 @@ export default function AboutUs() {
           </Button>
         </div>
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 bg-white dark:bg-black py-2 px-4 absolute top-full left-0 right-0 shadow-md">
+          <div className="md:hidden mt-4 bg-white/95 dark:bg-[#0f1729]/95 backdrop-blur-sm py-2 px-4 absolute top-full left-0 right-0 shadow-md">
             <div className="flex justify-end mb-2">
               <Button variant="ghost" onClick={() => setMobileMenuOpen(false)}>
                 <X className="h-7 w-7 text-[#d4af36]" />
@@ -237,7 +239,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Certificate of Incorporation</h2>
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg">
+          <div className="bg-[#f5f0e8] dark:bg-[#131d33] p-6 rounded-lg shadow-lg text-base sm:text-lg">
             <p className="mb-4"><strong>FIRST.</strong> The name and title by which this corporation shall be known in law shall be DELTA PHI EPSILON FOUNDATION FOR FOREIGN SERVICE EDUCATION.</p>
             <p className="mb-4"><strong>SECOND.</strong> The term for which it is organized is perpetual.</p>
             <p className="mb-4"><strong>THIRD.</strong> The particular business and objects of the society shall be to promote the calling of Foreign Service and the various sciences which are a part thereof by education and mutual improvement of members; to promote better understanding by assisting centers for the study and appreciation of international relations; to diffuse knowledge concerning law, languages, and the many other subjects related thereto; to serve as a reference for all that relates to the calling; and to serve as a repository for Foreign Service literature.</p>
@@ -250,7 +252,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation History</h2>
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
+          <div className="bg-[#f5f0e8] dark:bg-[#131d33] p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
             <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity.</p>
             <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kaleta, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
             <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
@@ -672,27 +674,54 @@ export default function AboutUs() {
 
       </main>
 
-      <footer className="bg-black text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="mb-6 text-[#d4af36] text-lg">
-            Delta Phi Epsilon Foundation for Foreign Service Education is a 501(c)(3) tax-exempt organization and is not affiliated with Georgetown University, the government of the United States or any of its subdivisions, agencies or departments.
-          </p>
-          <div className="flex flex-col items-center">
-            <Link href="/contact">
-              <Button 
-                variant="link" 
-                className="text-[#d4af36] hover:text-white transition duration-300 text-lg"
+      <footer className="bg-[#0a0e1a] text-white pt-16 pb-8 border-t border-[#d4af36]/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div className="text-center md:text-left">
+              <Image
+                src="/DPE-inverted.png"
+                alt="Delta Phi Epsilon"
+                width={200}
+                height={50}
+                className="h-12 w-auto mx-auto md:mx-0 mb-4 opacity-60"
+              />
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Founded in 1962, promoting the virtues of foreign service and educating the next generation of American global statesmen.
+              </p>
+            </div>
+            <div className="text-center">
+              <h4 className="text-[#d4af36] font-semibold text-lg mb-4 tracking-wide">Quick Links</h4>
+              <nav className="flex flex-col space-y-2">
+                <Link href="/about" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">About Us</Link>
+                <Link href="/programs" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Programs</Link>
+                <Link href="/scholarships" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Scholarships</Link>
+                <Link href="/facilities" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Facilities</Link>
+                <Link href="/policies" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Policies</Link>
+                <Link href="/contact" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Contact</Link>
+              </nav>
+            </div>
+            <div className="text-center md:text-right">
+              <h4 className="text-[#d4af36] font-semibold text-lg mb-4 tracking-wide">Contact</h4>
+              <p className="text-gray-400 text-sm mb-2">Georgetown Court</p>
+              <p className="text-gray-400 text-sm mb-4">3222 N Street NW, Washington DC 20007</p>
+              <Link href="/contact" className="text-[#d4af36] hover:text-[#e8d48b] transition duration-300 text-sm font-medium">
+                Send us a message &rarr;
+              </Link>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-6">
+            <p className="text-xs text-gray-500 text-center mb-4">
+              Delta Phi Epsilon Foundation for Foreign Service Education is a 501(c)(3) tax-exempt organization and is not affiliated with Georgetown University, the government of the United States or any of its subdivisions, agencies or departments.
+            </p>
+            <div className="text-center">
+              <Button
+                variant="link"
+                className="text-gray-600 hover:text-gray-400 transition duration-300 text-xs"
+                onClick={() => window.open('https://www.aoniqq.com/websitecreation', '_blank')}
               >
-                Contact Us
+                Site by Aoniqq LLC
               </Button>
-            </Link>
-            <Button 
-              variant="link" 
-              className="text-[#d4af36] hover:text-white transition duration-300 underline text-lg"
-              onClick={() => window.open('https://www.aoniqq.com/websitecreation', '_blank')}
-            >
-              Site by Aoniqq LLC
-            </Button>
+            </div>
           </div>
         </div>
       </footer>
