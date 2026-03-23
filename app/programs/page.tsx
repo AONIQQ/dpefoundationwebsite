@@ -6,7 +6,6 @@ import Image from "next/image"
 import { Moon, Sun, X } from 'lucide-react'
 import { Button } from "@/app/components/ui/button"
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
-import AnimatedSection from '@/app/components/AnimatedSection'
 
 export default function Programs() {
   const [darkMode, setDarkMode] = useState(false)
