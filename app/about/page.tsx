@@ -262,13 +262,13 @@ export default function AboutUs() {
                 <ul className="list-none pl-0">
                   <li>Louis Postiglione</li>
                   <li>Philip O&apos;Reilly</li>
-                  <li>James E Condren</li>
+                  <li>James L Condren</li>
                 </ul>
               </div>
               <div>
                 <h4 className="font-bold mb-2 text-[#d4af36] text-xl">Alumni Brothers</h4>
                 <ul className="list-none pl-0">
-                  <li>James M. von Stroebel</li>
+                  <li>James-Michael von Stroebel</li>
                   <li>Bailey G Walsh</li>
                   <li>Vincent P Norelli</li>
                 </ul>
@@ -293,7 +293,7 @@ export default function AboutUs() {
               </div>
               <div>
                 <ul className="list-none pl-0">
-                  <li>James M. von Stroebel - Secretary</li>
+                  <li>James-Michael von Stroebel - Secretary</li>
                   <li>Terrence J Boyle - Treasurer</li>
                 </ul>
               </div>
@@ -395,7 +395,7 @@ export default function AboutUs() {
               {
                 title: "Secretary",
                 history: [
-                  { years: "1983 - 2020", name: "James M. von Stroebel" },
+                  { years: "1983 - 2020", name: "James-Michael von Stroebel" },
                   { years: "2021 - 2023", name: "Joseph S. Picozzi" },
 
                   { years: "2023 - 2026", name: "Carlos F. Roa" },
@@ -477,20 +477,20 @@ export default function AboutUs() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Current Developments</h2>
           <div className="max-w-4xl mx-auto">
             <iframe
-              src="/6-9-10 Status Ltr to Brotherhood.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+              src="/DPE_Foundation_Jan_27_2026_Update.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
               className="w-full min-h-screen border-0 shadow-lg rounded-lg"
-              style={{ 
-                border: 'none', 
+              style={{
+                border: 'none',
                 outline: 'none',
                 background: 'white',
                 minHeight: '800px'
               }}
-              title="Status Letter to Brotherhood"
+              title="DPE Foundation January 27, 2026 Update"
             />
             <div className="mt-4 text-center">
-              <Link 
-                href="/6-9-10 Status Ltr to Brotherhood.pdf" 
-                target="_blank" 
+              <Link
+                href="/DPE_Foundation_Jan_27_2026_Update.pdf"
+                target="_blank"
                 className="inline-block font-serif font-semibold text-[#d4af36] hover:text-[#b08d28] transition duration-300 underline"
               >
                 Download PDF
