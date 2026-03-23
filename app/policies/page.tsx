@@ -158,7 +158,7 @@ export default function PoliciesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+              <div className="bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_4px_25px_-3px_rgba(212,175,54,0.15),0_15px_30px_-2px_rgba(0,0,0,0.06)]">
                 <div className="p-6">
                   <h2 className="text-xl sm:text-2xl font-semibold text-[#d4af36] mb-4 break-words hyphens-auto">
                     {policy.title}
@@ -203,7 +203,7 @@ export default function PoliciesPage() {
                 initial={{ scale: 0.9, y: 20 }}
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
-                className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col"
+                className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col"
               >
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl sm:text-3xl font-bold text-[#d4af36]">Policy Viewer</h2>

@@ -170,7 +170,7 @@ export default function Home() {
           </p>
           
           <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
-            <div className="bg-white dark:bg-black p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-transparent dark:border-white">
+            <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 sm:p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
               <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#d4af36] text-center">Purpose</h3>
               <ul className="space-y-6 sm:space-y-8">
                 {[
@@ -191,7 +191,7 @@ export default function Home() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-black p-6 sm:p-8 rounded-2xl shadow-xl border-2 border-transparent dark:border-white">
+            <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 sm:p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
               <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#d4af36] text-center">Mission</h3>
               <ul className="space-y-6 sm:space-y-8">
                 {[
@@ -217,7 +217,7 @@ export default function Home() {
         <section className="mb-16 sm:mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-black dark:text-white text-center">About Us</h2>
           <OrnamentalDivider className="mb-8 sm:mb-10" />
-          <div className="bg-white dark:bg-black p-4 sm:p-6 rounded-lg shadow-lg border-2 border-transparent dark:border-white text-center">
+          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-4 sm:p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-center">
             <p className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white mb-6">
               To view our certificate of incorporation, learn more about our officers, trustees, and view organizations we are affiliated with, click the button below.
             </p>

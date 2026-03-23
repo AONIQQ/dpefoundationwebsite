@@ -155,7 +155,7 @@ export default function Programs() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
               {programs.map((program, index) => (
-                <div key={index} className="bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden flex flex-col h-80 w-full">
+                <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-md overflow-hidden flex flex-col h-80 w-full">
                   <h3 className="text-lg font-bold text-center text-gray-800 dark:text-gray-200 px-4 py-3 bg-gray-200 dark:bg-gray-600">{program.title}</h3>
                   <div className="relative flex-grow">
                     <Image

@@ -188,7 +188,7 @@ export default function Contact() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-white dark:bg-black"
+              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33]"
               placeholder="Enter your name"
               required
             />
@@ -203,7 +203,7 @@ export default function Contact() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-white dark:bg-black"
+              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33]"
               placeholder="Enter your email"
               required
             />
@@ -217,7 +217,7 @@ export default function Contact() {
               id="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-white dark:bg-black"
+              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33]"
               placeholder="Enter your message"
               rows={5}
               required
