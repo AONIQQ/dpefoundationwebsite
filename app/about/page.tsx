@@ -5,6 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Moon, Sun, X, Folder, FolderOpen } from 'lucide-react'
 import { Button } from "@/app/components/ui/button"
+import OrnamentalDivider from '@/app/components/OrnamentalDivider'
+import AnimatedSection from '@/app/components/AnimatedSection'
 
 export default function AboutUs() {
   const [darkMode, setDarkMode] = useState(false)
@@ -148,8 +150,8 @@ export default function AboutUs() {
   }, [darkMode])
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300 font-serif text-base sm:text-lg">
-      <header className="bg-white dark:bg-black py-4 sticky top-0 z-10 shadow-md">
+    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0f1729] transition-colors duration-300 font-serif texture-grain text-base sm:text-lg">
+      <header className="bg-white/80 dark:bg-[#0f1729]/80 backdrop-blur-md py-4 sticky top-0 z-50 shadow-sm border-b border-[#d4af36]/20">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/" className="flex items-center">
             <Image 
@@ -198,7 +200,7 @@ export default function AboutUs() {
           </Button>
         </div>
         {mobileMenuOpen && (
-          <div className="md:hidden mt-4 bg-white dark:bg-black py-2 px-4 absolute top-full left-0 right-0 shadow-md">
+          <div className="md:hidden mt-4 bg-white/95 dark:bg-[#0f1729]/95 backdrop-blur-sm py-2 px-4 absolute top-full left-0 right-0 shadow-md">
             <div className="flex justify-end mb-2">
               <Button variant="ghost" onClick={() => setMobileMenuOpen(false)}>
                 <X className="h-7 w-7 text-[#d4af36]" />
@@ -237,7 +239,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Certificate of Incorporation</h2>
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg">
+          <div className="bg-[#f5f0e8] dark:bg-[#131d33] p-6 rounded-lg shadow-lg text-base sm:text-lg">
             <p className="mb-4"><strong>FIRST.</strong> The name and title by which this corporation shall be known in law shall be DELTA PHI EPSILON FOUNDATION FOR FOREIGN SERVICE EDUCATION.</p>
             <p className="mb-4"><strong>SECOND.</strong> The term for which it is organized is perpetual.</p>
             <p className="mb-4"><strong>THIRD.</strong> The particular business and objects of the society shall be to promote the calling of Foreign Service and the various sciences which are a part thereof by education and mutual improvement of members; to promote better understanding by assisting centers for the study and appreciation of international relations; to diffuse knowledge concerning law, languages, and the many other subjects related thereto; to serve as a reference for all that relates to the calling; and to serve as a repository for Foreign Service literature.</p>
@@ -250,7 +252,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation History</h2>
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
+          <div className="bg-[#f5f0e8] dark:bg-[#131d33] p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
             <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity.</p>
             <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kaleta, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
             <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
@@ -411,7 +413,7 @@ export default function AboutUs() {
                 ],
               },
             ].map((officer) => (
-              <div key={officer.title} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+              <div key={officer.title} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                 <h3 className="text-2xl font-semibold mb-3 text-[#d4af36] text-center">{officer.title}</h3>
                 <ul className="space-y-2 text-gray-800 dark:text-gray-200 text-center">
                   {officer.history.map((entry) => (
@@ -435,7 +437,7 @@ export default function AboutUs() {
             {hallOfFameHonorees.map((honoree, index) => {
               const contentId = `hall-of-fame-${index}`
               return (
-                <div key={honoree.name} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+                <div key={honoree.name} className="bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden transition-shadow duration-300 hover:shadow-xl">
                   <button
                     type="button"
                     onClick={() => toggleHonoree(index)}
@@ -482,7 +484,7 @@ export default function AboutUs() {
               style={{
                 border: 'none',
                 outline: 'none',
-                background: 'white',
+                background: '#fdfcf9',
                 minHeight: '800px'
               }}
               title="DPE Foundation January 27, 2026 Update"
@@ -508,7 +510,7 @@ export default function AboutUs() {
               { name: "Michael D. Eriksen", role: "Secretary", chapter: "Alpha Chapter", line: "99 Line" },
               { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
             ].map((officer, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
                 <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">{officer.role}</p>
                 <p className="text-gray-500 dark:text-gray-400 text-base">{officer.chapter}</p>
@@ -530,7 +532,7 @@ export default function AboutUs() {
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas M. Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
             ].map((trustee, index) => (
-              <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
                 <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">{trustee.role}</p>
                 {trustee.denomination && <p className="text-gray-500 dark:text-gray-400 text-base">{trustee.denomination}</p>}
@@ -546,7 +548,7 @@ export default function AboutUs() {
     Trustee Biographies
   </h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Eduardo (Eddie) Deschapelles</h3>
       <p>Georgetown University: BSFS – cum laude (1982)</p>
       <p>Harvard University: MBA – 1988</p>
@@ -559,7 +561,7 @@ export default function AboutUs() {
       <p>Martial Arts: black belt in shotokan karate</p>
       <p>Married to Cecilia for 30+ years; 3 adult children</p>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Michael D. Eriksen</h3>
       <p>Georgetown University: BSFS in International Economic Affairs (1972)</p>
       <p>University of Florida College of Law: JD (1980); Law Review Editor</p>
@@ -573,7 +575,7 @@ export default function AboutUs() {
       <p>Fisherman</p>
       <p>Married to Kerry for over 3 decades; 4 adult children</p>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Albert L. Grasso</h3>
       <p>Georgetown University: BSFS (1968); JD (1973); LLM (1974)</p>
       <p>Past President - Chuhak & Tecson</p>
@@ -587,7 +589,7 @@ export default function AboutUs() {
       <p>Collector - Art, stamps and sundry</p>
       <p>Married to Gwen for 50 years</p>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Joseph S. Picozzi</h3>
       <p>Georgetown University: AB in Government (2017)</p>
       <p>George F. Baker Scholar; Member, 192nd line of Delta Phi Epsilon</p>
@@ -601,7 +603,7 @@ export default function AboutUs() {
         elected to represent Philadelphia in the State Senate since 1996)
       </p>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Carlos F. Roa</h3>
       <p>Georgetown University: BSFS (2015)</p>
       <p>Visiting Fellow & Director of Keystone Initiative - Danube Institute</p>
@@ -615,7 +617,7 @@ export default function AboutUs() {
       <p>Board of Directors - Various Startups</p>
       <p>Aspiring Sitcom Writer</p>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Timothy J. Rosenberger</h3>
       <p>Georgetown University: AB in English (2016)</p>
       <p>United Lutheran Seminary: MDiv (2018)</p>
@@ -633,7 +635,7 @@ export default function AboutUs() {
       <p>Amateur Musician: Hermit Club</p>
     </div>
   
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Thomas M. Stewart</h3>
       <p>Georgetown University: BSFS (2019)</p>
       <p>George Mason University: MA in Economics (2025)</p>
@@ -650,7 +652,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Affiliated Organizations</h2>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
             <ul className="space-y-4 text-gray-800 dark:text-gray-200 text-center">
               {[
                 "Delta Phi Epsilon Professional Foreign Service Fraternity, Inc.",
@@ -672,27 +674,54 @@ export default function AboutUs() {
 
       </main>
 
-      <footer className="bg-black text-white py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="mb-6 text-[#d4af36] text-lg">
-            Delta Phi Epsilon Foundation for Foreign Service Education is a 501(c)(3) tax-exempt organization and is not affiliated with Georgetown University, the government of the United States or any of its subdivisions, agencies or departments.
-          </p>
-          <div className="flex flex-col items-center">
-            <Link href="/contact">
-              <Button 
-                variant="link" 
-                className="text-[#d4af36] hover:text-white transition duration-300 text-lg"
+      <footer className="bg-[#0a0e1a] text-white pt-16 pb-8 border-t border-[#d4af36]/20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            <div className="text-center md:text-left">
+              <Image
+                src="/DPE-inverted.png"
+                alt="Delta Phi Epsilon"
+                width={200}
+                height={50}
+                className="h-12 w-auto mx-auto md:mx-0 mb-4 opacity-60"
+              />
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Founded in 1962, promoting the virtues of foreign service and educating the next generation of American global statesmen.
+              </p>
+            </div>
+            <div className="text-center">
+              <h4 className="text-[#d4af36] font-semibold text-lg mb-4 tracking-wide">Quick Links</h4>
+              <nav className="flex flex-col space-y-2">
+                <Link href="/about" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">About Us</Link>
+                <Link href="/programs" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Programs</Link>
+                <Link href="/scholarships" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Scholarships</Link>
+                <Link href="/facilities" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Facilities</Link>
+                <Link href="/policies" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Policies</Link>
+                <Link href="/contact" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Contact</Link>
+              </nav>
+            </div>
+            <div className="text-center md:text-right">
+              <h4 className="text-[#d4af36] font-semibold text-lg mb-4 tracking-wide">Contact</h4>
+              <p className="text-gray-400 text-sm mb-2">Georgetown Court</p>
+              <p className="text-gray-400 text-sm mb-4">3222 N Street NW, Washington DC 20007</p>
+              <Link href="/contact" className="text-[#d4af36] hover:text-[#e8d48b] transition duration-300 text-sm font-medium">
+                Send us a message &rarr;
+              </Link>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-6">
+            <p className="text-xs text-gray-500 text-center mb-4">
+              Delta Phi Epsilon Foundation for Foreign Service Education is a 501(c)(3) tax-exempt organization and is not affiliated with Georgetown University, the government of the United States or any of its subdivisions, agencies or departments.
+            </p>
+            <div className="text-center">
+              <Button
+                variant="link"
+                className="text-gray-600 hover:text-gray-400 transition duration-300 text-xs"
+                onClick={() => window.open('https://www.aoniqq.com/websitecreation', '_blank')}
               >
-                Contact Us
+                Site by Aoniqq LLC
               </Button>
-            </Link>
-            <Button 
-              variant="link" 
-              className="text-[#d4af36] hover:text-white transition duration-300 underline text-lg"
-              onClick={() => window.open('https://www.aoniqq.com/websitecreation', '_blank')}
-            >
-              Site by Aoniqq LLC
-            </Button>
+            </div>
           </div>
         </div>
       </footer>

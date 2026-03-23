@@ -50,6 +50,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Delta Phi Epsilon Foundation for Foreign Service Education</title>
+        <meta name="description" content="Founded in 1962, the Delta Phi Epsilon Foundation for Foreign Service Education promotes the virtues of foreign service and helps educate the next generation of American global statesmen through scholarships and programming." />
+      </head>
       <body className="font-serif">
         <HeartbeatTrigger />
         <main className="flex-grow">{children}</main>
