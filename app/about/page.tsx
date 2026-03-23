@@ -5,8 +5,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { Moon, Sun, X, Folder, FolderOpen } from 'lucide-react'
 import { Button } from "@/app/components/ui/button"
-import OrnamentalDivider from '@/app/components/OrnamentalDivider'
-import AnimatedSection from '@/app/components/AnimatedSection'
 
 export default function AboutUs() {
   const [darkMode, setDarkMode] = useState(false)

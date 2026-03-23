@@ -12,7 +12,6 @@ import { supabase } from '@/lib/supabase'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
-import AnimatedSection from '@/app/components/AnimatedSection'
 
 export default function Contact() {
   const [darkMode, setDarkMode] = useState(false)

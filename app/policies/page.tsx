@@ -7,7 +7,6 @@ import { Moon, Sun, X, FileText } from 'lucide-react'
 import { Button } from "@/app/components/ui/button"
 import { motion, AnimatePresence } from 'framer-motion'
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
-import AnimatedSection from '@/app/components/AnimatedSection'
 
 export default function PoliciesPage() {
   const [darkMode, setDarkMode] = useState(false)
