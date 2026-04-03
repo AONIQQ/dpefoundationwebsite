@@ -351,7 +351,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {[
               { name: "Albert L. Grasso", role: "Member", chapter: "Alpha Chapter", occupation: "Former Associate Professor", company: "Roosevelt University" },
-              { name: "Carlos F. Roa", role: "Member", chapter: "Alpha Chapter", occupation: "Former Editor", company: "International Journal" },
+              { name: "Eduardo (Eddie) Deschapelles", role: "Member", chapter: "Alpha Chapter", occupation: "Adjunct Professor", company: "Georgetown University" },
               { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow", company: "Stanford University" },
               { name: "Charles J. Skuba", role: "Chairman", chapter: "Alpha Chapter", occupation: "Professor", company: "Georgetown University" },
             ].map((officer, index) => (
