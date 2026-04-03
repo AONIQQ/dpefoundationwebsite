@@ -325,7 +325,7 @@ export default function AboutUs() {
               <p>At the time, these Trustees were the guardians of the original goals and objectives of the Foundation. Upon the donation of the fraternity house they realized that the funds to pursue such goals might soon be available.</p>
               <div>
             </div>
-            <p>At the time final approval was granted only Brothers Stewart, Picozzi and Eriksen continued to serve. Newly appointed trustees include Carlos Roa, Kenneth W Bleakley (subsequently deceased), Albert L Grasso and Timothy J Rosenberger. The current Board of Trustees has commenced to fulfill the original goals and objectives of the Foundation. The current Trustees are also committed to honoring the terms of the House Plan and have set aside the net proceeds of $2,270,000 plus the additional $300,000 previously accumulated by Brother Terry Boyle in a separate endowment fund. The fund is presently invested in U.S. Treasury obligations. The principal is being held for compliance with the House Plan. Interest income thereof will be used to support other Foundation activities. Within days of receiving the sale proceeds, the Foundation created its first scholarship program. The Foundation has also announced the creation of two additional scholarship programs to commence in 2025. A Program Committee has been created and arrangements are being made to restart the lecture series suspended during the Covid-19 pandemic. Additional information on both the Scholarship Programs and the lecture Program can be found elsewhere on the website.</p>
+            <p>At the time final approval was granted only Brothers Stewart, Picozzi and Eriksen continued to serve. Newly appointed trustees included Carlos Roa (subsequently resigned), Kenneth W Bleakley (subsequently deceased), Albert L Grasso and Timothy J Rosenberger. The current Board of Trustees has commenced to fulfill the original goals and objectives of the Foundation. The current Trustees are also committed to honoring the terms of the House Plan and have set aside the net proceeds of $2,270,000 plus the additional $300,000 previously accumulated by Brother Terry Boyle in a separate endowment fund. The fund is presently invested in U.S. Treasury obligations. The principal is being held for compliance with the House Plan. Interest income thereof will be used to support other Foundation activities. Within days of receiving the sale proceeds, the Foundation created its first scholarship program. The Foundation has also announced the creation of two additional scholarship programs to commence in 2025. A Program Committee has been created and arrangements are being made to restart the lecture series suspended during the Covid-19 pandemic. Additional information on both the Scholarship Programs and the lecture Program can be found elsewhere on the website.</p>
         
             <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">All Those Who Have Ever Served as Trustees</h2>
   <div className="flex justify-center">
@@ -356,7 +356,7 @@ export default function AboutUs() {
       </ul>
       <ul className="pl-6 space-y-2">
         <li>Louis Postiglione 1962 - 2005</li>
-        <li>Carlos F. Roa 2023 - present</li>
+        <li>Carlos F. Roa 2023 - 2026</li>
         <li>Timothy Rosenberger 2023 - present</li>
         <li>Thomas Stewart 2020 - present</li>
         <li>Andrew Sullivan 2005 - 2020</li>
@@ -526,7 +526,6 @@ export default function AboutUs() {
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
               { name: "Albert L. Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
               { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "192 Line", occupation: "State Senator" },
-              { name: "Carlos F. Roa", role: "Alpha Chapter", denomination: "189 Line", occupation: "Editor" },
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas M. Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
             ].map((trustee, index) => (
@@ -602,20 +601,6 @@ export default function AboutUs() {
       </p>
     </div>
     <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Carlos F. Roa</h3>
-      <p>Georgetown University: BSFS (2015)</p>
-      <p>Visiting Fellow & Director of Keystone Initiative - Danube Institute</p>
-      <p>Former Executive Editor - The National Interest</p>
-      <p>Associate Fellow: Institute for Peace & Diplomacy</p>
-      <p>Analyst: Center for Int&apos;l Relations & Sustainable Development</p>
-      <p>Research Assistant: Potomac Foundation</p>
-      <p>Author 12 Articles</p>
-      <p>Young Global Leader: Nizami Ganjavi Int&apos;l Center</p>
-      <p>Crypto Investor</p>
-      <p>Board of Directors - Various Startups</p>
-      <p>Aspiring Sitcom Writer</p>
-    </div>
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Timothy J. Rosenberger</h3>
       <p>Georgetown University: AB in English (2016)</p>
       <p>United Lutheran Seminary: MDiv (2018)</p>
@@ -647,6 +632,24 @@ export default function AboutUs() {
   </div>
 </section>
 
+
+        <section className="mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Fund Raising Committee</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              { name: "TBD", role: "Chairman", chapter: "", occupation: "" },
+              { name: "Joseph S. Picozzi", role: "Member", chapter: "Alpha Chapter", occupation: "State Senator" },
+              { name: "Michael D. Eriksen", role: "Member", chapter: "Alpha Chapter", occupation: "Attorney" },
+            ].map((member, index) => (
+              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
+                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{member.name}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-1">{member.role}</p>
+                {member.chapter && <p className="text-gray-500 dark:text-gray-400 text-sm">{member.chapter}</p>}
+                {member.occupation && <p className="text-gray-500 dark:text-gray-400 text-sm">{member.occupation}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Affiliated Organizations</h2>
