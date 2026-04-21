@@ -18,9 +18,15 @@ export default function Contact() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [website, setWebsite] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const formLoadedAtRef = useRef<number>(0)
+
+  useEffect(() => {
+    formLoadedAtRef.current = Date.now()
+  }, [])
 
   useEffect(() => {
     if (darkMode) {
@@ -47,11 +53,31 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
 
+    const elapsedMs = Date.now() - formLoadedAtRef.current
+    const trimmedName = name.trim()
+    const trimmedMessage = message.trim()
+    const looksLikeSpam =
+      website.length > 0 ||
+      elapsedMs < 3000 ||
+      trimmedName.length < 2 ||
+      !/[a-zA-Z]/.test(trimmedName) ||
+      trimmedMessage.length < 10
+
+    if (looksLikeSpam) {
+      toast.success('Your message has been sent successfully!')
+      setName('')
+      setEmail('')
+      setMessage('')
+      setWebsite('')
+      setIsSubmitting(false)
+      return
+    }
+
     try {
       const { error } = await supabase
         .from('contact_form_submissions')
         .insert([
-          { full_name: name, email, message },
+          { full_name: trimmedName, email, message: trimmedMessage },
         ])
 
       if (error) throw error
@@ -60,6 +86,7 @@ export default function Contact() {
       setName('')
       setEmail('')
       setMessage('')
+      setWebsite('')
     } catch (error) {
       console.error('Error submitting contact form:', error)
       toast.error('An error occurred while submitting your message. Please try again.')
@@ -178,6 +205,21 @@ export default function Contact() {
         <OrnamentalDivider className="mb-8" />
 
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8 p-8 bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
+          <div
+            aria-hidden="true"
+            style={{ position: 'absolute', left: '-10000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
+          >
+            <label htmlFor="website">Website (leave this field empty)</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </div>
           <div>
             <Label htmlFor="name" className="text-lg font-semibold text-black dark:text-white mb-2 block">
               Name
