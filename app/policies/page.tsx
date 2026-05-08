@@ -24,6 +24,7 @@ export default function PoliciesPage() {
   const policies = [
     { title: "Conflict of Interest Policy", file: "/DPE_Conflict_of_Interest_Policy.pdf" },
     { title: "Document Retention Policy", file: "/DPE_Document_Retention_Policy.pdf" },
+    { title: "Investment Policy Statement", file: "/DPE_Investment_Policy.pdf" },
     { 
       title: "IRS Tax Exemption Letters", 
       files: [
