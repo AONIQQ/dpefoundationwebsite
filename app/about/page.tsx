@@ -348,6 +348,7 @@ export default function AboutUs() {
         <li>John Leahy 1960 - 1970</li>
         <li>Joseph LeMoine 1960 - 1994</li>
         <li>Matthew Mixa 2005 - 2023</li>
+        <li>Sanjay J. Mullick 2026 - present</li>
         <li>Vincent Norelli 1960 - 2005</li>
         <li>Philip O&apos;Reilly 1962 - 1989</li>
         <li>Joseph Picozzi 2020 - present</li>
@@ -525,6 +526,7 @@ export default function AboutUs() {
               { name: "Eduardo (Eddie) Deschapelles", role: "Alpha Chapter", denomination: "119 Line", occupation: "Finance" },
               { name: "Michael D. Eriksen", role: "Alpha Chapter", denomination: "99 Line", occupation: "Attorney" },
               { name: "Albert L. Grasso", role: "Alpha Chapter", denomination: "92 Line", occupation: "Attorney" },
+              { name: "Sanjay J. Mullick", role: "Alpha Chapter", denomination: "137 Line", occupation: "General Counsel" },
               { name: "Joseph S. Picozzi", role: "Alpha Chapter", denomination: "192 Line", occupation: "State Senator" },
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas M. Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
@@ -585,6 +587,19 @@ export default function AboutUs() {
       <p>Amateur Genealogist</p>
       <p>Collector - Art, stamps and sundry</p>
       <p>Married to Gwen for 50 years</p>
+    </div>
+    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Sanjay J. Mullick</h3>
+      <p>Georgetown University: BSFS (1991); JD (1996)</p>
+      <p>President, Alpha Chapter, Delta Phi Epsilon (1990-1991)</p>
+      <p>Member, 137th line of Delta Phi Epsilon</p>
+      <p>Corporate: General Counsel, Veryon (2023-present)</p>
+      <p>Law: Partner, Kirkland &amp; Ellis (2017-2023); Special Counsel, Pillsbury (1999-2016)</p>
+      <p>Government: U.S. Department of Commerce (1996-1999)</p>
+      <p>Georgetown Alumni Admissions Program</p>
+      <p>Georgetown Baratta Center for Global Business Education Trade &amp; Investment Working Group</p>
+      <p>Rower</p>
+      <p>Married to Charu for 26 years; 2 children</p>
     </div>
     <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
       <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Joseph S. Picozzi</h3>
