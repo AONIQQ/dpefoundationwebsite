@@ -173,7 +173,7 @@ export default function Programs() {
                 Programs ceased during the Covid-19 pandemic due to restrictions on public gatherings.
               </p>
               <p>
-                Plans are underway to resume programming in the near future. Future lectures will be announced and listed on this website and by advertisement in the Georgetown University student newspaper.
+                Plans are underway both to resume programming and expand its scope to include assistance to Georgetown SFS students to prepare for activities following graduation. For example, the Foundation has sponsored an Excel and Power Point training workshop attended by over 60 SFS students. Future lectures will be announced and listed on this website and by advertisement in the Georgetown University student newspaper.
               </p>
             </div>
           </div>

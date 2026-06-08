@@ -343,7 +343,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
       )}
 
       <main className="container mx-auto px-4 py-12">
-        <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Scholarships</h2>
+        <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Awards and Scholarships</h2>
 
         <section className="mb-20 max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
@@ -402,6 +402,32 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
           </div>
         </section>
 
+        {/* STIA Awards Section */}
+        <section className="mb-20 max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">STIA Awards</h2>
+          <p className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">School of Foreign Service</p>
+          <OrnamentalDivider className="mb-8" />
+          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
+            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-8">
+              The Foundation has created in partnership with the Georgetown School of Foreign Service two Awards of $300 each celebrating students who exemplify the STIA mission, applying interdisciplinary thinking to address real world challenges through service, leadership and innovation.
+            </p>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
+                <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Delta Phi Epsilon STIA Service Award</h3>
+                <p className="text-gray-800 dark:text-white flex-grow">
+                  The Award recognizes a graduating SFS senior who demonstrates an exceptional commitment to service and leadership, and who shows how the STIA program can be used to meaningfully engage with and improve the world around us.
+                </p>
+              </div>
+              <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
+                <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Jack Herrity Innovation Award</h3>
+                <p className="text-gray-800 dark:text-white flex-grow">
+                  The Award honors a graduating SFS senior who shows outstanding promise in social innovation, particularly at the intersection of science, technology and public policy. It celebrates creative forward thinking approaches to solving complex societal challenges.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Kenneth W Bleakley Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
@@ -455,7 +481,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
              Submission files must be in PDF format.
             </p> 
             <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
-            The U.S. Department of State has announced that the revamped FSOT will be administered for the first time October 18-25, 2025. 
+            The U.S. Department of State has announced that the next FSOT will be administered July 11-18, 2026.
             </p> 
            
           </div>
