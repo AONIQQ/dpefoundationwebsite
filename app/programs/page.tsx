@@ -25,42 +25,42 @@ export default function Programs() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0f1729] transition-colors duration-300 font-serif texture-grain">
+    <div className="min-h-screen bg-[#faf8f5] font-serif">
       <SiteHeader />
 
       <main className="container mx-auto px-4 py-8 sm:py-12">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-center text-black dark:text-white">Programs</h1>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-center text-black">Programs</h1>
 
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">Program Committee</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black text-center">Program Committee</h2>
           <OrnamentalDivider className="mb-10" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {[
               { name: "Thomas M. Stewart", role: "Chairman", chapter: "Alpha Chapter", occupation: "Economist" },
               { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow at Stanford University" },
             ].map((officer, index) => (
-              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation}</p>
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
+                <h3 className="text-xl font-semibold mb-2 text-[#b08d28]">{officer.name}</h3>
+                <p className="text-gray-600 mb-1">{officer.role}</p>
+                <p className="text-gray-600 text-sm">{officer.chapter}</p>
+                <p className="text-gray-600 text-sm">{officer.occupation}</p>
               </div>
             ))}
           </div>
         </section>
 
         <section className="mb-16">
-          <div className="bg-[#f5f0e8] dark:bg-[#131d33] p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-6 text-center">
-            <p className="text-gray-800 dark:text-gray-200">
+          <div className="bg-[#f5f0e8] p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-6 text-center">
+            <p className="text-gray-800">
               The Foundation sponsors education programs directed primarily at the Georgetown University student and faculty community but open to all who share an interest in topics relating to Foreign Service and the purposes of the Foundation. No charge is imposed from attendance at any of the events.
             </p>
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-gray-100 mt-8 mb-6">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mt-8 mb-6">
               Examples of the programs offered in the past include:
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
               {programs.map((program, index) => (
-                <div key={index} className="bg-[#fdfcf9] dark:bg-[#1a2540] rounded-lg shadow-md overflow-hidden flex flex-col h-80 w-full border border-[#d4af36]/10">
-                  <h3 className="text-lg font-bold text-center text-gray-800 dark:text-gray-100 px-4 py-3 bg-[#f5f0e8] dark:bg-[#0f1729]">{program.title}</h3>
+                <div key={index} className="bg-[#fdfcf9] rounded-lg shadow-md overflow-hidden flex flex-col h-80 w-full border border-[#d4af36]/10">
+                  <h3 className="text-lg font-bold text-center text-gray-800 px-4 py-3 bg-[#f5f0e8]">{program.title}</h3>
                   <div className="relative flex-grow">
                     <Image
                       src={`/${program.image}`}
@@ -73,7 +73,7 @@ export default function Programs() {
                 </div>
               ))}
             </div>
-            <div className="mt-12 space-y-4 text-gray-800 dark:text-gray-200">
+            <div className="mt-12 space-y-4 text-gray-800">
               <p>
                 Programs ceased during the Covid-19 pandemic due to restrictions on public gatherings.
               </p>
