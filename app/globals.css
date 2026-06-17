@@ -179,28 +179,10 @@
   }
 }
 
-/* Premium texture overlay */
-.texture-grain::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.015;
-  z-index: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
-.dark .texture-grain::before {
-  opacity: 0.03;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+/* Premium texture overlay (removed: a position:fixed full-viewport SVG-noise
+   layer forced expensive per-frame compositing during scroll for a texture
+   that was effectively invisible at these opacities). The .texture-grain
+   class is now a harmless no-op kept on page wrappers. */
 
 /* Refined selection color */
 ::selection {

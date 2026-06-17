@@ -1,14 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from "next/link"
-import Image from "next/image"
-import { Moon, Sun, X, Folder, FolderOpen } from 'lucide-react'
-import { Button } from "@/app/components/ui/button"
+import { Folder, FolderOpen } from 'lucide-react'
+import SiteHeader from '@/app/components/SiteHeader'
+import SiteFooter from '@/app/components/SiteFooter'
 
 export default function AboutUs() {
-  const [darkMode, setDarkMode] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeHonorees, setActiveHonorees] = useState<Set<number>>(() => new Set())
 
   const hallOfFameHonorees: { name: string; bio: string[] }[] = [
@@ -118,119 +116,18 @@ export default function AboutUs() {
   const toggleHonoree = (index: number) => {
     setActiveHonorees((current) => {
       const updated = new Set(current)
-      const partnerIndex = index % 2 === 0 ? index + 1 : index - 1
-      const indicesToToggle = [index]
-
-      if (partnerIndex >= 0 && partnerIndex < hallOfFameHonorees.length) {
-        indicesToToggle.push(partnerIndex)
+      if (updated.has(index)) {
+        updated.delete(index)
+      } else {
+        updated.add(index)
       }
-
-      const isOpen = updated.has(index)
-
-      indicesToToggle.forEach((i) => {
-        if (isOpen) {
-          updated.delete(i)
-        } else {
-          updated.add(i)
-        }
-      })
-
       return updated
     })
   }
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [darkMode])
-
   return (
     <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0f1729] transition-colors duration-300 font-serif texture-grain text-base sm:text-lg">
-      <header className="bg-white/80 dark:bg-[#0f1729]/80 backdrop-blur-md py-4 sticky top-0 z-50 shadow-sm border-b border-[#d4af36]/20">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center">
-            <Image 
-              src={darkMode ? "/DPE-inverted.png" : "/DPE.png"} 
-              alt="Delta Phi Epsilon logo" 
-              width={240} 
-              height={60} 
-              className="h-12 w-auto sm:h-14 md:h-16"
-            />
-          </Link>
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
-              Home
-            </Link>
-            <Link href="/programs" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
-              Programs
-            </Link>
-            <Link href="/facilities" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
-              Facilities
-            </Link>
-            <Link href="/scholarships" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
-              Awards and Scholarships
-            </Link>
-            <Link href="/policies" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
-              Policies
-            </Link>
-            <Link href="/contact" className="text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl">
-              Contact Us
-            </Link>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="text-[#d4af36] hover:text-[#b08d28] transition duration-300"
-              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {darkMode ? <Sun className="h-7 w-7" /> : <Moon className="h-7 w-7" />}
-            </button>
-          </nav>
-          <Button 
-            variant="ghost" 
-            className="md:hidden text-[#d4af36]"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-7 h-7">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </Button>
-        </div>
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-4 bg-white/95 dark:bg-[#0f1729]/95 backdrop-blur-sm py-2 px-4 absolute top-full left-0 right-0 shadow-md">
-            <div className="flex justify-end mb-2">
-              <Button variant="ghost" onClick={() => setMobileMenuOpen(false)}>
-                <X className="h-7 w-7 text-[#d4af36]" />
-              </Button>
-            </div>
-            <Link href="/" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
-              Home
-            </Link>
-            <Link href="/scholarships" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
-              Awards and Scholarships
-            </Link>
-            <Link href="/policies" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
-              Policies
-            </Link>
-            <Link href="/programs" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
-              Programs
-            </Link>
-            <Link href="/facilities" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
-              Facilities
-            </Link>
-            <Link href="/contact" className="block py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl text-center">
-              Contact Us
-            </Link>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="w-full text-center py-2 text-[#d4af36] hover:text-[#b08d28] transition duration-300 text-xl"
-            >
-              {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            </button>
-          </div>
-        )}
-      </header>
+      <SiteHeader />
 
       <main className="container mx-auto px-4 py-8 sm:py-12">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 text-center text-black dark:text-white">About Us</h1>
@@ -440,7 +337,7 @@ export default function AboutUs() {
                   <button
                     type="button"
                     onClick={() => toggleHonoree(index)}
-                    className="w-full flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-gray-900 text-left transition-colors duration-300 hover:bg-gray-200 dark:hover:bg-gray-800"
+                    className="w-full flex items-center justify-between px-6 py-4 bg-[#f5f0e8] dark:bg-[#0f1729] text-left transition-colors duration-300 hover:bg-[#ece4d6] dark:hover:bg-[#1a2540]"
                     aria-expanded={activeHonorees.has(index)}
                     aria-controls={contentId}
                   >
@@ -502,7 +399,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation Officers</h2>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "192 Line" },
               { name: "Patrick Hall", role: "Vice President", chapter: "Alpha Chapter", line: "74 Line" },
@@ -690,57 +587,7 @@ export default function AboutUs() {
 
       </main>
 
-      <footer className="bg-[#0a0e1a] text-white pt-16 pb-8 border-t border-[#d4af36]/20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            <div className="text-center md:text-left">
-              <Image
-                src="/DPE-inverted.png"
-                alt="Delta Phi Epsilon"
-                width={200}
-                height={50}
-                className="h-12 w-auto mx-auto md:mx-0 mb-4 opacity-60"
-              />
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Founded in 1962, promoting the virtues of foreign service and educating the next generation of American global statesmen.
-              </p>
-            </div>
-            <div className="text-center">
-              <h4 className="text-[#d4af36] font-semibold text-lg mb-4 tracking-wide">Quick Links</h4>
-              <nav className="flex flex-col space-y-2">
-                <Link href="/about" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">About Us</Link>
-                <Link href="/programs" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Programs</Link>
-                <Link href="/scholarships" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Awards and Scholarships</Link>
-                <Link href="/facilities" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Facilities</Link>
-                <Link href="/policies" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Policies</Link>
-                <Link href="/contact" className="text-gray-400 hover:text-[#d4af36] transition duration-300 text-sm">Contact</Link>
-              </nav>
-            </div>
-            <div className="text-center md:text-right">
-              <h4 className="text-[#d4af36] font-semibold text-lg mb-4 tracking-wide">Contact</h4>
-              <p className="text-gray-400 text-sm mb-2">Georgetown Court</p>
-              <p className="text-gray-400 text-sm mb-4">3222 N Street NW, Washington DC 20007</p>
-              <Link href="/contact" className="text-[#d4af36] hover:text-[#e8d48b] transition duration-300 text-sm font-medium">
-                Send us a message &rarr;
-              </Link>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-6">
-            <p className="text-xs text-gray-500 text-center mb-4">
-              Delta Phi Epsilon Foundation for Foreign Service Education is a 501(c)(3) tax-exempt organization and is not affiliated with Georgetown University, the government of the United States or any of its subdivisions, agencies or departments.
-            </p>
-            <div className="text-center">
-              <Button
-                variant="link"
-                className="text-gray-600 hover:text-gray-400 transition duration-300 text-xs"
-                onClick={() => window.open('https://www.aoniqq.com/websitecreation', '_blank')}
-              >
-                Site by Aoniqq LLC
-              </Button>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
