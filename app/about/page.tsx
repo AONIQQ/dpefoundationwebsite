@@ -126,15 +126,15 @@ export default function AboutUs() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0f1729] transition-colors duration-300 font-serif texture-grain text-base sm:text-lg">
+    <div className="min-h-screen bg-[#faf8f5] font-serif text-base sm:text-lg">
       <SiteHeader />
 
       <main className="container mx-auto px-4 py-8 sm:py-12">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 text-center text-black dark:text-white">About Us</h1>
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 text-center text-black">About Us</h1>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Certificate of Incorporation</h2>
-          <div className="bg-[#f5f0e8] dark:bg-[#131d33] p-6 rounded-lg shadow-lg text-base sm:text-lg">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Certificate of Incorporation</h2>
+          <div className="bg-[#f5f0e8] p-6 rounded-lg shadow-lg text-base sm:text-lg">
             <p className="mb-4"><strong>FIRST.</strong> The name and title by which this corporation shall be known in law shall be DELTA PHI EPSILON FOUNDATION FOR FOREIGN SERVICE EDUCATION.</p>
             <p className="mb-4"><strong>SECOND.</strong> The term for which it is organized is perpetual.</p>
             <p className="mb-4"><strong>THIRD.</strong> The particular business and objects of the society shall be to promote the calling of Foreign Service and the various sciences which are a part thereof by education and mutual improvement of members; to promote better understanding by assisting centers for the study and appreciation of international relations; to diffuse knowledge concerning law, languages, and the many other subjects related thereto; to serve as a reference for all that relates to the calling; and to serve as a repository for Foreign Service literature.</p>
@@ -146,8 +146,8 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation History</h2>
-          <div className="bg-[#f5f0e8] dark:bg-[#131d33] p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Foundation History</h2>
+          <div className="bg-[#f5f0e8] p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
             <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity.</p>
             <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kaleta, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
             <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
@@ -155,7 +155,7 @@ export default function AboutUs() {
             <p>To assure that all three classes of Alpha Chapter Brothers would be represented on the governing board of the Foundation, the initial Trustees included three undergraduate brothers, three alumni brothers and three Georgetown faculty brothers. The following individuals constituted the initial Board of Trustees:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <h4 className="font-bold mb-2 text-[#d4af36] text-xl">Undergraduate Brothers</h4>
+                <h4 className="font-bold mb-2 text-[#b08d28] text-xl">Undergraduate Brothers</h4>
                 <ul className="list-none pl-0">
                   <li>Louis Postiglione</li>
                   <li>Philip O&apos;Reilly</li>
@@ -163,7 +163,7 @@ export default function AboutUs() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-bold mb-2 text-[#d4af36] text-xl">Alumni Brothers</h4>
+                <h4 className="font-bold mb-2 text-[#b08d28] text-xl">Alumni Brothers</h4>
                 <ul className="list-none pl-0">
                   <li>James-Michael von Stroebel</li>
                   <li>Bailey G Walsh</li>
@@ -171,7 +171,7 @@ export default function AboutUs() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-bold mb-2 text-[#d4af36] text-xl">Faculty Brothers</h4>
+                <h4 className="font-bold mb-2 text-[#b08d28] text-xl">Faculty Brothers</h4>
                 <ul className="list-none pl-0">
                   <li>John J Leahy</li>
                   <li>Joseph P LeMoine</li>
@@ -224,7 +224,7 @@ export default function AboutUs() {
             </div>
             <p>At the time final approval was granted only Brothers Stewart, Picozzi and Eriksen continued to serve. Newly appointed trustees included Carlos Roa (subsequently resigned), Kenneth W Bleakley (subsequently deceased), Albert L Grasso and Timothy J Rosenberger. The current Board of Trustees has commenced to fulfill the original goals and objectives of the Foundation. The current Trustees are also committed to honoring the terms of the House Plan and have set aside the net proceeds of $2,270,000 plus the additional $300,000 previously accumulated by Brother Terry Boyle in a separate endowment fund. The fund is presently invested in U.S. Treasury obligations. The principal is being held for compliance with the House Plan. Interest income thereof will be used to support other Foundation activities. Within days of receiving the sale proceeds, the Foundation created its first scholarship program. The Foundation has also announced the creation of two additional scholarship programs to commence in 2025. A Program Committee has been created and arrangements are being made to restart the lecture series suspended during the Covid-19 pandemic. Additional information on both the Scholarship Programs and the lecture Program can be found elsewhere on the website.</p>
         
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">All Those Who Have Ever Served as Trustees</h2>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">All Those Who Have Ever Served as Trustees</h2>
   <div className="flex justify-center">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl">
       <ul className="pl-6 space-y-2">
@@ -236,7 +236,7 @@ export default function AboutUs() {
         <li>Walter Giles 1960 - 1962</li>
         <li>Francis Gorman 1989 - 1994</li>
         <li>Albert Grasso 2023 - present</li>
-        <li>John Herity 1960 - 1962</li>
+        <li>John Herrity 1960 - 1962</li>
         <li>Charles Kaleta 1960 - 1962</li>
       </ul>
       <ul className="pl-6 space-y-2">
@@ -250,7 +250,7 @@ export default function AboutUs() {
         <li>Philip O&apos;Reilly 1962 - 1989</li>
         <li>Joseph Picozzi 2020 - present</li>
         <li>Stratton Poland 2020 - 2023</li>
-        <li>Rocco Porecco 1962 - 2013</li>
+        <li>Rocco Porreco 1962 - 2013</li>
       </ul>
       <ul className="pl-6 space-y-2">
         <li>Louis Postiglione 1962 - 2005</li>
@@ -269,7 +269,7 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">
             Officers of the DPE Foundation
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -309,13 +309,13 @@ export default function AboutUs() {
                 ],
               },
             ].map((officer) => (
-              <div key={officer.title} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                <h3 className="text-2xl font-semibold mb-3 text-[#d4af36] text-center">{officer.title}</h3>
-                <ul className="space-y-2 text-gray-800 dark:text-gray-200 text-center">
+              <div key={officer.title} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+                <h3 className="text-2xl font-semibold mb-3 text-[#b08d28] text-center">{officer.title}</h3>
+                <ul className="space-y-2 text-gray-800 text-center">
                   {officer.history.map((entry) => (
                     <li key={`${officer.title}-${entry.years}`}>
                       <span className="block font-medium">{entry.name}</span>
-                      <span className="text-gray-600 dark:text-gray-400 text-sm">{entry.years}</span>
+                      <span className="text-gray-600 text-sm">{entry.years}</span>
                     </li>
                   ))}
                 </ul>
@@ -325,40 +325,40 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-2 text-center text-black dark:text-white">Foundation Hall of Fame</h2>
-          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 text-center mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-2 text-center text-black">Foundation Hall of Fame</h2>
+          <p className="text-lg md:text-xl text-gray-700 text-center mb-6">
             The Foundation recognizes brothers who have made a significant contribution to the Foundation and Fraternity. A brief biographical sketch is included for each honoree.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {hallOfFameHonorees.map((honoree, index) => {
               const contentId = `hall-of-fame-${index}`
               return (
-                <div key={honoree.name} className="bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+                <div key={honoree.name} className="bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden transition-shadow duration-300 hover:shadow-xl">
                   <button
                     type="button"
                     onClick={() => toggleHonoree(index)}
-                    className="w-full flex items-center justify-between px-6 py-4 bg-[#f5f0e8] dark:bg-[#0f1729] text-left transition-colors duration-300 hover:bg-[#ece4d6] dark:hover:bg-[#1a2540]"
+                    className="w-full flex items-center justify-between px-6 py-4 bg-[#f5f0e8] text-left transition-colors duration-300 hover:bg-[#ece4d6]"
                     aria-expanded={activeHonorees.has(index)}
                     aria-controls={contentId}
                   >
                     <span className="flex items-center space-x-3">
                       {activeHonorees.has(index) ? (
-                        <FolderOpen className="h-6 w-6 text-[#d4af36]" />
+                        <FolderOpen className="h-6 w-6 text-[#b08d28]" />
                       ) : (
-                        <Folder className="h-6 w-6 text-[#d4af36]" />
+                        <Folder className="h-6 w-6 text-[#b08d28]" />
                       )}
-                      <span className="text-lg font-semibold text-[#d4af36]">
+                      <span className="text-lg font-semibold text-[#b08d28]">
                         {honoree.name}
                       </span>
                     </span>
-                    <span className="text-sm font-medium text-[#d4af36]">
+                    <span className="text-sm font-medium text-[#b08d28]">
                       {activeHonorees.has(index) ? "Hide Biography" : "View Biography"}
                     </span>
                   </button>
                   {activeHonorees.has(index) && (
                     <div
                       id={contentId}
-                      className="px-6 py-4 space-y-3 text-gray-800 dark:text-gray-200"
+                      className="px-6 py-4 space-y-3 text-gray-800"
                     >
                       {honoree.bio.map((paragraph, paragraphIndex) => (
                         <p key={`${honoree.name}-paragraph-${paragraphIndex}`}>{paragraph}</p>
@@ -372,7 +372,7 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Current Developments</h2>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Current Developments</h2>
           <div className="max-w-4xl mx-auto">
             <iframe
               src="/DPE_Foundation_Jan_27_2026_Update.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
@@ -389,7 +389,7 @@ export default function AboutUs() {
               <Link
                 href="/DPE_Foundation_Jan_27_2026_Update.pdf"
                 target="_blank"
-                className="inline-block font-serif font-semibold text-[#d4af36] hover:text-[#b08d28] transition duration-300 underline"
+                className="inline-block font-serif font-semibold text-[#b08d28] hover:text-[#9a7b22] transition duration-300 underline"
               >
                 Download PDF
               </Link>
@@ -398,7 +398,7 @@ export default function AboutUs() {
         </section>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation Officers</h2>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Foundation Officers</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "192 Line" },
@@ -406,18 +406,18 @@ export default function AboutUs() {
               { name: "Michael D. Eriksen", role: "Secretary", chapter: "Alpha Chapter", line: "99 Line" },
               { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
             ].map((officer, index) => (
-              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
-                <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">{officer.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-base">{officer.chapter}</p>
-                {officer.line && <p className="text-gray-500 dark:text-gray-400 text-base">{officer.line}</p>}
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
+                <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">{officer.name}</h3>
+                <p className="text-gray-600 mb-1 text-lg">{officer.role}</p>
+                <p className="text-gray-600 text-base">{officer.chapter}</p>
+                {officer.line && <p className="text-gray-600 text-base">{officer.line}</p>}
               </div>
             ))}
           </div>
         </section>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Foundation Trustees</h2>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Foundation Trustees</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               { name: "Eduardo (Eddie) Deschapelles", role: "Alpha Chapter", denomination: "119 Line", occupation: "Finance" },
@@ -428,11 +428,11 @@ export default function AboutUs() {
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas M. Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
             ].map((trustee, index) => (
-              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
-                <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">{trustee.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-1 text-lg">{trustee.role}</p>
-                {trustee.denomination && <p className="text-gray-500 dark:text-gray-400 text-base">{trustee.denomination}</p>}
-                {trustee.occupation && <p className="text-gray-500 dark:text-gray-400 text-base mt-1">{trustee.occupation}</p>}
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
+                <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">{trustee.name}</h3>
+                <p className="text-gray-600 mb-1 text-lg">{trustee.role}</p>
+                {trustee.denomination && <p className="text-gray-600 text-base">{trustee.denomination}</p>}
+                {trustee.occupation && <p className="text-gray-600 text-base mt-1">{trustee.occupation}</p>}
               </div>
             ))}
           </div>
@@ -440,12 +440,12 @@ export default function AboutUs() {
 
 
         <section className="mb-16">
-  <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">
+  <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">
     Trustee Biographies
   </h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Eduardo (Eddie) Deschapelles</h3>
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Eduardo (Eddie) Deschapelles</h3>
       <p>Georgetown University: BSFS – cum laude (1982)</p>
       <p>Harvard University: MBA – 1988</p>
       <p>Adjunct Professor: Georgetown University (2017- present)</p>
@@ -457,8 +457,8 @@ export default function AboutUs() {
       <p>Martial Arts: black belt in shotokan karate</p>
       <p>Married to Cecilia for 30+ years; 3 adult children</p>
     </div>
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Michael D. Eriksen</h3>
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Michael D. Eriksen</h3>
       <p>Georgetown University: BSFS in International Economic Affairs (1972)</p>
       <p>University of Florida College of Law: JD (1980); Law Review Editor</p>
       <p>President, Alpha Chapter, Delta Phi Epsilon (1971-72)</p>
@@ -471,8 +471,8 @@ export default function AboutUs() {
       <p>Fisherman</p>
       <p>Married to Kerry for over 3 decades; 4 adult children</p>
     </div>
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Albert L. Grasso</h3>
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Albert L. Grasso</h3>
       <p>Georgetown University: BSFS (1968); JD (1973); LLM (1974)</p>
       <p>Past President - Chuhak & Tecson</p>
       <p>Associate Professor - Roosevelt University</p>
@@ -485,8 +485,8 @@ export default function AboutUs() {
       <p>Collector - Art, stamps and sundry</p>
       <p>Married to Gwen for 50 years</p>
     </div>
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Sanjay J. Mullick</h3>
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Sanjay J. Mullick</h3>
       <p>Georgetown University: BSFS (1991); JD (1996)</p>
       <p>President, Alpha Chapter, Delta Phi Epsilon (1990-1991)</p>
       <p>Member, 137th line of Delta Phi Epsilon</p>
@@ -498,8 +498,8 @@ export default function AboutUs() {
       <p>Rower</p>
       <p>Married to Charu for 26 years; 2 children</p>
     </div>
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Joseph S. Picozzi</h3>
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Joseph S. Picozzi</h3>
       <p>Georgetown University: AB in Government (2017)</p>
       <p>George F. Baker Scholar; Member, 192nd line of Delta Phi Epsilon</p>
       <p>Founded Politics Club at Holy Ghost Preparatory School</p>
@@ -512,8 +512,8 @@ export default function AboutUs() {
         elected to represent Philadelphia in the State Senate since 1996)
       </p>
     </div>
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Timothy J. Rosenberger</h3>
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Timothy J. Rosenberger</h3>
       <p>Georgetown University: AB in English (2016)</p>
       <p>United Lutheran Seminary: MDiv (2018)</p>
       <p>Rawlings School of Divinity: DMin (2020)</p>
@@ -530,8 +530,8 @@ export default function AboutUs() {
       <p>Amateur Musician: Hermit Club</p>
     </div>
   
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-      <h3 className="text-2xl font-semibold mb-2 text-[#d4af36]">Thomas M. Stewart</h3>
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+      <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Thomas M. Stewart</h3>
       <p>Georgetown University: BSFS (2019)</p>
       <p>George Mason University: MA in Economics (2025)</p>
       <p>Energy Data Analyst: IMG-Crown</p>
@@ -546,27 +546,27 @@ export default function AboutUs() {
 
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Fund Raising Committee</h2>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Fund Raising Committee</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               { name: "TBD", role: "Chairman", chapter: "", occupation: "" },
               { name: "Joseph S. Picozzi", role: "Member", chapter: "Alpha Chapter", occupation: "State Senator" },
               { name: "Michael D. Eriksen", role: "Member", chapter: "Alpha Chapter", occupation: "Attorney" },
             ].map((member, index) => (
-              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{member.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-1">{member.role}</p>
-                {member.chapter && <p className="text-gray-500 dark:text-gray-400 text-sm">{member.chapter}</p>}
-                {member.occupation && <p className="text-gray-500 dark:text-gray-400 text-sm">{member.occupation}</p>}
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
+                <h3 className="text-xl font-semibold mb-2 text-[#b08d28]">{member.name}</h3>
+                <p className="text-gray-600 mb-1">{member.role}</p>
+                {member.chapter && <p className="text-gray-600 text-sm">{member.chapter}</p>}
+                {member.occupation && <p className="text-gray-600 text-sm">{member.occupation}</p>}
               </div>
             ))}
           </div>
         </section>
 
         <section className="mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black dark:text-white">Affiliated Organizations</h2>
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-            <ul className="space-y-4 text-gray-800 dark:text-gray-200 text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Affiliated Organizations</h2>
+          <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+            <ul className="space-y-4 text-gray-800 text-center">
               {[
                 "Delta Phi Epsilon Professional Foreign Service Fraternity, Inc.",
                 "Delta Phi Epsilon Fraternity",
@@ -577,7 +577,7 @@ export default function AboutUs() {
                 <li key={index} className="text-xl font-semibold">{org}</li>
               ))}
             </ul>
-            <p className="mt-6 text-gray-600 dark:text-gray-400 text-center text-lg">
+            <p className="mt-6 text-gray-600 text-center text-lg">
               Each of the above entities is a separate legal entity which is neither owned nor controlled by 
               the Foundation and has its own management team.
             </p>

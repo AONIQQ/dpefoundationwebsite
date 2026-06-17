@@ -60,7 +60,7 @@ export default function PoliciesPage() {
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#faf8f5] to-[#f5f0e8] dark:from-[#0f1729] dark:to-[#0c1322] texture-grain transition-colors duration-300 font-serif">
+    <div className="min-h-screen bg-[#faf8f5] font-serif">
       <SiteHeader />
 
       <main className="container mx-auto px-4 py-12 sm:py-16">
@@ -68,7 +68,7 @@ export default function PoliciesPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 sm:mb-8 text-black dark:text-white text-center"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 sm:mb-8 text-black text-center"
         >
           Foundation Policies
         </motion.h1>
@@ -82,9 +82,9 @@ export default function PoliciesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_4px_25px_-3px_rgba(212,175,54,0.15),0_15px_30px_-2px_rgba(0,0,0,0.06)]">
+              <div className="bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_4px_25px_-3px_rgba(212,175,54,0.15),0_15px_30px_-2px_rgba(0,0,0,0.06)]">
                 <div className="p-6">
-                  <h2 className="text-xl sm:text-2xl font-semibold text-[#d4af36] mb-4 break-words hyphens-auto">
+                  <h2 className="text-xl sm:text-2xl font-semibold text-[#b08d28] mb-4 break-words hyphens-auto">
                     {policy.title}
                   </h2>
                   {Array.isArray(policy.files) ? (
@@ -132,15 +132,15 @@ export default function PoliciesPage() {
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col"
+                className="bg-[#fdfcf9] p-6 rounded-lg shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col"
               >
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-[#d4af36]">Policy Viewer</h2>
-                  <Button onClick={() => setActivePolicy(null)} variant="ghost" aria-label="Close policy viewer" className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-[#b08d28]">Policy Viewer</h2>
+                  <Button onClick={() => setActivePolicy(null)} variant="ghost" aria-label="Close policy viewer" className="text-gray-600 hover:text-gray-700">
                     <X className="h-6 w-6" />
                   </Button>
                 </div>
-                <div className="flex-grow bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+                <div className="flex-grow bg-gray-100 rounded-lg overflow-hidden">
                   <iframe 
                     src={`${activePolicy}#page=1&toolbar=0&navpanes=0&scrollbar=0`}
                     className="w-full h-full border-none"

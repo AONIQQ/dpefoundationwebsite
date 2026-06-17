@@ -9,12 +9,10 @@ import { supabase } from '@/lib/supabase'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
-import { useDarkMode } from '@/app/components/useDarkMode'
 import SiteHeader from '@/app/components/SiteHeader'
 import SiteFooter from '@/app/components/SiteFooter'
 
 export default function Contact() {
-  const [darkMode] = useDarkMode()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -73,17 +71,17 @@ export default function Contact() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0f1729] transition-colors duration-300 font-serif texture-grain">
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme={darkMode ? 'dark' : 'light'} />
+    <div className="min-h-screen bg-[#faf8f5] font-serif">
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" />
       <SiteHeader />
 
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black text-center">
           Contact Us
         </h1>
         <OrnamentalDivider className="mb-8" />
 
-        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8 p-8 bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
+        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8 p-8 bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
           <div
             aria-hidden="true"
             style={{ position: 'absolute', left: '-10000px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
@@ -100,7 +98,7 @@ export default function Contact() {
             />
           </div>
           <div>
-            <Label htmlFor="name" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+            <Label htmlFor="name" className="text-lg font-semibold text-black mb-2 block">
               Name
             </Label>
             <Input
@@ -108,14 +106,14 @@ export default function Contact() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
+              className="w-full p-2 border border-gray-300 rounded-md text-black bg-[#fdfcf9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
               placeholder="Enter your name"
               required
             />
           </div>
 
           <div>
-            <Label htmlFor="email" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+            <Label htmlFor="email" className="text-lg font-semibold text-black mb-2 block">
               Email
             </Label>
             <Input
@@ -123,21 +121,21 @@ export default function Contact() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
+              className="w-full p-2 border border-gray-300 rounded-md text-black bg-[#fdfcf9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
               placeholder="Enter your email"
               required
             />
           </div>
 
           <div>
-            <Label htmlFor="message" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+            <Label htmlFor="message" className="text-lg font-semibold text-black mb-2 block">
               Message
             </Label>
             <Textarea
               id="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full p-2 border border-gray-300 dark:border-[#d4af36] rounded-md text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
+              className="w-full p-2 border border-gray-300 rounded-md text-black bg-[#fdfcf9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
               placeholder="Enter your message"
               rows={5}
               required

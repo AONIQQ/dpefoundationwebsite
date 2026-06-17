@@ -44,8 +44,8 @@ function FileUpload({ label, id, name, onFileChange }: { label: string; id: stri
   })
 
   return (
-    <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
-      <Label htmlFor={id} className="text-lg font-semibold text-black dark:text-white mb-2 block">
+    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
+      <Label htmlFor={id} className="text-lg font-semibold text-black mb-2 block">
         {label} <span className="text-red-500">*</span>
       </Label>
       <div 
@@ -56,9 +56,9 @@ function FileUpload({ label, id, name, onFileChange }: { label: string; id: stri
       >
         <input {...getInputProps()} id={id} name={name} />
         {fileName ? (
-          <p className="text-sm text-gray-700 dark:text-gray-300">{fileName}</p>
+          <p className="text-sm text-gray-700">{fileName}</p>
         ) : (
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-gray-600">
             {isDragActive ? 'Drop the file here' : 'Drag and drop a file here, or click to select a file'}
           </p>
         )}
@@ -216,15 +216,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f5] dark:bg-[#0f1729] transition-colors duration-300 font-serif texture-grain">
+    <div className="min-h-screen bg-[#faf8f5] font-serif">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <SiteHeader />
 
       <main className="container mx-auto px-4 py-12">
-        <h2 className="text-4xl md:text-8xl font-bold mb-6 text-black dark:text-white text-center">Awards and Scholarships</h2>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-black text-center">Awards and Scholarships</h1>
 
         <section className="mb-20 max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Scholarship Committee</h2>
+          <h2 className="text-4xl md:text-4xl font-bold mb-6 text-black text-center">Scholarship Committee</h2>
           <OrnamentalDivider className="mb-10" />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {[
@@ -233,11 +233,11 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
               { name: "Timothy J. Rosenberger", role: "Member", chapter: "Alpha Chapter", occupation: "Fellow", company: "Stanford University" },
               { name: "Charles J. Skuba", role: "Chairman", chapter: "Alpha Chapter", occupation: "Professor", company: "Georgetown University" },
             ].map((officer, index) => (
-              <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
-                <h3 className="text-xl font-semibold mb-2 text-[#d4af36]">{officer.name}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-1">{officer.role}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.chapter}</p>
-                <p className="text-gray-500 dark:text-gray-400 text-sm">{officer.occupation} at {officer.company}</p>
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
+                <h3 className="text-xl font-semibold mb-2 text-[#b08d28]">{officer.name}</h3>
+                <p className="text-gray-600 mb-1">{officer.role}</p>
+                <p className="text-gray-600 text-sm">{officer.chapter}</p>
+                <p className="text-gray-600 text-sm">{officer.occupation} at {officer.company}</p>
               </div>
             ))}
           </div>
@@ -245,36 +245,36 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 
         {/* Landegger Program Section */}
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Landegger Program in International Business Diplomacy</h2>
-          <p className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">School of Foreign Service</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black text-center">Landegger Program in International Business Diplomacy</h2>
+          <p className="text-2xl font-semibold mb-4 text-[#b08d28] text-center">School of Foreign Service</p>
           <OrnamentalDivider className="mb-8" />
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
-            <h3 className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">Global Impact Pitch Competition</h3>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+          <div className="bg-[#fdfcf9] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
+            <h3 className="text-2xl font-semibold mb-4 text-[#b08d28] text-center">Global Impact Pitch Competition</h3>
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               Effective with Spring 2025, the Foundation has partnered with the Landegger Program within the Georgetown School of Foreign Service as a contributing sponsor of the annual Global Impact Pitch Competition (GIPC).
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               The Landegger Program is an honors certificate program within the School of Foreign Service that blends international business with international diplomacy.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               The GIPC is an innovative entrepreneurial event now in its eighth year hosted by the Landegger Program and serving the entire Georgetown University community. The Competition features thousands of dollars in prize money plus networking and mentoring opportunities in support of implementation of entries.
             </p>
             <div className="mb-6">
-              <h4 className="text-xl font-semibold mb-4 text-[#d4af36]">Selection criteria include:</h4>
-              <ul className="list-disc pl-6 text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed space-y-2">
+              <h4 className="text-xl font-semibold mb-4 text-[#b08d28]">Selection criteria include:</h4>
+              <ul className="list-disc pl-6 text-lg md:text-xl text-gray-800 leading-relaxed space-y-2">
                 <li>Potential for positive impact on an international challenge, problem or issue broadly defined.</li>
                 <li>Potential for financial sustainability.</li>
                 <li>Solving a problem or meeting a need that someone is willing to finance.</li>
                 <li>Strong founder fit, high likelihood of implementation and impact of the award.</li>
               </ul>
             </div>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               For additional information about the Program and Competition, visit{' '}
-              <a href="https://www.ibd.georgetown.edu" target="_blank" rel="noopener noreferrer" className="text-[#d4af36] hover:underline">
+              <a href="https://www.ibd.georgetown.edu" target="_blank" rel="noopener noreferrer" className="text-[#b08d28] hover:underline">
                 www.ibd.georgetown.edu
               </a>.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed">
               The Trustees believe that participation as a sponsor of the Competition promotes Foundation objectives similar to the granting of scholarships.
             </p>
           </div>
@@ -282,23 +282,23 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 
         {/* STIA Awards Section */}
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">STIA Awards</h2>
-          <p className="text-2xl font-semibold mb-4 text-[#d4af36] text-center">School of Foreign Service</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black text-center">STIA Awards</h2>
+          <p className="text-2xl font-semibold mb-4 text-[#b08d28] text-center">School of Foreign Service</p>
           <OrnamentalDivider className="mb-8" />
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-8">
+          <div className="bg-[#fdfcf9] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-8">
               The Foundation has created in partnership with the Georgetown School of Foreign Service two Awards of $300 each celebrating students who exemplify the STIA mission, applying interdisciplinary thinking to address real world challenges through service, leadership and innovation.
             </p>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
-                <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Delta Phi Epsilon STIA Service Award</h3>
-                <p className="text-gray-800 dark:text-white flex-grow">
+              <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
+                <h3 className="text-xl font-semibold mb-3 text-[#b08d28]">Delta Phi Epsilon STIA Service Award</h3>
+                <p className="text-gray-800 flex-grow">
                   The Award recognizes a graduating SFS senior who demonstrates an exceptional commitment to service and leadership, and who shows how the STIA program can be used to meaningfully engage with and improve the world around us.
                 </p>
               </div>
-              <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
-                <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">Jack Herrity Innovation Award</h3>
-                <p className="text-gray-800 dark:text-white flex-grow">
+              <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
+                <h3 className="text-xl font-semibold mb-3 text-[#b08d28]">Jack Herrity Innovation Award</h3>
+                <p className="text-gray-800 flex-grow">
                   The Award honors a graduating SFS senior who shows outstanding promise in social innovation, particularly at the intersection of science, technology and public policy. It celebrates creative forward thinking approaches to solving complex societal challenges.
                 </p>
               </div>
@@ -308,23 +308,23 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 
         {/* Kenneth W Bleakley Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black text-center">Kenneth W Bleakley Senior Foreign Service Officer Scholarships</h2>
           <OrnamentalDivider className="mb-8" />
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+          <div className="bg-[#fdfcf9] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               Kenneth W Bleakley had a distinguished 29-year career as a U.S. Foreign Service Officer which included serving as President George H.W. Bush&apos;s Senior Deputy U.S. Coordinator for International Communications and Information Policy, Deputy Chief of Mission in San Salvador, Director of U.S. Operations in Central America and Director of the U.S. International Refugee Program. He was President of the American Foreign Service Association and Delta Phi Epsilon Professional Foreign Service Fraternity.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed">
               After retiring from the Foreign Service he was a founder and past president of Fonemed LLC, which provides nurse advice services throughout North America and the Caribbean. He graduated from Georgetown&apos;s School of Foreign Service and held a Master&apos;s Degree from American University. An avid skier, poker player and boatsman, Ken lived a full life of gusto and determination.
             </p>
           </div>
         </section>
 
-        <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
-          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg border border-[#d4af36]/30">
-            <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
+        <section className="mb-20 bg-[#d4af36] rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black">Scholarship Information</h2>
+          <div className="w-20 h-1 bg-black mx-auto mb-6"></div>
+          <div className="bg-[#fdfcf9] p-6 rounded-lg border border-[#d4af36]/30">
+            <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black">
               The trustees of the Delta Phi Epsilon Foundation for Foreign Service Education have decided to honor Kenneth W. Bleakley, a Senior Foreign Service Officer, former Trustee of the Foundation and DPE fraternity brother by the establishment of a Scholarship Award Program in his name.
             </p>
             <div className="grid md:grid-cols-3 gap-8">
@@ -333,9 +333,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
                 { title: "Test Evidence", content: "Scholarship recipients must submit evidence of taking the US Foreign Service Officer Test or good reason for failure to do. Failure to do so will preclude eligibility for further scholarships or grants." },
                 { title: "Scholarship Amount", content: "Scholarships in the amount of $250 per recipient will be awarded to Georgetown university degree program students or graduates who apply to take the US Foreign Service Officer Test scheduled throughout the year." }
               ].map((item, index) => (
-                <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
-                  <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
-                  <p className="text-gray-800 dark:text-white flex-grow">{item.content}</p>
+                <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
+                  <h3 className="text-xl font-semibold mb-3 text-[#b08d28]">{item.title}</h3>
+                  <p className="text-gray-800 flex-grow">{item.content}</p>
                 </div>
               ))}
             </div>
@@ -343,30 +343,30 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
         </section>
 
         <section className="mb-20 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black text-center">
             Kenneth W Bleakley Senior Foreign Service Officer Scholarship Form
           </h1>
           <OrnamentalDivider className="mb-8" />
 
           <div className="mb-12 text-center">
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
               Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and your evidence of taking the FSOT test or good reason for failure to do so. You will be contacted if you have been awarded a scholarship.
             </p>
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
               Using the file upload module below, please submit your completed application. Recipients must submit proof of enrollment at Georgetown University. Evidence of taking/registering for the FSOT test must be submitted within 60 days of the scheduled test date.
             </p>
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
              Submission files must be in PDF format.
             </p> 
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
             The U.S. Department of State has announced that the next FSOT will be administered July 11-18, 2026.
             </p> 
            
           </div>
 
-          <form onSubmit={(e) => handleSubmit(e, 'bleakley')} className="mb-12 space-y-8 p-8 bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
-            <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
-              <Label htmlFor="bleakley-fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+          <form onSubmit={(e) => handleSubmit(e, 'bleakley')} className="mb-12 space-y-8 p-8 bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
+            <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
+              <Label htmlFor="bleakley-fullName" className="text-lg font-semibold text-black mb-2 block">
                 Full Name <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -375,7 +375,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33] focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black bg-[#fdfcf9] focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
                 placeholder="Enter your full name"
                 required
               />
@@ -428,19 +428,19 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 
         {/* Stanley Weiss Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Stanley Weiss Global Business Leader Scholarships</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black text-center">Stanley Weiss Global Business Leader Scholarships</h2>
           <OrnamentalDivider className="mb-8" />
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+          <div className="bg-[#fdfcf9] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               Stanley Weiss enrolled in Georgetown University School of Foreign Service after service in the U.S. Army between 1944 and 1946.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               After graduation from Georgetown, he moved to Mexico to establish mining operations, eventually becoming the largest supplier of magnesia in North America. Later, he was involved with the Soviet - American Trading Corporation (SATC) to import Soviet chromium. At one time, SATC was responsible for 80% of U.S./Soviet trade.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               In addition to his business interests Mr. Weiss was actively involved in various organizations, Including:
             </p>
-            <ul className="list-disc pl-6 text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <ul className="list-disc pl-6 text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               <li>Founder - Business Executives for National Security</li>
               <li>Board of Visitors - Georgetown University School of Foreign Service</li>
               <li>Advisory Board - RAND Center for Middle East Public Policy</li>
@@ -450,11 +450,11 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
         </section>
 
       
-          <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
-          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg border border-[#d4af36]/30">
-            <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
+          <section className="mb-20 bg-[#d4af36] rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black">Scholarship Information</h2>
+          <div className="w-20 h-1 bg-black mx-auto mb-6"></div>
+          <div className="bg-[#fdfcf9] p-6 rounded-lg border border-[#d4af36]/30">
+            <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black">
             The Trustees of the Delta Phi Epsilon Foundation for Foreign Service
 Education have decided to honor Stanley Weiss, a global business leader,
 member of the Board of Visitors of the Georgetown University Walsh School of
@@ -466,9 +466,9 @@ Scholarship Award Program in his name. </p>
                 { title: "Eligibility for The Stanley Weiss Global Business Leader Scholarship", content: "The Stanley Weiss Global Business Leader Scholarships will be awarded to Georgetown University junior or senior students enrolled in the Global Business Fellows program at Georgetown University’s McDonough School of Business and approved by the Baratta Center for Global Business as qualified for internship work on applied global business and policy projects." },
                 { title: "Scholarship Amount", content: "These $500 scholarships will be awarded to those Global Business Fellows students who are identified by the Baratta Center for Global Business as qualifying for the internship program as one part of the Baratta Center compensation award." }
               ].map((item, index) => (
-                <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
-                  <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
-                  <p className="text-gray-800 dark:text-white flex-grow">{item.content}</p>
+                <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
+                  <h3 className="text-xl font-semibold mb-3 text-[#b08d28]">{item.title}</h3>
+                  <p className="text-gray-800 flex-grow">{item.content}</p>
                 </div>
               ))}
             </div>
@@ -477,23 +477,23 @@ Scholarship Award Program in his name. </p>
 
    
         <section className="mb-20 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black text-center">
             Stanley Weiss Global Business Leader Scholarship Form
           </h1>
           <OrnamentalDivider className="mb-8" />
 
           <div className="mb-12 text-center">
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
               Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and your evidence of completing the Baratta Center Intern Program. You will be contacted if you have been awarded a scholarship.
             </p>
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
               Submission files must be in PDF format.
             </p>
           </div>
 
-          <form onSubmit={(e) => handleSubmit(e, 'weiss')} className="mb-12 space-y-8 p-8 bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
-            <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
-              <Label htmlFor="weiss-fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+          <form onSubmit={(e) => handleSubmit(e, 'weiss')} className="mb-12 space-y-8 p-8 bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
+            <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
+              <Label htmlFor="weiss-fullName" className="text-lg font-semibold text-black mb-2 block">
                 Full Name <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -502,7 +502,7 @@ Scholarship Award Program in his name. </p>
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33] focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black bg-[#fdfcf9] focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
                 placeholder="Enter your full name"
                 required
               />
@@ -556,26 +556,26 @@ Scholarship Award Program in his name. </p>
 
         {/* Halleck A Butts Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white text-center">Halleck A Butts Career Diplomat Scholarships</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black text-center">Halleck A Butts Career Diplomat Scholarships</h2>
           <OrnamentalDivider className="mb-8" />
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+          <div className="bg-[#fdfcf9] p-8 rounded-lg shadow-lg border border-[#d4af36]/30">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               After service in World War I, Halleck A. Butts graduated from Georgetown University&#39;s School of Foreign Service in 1921 and was the first President of the Alpha Chapter of Delta Phi Epsilon National Professional Foreign Service Fraternity at Georgetown. Prior to his graduation, he was appointed U.S. Trade Commissioner at the American embassy in Tokyo and later became the U.S. Commercial Attaché. He served at the U.S. embassy in Tokyo from 1920 to 1933.
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               During World War II, he was Chief of the Japan Section in the U.S. Foreign Economic Administration. He was also associate professor of economics at Duke University, detailed to the Army Finance School to lecture on Far Eastern economics and on Japan&apos;s financial institutions and fiscal policy. He was also a lecturer at the Army Civil Affairs Training Schools at Harvard and Northwestern Universities,
             </p>
-            <p className="text-lg md:text-xl text-gray-800 dark:text-white leading-relaxed mb-6">
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-6">
               He joined the Industrial College of the Armed Forces (ICAF – later renamed the National Defense University) in July 1944 as Assistant Director of Research, Foreign Economic Resources Group and then served as Foreign Economic Advisor to the Army Service Forces (ASF). While there, he also returned to Georgetown as an associate professor of economics. After World War II, while still teaching at Georgetown, Mr. Butts became Chief of the Economic Potential Branch of the Industrial College of the Armed Forces (now known as the National Defense University). He then served his country at the Central Intelligence Agency.
             </p>
           </div>
         </section>
 
-        <section className="mb-20 bg-[#d4af36] dark:bg-black rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black dark:text-[#d4af36]">Scholarship Information</h2>
-          <div className="w-20 h-1 bg-black dark:bg-[#d4af36] mx-auto mb-6"></div>
-          <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg border border-[#d4af36]/30">
-          <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black dark:text-white">
+        <section className="mb-20 bg-[#d4af36] rounded-lg shadow-lg p-8 max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-black">Scholarship Information</h2>
+          <div className="w-20 h-1 bg-black mx-auto mb-6"></div>
+          <div className="bg-[#fdfcf9] p-6 rounded-lg border border-[#d4af36]/30">
+          <p className="text-lg mb-10 text-center max-w-3xl mx-auto text-black">
           The Trustees of the Delta Phi Epsilon Foundation for Foreign Service
 Education have decided to honor Halleck A. Butts, a distinguished career
 diplomat, Georgetown University professor, and the first President of the
@@ -588,9 +588,9 @@ establishment of a Scholarship Award Program in his name.</p>
                 { title: "Eligibility for The Halleck A. Butts Career Diplomat Scholarship", content: "The Halleck A. Butts Career Diplomat Scholarships will be awarded to Georgetown University students enrolled in the Dikran Izmirlian Program of Business and Global Affairs (BGA) – Georgetown’s joint undergraduate degree program between the Walsh School of Foreign Service and the McDonough School of Business." },
                 { title: "Scholarship Amount", content: "These $500 scholarships will be awarded to those Izmirlian BGA students who are identified by the program as qualifying for financial need for expenses related to the program's international study and travel requirements." }
               ].map((item, index) => (
-                <div key={index} className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
-                  <h3 className="text-xl font-semibold mb-3 text-[#d4af36]">{item.title}</h3>
-                  <p className="text-gray-800 dark:text-white flex-grow">{item.content}</p>
+                <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-md flex flex-col transform transition duration-300 hover:scale-105 border border-[#d4af36]/30">
+                  <h3 className="text-xl font-semibold mb-3 text-[#b08d28]">{item.title}</h3>
+                  <p className="text-gray-800 flex-grow">{item.content}</p>
                 </div>
               ))}
             </div>
@@ -598,23 +598,23 @@ establishment of a Scholarship Award Program in his name.</p>
         </section>
 
         <section className="mb-20 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black dark:text-white text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black text-center">
             Halleck A Butts Scholarship Application Form
           </h1>
           <OrnamentalDivider className="mb-8" />
 
           <div className="mb-12 text-center">
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
               Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and any additional requirements specified for this scholarship. You will be contacted if you have been awarded a scholarship.
             </p>
-            <p className="text-lg text-gray-800 dark:text-gray-200 mb-4">
+            <p className="text-lg text-gray-800 mb-4">
               Submission files must be in PDF format.
             </p>
           </div>
 
-          <form onSubmit={(e) => handleSubmit(e, 'butts')} className="mb-12 space-y-8 p-8 bg-[#fdfcf9] dark:bg-[#131d33] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
-            <div className="bg-[#fdfcf9] dark:bg-[#131d33] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
-              <Label htmlFor="butts-fullName" className="text-lg font-semibold text-black dark:text-white mb-2 block">
+          <form onSubmit={(e) => handleSubmit(e, 'butts')} className="mb-12 space-y-8 p-8 bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
+            <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
+              <Label htmlFor="butts-fullName" className="text-lg font-semibold text-black mb-2 block">
                 Full Name <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -623,7 +623,7 @@ establishment of a Scholarship Award Program in his name.</p>
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black dark:text-white bg-[#fdfcf9] dark:bg-[#131d33] focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
+                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black bg-[#fdfcf9] focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
                 placeholder="Enter your full name"
                 required
               />
