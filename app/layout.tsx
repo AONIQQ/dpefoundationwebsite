@@ -1,47 +1,9 @@
-'use client'
-
-import { useEffect } from 'react'
 import './globals.css'
+import HeartbeatTrigger from '@/app/components/HeartbeatTrigger'
 
-function HeartbeatTrigger() {
-  useEffect(() => {
-    const triggerHeartbeat = async () => {
-      console.log('Triggering heartbeat...')
-      try {
-        const response = await fetch('/api/heartbeat', { method: 'POST' })
-        if (!response.ok) {
-          console.error('Failed to trigger heartbeat', await response.text())
-        } else {
-          const data = await response.json()
-          console.log('Heartbeat response:', data)
-          
-          // Fetch the current heartbeat data
-          const getResponse = await fetch('/api/heartbeat', { method: 'GET' })
-          if (getResponse.ok) {
-            const getData = await getResponse.json()
-            console.log('Current heartbeat data:', getData)
-          } else {
-            console.error('Failed to fetch heartbeat data', await getResponse.text())
-          }
-        }
-      } catch (error) {
-        console.error('Error triggering heartbeat:', error)
-      }
-    }
-
-    // Trigger heartbeat immediately on component mount
-    triggerHeartbeat()
-
-    // Set interval to 6 days (in milliseconds)
-    const SIX_DAYS_IN_MS = 6 * 24 * 60 * 60 * 1000
-    const intervalId = setInterval(triggerHeartbeat, SIX_DAYS_IN_MS)
-
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(intervalId)
-  }, [])
-
-  return null
-}
+// Runs before first paint to apply the persisted theme (no flash of the wrong
+// theme on load/navigation). Kept in sync at runtime by useDarkMode.
+const THEME_INIT = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}}catch(e){}})();`
 
 export default function RootLayout({
   children,
@@ -49,10 +11,27 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <title>Delta Phi Epsilon Foundation for Foreign Service Education</title>
         <meta name="description" content="Founded in 1962, the Delta Phi Epsilon Foundation for Foreign Service Education promotes the virtues of foreign service and helps educate the next generation of American global statesmen through scholarships and programming." />
+        <meta name="theme-color" content="#0f1729" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+
+        {/* Open Graph / social preview. NOTE: for image previews on Facebook/LinkedIn,
+            replace the image with an absolute URL (https://yourdomain/og-image.png)
+            once the production domain is known — some crawlers require absolute URLs. */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Delta Phi Epsilon Foundation for Foreign Service Education" />
+        <meta property="og:title" content="Delta Phi Epsilon Foundation for Foreign Service Education" />
+        <meta property="og:description" content="Founded in 1962, promoting the virtues of foreign service and educating the next generation of American global statesmen through scholarships and programming." />
+        <meta property="og:image" content="/og-image.png" />
+        <meta property="og:locale" content="en_US" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Delta Phi Epsilon Foundation for Foreign Service Education" />
+        <meta name="twitter:description" content="Founded in 1962, promoting the virtues of foreign service and educating the next generation of American global statesmen through scholarships and programming." />
+        <meta name="twitter:image" content="/og-image.png" />
       </head>
       <body className="font-serif">
         <HeartbeatTrigger />
