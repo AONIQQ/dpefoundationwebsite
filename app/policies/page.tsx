@@ -92,7 +92,7 @@ export default function PoliciesPage() {
                       {policy.files.map((file, fileIndex) => (
                         <Button 
                           key={fileIndex}
-                          className="w-full bg-gradient-to-r from-[#d4af36] to-[#c5a033] hover:from-[#b08d28] hover:to-[#9a7b22] text-white transition-colors duration-300"
+                          className="w-full bg-[#f5f0e8] border border-[#d4af36]/60 text-[#b08d28] hover:bg-[#ece4d6] transition-colors duration-300"
                           onClick={() => setActivePolicy(file.file)}
                         >
                           <FileText className="mr-2 h-5 w-5" />
@@ -102,7 +102,7 @@ export default function PoliciesPage() {
                     </div>
                   ) : (
                     <Button 
-                      className="w-full bg-gradient-to-r from-[#d4af36] to-[#c5a033] hover:from-[#b08d28] hover:to-[#9a7b22] text-white transition-colors duration-300"
+                      className="w-full bg-[#f5f0e8] border border-[#d4af36]/60 text-[#b08d28] hover:bg-[#ece4d6] transition-colors duration-300"
                       onClick={() => setActivePolicy(policy.file || null)} // Provide default value
                     >
                       <FileText className="mr-2 h-5 w-5" />
@@ -140,7 +140,7 @@ export default function PoliciesPage() {
                     <X className="h-6 w-6" />
                   </Button>
                 </div>
-                <div className="flex-grow bg-gray-100 rounded-lg overflow-hidden">
+                <div className="flex-grow bg-[#f5f0e8] rounded-lg overflow-hidden">
                   <iframe 
                     src={`${activePolicy}#page=1&toolbar=0&navpanes=0&scrollbar=0`}
                     className="w-full h-full border-none"
