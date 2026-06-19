@@ -12,7 +12,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/app/components/ui/textarea"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/app/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
-import { Download, FileText, Edit, LogOut } from 'lucide-react'
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/app/components/ui/tooltip"
+import { Download, FileText, Edit, LogOut, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
@@ -55,7 +56,13 @@ interface ContactSubmission {
   email: string
   message: string
   submission_time: string
+  read: boolean
 }
+
+// Make the scholarship tabs read clearly as clickable buttons: bordered gold
+// "pills" at rest with a hover lift, and a solid-gold filled state when active.
+const TAB_TRIGGER_CLASS =
+  'w-1/2 md:w-auto justify-center px-4 py-2 rounded-md border border-[#d4af36]/50 bg-[#fdfcf9] text-[#b08d28] font-semibold cursor-pointer transition-colors hover:bg-[#f5f0e8] hover:border-[#d4af36] hover:text-[#9a7b22] data-[state=active]:bg-[#d4af36] data-[state=active]:text-white data-[state=active]:border-[#d4af36] data-[state=active]:shadow-sm'
 
 export default function AdminDashboard() {
   const [scholarshipType, setScholarshipType] = useState<ScholarshipType>('bleakley')
@@ -116,7 +123,10 @@ export default function AdminDashboard() {
         .order('submission_time', { ascending: false })
 
       if (contactError) throw contactError
-      setContactSubmissions(contactData || [])
+      // Coerce `read` so the UI works even before the column exists in the DB.
+      setContactSubmissions(
+        (contactData || []).map((c) => ({ ...c, read: Boolean(c.read) }))
+      )
 
     } catch (error) {
       console.error('Error fetching submissions:', error)
@@ -339,6 +349,68 @@ export default function AdminDashboard() {
     }
   }
 
+  const handleContactReadChange = async (id: number, read: boolean) => {
+    // Optimistic update.
+    setContactSubmissions(prev =>
+      prev.map(sub => (sub.id === id ? { ...sub, read } : sub))
+    )
+    try {
+      const response = await fetch('/api/admin/contact', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, read }),
+      })
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || 'Request failed')
+      }
+      toast.success(read ? 'Marked as read' : 'Marked as unread')
+    } catch (error) {
+      // Revert on failure.
+      setContactSubmissions(prev =>
+        prev.map(sub => (sub.id === id ? { ...sub, read: !read } : sub))
+      )
+      console.error('Error updating contact read status:', error)
+      toast.error('Failed to update read status')
+    }
+  }
+
+  const handleContactDelete = async (id: number) => {
+    if (!window.confirm('Delete this contact submission? This cannot be undone.')) {
+      return
+    }
+    const removed = contactSubmissions.find(sub => sub.id === id)
+    // Optimistic removal.
+    setContactSubmissions(prev => prev.filter(sub => sub.id !== id))
+    try {
+      const response = await fetch('/api/admin/contact', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      })
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || 'Request failed')
+      }
+      toast.success('Contact submission deleted')
+    } catch (error) {
+      // Re-insert only the removed row (preserving any concurrent changes),
+      // keeping the existing newest-first ordering.
+      if (removed) {
+        setContactSubmissions(prev =>
+          prev.some(sub => sub.id === id)
+            ? prev
+            : [...prev, removed].sort(
+                (a, b) =>
+                  new Date(b.submission_time).getTime() - new Date(a.submission_time).getTime()
+              )
+        )
+      }
+      console.error('Error deleting contact submission:', error)
+      toast.error('Failed to delete submission')
+    }
+  }
+
   const handleLogout = async () => {
     try {
       const response = await fetch('/api/admin/logout', {
@@ -375,6 +447,7 @@ export default function AdminDashboard() {
   }
 
   return (
+    <TooltipProvider delayDuration={200}>
     <div className="min-h-screen bg-[#faf8f5] font-serif">
       <ToastContainer />
       
@@ -405,11 +478,11 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <Tabs value={scholarshipType} onValueChange={(value: string) => setScholarshipType(value as ScholarshipType)}>
-            <TabsList className="mb-4 flex flex-wrap gap-2 h-auto md:h-10 p-0 md:p-1 w-full items-stretch">
-              <TabsTrigger value="bleakley" className="w-1/2 md:w-auto justify-center">Bleakley Scholarship</TabsTrigger>
-              <TabsTrigger value="weiss" className="w-1/2 md:w-auto justify-center">Weiss Scholarship</TabsTrigger>
-              <TabsTrigger value="butts" className="w-1/2 md:w-auto justify-center">Butts Scholarship</TabsTrigger>
-              <TabsTrigger value="lemoine" className="w-1/2 md:w-auto justify-center">LeMoine Scholarship</TabsTrigger>
+            <TabsList className="mb-4 flex flex-wrap gap-2 h-auto p-0 w-full items-stretch bg-transparent">
+              <TabsTrigger value="bleakley" className={TAB_TRIGGER_CLASS}>Bleakley Scholarship</TabsTrigger>
+              <TabsTrigger value="weiss" className={TAB_TRIGGER_CLASS}>Weiss Scholarship</TabsTrigger>
+              <TabsTrigger value="butts" className={TAB_TRIGGER_CLASS}>Butts Scholarship</TabsTrigger>
+              <TabsTrigger value="lemoine" className={TAB_TRIGGER_CLASS}>LeMoine Scholarship</TabsTrigger>
             </TabsList>
 
             {(['bleakley', 'weiss', 'butts', 'lemoine'] as ScholarshipType[]).map((type) => (
@@ -607,24 +680,33 @@ export default function AdminDashboard() {
                                   setIsDialogOpen(open)
                                   if (!open) setEditingNotes(null)
                                 }}>
-                                  <DialogTrigger asChild>
-                                    <Button 
-                                      variant="outline" 
-                                      onClick={() => {
-                                        setEditingNotes({ 
-                                          id: submission.id, 
-                                          notes: submission.admin_notes,
-                                          scholarshipType: scholarshipType
-                                        })
-                                        setIsDialogOpen(true)
-                                      }}
-                                    >
-                                      <Edit className="h-4 w-4 mr-2" />
-                                      {submission.admin_notes 
-                                        ? `${submission.admin_notes.substring(0, 20)}...` 
-                                        : 'Add Notes'}
-                                    </Button>
-                                  </DialogTrigger>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <DialogTrigger asChild>
+                                        <Button
+                                          variant="outline"
+                                          onClick={() => {
+                                            setEditingNotes({
+                                              id: submission.id,
+                                              notes: submission.admin_notes,
+                                              scholarshipType: scholarshipType
+                                            })
+                                            setIsDialogOpen(true)
+                                          }}
+                                        >
+                                          <Edit className="h-4 w-4 mr-2" />
+                                          {submission.admin_notes
+                                            ? `${submission.admin_notes.substring(0, 20)}...`
+                                            : 'Add Notes'}
+                                        </Button>
+                                      </DialogTrigger>
+                                    </TooltipTrigger>
+                                    {submission.admin_notes && (
+                                      <TooltipContent side="top" align="end">
+                                        {submission.admin_notes}
+                                      </TooltipContent>
+                                    )}
+                                  </Tooltip>
                                   <DialogContent>
                                     <DialogHeader>
                                       <DialogTitle>Admin Notes for {submission.full_name}</DialogTitle>
@@ -774,24 +856,33 @@ export default function AdminDashboard() {
                                 setIsDialogOpen(open)
                                 if (!open) setEditingNotes(null)
                               }}>
-                                <DialogTrigger asChild>
-                                  <Button 
-                                    variant="outline" 
-                                    onClick={() => {
-                                      setEditingNotes({ 
-                                        id: submission.id, 
-                                        notes: submission.admin_notes,
-                                        scholarshipType: scholarshipType
-                                      })
-                                      setIsDialogOpen(true)
-                                    }}
-                                  >
-                                    <Edit className="h-4 w-4 mr-2" />
-                                    {submission.admin_notes 
-                                      ? `${submission.admin_notes.substring(0, 20)}...` 
-                                      : 'Add Notes'}
-                                  </Button>
-                                </DialogTrigger>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <DialogTrigger asChild>
+                                      <Button
+                                        variant="outline"
+                                        onClick={() => {
+                                          setEditingNotes({
+                                            id: submission.id,
+                                            notes: submission.admin_notes,
+                                            scholarshipType: scholarshipType
+                                          })
+                                          setIsDialogOpen(true)
+                                        }}
+                                      >
+                                        <Edit className="h-4 w-4 mr-2" />
+                                        {submission.admin_notes
+                                          ? `${submission.admin_notes.substring(0, 20)}...`
+                                          : 'Add Notes'}
+                                      </Button>
+                                    </DialogTrigger>
+                                  </TooltipTrigger>
+                                  {submission.admin_notes && (
+                                    <TooltipContent side="top">
+                                      {submission.admin_notes}
+                                    </TooltipContent>
+                                  )}
+                                </Tooltip>
                                 <DialogContent>
                                   <DialogHeader>
                                     <DialogTitle>Admin Notes for {submission.full_name}</DialogTitle>
@@ -839,13 +930,15 @@ export default function AdminDashboard() {
               </div>
 
               <div className="overflow-x-auto">
-              <Table className="min-w-[800px]">
+              <Table className="min-w-[900px]">
                 <TableHeader>
                   <TableRow>
+                    <TableHead className="w-[80px]">Read</TableHead>
                     <TableHead>Full Name</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>Message</TableHead>
                     <TableHead>Submitted At</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -856,9 +949,27 @@ export default function AdminDashboard() {
                     )
                     .map((submission) => (
                       <TableRow key={submission.id}>
-                        <TableCell>{submission.full_name}</TableCell>
-                        <TableCell>{submission.email}</TableCell>
                         <TableCell>
+                          <Checkbox
+                            checked={submission.read}
+                            aria-label={submission.read ? 'Mark as unread' : 'Mark as read'}
+                            onCheckedChange={(checked) =>
+                              handleContactReadChange(submission.id, checked === true)
+                            }
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <span className={submission.read ? 'text-gray-700' : 'font-semibold text-black'}>
+                            {submission.full_name}
+                          </span>
+                          {!submission.read && (
+                            <span className="ml-2 inline-block align-middle rounded-full bg-[#d4af36]/15 px-2 py-0.5 text-xs font-medium text-[#b08d28]">
+                              New
+                            </span>
+                          )}
+                        </TableCell>
+                        <TableCell className={submission.read ? 'opacity-60' : undefined}>{submission.email}</TableCell>
+                        <TableCell className={submission.read ? 'opacity-60' : undefined}>
                           <Dialog>
                             <DialogTrigger asChild>
                               <Button variant="link">
@@ -869,17 +980,38 @@ export default function AdminDashboard() {
                               <DialogHeader>
                                 <DialogTitle>Full Message</DialogTitle>
                               </DialogHeader>
-                              <div className="mt-4 max-h-[60vh] overflow-y-auto">
+                              <div className="mt-4 max-h-[60vh] overflow-y-auto whitespace-pre-wrap">
                                 {submission.message}
                               </div>
                             </DialogContent>
                           </Dialog>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={submission.read ? 'opacity-60' : undefined}>
                           {new Date(submission.submission_time).toLocaleString()}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            aria-label="Delete submission"
+                            onClick={() => handleContactDelete(submission.id)}
+                            className="text-gray-500 hover:text-red-600 hover:bg-red-50"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
+                  {contactSubmissions.filter(submission =>
+                    submission.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    submission.email.toLowerCase().includes(searchTerm.toLowerCase())
+                  ).length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center text-gray-500 py-8">
+                        No contact submissions.
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
               </div>
@@ -909,5 +1041,6 @@ export default function AdminDashboard() {
         </div>
       </footer>
     </div>
+    </TooltipProvider>
   )
 }
