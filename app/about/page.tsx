@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from "next/link"
 import { Folder, FolderOpen } from 'lucide-react'
+import OrnamentalDivider from '@/app/components/OrnamentalDivider'
 import SiteHeader from '@/app/components/SiteHeader'
 import SiteFooter from '@/app/components/SiteFooter'
 
@@ -134,7 +135,8 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Certificate of Incorporation</h2>
-          <div className="bg-[#f5f0e8] p-6 rounded-lg shadow-lg text-base sm:text-lg">
+          <OrnamentalDivider className="mb-8" />
+          <div className="bg-[#f5f0e8] p-6 sm:p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
             <p className="mb-4"><strong>FIRST.</strong> The name and title by which this corporation shall be known in law shall be DELTA PHI EPSILON FOUNDATION FOR FOREIGN SERVICE EDUCATION.</p>
             <p className="mb-4"><strong>SECOND.</strong> The term for which it is organized is perpetual.</p>
             <p className="mb-4"><strong>THIRD.</strong> The particular business and objects of the society shall be to promote the calling of Foreign Service and the various sciences which are a part thereof by education and mutual improvement of members; to promote better understanding by assisting centers for the study and appreciation of international relations; to diffuse knowledge concerning law, languages, and the many other subjects related thereto; to serve as a reference for all that relates to the calling; and to serve as a repository for Foreign Service literature.</p>
@@ -147,7 +149,8 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Foundation History</h2>
-          <div className="bg-[#f5f0e8] p-6 rounded-lg shadow-lg text-base sm:text-lg space-y-4 text-center">
+          <OrnamentalDivider className="mb-8" />
+          <div className="bg-[#f5f0e8] p-6 sm:p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-base sm:text-lg space-y-4 leading-relaxed text-left max-w-4xl mx-auto">
             <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity.</p>
             <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kaleta, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
             <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
@@ -272,6 +275,7 @@ export default function AboutUs() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">
             Officers of the DPE Foundation
           </h2>
+          <OrnamentalDivider className="mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               {
@@ -309,7 +313,7 @@ export default function AboutUs() {
                 ],
               },
             ].map((officer) => (
-              <div key={officer.title} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+              <div key={officer.title} className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
                 <h3 className="text-2xl font-semibold mb-3 text-[#b08d28] text-center">{officer.title}</h3>
                 <ul className="space-y-2 text-gray-800 text-center">
                   {officer.history.map((entry) => (
@@ -326,6 +330,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-2 text-center text-black">Foundation Hall of Fame</h2>
+          <OrnamentalDivider className="mb-8" />
           <p className="text-lg md:text-xl text-gray-700 text-center mb-6">
             The Foundation recognizes brothers who have made a significant contribution to the Foundation and Fraternity. A brief biographical sketch is included for each honoree.
           </p>
@@ -333,7 +338,7 @@ export default function AboutUs() {
             {hallOfFameHonorees.map((honoree, index) => {
               const contentId = `hall-of-fame-${index}`
               return (
-                <div key={honoree.name} className="bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+                <div key={honoree.name} className="bg-[#fdfcf9] rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] overflow-hidden transition-shadow duration-300 hover:shadow-xl">
                   <button
                     type="button"
                     onClick={() => toggleHonoree(index)}
@@ -373,10 +378,11 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Current Developments</h2>
-          <div className="max-w-4xl mx-auto">
+          <OrnamentalDivider className="mb-8" />
+          <div className="max-w-4xl mx-auto bg-[#fdfcf9] rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] p-2 sm:p-4 overflow-hidden">
             <iframe
               src="/DPE_Foundation_Jan_27_2026_Update.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-              className="w-full min-h-screen border-0 shadow-lg rounded-lg"
+              className="w-full min-h-screen border-0 rounded-xl"
               style={{
                 border: 'none',
                 outline: 'none',
@@ -399,6 +405,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Foundation Officers</h2>
+          <OrnamentalDivider className="mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               { name: "Joseph S. Picozzi", role: "President", chapter: "Alpha Chapter", line: "192 Line" },
@@ -406,7 +413,7 @@ export default function AboutUs() {
               { name: "Michael D. Eriksen", role: "Secretary", chapter: "Alpha Chapter", line: "99 Line" },
               { name: "Albert L. Grasso", role: "Treasurer", chapter: "Alpha Chapter", line: "92 Line" },
             ].map((officer, index) => (
-              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-center">
                 <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">{officer.name}</h3>
                 <p className="text-gray-600 mb-1 text-lg">{officer.role}</p>
                 <p className="text-gray-600 text-base">{officer.chapter}</p>
@@ -418,6 +425,7 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Foundation Trustees</h2>
+          <OrnamentalDivider className="mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               { name: "Eduardo (Eddie) Deschapelles", role: "Alpha Chapter", denomination: "119 Line", occupation: "Finance" },
@@ -428,7 +436,7 @@ export default function AboutUs() {
               { name: "Timothy J. Rosenberger", role: "Alpha Chapter", denomination: "206 Line", occupation: "Attorney" },
               { name: "Thomas M. Stewart", role: "Alpha Chapter", denomination: "193 Line", occupation: "Economist" },
             ].map((trustee, index) => (
-              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center">
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-center">
                 <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">{trustee.name}</h3>
                 <p className="text-gray-600 mb-1 text-lg">{trustee.role}</p>
                 {trustee.denomination && <p className="text-gray-600 text-base">{trustee.denomination}</p>}
@@ -443,8 +451,9 @@ export default function AboutUs() {
   <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">
     Trustee Biographies
   </h2>
+  <OrnamentalDivider className="mb-8" />
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
-    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
       <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Eduardo (Eddie) Deschapelles</h3>
       <p>Georgetown University: BSFS – cum laude (1982)</p>
       <p>Harvard University: MBA – 1988</p>
@@ -457,7 +466,7 @@ export default function AboutUs() {
       <p>Martial Arts: black belt in shotokan karate</p>
       <p>Married to Cecilia for 30+ years; 3 adult children</p>
     </div>
-    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
       <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Michael D. Eriksen</h3>
       <p>Georgetown University: BSFS in International Economic Affairs (1972)</p>
       <p>University of Florida College of Law: JD (1980); Law Review Editor</p>
@@ -471,7 +480,7 @@ export default function AboutUs() {
       <p>Fisherman</p>
       <p>Married to Kerry for over 3 decades; 4 adult children</p>
     </div>
-    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
       <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Albert L. Grasso</h3>
       <p>Georgetown University: BSFS (1968); JD (1973); LLM (1974)</p>
       <p>Past President - Chuhak & Tecson</p>
@@ -485,7 +494,7 @@ export default function AboutUs() {
       <p>Collector - Art, stamps and sundry</p>
       <p>Married to Gwen for 50 years</p>
     </div>
-    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
       <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Sanjay J. Mullick</h3>
       <p>Georgetown University: BSFS (1991); JD (1996)</p>
       <p>President, Alpha Chapter, Delta Phi Epsilon (1990-1991)</p>
@@ -498,7 +507,7 @@ export default function AboutUs() {
       <p>Rower</p>
       <p>Married to Charu for 26 years; 2 children</p>
     </div>
-    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
       <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Joseph S. Picozzi</h3>
       <p>Georgetown University: AB in Government (2017)</p>
       <p>George F. Baker Scholar; Member, 192nd line of Delta Phi Epsilon</p>
@@ -512,7 +521,7 @@ export default function AboutUs() {
         elected to represent Philadelphia in the State Senate since 1996)
       </p>
     </div>
-    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
       <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Timothy J. Rosenberger</h3>
       <p>Georgetown University: AB in English (2016)</p>
       <p>United Lutheran Seminary: MDiv (2018)</p>
@@ -530,7 +539,7 @@ export default function AboutUs() {
       <p>Amateur Musician: Hermit Club</p>
     </div>
   
-    <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+    <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
       <h3 className="text-2xl font-semibold mb-2 text-[#b08d28]">Thomas M. Stewart</h3>
       <p>Georgetown University: BSFS (2019)</p>
       <p>George Mason University: MA in Economics (2025)</p>
@@ -547,13 +556,14 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Fund Raising Committee</h2>
+          <OrnamentalDivider className="mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               { name: "TBD", role: "Chairman", chapter: "", occupation: "" },
               { name: "Joseph S. Picozzi", role: "Member", chapter: "Alpha Chapter", occupation: "State Senator" },
               { name: "Michael D. Eriksen", role: "Member", chapter: "Alpha Chapter", occupation: "Attorney" },
             ].map((member, index) => (
-              <div key={index} className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] text-center transform transition-all duration-500 ease-out hover:-translate-y-1 border-t-2 border-[#d4af36]">
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-center transform transition-all duration-500 ease-out hover:-translate-y-1">
                 <h3 className="text-xl font-semibold mb-2 text-[#b08d28]">{member.name}</h3>
                 <p className="text-gray-600 mb-1">{member.role}</p>
                 {member.chapter && <p className="text-gray-600 text-sm">{member.chapter}</p>}
@@ -565,7 +575,8 @@ export default function AboutUs() {
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Affiliated Organizations</h2>
-          <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+          <OrnamentalDivider className="mb-8" />
+          <div className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
             <ul className="space-y-4 text-gray-800 text-center">
               {[
                 "Delta Phi Epsilon Professional Foreign Service Fraternity, Inc.",
