@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/app/components/ui/textarea"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/app/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
-import { Download, Moon, Sun, FileText, Edit, LogOut } from 'lucide-react'
+import { Download, FileText, Edit, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
@@ -65,7 +65,6 @@ export default function AdminDashboard() {
   const [lemoineSubmissions, setLeMoineSubmissions] = useState<LeMoineSubmission[]>([])
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [darkMode, setDarkMode] = useState(false)
   const [selectedFile, setSelectedFile] = useState<string | null>(null)
   const [editingNotes, setEditingNotes] = useState<{ id: number, notes: string, scholarshipType: ScholarshipType } | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -74,7 +73,6 @@ export default function AdminDashboard() {
 
   const fetchSubmissions = useCallback(async () => {
     try {
-      console.log('Fetching scholarship submissions...')
       // Fetch Bleakley submissions
       const { data: bleakleyData, error: bleakleyError } = await supabase
         .from('bleakley_scholarship_submissions')
@@ -129,14 +127,6 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchSubmissions()
   }, [fetchSubmissions])
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [darkMode])
 
   const getCurrentSubmissions = () => {
     switch (scholarshipType) {
@@ -385,14 +375,14 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300 font-serif">
+    <div className="min-h-screen bg-[#faf8f5] font-serif">
       <ToastContainer />
       
-      <header className="bg-white dark:bg-black py-4 sticky top-0 z-10 shadow-md">
+      <header className="bg-white/95 py-4 sticky top-0 z-10 shadow-sm border-b border-[#d4af36]/20">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/">
             <Image 
-              src={darkMode ? "/DPE-inverted.png" : "/DPE.png"} 
+              src="/DPE.png" 
               alt="Delta Phi Epsilon logo" 
               width={240} 
               height={60} 
@@ -404,12 +394,6 @@ export default function AdminDashboard() {
               <LogOut className="mr-2 h-4 w-4" />
               Logout
             </Button>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="text-[#d4af36] hover:text-[#b08d28]"
-            >
-              {darkMode ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
-            </button>
           </div>
         </div>
       </header>
@@ -672,11 +656,11 @@ export default function AdminDashboard() {
                       {getCurrentSubmissions()
                         .filter(submission => submission.full_name.toLowerCase().includes(searchTerm.toLowerCase()))
                         .map((submission) => (
-                          <div key={submission.id} className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4">
+                          <div key={submission.id} className="rounded-xl border border-[#d4af36]/20 bg-[#fdfcf9] p-4">
                             <div className="flex justify-between items-start">
                               <div>
-                                <div className="font-semibold text-black dark:text-white">{submission.full_name}</div>
-                                <div className="text-sm text-gray-600 dark:text-gray-300">{new Date(submission.submission_time).toLocaleString()}</div>
+                                <div className="font-semibold text-black">{submission.full_name}</div>
+                                <div className="text-sm text-gray-600">{new Date(submission.submission_time).toLocaleString()}</div>
                               </div>
                             </div>
                             <div className="flex flex-wrap gap-2 mt-3">
@@ -730,7 +714,7 @@ export default function AdminDashboard() {
                             </div>
                             <div className="flex items-center justify-between gap-3 mt-3">
                               <div className="flex items-center gap-2">
-                                <span className="text-sm text-gray-700 dark:text-gray-200">Reviewed</span>
+                                <span className="text-sm text-gray-700">Reviewed</span>
                                 <Checkbox
                                   checked={submission.reviewed}
                                   onCheckedChange={(checked) => {
@@ -906,9 +890,9 @@ export default function AdminDashboard() {
         {/* File Preview Dialog */}
         {selectedFile && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg max-w-4xl w-full h-5/6 flex flex-col">
+            <div className="bg-[#fdfcf9] p-4 rounded-2xl shadow-lg border-t-2 border-[#d4af36] max-w-4xl w-full h-5/6 flex flex-col">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold text-black dark:text-white">File Preview</h2>
+                <h2 className="text-2xl font-bold text-black">File Preview</h2>
                 <Button onClick={() => setSelectedFile(null)} variant="ghost">
                   Close
                 </Button>
@@ -919,7 +903,7 @@ export default function AdminDashboard() {
         )}
       </main>
 
-      <footer className="bg-black text-white py-8">
+      <footer className="bg-[#f5f0e8] text-gray-600 py-8 border-t-2 border-[#d4af36]">
         <div className="container mx-auto px-4 text-center">
           <p>&copy; {new Date().getFullYear()} Delta Phi Epsilon Foundation. All rights reserved.</p>
         </div>

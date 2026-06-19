@@ -31,13 +31,13 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-black transition-colors duration-300 font-serif">
-      <Card className="w-full max-w-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+    <div className="min-h-screen flex items-center justify-center bg-[#faf8f5] font-serif">
+      <Card className="w-full max-w-md bg-[#fdfcf9] border-t-2 border-[#d4af36] shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-4">
             <Image src="/DPE.png" alt="Delta Phi Epsilon logo" width={240} height={60} />
           </div>
-          <CardTitle className="text-2xl font-bold text-center text-black dark:text-white">Admin Login</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center text-black">Admin Login</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -48,7 +48,7 @@ export default function AdminLogin() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="bg-white dark:bg-gray-700 text-black dark:text-white border-gray-300 dark:border-gray-600"
+                className="bg-[#fdfcf9] text-black border-gray-300"
               />
             </div>
             <div className="space-y-2">
@@ -58,7 +58,7 @@ export default function AdminLogin() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-white dark:bg-gray-700 text-black dark:text-white border-gray-300 dark:border-gray-600"
+                className="bg-[#fdfcf9] text-black border-gray-300"
               />
             </div>
             {error && <p className="text-red-500 text-sm">{error}</p>}
