@@ -43,29 +43,37 @@ export default function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden lg:flex items-center space-x-6">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-[#b08d28] hover:text-[#9a7b22] transition duration-300 text-lg"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="flex items-center gap-3 sm:gap-4">
+          <nav className="hidden lg:flex items-center space-x-6">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[#b08d28] hover:text-[#9a7b22] transition duration-300 text-lg"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
 
-        <Button
-          variant="ghost"
-          className="lg:hidden text-[#b08d28]"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Open menu"
-          aria-expanded={mobileMenuOpen}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
-        </Button>
+          <Link href="/donate">
+            <Button className="bg-gradient-to-r from-[#d4af36] to-[#c5a033] hover:from-[#b08d28] hover:to-[#9a7b22] text-white rounded-full px-5">
+              Donate
+            </Button>
+          </Link>
+
+          <Button
+            variant="ghost"
+            className="lg:hidden text-[#b08d28]"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Open menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </Button>
+        </div>
       </div>
 
       {mobileMenuOpen && (

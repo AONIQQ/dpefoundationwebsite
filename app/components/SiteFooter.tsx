@@ -7,6 +7,7 @@ const EXPLORE_LINKS = [
   { href: '/scholarships', label: 'Awards and Scholarships' },
   { href: '/facilities', label: 'Facilities' },
   { href: '/policies', label: 'Policies' },
+  { href: '/donate', label: 'Donate' },
   { href: '/contact', label: 'Contact' },
 ]
 
@@ -27,6 +28,14 @@ export default function SiteFooter() {
             <span className="h-px w-14 bg-[#d4af36]/60" />
             <span className="text-[#d4af36] text-[8px]">&#9670;</span>
             <span className="h-px w-14 bg-[#d4af36]/60" />
+          </div>
+          <div className="mt-7">
+            <Link
+              href="/donate"
+              className="inline-block bg-gradient-to-r from-[#d4af36] to-[#c5a033] hover:from-[#b08d28] hover:to-[#9a7b22] text-white text-sm font-semibold rounded-full px-6 py-2.5 transition duration-300"
+            >
+              Support the Foundation
+            </Link>
           </div>
         </div>
 
