@@ -1,15 +1,20 @@
 // Centralized donation configuration.
 //
-// The payment platform is intentionally NOT chosen yet (board decision pending).
-// Until a provider is selected, the /donate page runs in "informational" mode:
-// it presents the case for giving, gift levels tied to real programs, and the
-// "other ways to give" fallbacks (check by mail / contact), while the primary
-// CTA explains that online card giving is being finalized.
+// Donorbox is the chosen processor. The account itself does not exist yet: it
+// has to be created under a Foundation-owned address (ideally info@ on the
+// Foundation domain) rather than a personal one, since the address that creates
+// a Donorbox account controls its payout settings.
 //
-// When the board picks a processor, set `provider` + `checkoutBaseUrl` below
-// (e.g. a Stripe Payment Link or a Donorbox page). `buildCheckoutUrl()` will
-// then route the CTA there. Card data must always be collected on the
-// provider's hosted checkout — never on this site.
+// Until that account exists and `checkoutBaseUrl` is filled in, the /donate page
+// runs in "informational" mode: it presents the case for giving, gift levels
+// tied to real programs, and the "other ways to give" fallbacks (check by mail /
+// contact), while the primary CTA explains that online card giving is being
+// finalized.
+//
+// To go live, set `checkoutBaseUrl` to the campaign page below
+// (e.g. 'https://donorbox.org/dpe-foundation'). `buildCheckoutUrl()` will then
+// route the CTA there. Card data is always collected on Donorbox's hosted
+// checkout, never on this site.
 
 export const ORG = {
   legalName: 'Delta Phi Epsilon Foundation for Foreign Service Education',
@@ -23,12 +28,8 @@ export const ORG = {
 export type Frequency = 'one-time' | 'monthly'
 
 // Lead sentence above the giving buttons, to give the page a content headline
-// that draws into the CTA rather than opening cold on a form.
-//
-// TODO(before public launch): the $45,000 figure and the "last year" window are
-// Sanjay's numbers from the Foundation's records, not derived from anything
-// published on this site. Have the treasurer confirm both before this goes
-// live, since it is a public statement about how funds were used.
+// that draws into the CTA rather than opening cold on a form. Copy and the
+// $45,000 figure are confirmed by the Fundraising Committee.
 export const IMPACT_HEADLINE =
   'Last year, the Foundation awarded more than $45,000 in scholarships and internship ' +
   'grants for the next generation of diplomats and global leaders, and with your support, ' +
@@ -108,8 +109,9 @@ export const TAX_DOCUMENTS = [
 type Provider = 'pending' | 'stripe-link' | 'donorbox' | 'paypal' | 'custom'
 
 export const DONATION: { provider: Provider; checkoutBaseUrl: string } = {
-  provider: 'pending',
-  // e.g. 'https://donate.stripe.com/xxxxxx' or 'https://donorbox.org/dpe-foundation'
+  provider: 'donorbox',
+  // Fill in once the Donorbox account and campaign exist,
+  // e.g. 'https://donorbox.org/dpe-foundation'.
   checkoutBaseUrl: '',
 }
 
@@ -125,10 +127,12 @@ export function buildCheckoutUrl(params: {
   if (!isCheckoutLive()) return null
   try {
     const url = new URL(DONATION.checkoutBaseUrl)
-    // Exact prefill params depend on the chosen provider; wire these precisely
-    // when the platform is selected.
+    // Donorbox prefill params. Verify these against the live campaign once the
+    // account exists: a wrong param name silently drops the prefill rather than
+    // erroring, so the donor would land on an empty form.
     if (params.amount > 0) url.searchParams.set('amount', String(params.amount))
-    if (params.frequency) url.searchParams.set('frequency', params.frequency)
+    url.searchParams.set('default_interval', params.frequency === 'monthly' ? 'm' : 'o')
+    // Only sends if matching designations are configured on the campaign.
     if (params.designation) url.searchParams.set('designation', params.designation)
     return url.toString()
   } catch {
