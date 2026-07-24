@@ -22,41 +22,65 @@ export const ORG = {
 
 export type Frequency = 'one-time' | 'monthly'
 
+// Lead sentence above the giving buttons, to give the page a content headline
+// that draws into the CTA rather than opening cold on a form.
+//
+// TODO(before public launch): the $45,000 figure and the "last year" window are
+// Sanjay's numbers from the Foundation's records, not derived from anything
+// published on this site. Have the treasurer confirm both before this goes
+// live, since it is a public statement about how funds were used.
+export const IMPACT_HEADLINE =
+  'Last year, the Foundation awarded more than $45,000 in scholarships and internship ' +
+  'grants for the next generation of diplomats and global leaders, and with your support, ' +
+  'we’re expanding that work.'
+
 export interface GivingLevel {
+  /** One-time gift amount, and the identity of the level. */
   amount: number
+  /** Monthly equivalent shown when the donor toggles to recurring giving. */
+  monthly: number
   title: string
   description: string
 }
 
-// Amounts are taken directly from the published program pages so a donor's
-// gift maps to something concrete:
-//   Bleakley FSOT scholarship — $250/recipient
-//   STIA awards — $300 each
-//   Stanley Weiss / Halleck Butts scholarships — $500 each
+// Levels are set by the Fundraising Committee (Mullick, 6/28): a $100 entry
+// point that can also be given as $10/month to give younger brothers a way in,
+// then $250 / $500 / $1,000.
+//
+// Where an amount maps to a real award, the description says so, using the
+// figures published on the program pages:
+//   Bleakley FSOT scholarship: $250/recipient
+//   Stanley Weiss / Halleck Butts scholarships: $500 each
+// The $300 STIA Award no longer has its own button; it is still reachable
+// through the custom amount field.
 export const GIVING_LEVELS: GivingLevel[] = [
   {
+    amount: 100,
+    monthly: 10,
+    title: 'Start giving back',
+    description:
+      'A straightforward place to start. Gifts at this level combine to fund scholarships, awards, and the lecture series, and can be given as $10 per month.',
+  },
+  {
     amount: 250,
+    monthly: 25,
     title: 'Send a student to the Foreign Service exam',
     description:
       'Funds one Kenneth W. Bleakley Senior Foreign Service Officer Scholarship ($250 per recipient).',
   },
   {
-    amount: 300,
-    title: 'Recognize service and innovation',
-    description:
-      'Underwrites one STIA Award ($300 each), created with Georgetown’s School of Foreign Service.',
-  },
-  {
     amount: 500,
+    monthly: 50,
     title: 'Back a future global leader',
     description:
       'Provides one Stanley Weiss or Halleck A. Butts scholarship ($500 each) for Georgetown students.',
   },
   {
     amount: 1000,
+    monthly: 100,
     title: 'Expand programming',
     description:
-      'Helps grow scholarships, the lecture series, and student programming across the Foundation.',
+      'Helps grow scholarships, STIA Awards, the lecture series, and student programming across the Foundation.',
   },
 ]
 

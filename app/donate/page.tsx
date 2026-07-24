@@ -11,6 +11,7 @@ import SiteHeader from '@/app/components/SiteHeader'
 import SiteFooter from '@/app/components/SiteFooter'
 import {
   ORG,
+  IMPACT_HEADLINE,
   GIVING_LEVELS,
   DESIGNATIONS,
   TAX_DOCUMENTS,
@@ -22,14 +23,21 @@ import {
 const CARD =
   'bg-[#fdfcf9] rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]'
 
-const PRESETS = GIVING_LEVELS.map((l) => l.amount)
+// Default to the $250 tier: a high enough anchor to lift the average gift,
+// with the $100 / $10-per-month entry point sitting immediately to its left.
+const DEFAULT_LEVEL_INDEX = 1
 
 export default function DonatePage() {
   const [frequency, setFrequency] = useState<Frequency>('one-time')
-  const [preset, setPreset] = useState<number | null>(250)
+  // Track the selected *level*, not a raw dollar figure, so toggling between
+  // one-time and monthly keeps the donor on the tier they picked.
+  const [levelIndex, setLevelIndex] = useState<number | null>(DEFAULT_LEVEL_INDEX)
   const [customAmount, setCustomAmount] = useState('')
   const [designation, setDesignation] = useState<string>(DESIGNATIONS[0])
   const [showPending, setShowPending] = useState(false)
+
+  const amountFor = (level: (typeof GIVING_LEVELS)[number]) =>
+    frequency === 'monthly' ? level.monthly : level.amount
 
   const amount = useMemo(() => {
     if (customAmount.trim()) {
@@ -37,8 +45,10 @@ export default function DonatePage() {
       // Floor to whole dollars so a donor is never charged more than they typed.
       return Number.isFinite(n) && n > 0 ? Math.floor(n) : 0
     }
-    return preset ?? 0
-  }, [customAmount, preset])
+    if (levelIndex === null) return 0
+    const level = GIVING_LEVELS[levelIndex]
+    return frequency === 'monthly' ? level.monthly : level.amount
+  }, [customAmount, levelIndex, frequency])
 
   const handleContinue = () => {
     const url = buildCheckoutUrl({ amount, frequency, designation })
@@ -73,7 +83,12 @@ export default function DonatePage() {
             <OrnamentalDivider className="my-8" />
           </AnimatedSection>
           <AnimatedSection delay={0.25}>
-            <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto leading-relaxed font-medium">
+              {IMPACT_HEADLINE}
+            </p>
+          </AnimatedSection>
+          <AnimatedSection delay={0.35}>
+            <p className="mt-6 text-sm sm:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Since 1962, the {ORG.legalName} has advanced the study and practice of foreign
               service through scholarships, awards, lectures, and student programming. Your gift
               puts those opportunities directly into students’ hands.
@@ -111,17 +126,19 @@ export default function DonatePage() {
             {/* Amount presets */}
             <label className="block text-sm font-semibold text-gray-700 mb-2">Choose an amount</label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-              {PRESETS.map((value) => {
-                const active = !customAmount.trim() && preset === value
+              {GIVING_LEVELS.map((level, i) => {
+                const active = !customAmount.trim() && levelIndex === i
+                const value = amountFor(level)
                 return (
                   <button
-                    key={value}
+                    key={level.amount}
                     type="button"
                     onClick={() => {
-                      setPreset(value)
+                      setLevelIndex(i)
                       setCustomAmount('')
                     }}
                     aria-pressed={active}
+                    aria-label={`$${value}${frequency === 'monthly' ? ' per month' : ''}`}
                     className={`rounded-xl py-3 text-lg font-semibold border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 ${
                       active
                         ? 'bg-[#d4af36] text-white border-[#d4af36] shadow-sm'
@@ -129,10 +146,29 @@ export default function DonatePage() {
                     }`}
                   >
                     ${value}
+                    {frequency === 'monthly' && (
+                      <span className="text-sm font-normal">/mo</span>
+                    )}
                   </button>
                 )
               })}
             </div>
+
+            {/* Nudge toward the recurring entry point, which is the easier first
+                yes for younger brothers than a larger one-time gift. */}
+            {frequency === 'one-time' && (
+              <p className="text-sm text-gray-600 mb-3">
+                Prefer to give monthly? ${GIVING_LEVELS[0].monthly} a month adds up to $
+                {GIVING_LEVELS[0].monthly * 12} a year.{' '}
+                <button
+                  type="button"
+                  onClick={() => setFrequency('monthly')}
+                  className="font-semibold text-[#b08d28] underline hover:text-[#9a7b22] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 rounded"
+                >
+                  Switch to monthly
+                </button>
+              </p>
+            )}
 
             {/* Custom amount */}
             <label htmlFor="custom-amount" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -146,7 +182,7 @@ export default function DonatePage() {
                 value={customAmount}
                 onChange={(e) => {
                   setCustomAmount(e.target.value)
-                  if (e.target.value.trim()) setPreset(null)
+                  if (e.target.value.trim()) setLevelIndex(null)
                 }}
                 placeholder="Whole dollars"
                 aria-label="Custom donation amount in whole dollars"
