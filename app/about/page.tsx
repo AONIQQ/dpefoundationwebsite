@@ -559,9 +559,33 @@ export default function AboutUs() {
           <OrnamentalDivider className="mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { name: "TBD", role: "Chairman", chapter: "", occupation: "" },
+              { name: "Sanjay J. Mullick", role: "Chairman", chapter: "Alpha Chapter", occupation: "General Counsel" },
+              { name: "Eduardo (Eddie) Deschapelles", role: "Member", chapter: "Alpha Chapter", occupation: "Finance" },
               { name: "Joseph S. Picozzi", role: "Member", chapter: "Alpha Chapter", occupation: "State Senator" },
-              { name: "Michael D. Eriksen", role: "Member", chapter: "Alpha Chapter", occupation: "Attorney" },
+            ].map((member, index) => (
+              <div key={index} className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-center transform transition-all duration-500 ease-out hover:-translate-y-1">
+                <h3 className="text-xl font-semibold mb-2 text-[#b08d28]">{member.name}</h3>
+                <p className="text-gray-600 mb-1">{member.role}</p>
+                {member.chapter && <p className="text-gray-600 text-sm">{member.chapter}</p>}
+                {member.occupation && <p className="text-gray-600 text-sm">{member.occupation}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Fraternity Liaison Committee</h2>
+          <OrnamentalDivider className="mb-8" />
+          <p className="text-gray-600 text-center text-lg mb-8 max-w-3xl mx-auto">
+            The Fraternity Liaison Committee is composed of two representatives of the Foundation and two
+            representatives of the Fraternity.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              { name: "Michael D. Eriksen", role: "Foundation Representative", chapter: "Alpha Chapter", occupation: "Attorney" },
+              { name: "Sanjay J. Mullick", role: "Foundation Representative", chapter: "Alpha Chapter", occupation: "General Counsel" },
+              { name: "Mason Hill", role: "Fraternity Representative", chapter: "", occupation: "" },
+              { name: "TBD", role: "Fraternity Representative", chapter: "", occupation: "" },
             ].map((member, index) => (
               <div key={index} className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-center transform transition-all duration-500 ease-out hover:-translate-y-1">
                 <h3 className="text-xl font-semibold mb-2 text-[#b08d28]">{member.name}</h3>
