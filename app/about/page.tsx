@@ -571,15 +571,20 @@ export default function AboutUs() {
               </div>
             ))}
           </div>
+          <div className="mt-10 max-w-4xl mx-auto bg-[#fdfcf9] p-6 sm:p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
+            <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
+              The Fundraising Committee is responsible for all aspects of raising funds to support the
+              exempt activities of the Foundation. The Committee will design fundraising efforts, create
+              appropriate communications to potential donors, arrange the mechanisms of solicitation and
+              collection of contributions and provide compliance with IRS requirements for documentation
+              of donations by both the Foundation and contributors.
+            </p>
+          </div>
         </section>
 
         <section className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-center text-black">Fraternity Liaison Committee</h2>
           <OrnamentalDivider className="mb-8" />
-          <p className="text-gray-600 text-center text-lg mb-8 max-w-3xl mx-auto">
-            The Fraternity Liaison Committee is composed of two representatives of the Foundation and two
-            representatives of the Fraternity.
-          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               { name: "Michael D. Eriksen", role: "Foundation Representative", chapter: "Alpha Chapter", occupation: "Attorney" },
@@ -594,6 +599,20 @@ export default function AboutUs() {
                 {member.occupation && <p className="text-gray-600 text-sm">{member.occupation}</p>}
               </div>
             ))}
+          </div>
+          <div className="mt-10 max-w-4xl mx-auto bg-[#fdfcf9] p-6 sm:p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
+            <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
+              The Fraternity Liaison Committee is the forum for discussing issues of common interest to
+              the Foundation and Delta Phi Epsilon Professional Foreign Service Fraternity, Inc. (the
+              Fraternity). The four person committee consists of two representatives of the Foundation
+              and two representatives of the Fraternity. The committee will meet as considered necessary
+              to identify and discuss topics of concern, co-operation and common interest.
+            </p>
+            <p className="text-gray-700 text-base sm:text-lg leading-relaxed mt-4">
+              Any committee proposals or recommendations are advisory only. Approval of actions affecting
+              the Foundation is reserved by the Foundation and actions affecting the Fraternity are
+              subject to approval by the Fraternity.
+            </p>
           </div>
         </section>
 
