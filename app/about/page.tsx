@@ -589,8 +589,8 @@ export default function AboutUs() {
             {[
               { name: "Michael D. Eriksen", role: "Foundation Representative", chapter: "Alpha Chapter", occupation: "Attorney" },
               { name: "Sanjay J. Mullick", role: "Foundation Representative", chapter: "Alpha Chapter", occupation: "General Counsel" },
-              { name: "Mason Hill", role: "Fraternity Representative", chapter: "", occupation: "" },
-              { name: "Jeremy Bell", role: "Fraternity Representative", chapter: "", occupation: "" },
+              { name: "Mason Hill", role: "Fraternity Representative", chapter: "Alpha Chapter", occupation: "Attorney" },
+              { name: "Jeremy Bell", role: "Fraternity Representative", chapter: "Alpha Chapter", occupation: "Tech Consultant" },
             ].map((member, index) => (
               <div key={index} className="bg-[#fdfcf9] p-6 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-center transform transition-all duration-500 ease-out hover:-translate-y-1">
                 <h3 className="text-xl font-semibold mb-2 text-[#b08d28]">{member.name}</h3>
