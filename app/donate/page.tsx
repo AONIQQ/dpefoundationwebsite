@@ -55,6 +55,11 @@ export default function DonatePage() {
     return frequency === 'monthly' ? level.monthly : level.amount
   }, [customAmount, levelIndex, frequency])
 
+  // "Other" is only meaningful with the donor's description, so require it
+  // rather than sending the bare word.
+  const needsDetail = needsDescription(designation) && !designationDetail.trim()
+  const canContinue = amount > 0 && !needsDetail
+
   const handleContinue = () => {
     const url = buildCheckoutUrl({
       amount,
@@ -237,28 +242,42 @@ export default function DonatePage() {
                   value={designationDetail}
                   onChange={(e) => setDesignationDetail(e.target.value)}
                   placeholder="How would you like this gift used?"
+                  // Bounded because this string ends up in the checkout URL.
+                  maxLength={120}
                   className="bg-[#fdfcf9] text-black border-gray-300 focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1"
                 />
+                <p className="mt-1.5 text-xs text-gray-500">
+                  Please avoid personal details here; this is passed to our payment provider.
+                </p>
               </div>
             )}
             </div>
 
             <Button
               onClick={handleContinue}
-              disabled={amount <= 0}
+              disabled={!canContinue}
               className="w-full bg-gradient-to-r from-[#d4af36] to-[#c5a033] hover:from-[#b08d28] hover:to-[#9a7b22] text-white text-base sm:text-lg py-6 rounded-full transition duration-300 disabled:opacity-50"
             >
-              {amount > 0
-                ? `Continue with $${amount}${frequency === 'monthly' ? '/mo' : ''}`
-                : 'Choose an amount to continue'}
+              {amount <= 0
+                ? 'Choose an amount to continue'
+                : needsDetail
+                  ? 'Describe your designation to continue'
+                  : `Continue with $${amount}${frequency === 'monthly' ? '/mo' : ''}`}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
 
             {showPending && !isCheckoutLive() && (
               <div className="mt-4 rounded-xl border border-[#d4af36]/40 bg-[#f5f0e8] p-4 text-sm text-gray-700 leading-relaxed">
-                Online card giving is being finalized. In the meantime, you can make your gift today
-                using the <span className="font-semibold text-[#b08d28]">Other ways to give</span> below —
-                thank you for your support.
+                Online card giving is being finalized. To give today, send a check using the details
+                under <span className="font-semibold text-[#b08d28]">Other ways to give</span> below.
+                To record the designation you just chose, print the{' '}
+                <Link
+                  href="/donate/designation-form"
+                  className="text-[#b08d28] hover:text-[#9a7b22] font-semibold underline"
+                >
+                  designation form
+                </Link>{' '}
+                and return it with your check. Thank you for your support.
               </div>
             )}
 

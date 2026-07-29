@@ -140,23 +140,44 @@ export function needsDescription(designation: string): boolean {
 }
 
 /**
+ * Prefixes an option with its group so the value is unambiguous once it leaves
+ * the form. "Maintenance" and "Acquisition" mean nothing on a gift record on
+ * their own; "House: Maintenance" does. Options that already name their parent
+ * (the Brotherhood entries) and standalone options are returned untouched.
+ */
+export function qualifyDesignation(option: string): string {
+  if (option.includes(':')) return option
+  const group = DESIGNATION_GROUPS.find((g) => g.options.includes(option))
+  return group ? `${group.label}: ${option}` : option
+}
+
+/**
  * Combines the picked designation with any free-text description, producing the
  * single string that travels to checkout and onto the gift record.
  */
 export function formatDesignation(designation: string, description: string): string {
+  const qualified = qualifyDesignation(designation)
   const detail = description.trim()
-  if (!needsDescription(designation) || !detail) return designation
-  return `${designation}: ${detail}`
+  if (!needsDescription(designation) || !detail) return qualified
+  return `${qualified}: ${detail}`
 }
 
-/** How a mailed gift was paid, for the printable designation form. */
-export const PAYMENT_METHODS = [
-  'Check enclosed',
-  'Given online at dpefoundation.org/donate',
-  'Appreciated securities / stock',
-  'Donor-advised fund grant',
-  'IRA qualified charitable distribution',
-] as const
+/**
+ * How a mailed gift was paid, for the printable designation form.
+ *
+ * "Given online" only appears once there is a live checkout to have given
+ * through. Listing it while the page still says online card giving is being
+ * finalized would offer donors a box they cannot truthfully tick.
+ */
+export function paymentMethods(): string[] {
+  return [
+    'Check enclosed',
+    ...(isCheckoutLive() ? ['Given online at dpefoundation.org/donate'] : []),
+    'Appreciated securities / stock',
+    'Donor-advised fund grant',
+    'IRA qualified charitable distribution',
+  ]
+}
 
 // Documents a donor may need to substantiate a gift — e.g. for a donor-advised
 // fund, an employer matching-gift request, or their own records. These are the

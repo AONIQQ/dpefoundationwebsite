@@ -17,7 +17,8 @@ import {
   DESIGNATION_GROUPS,
   DESIGNATION_UNRESTRICTED,
   STANDALONE_DESIGNATIONS,
-  PAYMENT_METHODS,
+  paymentMethods,
+  needsDescription,
 } from '@/lib/donation'
 
 /** An empty box the donor ticks by hand. */
@@ -30,12 +31,19 @@ function Checkbox() {
   )
 }
 
-/** A ruled line to write on, labelled to its left. */
-function WriteIn({ label, width = 'flex-1' }: { label: string; width?: string }) {
+/**
+ * A ruled line to write on, labelled to its left.
+ *
+ * The root must be `flex`, not `inline-flex`: an inline-flex box shrink-wraps,
+ * which leaves the rule's `flex-1` nothing to grow into, collapsing every line
+ * to its min-width. That produced 1-inch rules nobody could write an address
+ * on, and stopped stacked fields from stacking at all.
+ */
+function WriteIn({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-baseline gap-2 min-w-0">
+    <span className="flex items-baseline gap-2 min-w-0">
       <span className="text-sm text-gray-700 shrink-0">{label}</span>
-      <span className={`${width} border-b border-gray-400 h-5 min-w-[6rem]`} />
+      <span className="flex-1 border-b border-gray-400 h-5 min-w-[2rem]" />
     </span>
   )
 }
@@ -45,24 +53,30 @@ function WriteIn({ label, width = 'flex-1' }: { label: string; width?: string })
  * they get a ruled line instead of a plain label.
  */
 function DesignationChoice({ option }: { option: string }) {
-  const describe = option.startsWith('Other')
+  // Inside a narrow column there is no room for a label and a usable rule on
+  // the same line, so the describe options get the rule underneath instead.
+  if (needsDescription(option)) {
+    return (
+      <label className="block text-sm text-gray-800 break-inside-avoid">
+        <span className="flex items-baseline">
+          <Checkbox />
+          <span>{option} (describe):</span>
+        </span>
+        <span className="block border-b border-gray-400 h-5 ml-[1.625rem] mt-0.5" />
+      </label>
+    )
+  }
   return (
     <label className="flex items-baseline text-sm text-gray-800">
       <Checkbox />
-      {describe ? (
-        <span className="flex-1 min-w-0">
-          <WriteIn label={`${option} (describe):`} />
-        </span>
-      ) : (
-        <span>{option}</span>
-      )}
+      <span>{option}</span>
     </label>
   )
 }
 
 function SectionHeading({ n, children }: { n: number; children: React.ReactNode }) {
   return (
-    <h2 className="text-base font-bold text-black mt-7 mb-3">
+    <h2 className="text-base font-bold text-black mt-6 mb-2.5 print:mt-4 print:mb-1.5 break-after-avoid">
       {n}. {children}
     </h2>
   )
@@ -95,10 +109,10 @@ export default function DesignationFormPage() {
 
         {/* The form itself */}
         <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] p-8 sm:p-10 print:shadow-none print:border-0 print:rounded-none print:p-0 print:max-w-none">
-          <header className="text-center border-b border-[#d4af36]/40 pb-5 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-black">Designation of Contribution</h1>
-            <p className="mt-2 text-sm text-gray-600">{ORG.legalName}</p>
-            <p className="text-sm text-gray-600">
+          <header className="text-center border-b border-[#d4af36]/40 pb-5 mb-6 print:pb-3 print:mb-4">
+            <h1 className="text-2xl sm:text-3xl print:text-xl font-bold text-black">Designation of Contribution</h1>
+            <p className="mt-2 text-sm print:text-xs text-gray-600">{ORG.legalName}</p>
+            <p className="text-sm print:text-xs text-gray-600">
               {ORG.addressName}, {ORG.addressLine}
             </p>
           </header>
@@ -115,25 +129,27 @@ export default function DesignationFormPage() {
 
           <SectionHeading n={1}>Designate how your contribution will be used</SectionHeading>
 
-          <label className="flex items-start text-sm text-gray-800 mb-4">
+          <label className="flex items-start text-sm text-gray-800 mb-3 print:mb-2">
             <Checkbox />
             <span>{DESIGNATION_UNRESTRICTED}</span>
           </label>
 
-          <div className="space-y-5">
+          {/* Two columns so the whole checklist, and therefore the whole form,
+              fits on a single printed page. */}
+          <div className="sm:columns-2 sm:gap-10 space-y-4 print:space-y-2">
             {DESIGNATION_GROUPS.map((group) => (
               <div key={group.label} className="break-inside-avoid">
-                <h3 className="text-sm font-bold text-[#b08d28] uppercase tracking-[0.08em] mb-2">
+                <h3 className="text-sm font-bold text-[#b08d28] uppercase tracking-[0.08em] mb-1.5">
                   {group.label}
                 </h3>
-                <div className="pl-1 space-y-2">
+                <div className="pl-1 space-y-1.5 print:space-y-1">
                   {group.options.map((option) => (
                     <DesignationChoice key={option} option={option} />
                   ))}
                 </div>
               </div>
             ))}
-            <div className="space-y-2 break-inside-avoid">
+            <div className="space-y-1.5 print:space-y-1 break-inside-avoid">
               {STANDALONE_DESIGNATIONS.map((option) => (
                 <DesignationChoice key={option} option={option} />
               ))}
@@ -142,24 +158,24 @@ export default function DesignationFormPage() {
 
           <SectionHeading n={2}>Designate the amount and manner of payment</SectionHeading>
 
-          <div className="mb-4 max-w-xs">
+          <div className="mb-3 max-w-xs">
             <WriteIn label="Amount: $" />
           </div>
-          <div className="space-y-2">
-            {PAYMENT_METHODS.map((method) => (
-              <label key={method} className="flex items-baseline text-sm text-gray-800">
+          <div className="sm:columns-2 sm:gap-10 space-y-1.5 print:space-y-1">
+            {paymentMethods().map((method) => (
+              <label key={method} className="flex items-baseline text-sm text-gray-800 break-inside-avoid">
                 <Checkbox />
                 <span>{method}</span>
               </label>
             ))}
-            <label className="flex items-baseline text-sm text-gray-800">
+            <label className="flex items-baseline text-sm text-gray-800 break-inside-avoid">
               <Checkbox />
               <span className="flex-1 min-w-0">
                 <WriteIn label="Other (describe):" />
               </span>
             </label>
           </div>
-          <p className="mt-3 text-xs text-gray-600 leading-relaxed">
+          <p className="mt-2.5 text-xs text-gray-600 leading-relaxed">
             Contributions from individual retirement accounts can qualify to satisfy required minimum
             distributions.
           </p>
@@ -169,14 +185,15 @@ export default function DesignationFormPage() {
             your donation
           </SectionHeading>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             <WriteIn label="Email:" />
             <WriteIn label="Residence:" />
-            <span className="block border-b border-gray-400 h-5" />
-            <span className="block border-b border-gray-400 h-5" />
+            {/* Continuation lines for the rest of the address, indented to sit
+                under the Residence rule rather than under its label. */}
+            <span className="block border-b border-gray-400 h-5 ml-[5.5rem]" />
           </div>
 
-          <footer className="mt-8 pt-5 border-t border-[#d4af36]/40 text-xs text-gray-600 leading-relaxed">
+          <footer className="mt-8 pt-5 print:mt-4 print:pt-3 border-t border-[#d4af36]/40 text-xs print:text-[10px] text-gray-600 leading-relaxed">
             <p>
               Please return this form with your contribution to {ORG.addressName},{' '}
               {ORG.addressLine}. Make checks payable to {ORG.legalName}.
