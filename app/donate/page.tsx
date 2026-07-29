@@ -13,10 +13,14 @@ import {
   ORG,
   IMPACT_HEADLINE,
   GIVING_LEVELS,
-  DESIGNATIONS,
+  DESIGNATION_GROUPS,
+  DESIGNATION_UNRESTRICTED,
+  STANDALONE_DESIGNATIONS,
   TAX_DOCUMENTS,
   buildCheckoutUrl,
+  formatDesignation,
   isCheckoutLive,
+  needsDescription,
   type Frequency,
 } from '@/lib/donation'
 
@@ -33,7 +37,8 @@ export default function DonatePage() {
   // one-time and monthly keeps the donor on the tier they picked.
   const [levelIndex, setLevelIndex] = useState<number | null>(DEFAULT_LEVEL_INDEX)
   const [customAmount, setCustomAmount] = useState('')
-  const [designation, setDesignation] = useState<string>(DESIGNATIONS[0])
+  const [designation, setDesignation] = useState<string>(DESIGNATION_UNRESTRICTED)
+  const [designationDetail, setDesignationDetail] = useState('')
   const [showPending, setShowPending] = useState(false)
 
   const amountFor = (level: (typeof GIVING_LEVELS)[number]) =>
@@ -51,7 +56,11 @@ export default function DonatePage() {
   }, [customAmount, levelIndex, frequency])
 
   const handleContinue = () => {
-    const url = buildCheckoutUrl({ amount, frequency, designation })
+    const url = buildCheckoutUrl({
+      amount,
+      frequency,
+      designation: formatDesignation(designation, designationDetail),
+    })
     if (url) {
       window.location.href = url
       return
@@ -191,6 +200,7 @@ export default function DonatePage() {
             </div>
 
             {/* Designation */}
+            <div className="mb-5">
             <label htmlFor="designation" className="block text-sm font-semibold text-gray-700 mb-2">
               Direct my gift to
             </label>
@@ -198,14 +208,40 @@ export default function DonatePage() {
               id="designation"
               value={designation}
               onChange={(e) => setDesignation(e.target.value)}
-              className="w-full rounded-md border border-gray-300 bg-[#fdfcf9] text-black px-3 py-2.5 mb-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1"
+              className="w-full rounded-md border border-gray-300 bg-[#fdfcf9] text-black px-3 py-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1"
             >
-              {DESIGNATIONS.map((d) => (
-                <option key={d} value={d}>
-                  {d}
+              <option value={DESIGNATION_UNRESTRICTED}>{DESIGNATION_UNRESTRICTED}</option>
+              {DESIGNATION_GROUPS.map((group) => (
+                <optgroup key={group.label} label={group.label}>
+                  {group.options.map((option) => (
+                    <option key={`${group.label}-${option}`} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+              {STANDALONE_DESIGNATIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
                 </option>
               ))}
             </select>
+
+            {needsDescription(designation) && (
+              <div className="mt-3">
+                <label htmlFor="designation-detail" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Please describe
+                </label>
+                <Input
+                  id="designation-detail"
+                  value={designationDetail}
+                  onChange={(e) => setDesignationDetail(e.target.value)}
+                  placeholder="How would you like this gift used?"
+                  className="bg-[#fdfcf9] text-black border-gray-300 focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1"
+                />
+              </div>
+            )}
+            </div>
 
             <Button
               onClick={handleContinue}
@@ -276,6 +312,16 @@ export default function DonatePage() {
                   {ORG.addressName}
                   <br />
                   {ORG.addressLine}
+                </p>
+                <p className="text-sm text-gray-700 mt-4 leading-relaxed">
+                  To direct your gift to a particular fund, print the{' '}
+                  <Link
+                    href="/donate/designation-form"
+                    className="text-[#b08d28] hover:text-[#9a7b22] font-medium underline"
+                  >
+                    designation form
+                  </Link>{' '}
+                  and return it with your check.
                 </p>
               </div>
             </AnimatedSection>

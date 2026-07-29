@@ -7,6 +7,7 @@
     • Brother, the mission that shaped you needs you
   BEFORE SENDING, replace the placeholders:
     • {{DONATE_URL}}        -> the live donate page / chosen platform link (e.g. https://dpefoundation.org/donate)
+    • {{DESIGNATION_FORM_URL}} -> the printable designation form (e.g. https://dpefoundation.org/donate/designation-form)
     • {{UnsubscribeURL}}    -> your email platform's unsubscribe merge tag
     • {{FirstName}}         -> optional personalization (or remove the merge tag)
   Self-contained: table layout + inline CSS for broad email-client support.
@@ -175,6 +176,76 @@
             </td>
           </tr>
 
+          <!-- Designation of contribution -->
+          <tr>
+            <td style="padding:24px 44px 0 44px; font-family:Georgia,'Times New Roman',serif;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; border:1px solid #d4af36; border-radius:6px;">
+                <tr>
+                  <td style="padding:20px 24px; font-family:Georgia,'Times New Roman',serif;">
+                    <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#b08d28; text-align:center; padding-bottom:6px;">Attachment</div>
+                    <div style="font-size:17px; font-weight:bold; color:#1a1a1a; text-align:center; padding-bottom:4px;">Designation of Contribution</div>
+                    <div style="font-size:13px; line-height:1.6; color:#666666; text-align:center; padding-bottom:14px;">
+                      Complete this form online, or print it and return it with your check.
+                    </div>
+
+                    <div style="font-size:14px; line-height:1.9; color:#333333; padding-bottom:12px;">
+                      Name: <span style="color:#bbbbbb;">__________________________</span>
+                      &nbsp;&nbsp;Line: <span style="color:#bbbbbb;">____________</span>
+                    </div>
+
+                    <div style="font-size:14px; font-weight:bold; color:#1a1a1a; padding-bottom:6px;">1. Designate how your contribution will be used</div>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:Georgia,'Times New Roman',serif;">
+                      <tr>
+                        <td valign="top" width="50%" style="font-size:13px; line-height:1.75; color:#333333; padding:0 10px 10px 0;">
+                          <strong style="color:#b08d28;">Scholarships</strong><br />
+                          Bleakley<br />
+                          Weiss<br />
+                          Butts<br />
+                          LeMoine<br />
+                          Brotherhood: Undergraduates<br />
+                          Brotherhood: Graduates<br />
+                          Brotherhood: Alumni Children<br />
+                          Other scholarship (describe)
+                        </td>
+                        <td valign="top" width="50%" style="font-size:13px; line-height:1.75; color:#333333; padding:0 0 10px 10px;">
+                          <strong style="color:#b08d28;">Awards</strong><br />
+                          Landegger<br />
+                          STIA<br />
+                          <br />
+                          <strong style="color:#b08d28;">House</strong><br />
+                          Acquisition<br />
+                          Maintenance<br />
+                          <br />
+                          Programs and Lectures<br />
+                          General Administrative<br />
+                          Other (describe)
+                        </td>
+                      </tr>
+                    </table>
+                    <div style="font-size:13px; line-height:1.6; color:#666666; padding-bottom:12px;">
+                      Or simply direct your gift where it is needed most.
+                    </div>
+
+                    <div style="font-size:14px; font-weight:bold; color:#1a1a1a; padding-bottom:4px;">2. Designate the amount and manner of payment</div>
+                    <div style="font-size:13px; line-height:1.7; color:#333333; padding-bottom:12px;">
+                      Check enclosed, given online, appreciated securities, donor-advised fund grant, or an
+                      IRA qualified charitable distribution. Contributions from individual retirement
+                      accounts can qualify to satisfy required minimum distributions.
+                    </div>
+
+                    <div style="font-size:14px; font-weight:bold; color:#1a1a1a; padding-bottom:4px;">3. Confirm your email address or provide a residential mailing address</div>
+                    <div style="font-size:13px; line-height:1.7; color:#333333;">
+                      This is what the Foundation uses to send the IRS documentation of your donation.
+                    </div>
+
+                    <div style="text-align:center; padding-top:16px;">
+                      <a href="{{DESIGNATION_FORM_URL}}" target="_blank" style="font-family:Georgia,'Times New Roman',serif; font-size:14px; font-weight:bold; color:#b08d28; text-decoration:underline;">Open or print the designation form &rarr;</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
           <!-- Sign-off -->
           <tr>
             <td style="padding:22px 44px 30px 44px; font-family:Georgia,'Times New Roman',serif;">

@@ -85,12 +85,77 @@ export const GIVING_LEVELS: GivingLevel[] = [
   },
 ]
 
-// Board-approved designations — confirm the final list before launch.
-export const DESIGNATIONS = [
-  'Where it’s needed most',
-  'Scholarships & Awards',
-  'Programs & Lectures',
-  'Facilities (Alpha House Fund)',
+// Designation taxonomy set by the Fundraising Committee (Grasso, 7/26). One
+// list backs three places, so they cannot drift: the dropdown on /donate, the
+// printable form at /donate/designation-form that goes back with a check, and
+// the designation block in the appeal letters.
+export const DESIGNATION_UNRESTRICTED = 'Where it’s needed most'
+
+// Picking either of these means the donor has to say what they intend, so the
+// form reveals a free-text field. Compared by identity in needsDescription().
+export const DESIGNATION_OTHER = 'Other'
+export const DESIGNATION_OTHER_SCHOLARSHIP = 'Other scholarship'
+
+export interface DesignationGroup {
+  label: string
+  options: string[]
+}
+
+export const DESIGNATION_GROUPS: DesignationGroup[] = [
+  {
+    label: 'Scholarships',
+    options: [
+      'Bleakley',
+      'Weiss',
+      'Butts',
+      'LeMoine',
+      'Brotherhood: Undergraduates',
+      'Brotherhood: Graduates',
+      'Brotherhood: Alumni Children',
+      DESIGNATION_OTHER_SCHOLARSHIP,
+    ],
+  },
+  {
+    label: 'Awards',
+    options: ['Landegger', 'STIA'],
+  },
+  {
+    label: 'House',
+    options: ['Acquisition', 'Maintenance'],
+  },
+]
+
+// Top-level designations with no sub-options. Kept separate from the groups so
+// neither the dropdown nor the printed form shows a heading with a single item
+// repeating it.
+export const STANDALONE_DESIGNATIONS: string[] = [
+  'Programs and Lectures',
+  'General Administrative',
+  DESIGNATION_OTHER,
+]
+
+/** True when the donor must describe the intended use in their own words. */
+export function needsDescription(designation: string): boolean {
+  return designation === DESIGNATION_OTHER || designation === DESIGNATION_OTHER_SCHOLARSHIP
+}
+
+/**
+ * Combines the picked designation with any free-text description, producing the
+ * single string that travels to checkout and onto the gift record.
+ */
+export function formatDesignation(designation: string, description: string): string {
+  const detail = description.trim()
+  if (!needsDescription(designation) || !detail) return designation
+  return `${designation}: ${detail}`
+}
+
+/** How a mailed gift was paid, for the printable designation form. */
+export const PAYMENT_METHODS = [
+  'Check enclosed',
+  'Given online at dpefoundation.org/donate',
+  'Appreciated securities / stock',
+  'Donor-advised fund grant',
+  'IRA qualified charitable distribution',
 ] as const
 
 // Documents a donor may need to substantiate a gift — e.g. for a donor-advised
