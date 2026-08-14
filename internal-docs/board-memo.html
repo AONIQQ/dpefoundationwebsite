@@ -1,0 +1,618 @@
+<title>Fundraising Infrastructure Recommendation</title>
+<style>
+  /* ---- Tokens: complete light palette on bare :root ---- */
+  :root {
+    --paper:        #FBFAF7;
+    --surface:      #FFFFFF;
+    --surface-sunk: #F4F1E9;
+    --ink:          #1C1A15;
+    --ink-soft:     #45413A;
+    --ink-mute:     #6E6858;
+    --rule:         #E2DCCC;
+    --rule-soft:    #EDE8DC;
+    --accent:       #8A6D1E;   /* AA-safe antique gold for text */
+    --accent-bright:#C9A227;   /* decorative rules and marks only */
+    --accent-wash:  #F7F1DE;
+    --affirm:       #2F5D50;
+    --affirm-wash:  #EAF1EE;
+    --caution:      #8C3A2B;
+    --caution-wash: #F8EDEA;
+    --shadow:       0 1px 2px rgba(28,26,21,.04), 0 8px 24px -12px rgba(28,26,21,.10);
+
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    --sans:  ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:        #14130F;
+      --surface:      #1C1A15;
+      --surface-sunk: #232019;
+      --ink:          #EFEBE0;
+      --ink-soft:     #CFC9BA;
+      --ink-mute:     #9A9384;
+      --rule:         #34301F;
+      --rule-soft:    #292519;
+      --accent:       #DDBA5A;
+      --accent-bright:#C9A227;
+      --accent-wash:  #251F10;
+      --affirm:       #7FB8A5;
+      --affirm-wash:  #16211D;
+      --caution:      #D98A78;
+      --caution-wash: #251815;
+      --shadow:       0 1px 2px rgba(0,0,0,.30), 0 8px 24px -12px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:        #14130F;
+    --surface:      #1C1A15;
+    --surface-sunk: #232019;
+    --ink:          #EFEBE0;
+    --ink-soft:     #CFC9BA;
+    --ink-mute:     #9A9384;
+    --rule:         #34301F;
+    --rule-soft:    #292519;
+    --accent:       #DDBA5A;
+    --accent-bright:#C9A227;
+    --accent-wash:  #251F10;
+    --affirm:       #7FB8A5;
+    --affirm-wash:  #16211D;
+    --caution:      #D98A78;
+    --caution-wash: #251815;
+    --shadow:       0 1px 2px rgba(0,0,0,.30), 0 8px 24px -12px rgba(0,0,0,.55);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1.1rem, 4vw, 2rem) 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
+  }
+
+  /* ---- Masthead ---- */
+  .masthead { display: flex; flex-direction: column; gap: 1.1rem; }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: .68rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  h1 {
+    font-size: clamp(2rem, 5.5vw, 2.9rem);
+    line-height: 1.12;
+    margin: 0;
+    font-weight: 700;
+    text-wrap: balance;
+    letter-spacing: -.012em;
+  }
+  .standfirst {
+    margin: 0;
+    font-size: 1.12rem;
+    color: var(--ink-soft);
+    max-width: 40rem;
+  }
+  .meta {
+    font-family: var(--sans);
+    font-size: .82rem;
+    color: var(--ink-mute);
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem 1.4rem;
+    padding-top: .9rem;
+    border-top: 1px solid var(--rule);
+  }
+  .meta b { color: var(--ink-soft); font-weight: 600; }
+
+  /* ---- Sections ---- */
+  section { display: flex; flex-direction: column; gap: 1rem; }
+  h2 {
+    font-size: 1.42rem;
+    line-height: 1.25;
+    margin: 0;
+    font-weight: 700;
+    text-wrap: balance;
+    padding-bottom: .55rem;
+    border-bottom: 2px solid var(--accent-bright);
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: .5rem 0 0;
+    font-weight: 650;
+  }
+  p { margin: 0; max-width: 42rem; }
+  strong { font-weight: 700; color: var(--ink); }
+
+  ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: .5rem; }
+  li { max-width: 40rem; }
+  li::marker { color: var(--accent-bright); }
+
+  /* ---- Callouts ---- */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-bright);
+    border-radius: 3px;
+    padding: 1.15rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    box-shadow: var(--shadow);
+  }
+  .callout.affirm { border-left-color: var(--affirm); background: var(--affirm-wash); }
+  .callout.caution { border-left-color: var(--caution); background: var(--caution-wash); }
+  .callout .label {
+    font-family: var(--sans);
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .callout.affirm .label { color: var(--affirm); }
+  .callout.caution .label { color: var(--caution); }
+
+  /* ---- Phase list: sequence is real information here ---- */
+  .phases { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .75rem; }
+  .phase {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: .1rem 1rem;
+    align-items: baseline;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1rem 1.2rem;
+  }
+  .phase .n {
+    font-family: var(--sans);
+    font-variant-numeric: tabular-nums;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--accent-bright);
+    line-height: 1;
+  }
+  .phase .t { font-weight: 700; font-size: 1.03rem; }
+  .phase .d { grid-column: 2; color: var(--ink-soft); font-size: .96rem; }
+
+  /* ---- Tables ---- */
+  .tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; }
+  caption {
+    caption-side: bottom;
+    text-align: left;
+    font-family: var(--sans);
+    font-size: .78rem;
+    color: var(--ink-mute);
+    padding: .7rem .95rem 0;
+    line-height: 1.5;
+  }
+  th, td {
+    text-align: left;
+    padding: .62rem .95rem;
+    border-bottom: 1px solid var(--rule-soft);
+    font-size: .93rem;
+    vertical-align: top;
+  }
+  thead th {
+    font-family: var(--sans);
+    font-size: .72rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 650;
+    background: var(--surface-sunk);
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  .num { font-family: var(--sans); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tr.ours td { background: var(--accent-wash); font-weight: 600; }
+  tr.ours td:first-child { box-shadow: inset 3px 0 0 var(--accent-bright); }
+  .tag {
+    font-family: var(--sans);
+    font-size: .68rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: .12rem .42rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .tag.no  { background: var(--caution-wash); color: var(--caution); }
+  .tag.yes { background: var(--affirm-wash);  color: var(--affirm); }
+
+  /* ---- Cost comparison bars ---- */
+  .bars { display: flex; flex-direction: column; gap: .55rem; }
+  .bar { display: grid; grid-template-columns: minmax(9rem, 12rem) 1fr auto; gap: .8rem; align-items: center; font-size: .92rem; }
+  .bar .name { color: var(--ink-soft); }
+  .bar .track { background: var(--surface-sunk); border-radius: 2px; height: .95rem; overflow: hidden; }
+  .bar .fill { height: 100%; background: var(--accent-bright); opacity: .45; }
+  .bar.ours .fill { opacity: 1; }
+  .bar.ours .name { color: var(--ink); font-weight: 700; }
+  .bar .val { font-family: var(--sans); font-variant-numeric: tabular-nums; font-size: .86rem; color: var(--ink-mute); }
+  @media (max-width: 34rem) {
+    .bar { grid-template-columns: 1fr auto; }
+    .bar .track { grid-column: 1 / -1; order: 3; }
+  }
+
+  /* ---- Fee block ---- */
+  .fee {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--accent-bright);
+    border-radius: 3px;
+    padding: 1.4rem 1.4rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .fee-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem; }
+  .fee-amount { font-size: 2.1rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .fee-note { font-family: var(--sans); font-size: .8rem; color: var(--ink-mute); }
+  .fee ul { font-size: .95rem; }
+
+  hr.orn { border: none; height: 1px; background: var(--rule); margin: 0; }
+
+  footer {
+    font-family: var(--sans);
+    font-size: .8rem;
+    color: var(--ink-mute);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.2rem;
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible, :focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Recommendation to the Board</div>
+    <h1>Fundraising outreach: how we send, and what we build</h1>
+    <p class="standfirst">
+      A plan for reaching trustees, fraternity brothers, and the broader community, and a
+      recommendation on the software behind it. Includes the alternatives we considered,
+      two of which cost less.
+    </p>
+    <div class="meta">
+      <span><b>Prepared for</b> Al Grasso and Sanjay, Delta Phi Epsilon Foundation</span>
+      <span><b>Prepared by</b> Andrew Dorman, Aoniqq LLC</span>
+      <span><b>Status</b> For discussion</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>What we are recommending</h2>
+    <p>
+      Send the fundraising appeals in three waves, starting with the people closest to the
+      Foundation. Build the list and sending tools into the admin dashboard the Foundation
+      already owns and already knows how to use, rather than subscribing to a separate donor CRM.
+      Keep Donorbox for donations, and convert Google Workspace to the free nonprofit edition.
+    </p>
+    <div class="callout affirm">
+      <span class="label">The short version</span>
+      <p>
+        A one-time build of roughly <strong>$4,000</strong>, after which the ongoing cost is about
+        <strong>$20 per month</strong>. Two of the alternatives we reviewed cost less over five
+        years. We are still recommending the build, for reasons stated plainly in the
+        section on why.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The outreach sequence</h2>
+    <p>
+      Order matters. Each wave builds credibility for the next, and a strong result from the
+      board is the single best predictor of how the wider appeals land.
+    </p>
+    <ol class="phases">
+      <li class="phase">
+        <span class="n">1</span>
+        <span class="t">Trustees</span>
+        <span class="d">
+          The board first. Participation here is what allows the later appeals to say, honestly,
+          that the people closest to the mission have already given.
+        </span>
+      </li>
+      <li class="phase">
+        <span class="n">2</span>
+        <span class="t">Delta Phi Epsilon members, past and current</span>
+        <span class="d">
+          The Alpha Chapter brotherhood, who already share the Foundation's purpose and need
+          the least introduction to it.
+        </span>
+      </li>
+      <li class="phase">
+        <span class="n">3</span>
+        <span class="t">Broader community</span>
+        <span class="d">
+          Friends, former attendees, and others loosely associated with the Foundation. A warmer,
+          more introductory message for people who may not know the full story.
+        </span>
+      </li>
+    </ol>
+    <p>
+      Three designed email templates, one per audience, are drafted and attached separately.
+      Each carries the Foundation crest, tells the story from 1962 forward, ties giving levels to
+      real program costs ($250 Bleakley, $300 STIA, $500 Weiss and Butts), and includes the
+      required unsubscribe and mailing address.
+    </p>
+  </section>
+
+  <section>
+    <h2>What Donorbox already covers, and what it does not</h2>
+    <p>
+      Donorbox is the right choice for donations and we are not proposing to replace any part
+      of it. It is worth being precise about where it stops, because that boundary is the entire
+      justification for building anything at all.
+    </p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Capability</th><th scope="col">Donorbox (free plan)</th><th scope="col">Needed for outreach</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Donation checkout and payment handling</td><td><span class="tag yes">Included</span></td><td>Keep as is</td></tr>
+          <tr><td>Automatic per-gift tax receipts</td><td><span class="tag yes">Included</span></td><td>Keep as is</td></tr>
+          <tr><td>Donor records and giving history</td><td><span class="tag yes">Included</span></td><td>Keep as is</td></tr>
+          <tr><td>Storing people who have never donated</td><td><span class="tag no">Not available</span></td><td>Required</td></tr>
+          <tr><td>Saving a segment as a reusable list</td><td><span class="tag no">Paid CRM only</span></td><td>Required</td></tr>
+          <tr><td>Sending email campaigns or newsletters</td><td><span class="tag no">Not available</span></td><td>Required</td></tr>
+          <tr><td>Unsubscribe handling for non-receipt mail</td><td><span class="tag no">Not available</span></td><td>Required</td></tr>
+        </tbody>
+      </table>
+      <caption>
+        Donorbox's free plan sends transactional mail only: receipts, recurring receipts, and
+        failed-payment notices. Campaign sending sits in the separate Donorbox CRM add-on, whose
+        price is not published and which is currently sales-gated behind a waitlist.
+      </caption>
+    </div>
+    <p>
+      In short, Donorbox handles the money and the donors. It does not hold the several hundred
+      to few thousand people the Foundation wants to <em>reach</em>, and on the free plan it
+      cannot email them.
+    </p>
+  </section>
+
+  <section>
+    <h2>Options considered</h2>
+    <p>
+      Five-year total cost, assuming a list in the range of 1,000 to 2,500 contacts. Nonprofit
+      discounts are applied where the vendor publishes one.
+    </p>
+    <div class="bars">
+      <div class="bar"><span class="name">Zeffy</span><span class="track"><span class="fill" style="width:1%"></span></span><span class="val">$0</span></div>
+      <div class="bar"><span class="name">Mailchimp Standard</span><span class="track"><span class="fill" style="width:31%"></span></span><span class="val">$2,300</span></div>
+      <div class="bar"><span class="name">Little Green Light</span><span class="track"><span class="fill" style="width:36%"></span></span><span class="val">$2,700</span></div>
+      <div class="bar ours"><span class="name">Build into dashboard</span><span class="track"><span class="fill" style="width:69%"></span></span><span class="val">$5,200</span></div>
+      <div class="bar"><span class="name">DonorPerfect or Neon</span><span class="track"><span class="fill" style="width:79%"></span></span><span class="val">$5,940</span></div>
+      <div class="bar"><span class="name">Bloomerang</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">$7,500</span></div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th scope="col">Option</th><th scope="col" class="num">Ongoing</th><th scope="col">Assessment</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Zeffy</td><td class="num">$0</td>
+            <td>
+              Not recommended. The platform is free to the Foundation because donors are prompted
+              to add a contribution to Zeffy at checkout, on a suggestion the Foundation cannot
+              remove. Zeffy's own users report donors mistaking it for part of their gift and
+              requesting refunds. Its terms also restrict a nonprofit from steering donors away
+              from that prompt. The cost is not eliminated, it is moved onto the donation page.
+            </td>
+          </tr>
+          <tr>
+            <td>Mailchimp Standard</td><td class="num">$38 / mo</td>
+            <td>
+              Cheaper over five years. A separate system with a separate login, holding a second
+              copy of the contact list. Price rises with contact count.
+            </td>
+          </tr>
+          <tr>
+            <td>Little Green Light</td><td class="num">$45 / mo</td>
+            <td>
+              Cheaper over five years, and a capable donor CRM with email included. Same tradeoff:
+              a second system to learn and maintain alongside the existing dashboard.
+            </td>
+          </tr>
+          <tr class="ours">
+            <td>Build into the existing dashboard</td><td class="num">~$20 / mo</td>
+            <td>
+              Recommended. One system, owned outright, with no per-contact price escalation.
+              Higher cost in year one, no subscription growth after that.
+            </td>
+          </tr>
+          <tr>
+            <td>DonorPerfect, Neon CRM</td><td class="num">$99 / mo floor</td>
+            <td>Full donor CRMs. More capability than the Foundation needs, quote-only pricing.</td>
+          </tr>
+          <tr>
+            <td>Bloomerang</td><td class="num">$125 / mo floor</td>
+            <td>As above, billed annually, at the highest recurring cost of the set.</td>
+          </tr>
+        </tbody>
+      </table>
+      <caption>
+        Figures verified against vendor pricing pages in August 2026. DonorPerfect, Neon,
+        Bloomerang, and the Donorbox CRM add-on publish only a starting price or none at all, so
+        their true cost would require a sales quote.
+      </caption>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why we recommend building anyway</h2>
+    <p>
+      Two options above cost less. The case for building is not that it saves money against every
+      alternative, it is that the cheaper options carry a cost that does not appear on an invoice.
+    </p>
+    <ul>
+      <li>
+        <strong>One system, not two.</strong> The Foundation's volunteers were trained on the
+        admin dashboard and use it today to review scholarship applications and contact messages.
+        Adding outreach there means no second login, no second tool, and no retraining as
+        trustees turn over.
+      </li>
+      <li>
+        <strong>The realistic alternative is not a cheaper tool, it is an unused one.</strong>
+        Subscription software that lives outside a volunteer's routine tends to go quiet, and the
+        list goes stale with it. Tools that sit inside work already being done get used.
+      </li>
+      <li>
+        <strong>The Foundation owns the data and the software.</strong> Contacts live in the
+        Foundation's own database, exportable at any time, with no per-contact pricing tier to
+        climb as the list grows.
+      </li>
+      <li>
+        <strong>Vendor risk is real.</strong> Kindful, a well-known donor CRM, was absorbed into
+        Bloomerang, and its pricing page now returns an error. Platforms are acquired, repriced,
+        and retired. A system the Foundation owns is not subject to that.
+      </li>
+    </ul>
+    <div class="callout caution">
+      <span class="label">The honest tradeoff</span>
+      <p>
+        Custom software depends on the person who built it. That risk is mitigated with written
+        documentation, a training session, and the code living in the Foundation's own repository
+        on a conventional, widely used technology stack, but it should be named rather than
+        glossed over.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>A separate saving worth taking now</h2>
+    <p>
+      The Foundation currently pays for Google Workspace. As a recognized 501(c)(3) it very
+      likely qualifies for <strong>Google Workspace for Nonprofits at no cost</strong>. Google's
+      only exclusions are governmental bodies, hospitals, and schools. Fraternal and membership
+      organizations are not excluded, and a separately incorporated educational foundation with
+      its own 501(c)(3) is the standard qualifying structure.
+    </p>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th scope="col"></th><th scope="col">Current plan</th><th scope="col">Nonprofit edition</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost per user</td><td class="num">about $8 / mo</td><td class="num">$0</td></tr>
+          <tr><td>Storage</td><td class="num">30 GB per user</td><td class="num">100 TB pooled</td></tr>
+          <tr><td>Shared drives</td><td>Not included</td><td>Included</td></tr>
+          <tr><td>Video meeting size</td><td class="num">100</td><td class="num">150</td></tr>
+        </tbody>
+      </table>
+      <caption>
+        At five users this saves roughly $500 per year while increasing storage. The existing
+        account converts in place, with no new account and no data migration.
+      </caption>
+    </div>
+    <p>
+      Two cautions. The conversion applies to the whole domain rather than to individual users,
+      and if the current subscription is on an annual term, Google does not refund the unused
+      portion, so the switch is best timed near the renewal date. Separately, the application
+      requires an officer to attest that the Foundation does not discriminate in its programs.
+      Someone should read the scholarship criteria against that statement before signing.
+    </p>
+  </section>
+
+  <section>
+    <h2>What would be built</h2>
+    <p>
+      A new section of the existing dashboard, in the same design the trustees already use.
+    </p>
+    <ul>
+      <li><strong>Contacts.</strong> Import the Foundation's existing lists, with duplicate detection and a report of anything that could not be read. Search, edit, and tag by audience.</li>
+      <li><strong>Segments.</strong> Save reusable groups such as trustees, members, and community, with a live count of who a message would reach.</li>
+      <li><strong>Campaigns.</strong> Choose a segment, load one of the designed templates, preview it, send a test to yourself, then send.</li>
+      <li><strong>Unsubscribe and compliance.</strong> One-click unsubscribe in every message, honored permanently and automatically, plus automatic removal of addresses that bounce or report spam.</li>
+      <li><strong>Reporting.</strong> Per-campaign counts of delivered, bounced, and unsubscribed.</li>
+      <li><strong>Email delivery setup.</strong> Domain authentication configured so mail reaches inboxes and the Foundation's everyday email is insulated from bulk sending.</li>
+    </ul>
+    <h3>Deliberately not included</h3>
+    <p>
+      Gift and pledge records, acknowledgment letter generation, event ticketing, and accounting
+      integration are not part of this. Donorbox remains the system of record for donations. Keeping
+      that boundary firm is what keeps this a modest project rather than a large one.
+    </p>
+  </section>
+
+  <section>
+    <h2>Investment</h2>
+    <div class="fee">
+      <div class="fee-head">
+        <span class="fee-amount">$4,000</span>
+        <span class="fee-note">one-time, fixed price</span>
+      </div>
+      <hr class="orn" />
+      <p style="font-size:.95rem;color:var(--ink-soft)">Includes:</p>
+      <ul>
+        <li>Three designed and tested email templates, one per audience, already drafted</li>
+        <li>Email delivery and domain authentication setup</li>
+        <li>Contact database with import, segmentation, and export</li>
+        <li>Campaign composer and sending system</li>
+        <li>Unsubscribe, bounce, and complaint handling required by law</li>
+        <li>Delivery reporting</li>
+        <li>Written documentation and a live training session for the board</li>
+        <li>Ninety days of defect corrections after delivery</li>
+      </ul>
+      <hr class="orn" />
+      <p class="fee-note">
+        Estimated at about 35 hours of work at the Foundation's established rate, quoted as a
+        fixed price so the Foundation is not exposed if it runs long. Ongoing cost after delivery
+        is roughly $20 per month for email delivery, with no subscription or per-contact fees.
+      </p>
+    </div>
+    <div class="callout">
+      <span class="label">One variable</span>
+      <p>
+        Consolidating the Foundation's existing contact records is the least predictable part.
+        If the lists arrive as a single clean spreadsheet, it is covered above. If they arrive as
+        several inconsistent sources, that additional cleanup would be quoted separately before
+        any work begins, never added after the fact.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Next steps</h2>
+    <ul>
+      <li><strong>Sanjay</strong> is gathering what contact data the Foundation holds: existing email lists, member rosters, and any records of past donors or interested friends. The completeness of those lists matters more to the result than anything on the software side.</li>
+      <li><strong>The board</strong> reviews the three email templates and this recommendation.</li>
+      <li><strong>Someone</strong> applies for Google for Nonprofits, which is free, takes a few days, and commits the Foundation to nothing.</li>
+      <li><strong>On approval</strong>, work begins with contact import and domain setup, so the first appeal to trustees can go out promptly.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Prepared by Andrew Dorman, Aoniqq LLC, for the Delta Phi Epsilon Foundation for Foreign
+    Service Education. Pricing figures were verified against vendor sources in August 2026 and
+    are subject to change. Figures marked as starting prices reflect published floors only;
+    several vendors quote privately.
+  </footer>
+
+</div>
