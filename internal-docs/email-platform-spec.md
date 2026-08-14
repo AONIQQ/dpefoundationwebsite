@@ -3,7 +3,8 @@
 Extending the existing DPE admin dashboard into the Foundation's fundraising outreach tool,
 replacing the need for a paid external CRM.
 
-Status: draft for scoping and quoting. Date: 2026-06-22.
+Status: draft for scoping and quoting. Revised August 2026, after Donorbox went live and the
+Fundraising Committee set the giving levels and designation taxonomy.
 
 ---
 
@@ -31,10 +32,20 @@ Three layers, each doing what it is good at:
 
 ### Why a separate sending engine is required
 
-Google Workspace cannot be the bulk sender. Its acceptable use policy treats Gmail as
-person-to-person mail, it enforces hard per-day external recipient caps, and, most
-importantly, bulk complaint volume on the same reputation as the real mailbox can degrade
-delivery of the Foundation's ordinary email. Workspace and the sending API coexist.
+Google Workspace is not a practical bulk sender, for four reasons in descending order of
+importance. Note that the reason is practical rather than contractual: Google's acceptable
+use policy bans *unsolicited* mass mail, not opt-in bulk mail, and at this volume the
+Foundation never reaches the 5,000-per-day bulk sender threshold.
+
+1. **No bounce or complaint webhooks.** Without them there is no automatic suppression, and
+   automatic suppression is the actual legal requirement. This alone rules Workspace out.
+2. **Reputation contamination.** Complaints against bulk mail degrade delivery of the
+   Foundation's ordinary mail on the same domain.
+3. **Hard caps.** Gmail allows a maximum of 500 external recipients per message and 3,000
+   external recipients per day, so a single appeal has to be chopped into batches.
+4. **No delivery reporting** and no one-click unsubscribe infrastructure.
+
+Workspace and the sending API coexist. Workspace keeps the mailboxes, the API does the sending.
 
 ### DNS layout
 
@@ -52,9 +63,36 @@ resend._domainkey.mail      TXT     -> ESP DKIM
 mail.dpefoundation.org      MX/CNAME-> ESP Return-Path / bounce handling
 ```
 
-Campaigns send as `From: Delta Phi Epsilon Foundation <news@mail.dpefoundation.org>` with
-`Reply-To: info@dpefoundation.org`. Replies land in the Gmail inbox the trustees already
-use, so nothing changes on their end.
+Campaigns send as `From: Joseph S. Picozzi <news@mail.dpefoundation.org>` with
+`Reply-To: info@dpefoundation.org`, matching the signature on the three appeal letters.
+Replies land in the Gmail inbox the trustees already use, so nothing changes on their end.
+
+**Prerequisite:** `info@dpefoundation.org` must exist and be monitored before the first send.
+All three appeals invite replies about stock gifts, donor-advised funds, and major gifts, and
+the printable designation form asks donors to send back a mailing address. A reply-to that
+bounces would lose exactly the highest-value responses.
+
+### Boundary with Donorbox
+
+Donorbox is live at `donorbox.org/delta-phi-epsilon-foundation` and is the system of record
+for money. Verified against Donorbox's own documentation, its free Standard plan:
+
+- **does** handle checkout, per-gift receipts, donor records for people who gave, giving
+  history, notes, and CSV export
+- **does not** send campaigns of any kind (its automated mail is purely transactional)
+- **does not** allow self-serve import of people who have never donated
+- **does not** allow saving a segment as a reusable list, which it labels a paid CRM feature
+
+So this build does not duplicate anything Donorbox provides on the current plan. Campaign
+sending exists only in the separate Donorbox CRM add-on, which is quoted per contact, is not
+publicly priced, and is currently sales-gated behind a waitlist. Worth getting that quote
+before committing to the build, since it is the one thing that could make the email module
+redundant.
+
+**Optional later:** Donorbox offers webhooks (`donation.created`, `donation.updated`) for
+$17/month on the Standard plan, which would let gift records flow into Supabase so the
+dashboard could show giving history beside a contact. Explicitly out of scope for this build,
+noted here so the schema does not preclude it.
 
 ---
 
@@ -202,9 +240,22 @@ The part that deserves the most care.
    person. The unique constraint on `(campaign_id, contact_id)` makes re-running safe.
 2. **Batch.** Send in chunks sized to the ESP rate limit, with a short pause between
    batches. Resend and SES both accept batch endpoints.
-3. **Per-recipient render.** Substitute merge fields (`{{FirstName}}`) and generate that
-   person's unique unsubscribe URL. Inject `List-Unsubscribe` and
+3. **Per-recipient render.** Substitute merge fields and generate that person's unique
+   unsubscribe URL, then inject `List-Unsubscribe` and
    `List-Unsubscribe-Post: List-Unsubscribe=One-Click` headers.
+
+   The three existing templates in `/emails` already use these placeholders, so the renderer
+   must resolve exactly this set:
+
+   | Placeholder | Resolves to |
+   |---|---|
+   | `{{DONATE_URL}}` | the live Donorbox campaign, or `dpefoundation.org/donate` |
+   | `{{DESIGNATION_FORM_URL}}` | `dpefoundation.org/donate/designation-form` |
+   | `{{UnsubscribeURL}}` | per-recipient signed unsubscribe link |
+   | `{{FirstName}}` | contact first name, with a sensible fallback when blank |
+
+   A missing or misspelled placeholder must fail loudly at preview time rather than sending a
+   letter containing a literal `{{DONATE_URL}}`.
 4. **Record.** Store the ESP message id on the recipient row so webhook events can be
    correlated back.
 5. **Retry.** Failed rows stay `pending` and can be retried without touching anyone already
