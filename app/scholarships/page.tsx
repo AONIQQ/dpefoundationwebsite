@@ -359,7 +359,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
              Submission files must be in PDF format.
             </p> 
             <p className="text-lg text-gray-800 mb-4">
-            The U.S. Department of State has announced that the next FSOT will be administered July 11-18, 2026.
+            The U.S. Department of State has announced that the next FSOT will be administered October 10-17, 2026. Applications to take the FSOT are being accepted beginning September 10, 2026.
             </p> 
            
           </div>
