@@ -16,7 +16,6 @@ type FileState = {
   application: File | null;
   proof: File | null;
   fsot: File | null;
-  intern: File | null;
   requirements: File | null;
 }
 
@@ -74,7 +73,6 @@ export default function ScholarshipApplication() {
     application: null,
     proof: null,
     fsot: null,
-    intern: null,
     requirements: null,
   })
   const [error, setError] = useState('')
@@ -92,9 +90,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 
   if (scholarshipType === 'bleakley' && (!files.application || !files.proof || !files.fsot)) {
     setError('Please upload all required files for the Bleakley Scholarship.')
-    hasError = true
-  } else if (scholarshipType === 'weiss' && (!files.application || !files.proof || !files.intern)) {
-    setError('Please upload all required files for the Weiss Scholarship.')
     hasError = true
   } else if (scholarshipType === 'butts' && (!files.application || !files.proof || !files.requirements)) {
     setError('Please upload all required files for the Butts Scholarship.')
@@ -122,11 +117,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
       applicationPath = files.application ? await uploadFile(files.application, 'applications') : null
       proofPath = files.proof ? await uploadFile(files.proof, 'proofs') : null
       additionalFilePath = files.fsot ? await uploadFile(files.fsot, 'fsot') : null
-    } else if (scholarshipType === 'weiss') {
-      // Use new bucket names for Weiss scholarship
-      applicationPath = files.application ? await uploadFile(files.application, 'weiss-applications') : null
-      proofPath = files.proof ? await uploadFile(files.proof, 'weiss-attendance-proof') : null
-      additionalFilePath = files.intern ? await uploadFile(files.intern, 'weiss-intern-proof') : null
     } else if (scholarshipType === 'butts') {
       // Use new bucket names for Butts scholarship
       applicationPath = files.application ? await uploadFile(files.application, 'butts-applications') : null
@@ -143,7 +133,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
       application_file_path: string | null
       attendance_file_path?: string | null
       test_completion_file_path?: string | null
-      intern_completion_file_path?: string | null
       additional_requirements_file_path?: string | null
     }
 
@@ -155,9 +144,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
     if (scholarshipType === 'bleakley') {
       insertPayload.attendance_file_path = proofPath
       insertPayload.test_completion_file_path = additionalFilePath
-    } else if (scholarshipType === 'weiss') {
-      insertPayload.attendance_file_path = proofPath
-      insertPayload.intern_completion_file_path = additionalFilePath
     } else if (scholarshipType === 'butts') {
       insertPayload.attendance_file_path = proofPath
       insertPayload.additional_requirements_file_path = additionalFilePath
@@ -172,7 +158,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
     console.log('Submission successful:', data)
     // Reset form
     setFullName('')
-    setFiles({ application: null, proof: null, fsot: null, intern: null, requirements: null })
+    setFiles({ application: null, proof: null, fsot: null, requirements: null })
     toast.success('Your application has been submitted successfully!')
   } catch (error) {
     console.error('Error submitting application:', error)
@@ -462,7 +448,7 @@ Foreign Service and DPE fraternity brother by the establishment of a
 Scholarship Award Program in his name. </p>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { title: "Submission Requirements", content: "Scholarship applicants must submit their names, email addresses, current residence address, phone number, and statement of current enrollment in the Global Business Fellows program at Georgetown University and acceptance in the Baratta Center internships in applied global business and policy. Please submit the form provided." },
+                { title: "How to Apply", content: "Applications for the Stanley Weiss Global Business Leader Scholarships are administered by Georgetown University. Eligible students should apply through the university. The Foundation does not accept applications for this scholarship directly." },
                 { title: "Eligibility for The Stanley Weiss Global Business Leader Scholarship", content: "The Stanley Weiss Global Business Leader Scholarships will be awarded to Georgetown University junior or senior students enrolled in the Global Business Fellows program at Georgetown University’s McDonough School of Business and approved by the Baratta Center for Global Business as qualified for internship work on applied global business and policy projects." },
                 { title: "Scholarship Amount", content: "These $500 scholarships will be awarded to those Global Business Fellows students who are identified by the Baratta Center for Global Business as qualifying for the internship program as one part of the Baratta Center compensation award." }
               ].map((item, index) => (
@@ -474,85 +460,6 @@ Scholarship Award Program in his name. </p>
             </div>
           </div>
         </section>
-
-   
-        <section className="mb-20 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-black text-center">
-            Stanley Weiss Global Business Leader Scholarship Form
-          </h1>
-          <OrnamentalDivider className="mb-8" />
-
-          <div className="mb-12 text-center">
-            <p className="text-lg text-gray-800 mb-4">
-              Please download the application, fill it out, and use the file submission module below to submit your completed application, your evidence of graduation or current attendance of Georgetown University, and your evidence of completing the Baratta Center Intern Program. You will be contacted if you have been awarded a scholarship.
-            </p>
-            <p className="text-lg text-gray-800 mb-4">
-              Submission files must be in PDF format.
-            </p>
-          </div>
-
-          <form onSubmit={(e) => handleSubmit(e, 'weiss')} className="mb-12 space-y-8 p-8 bg-[#fdfcf9] rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
-            <div className="bg-[#fdfcf9] p-6 rounded-lg shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] transition-all duration-500 ease-out hover:shadow-xl">
-              <Label htmlFor="weiss-fullName" className="text-lg font-semibold text-black mb-2 block">
-                Full Name <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                id="weiss-fullName"
-                name="fullName"
-                type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className="w-full p-2 border-2 border-[#d4af36] rounded-md text-center text-black bg-[#fdfcf9] focus:ring-2 focus:ring-[#d4af36] transition-all duration-300"
-                placeholder="Enter your full name"
-                required
-              />
-            </div>
-
-            <FileUpload 
-              label="Upload completed application" 
-              id="weiss-application"
-              name="application"
-              onFileChange={(file) => setFiles(prev => ({ ...prev, application: file }))}
-            />
-            <FileUpload 
-              label="Upload proof of attendance/graduation" 
-              id="weiss-proof"
-              name="proof"
-              onFileChange={(file) => setFiles(prev => ({ ...prev, proof: file }))}
-            />
-            <FileUpload 
-              label="Upload proof of approval for the Baratta Center Intern Program" 
-              id="weiss-intern"
-              name="intern"
-              onFileChange={(file) => setFiles(prev => ({ ...prev, intern: file }))}
-            />
-
-            {error && (
-              <div className="text-red-500 text-center font-bold">
-                {error}
-              </div>
-            )}
-
-            <div className="text-center">
-              <Button 
-                type="submit" 
-                className="bg-gradient-to-r from-[#d4af36] to-[#c5a033] hover:from-[#b08d28] hover:to-[#9a7b22] text-white text-lg py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:shadow-[0_0_20px_rgba(212,175,54,0.3)] shadow-lg"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit Application'}
-              </Button>
-            </div>
-          </form>
-
-          <div className="mb-12 overflow-hidden rounded-lg shadow-lg">
-            <iframe 
-              src="/Weiss.pdf" 
-              className="w-full h-[600px] md:h-[800px] lg:h-[1000px]"
-              title="Stanley Weiss Global Business Leader Scholarship Application"
-            />
-          </div>
-        </section>
-    
 
         {/* Halleck A Butts Scholarship Section */}
         <section className="mb-20 max-w-4xl mx-auto">
