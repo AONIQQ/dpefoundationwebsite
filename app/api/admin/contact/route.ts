@@ -1,18 +1,19 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createClient } from '@supabase/supabase-js'
+import { ADMIN_COOKIE, verifyAdminToken } from '@/lib/admin-auth'
 
 // Contact submissions are mutated only by the admin. The public site uses the
 // anon key (insert-only), so delete / mark-read run server-side with the
 // service-role key and are gated behind the same admin_session cookie the rest
 // of the dashboard uses. The middleware lets all /api/ routes through without
-// auth, so the cookie check below is the actual guard for these endpoints.
+// auth, so the signed-cookie check below is the actual guard for these endpoints.
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-function isAdmin(): boolean {
-  return cookies().get('admin_session')?.value === 'authenticated'
+async function isAdmin(): Promise<boolean> {
+  return verifyAdminToken(cookies().get(ADMIN_COOKIE)?.value)
 }
 
 function getAdminClient() {
@@ -34,7 +35,7 @@ async function parseId(request: Request): Promise<number | null> {
 
 // Mark a contact submission read / unread.
 export async function PATCH(request: Request) {
-  if (!isAdmin()) {
+  if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -74,7 +75,7 @@ export async function PATCH(request: Request) {
 
 // Permanently delete a contact submission.
 export async function DELETE(request: Request) {
-  if (!isAdmin()) {
+  if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

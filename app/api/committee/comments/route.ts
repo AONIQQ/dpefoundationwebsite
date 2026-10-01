@@ -15,7 +15,7 @@ function unauthorized() {
 }
 
 export async function GET() {
-  if (!isCommittee()) return unauthorized()
+  if (!(await isCommittee())) return unauthorized()
 
   const supabase = getCommentsClient()
   if (!supabase) {
@@ -38,7 +38,7 @@ export async function GET() {
 // Body is either { id: number } to remove one comment, or { all: true } to
 // clear the box once the committee is finished with the feedback.
 export async function DELETE(request: Request) {
-  if (!isCommittee()) return unauthorized()
+  if (!(await isCommittee())) return unauthorized()
 
   const supabase = getCommentsClient()
   if (!supabase) {

@@ -30,12 +30,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
   }
 
-  if (!checkPassword(password)) {
+  if (!(await checkPassword(password))) {
     return NextResponse.json({ error: 'That password is not correct.' }, { status: 401 })
   }
 
   const response = NextResponse.json({ success: true })
-  response.cookies.set(COMMITTEE_COOKIE, issueToken(), {
+  response.cookies.set(COMMITTEE_COOKIE, await issueToken(), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
