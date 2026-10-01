@@ -19,6 +19,17 @@ const MAX_EMAIL = 320
 // committee's reply link.
 const EMAIL_PATTERN = /^[^\s@<>"',;?]+@[^\s@<>"',;?]+\.[^\s@<>"',;?]+$/
 
+// Postgres counts characters (code points) in char_length(), JavaScript's
+// .length counts UTF-16 units, so an emoji is 1 vs 2. Count the way the
+// database does so the app's limits and the schema's CHECKs agree.
+const chars = (v: string) => Array.from(v).length
+
+// Postgres text cannot store NUL, and rejects unpaired UTF-16 surrogates that
+// JSON.parse happily accepts: either would surface as a confusing 500. Drop NULs
+// and replace broken surrogates with U+FFFD before validating or storing.
+const LONE_SURROGATE = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g
+const clean = (v: unknown) => (typeof v === 'string' ? v : '').replace(/\u0000/g, '').replace(LONE_SURROGATE, '\uFFFD')
+
 function fail(error: string, status: number) {
   return NextResponse.json({ error }, { status })
 }
@@ -40,17 +51,16 @@ export async function POST(request: Request) {
     return fail('Invalid request.', 400)
   }
 
-  const str = (v: unknown) => (typeof v === 'string' ? v : '')
-  const name = str(body.name).trim()
-  const email = str(body.email).trim()
-  const comments = str(body.comments).trim()
+  const name = clean(body.name).trim()
+  const email = clean(body.email).trim()
+  const comments = clean(body.comments).trim()
 
-  if (comments.length < MIN_COMMENT) return fail('Please write a little more before sending.', 400)
-  if (comments.length > MAX_COMMENT) {
+  if (chars(comments) < MIN_COMMENT) return fail('Please write a little more before sending.', 400)
+  if (chars(comments) > MAX_COMMENT) {
     return fail(`Please keep your comments under ${MAX_COMMENT.toLocaleString('en-US')} characters.`, 400)
   }
-  if (name.length > MAX_NAME) return fail('That name is too long.', 400)
-  if (email && (email.length > MAX_EMAIL || !EMAIL_PATTERN.test(email))) {
+  if (chars(name) > MAX_NAME) return fail('That name is too long.', 400)
+  if (email && (chars(email) > MAX_EMAIL || !EMAIL_PATTERN.test(email))) {
     return fail('That email address does not look right. You can also leave it blank.', 400)
   }
 
@@ -60,7 +70,7 @@ export async function POST(request: Request) {
   // indistinguishable from a bot by timing, and silently dropping a real
   // comment is worse than letting a spam one through, which the committee can
   // delete.)
-  if (str(body.website).length > 0) {
+  if (clean(body.website).length > 0) {
     return NextResponse.json({ success: true })
   }
 

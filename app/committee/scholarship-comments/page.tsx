@@ -79,8 +79,18 @@ export default function ScholarshipCommentsCommittee() {
   }
 
   const signOut = async () => {
-    await fetch('/api/committee/session', { method: 'DELETE' }).catch(() => undefined)
+    // Only hide the comments once the server has cleared the session cookie.
+    // Otherwise the screen would say "signed out" while a refresh restores access.
+    try {
+      const response = await fetch('/api/committee/session', { method: 'DELETE' })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    } catch (error) {
+      console.error('Error signing out:', error)
+      toast.error('Could not sign out. You are still signed in. Please try again.')
+      return
+    }
     setComments([])
+    setTotal(0)
     setView('login')
   }
 

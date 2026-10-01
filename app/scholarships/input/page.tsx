@@ -24,7 +24,8 @@ export default function ScholarshipInput() {
   const [sent, setSent] = useState(false)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (comments.trim().length < 10) {
+    // Count characters the way the server does (an emoji is one, not two).
+    if (Array.from(comments.trim()).length < 10) {
       toast.error('Please write a little more before sending.')
       return
     }
