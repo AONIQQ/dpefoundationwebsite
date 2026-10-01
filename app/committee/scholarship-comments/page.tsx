@@ -82,7 +82,7 @@ export default function ScholarshipCommentsCommittee() {
     setView('login')
   }
 
-  const remove = async (payload: { id: number } | { all: true }, confirmedMessage: string) => {
+  const remove = async (payload: { id: number } | { upToId: number }, confirmedMessage: string) => {
     setIsWorking(true)
     try {
       const response = await fetch('/api/committee/comments', {
@@ -116,7 +116,9 @@ export default function ScholarshipCommentsCommittee() {
       `This permanently deletes all ${comments.length} comment${comments.length === 1 ? '' : 's'} and cannot be undone.\n\nType DELETE to confirm.`
     )
     if (typed?.trim() !== 'DELETE') return
-    remove({ all: true }, 'All comments deleted.')
+    // Only what is on screen: anything that arrived since the page loaded has a
+    // higher id and survives to be read.
+    remove({ upToId: Math.max(...comments.map((c) => c.id)) }, 'The comments shown were deleted.')
   }
 
   return (

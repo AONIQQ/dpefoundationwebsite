@@ -35,8 +35,11 @@ export async function GET() {
   return NextResponse.json({ comments: data ?? [] }, { headers: NO_STORE })
 }
 
-// Body is either { id: number } to remove one comment, or { all: true } to
-// clear the box once the committee is finished with the feedback.
+// Body is either { id: number } to remove one comment, or { upToId: number } to
+// clear everything the committee has reviewed: it deletes comments with
+// id <= upToId, i.e. the snapshot the page was showing. A comment that arrived
+// after the page loaded has a higher id and is left alone, so nothing is ever
+// deleted unseen. (There is deliberately no "delete everything" form.)
 export async function DELETE(request: Request) {
   if (!(await isCommittee())) return unauthorized()
 
@@ -45,21 +48,24 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: 'Server configuration error' }, { status: 500, headers: NO_STORE })
   }
 
-  let body: { id?: unknown; all?: unknown }
+  let body: { id?: unknown; upToId?: unknown }
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400, headers: NO_STORE })
   }
 
+  const isId = (v: unknown): v is number => typeof v === 'number' && Number.isInteger(v) && v >= 0
   const query = supabase.from('scholarship_comments').delete()
-  const hasId = typeof body?.id === 'number' && Number.isInteger(body.id)
 
-  if (!hasId && body?.all !== true) {
-    return NextResponse.json({ error: 'id (number) or all (true) is required' }, { status: 400, headers: NO_STORE })
+  let scoped
+  if (isId(body?.id)) scoped = query.eq('id', body.id)
+  else if (isId(body?.upToId)) scoped = query.lte('id', body.upToId)
+  else {
+    return NextResponse.json({ error: 'id or upToId (non-negative integer) is required' }, { status: 400, headers: NO_STORE })
   }
 
-  const { data, error } = await (hasId ? query.eq('id', body.id as number) : query.gte('id', 0)).select('id')
+  const { data, error } = await scoped.select('id')
 
   if (error) {
     console.error('Error deleting scholarship comments:', error)
