@@ -35,11 +35,14 @@ export async function GET() {
   return NextResponse.json({ comments: data ?? [] }, { headers: NO_STORE })
 }
 
-// Body is either { id: number } to remove one comment, or { upToId: number } to
-// clear everything the committee has reviewed: it deletes comments with
-// id <= upToId, i.e. the snapshot the page was showing. A comment that arrived
-// after the page loaded has a higher id and is left alone, so nothing is ever
-// deleted unseen. (There is deliberately no "delete everything" form.)
+// Body is either { id: number } to remove one comment, or { ids: number[] } to
+// clear exactly the comments the committee was shown. Deleting by the explicit
+// list of ids the page displayed (not "everything", and not "up to some id":
+// identity values can commit out of order) means a comment that arrived while
+// the page was open is never deleted unseen.
+const MAX_IDS = 5000
+const CHUNK = 200 // keeps each request's id filter well inside URL length limits
+
 export async function DELETE(request: Request) {
   if (!(await isCommittee())) return unauthorized()
 
@@ -48,7 +51,7 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: 'Server configuration error' }, { status: 500, headers: NO_STORE })
   }
 
-  let body: { id?: unknown; upToId?: unknown }
+  let body: { id?: unknown; ids?: unknown }
   try {
     body = await request.json()
   } catch {
@@ -56,21 +59,35 @@ export async function DELETE(request: Request) {
   }
 
   const isId = (v: unknown): v is number => typeof v === 'number' && Number.isInteger(v) && v >= 0
-  const query = supabase.from('scholarship_comments').delete()
 
-  let scoped
-  if (isId(body?.id)) scoped = query.eq('id', body.id)
-  else if (isId(body?.upToId)) scoped = query.lte('id', body.upToId)
-  else {
-    return NextResponse.json({ error: 'id or upToId (non-negative integer) is required' }, { status: 400, headers: NO_STORE })
+  let ids: number[]
+  if (isId(body?.id)) {
+    ids = [body.id]
+  } else if (Array.isArray(body?.ids) && body.ids.length > 0 && body.ids.length <= MAX_IDS && body.ids.every(isId)) {
+    ids = Array.from(new Set(body.ids as number[]))
+  } else {
+    return NextResponse.json(
+      { error: `id (integer) or ids (1-${MAX_IDS} integers) is required` },
+      { status: 400, headers: NO_STORE }
+    )
   }
 
-  const { data, error } = await scoped.select('id')
+  let deleted = 0
+  let error = null
+  for (let i = 0; i < ids.length && !error; i += CHUNK) {
+    const result = await supabase
+      .from('scholarship_comments')
+      .delete()
+      .in('id', ids.slice(i, i + CHUNK))
+      .select('id')
+    error = result.error
+    deleted += result.data?.length ?? 0
+  }
 
   if (error) {
     console.error('Error deleting scholarship comments:', error)
     return NextResponse.json({ error: 'Failed to delete' }, { status: 500, headers: NO_STORE })
   }
 
-  return NextResponse.json({ success: true, deleted: data?.length ?? 0 }, { headers: NO_STORE })
+  return NextResponse.json({ success: true, deleted }, { headers: NO_STORE })
 }
