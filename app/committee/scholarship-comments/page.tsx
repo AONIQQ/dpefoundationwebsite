@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
@@ -31,20 +31,28 @@ export default function ScholarshipCommentsCommittee() {
   const [total, setTotal] = useState(0)
   const [password, setPassword] = useState('')
   const [isWorking, setIsWorking] = useState(false)
+  // Bumped on every load and on sign-out. A response only updates the screen if
+  // it belongs to the latest load, so a slow request that was sent while signed
+  // in cannot put the comments back after the user has signed out.
+  const loadSeq = useRef(0)
 
   const load = useCallback(async () => {
+    const seq = ++loadSeq.current
     try {
       const response = await fetch('/api/committee/comments', { cache: 'no-store' })
+      if (seq !== loadSeq.current) return
       if (response.status === 401) {
         setView('login')
         return
       }
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       const data = await response.json()
+      if (seq !== loadSeq.current) return
       setComments(data.comments ?? [])
       setTotal(data.total ?? (data.comments ?? []).length)
       setView('comments')
     } catch (error) {
+      if (seq !== loadSeq.current) return
       console.error('Error loading comments:', error)
       toast.error('Could not load the comments. Please refresh the page.')
       setView('login')
@@ -89,6 +97,7 @@ export default function ScholarshipCommentsCommittee() {
       toast.error('Could not sign out. You are still signed in. Please try again.')
       return
     }
+    loadSeq.current++ // discard any list request still in flight
     setComments([])
     setTotal(0)
     setView('login')
