@@ -12,6 +12,12 @@ import SiteHeader from '@/app/components/SiteHeader'
 import SiteFooter from '@/app/components/SiteFooter'
 
 const MAX_COMMENT = 10000
+const MAX_NAME = 200
+const MAX_EMAIL = 320
+
+// Count characters the way the server and database do (an emoji is one, not two).
+// The native maxLength attribute counts UTF-16 units, so it is not used.
+const chars = (v: string) => Array.from(v).length
 const FIELD_CLASS =
   'w-full p-2 border border-gray-300 rounded-md text-black bg-[#fdfcf9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af36] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent'
 
@@ -24,9 +30,20 @@ export default function ScholarshipInput() {
   const [sent, setSent] = useState(false)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Count characters the way the server does (an emoji is one, not two).
-    if (Array.from(comments.trim()).length < 10) {
+    if (chars(comments.trim()) < 10) {
       toast.error('Please write a little more before sending.')
+      return
+    }
+    if (chars(comments.trim()) > MAX_COMMENT) {
+      toast.error(`Please keep your comments under ${MAX_COMMENT.toLocaleString('en-US')} characters.`)
+      return
+    }
+    if (chars(name.trim()) > MAX_NAME) {
+      toast.error('That name is too long.')
+      return
+    }
+    if (chars(email.trim()) > MAX_EMAIL) {
+      toast.error('That email address is too long.')
       return
     }
     setIsSubmitting(true)
@@ -128,7 +145,6 @@ export default function ScholarshipInput() {
                   className={FIELD_CLASS}
                   placeholder="Write as much or as little as you like."
                   rows={10}
-                  maxLength={MAX_COMMENT}
                   required
                 />
               </div>
@@ -144,7 +160,6 @@ export default function ScholarshipInput() {
                   onChange={(e) => setName(e.target.value)}
                   className={FIELD_CLASS}
                   placeholder="Leave blank to comment anonymously"
-                  maxLength={200}
                 />
               </div>
 
@@ -159,7 +174,6 @@ export default function ScholarshipInput() {
                   onChange={(e) => setEmail(e.target.value)}
                   className={FIELD_CLASS}
                   placeholder="Only if you would like the committee to reply"
-                  maxLength={320}
                 />
               </div>
 
