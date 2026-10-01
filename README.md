@@ -17,6 +17,21 @@ Brothers send comments at `/scholarships/input`; the Scholarship Committee reads
 security with no policies on purpose: do not add a SELECT policy, or the comments become readable with
 the public key.
 
+## Deploying (Vercel)
+
+Vercel only builds commits whose author is a member of the Vercel team. Commits
+authored as the `claude` GitHub user (`Claude <noreply@anthropic.com>`, the
+default identity in Claude Code cloud sessions) are rejected within seconds with
+no build log. This repo's history credits Claude as a trailer instead:
+
+```
+git commit --author="Andrew Olson <info@aoniqq.com>" ...
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+The Scholarship Committee password (`SCHOLARSHIP_COMMITTEE_PASSWORD`) must be set
+in the Production environment before the comment box is announced.
+
 ## Getting Started
 
 First, run the development server:
