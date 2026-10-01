@@ -1,5 +1,22 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment variables
+
+| Variable | Used for |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public Supabase client |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-side database access; also part of the session-signing key |
+| `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Admin dashboard sign-in (`/admin`). Changing either signs all admins out |
+| `SCHOLARSHIP_COMMITTEE_PASSWORD` | Scholarship Committee sign-in (`/committee/scholarship-comments`). Changing it signs the committee out |
+
+## Scholarship program comments
+
+Brothers send comments at `/scholarships/input`; the Scholarship Committee reads and deletes them at
+`/committee/scholarship-comments`. Neither page is linked from site navigation. Run
+`db/scholarship_comments.sql` once in the Supabase SQL Editor to create the table. It has row level
+security with no policies on purpose: do not add a SELECT policy, or the comments become readable with
+the public key.
+
 ## Getting Started
 
 First, run the development server:

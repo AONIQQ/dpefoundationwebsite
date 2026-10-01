@@ -15,7 +15,10 @@ const MAX_NAME = 200
 const MAX_EMAIL = 320
 const MIN_FILL_MS = 3000
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// Deliberately plain: no spaces, quotes, commas, semicolons, angle brackets or
+// "?", so a stored address can never smuggle extra mailto: parameters into the
+// committee's reply link.
+const EMAIL_PATTERN = /^[^\s@<>"',;?]+@[^\s@<>"',;?]+\.[^\s@<>"',;?]+$/
 
 function fail(error: string, status: number) {
   return NextResponse.json({ error }, { status })

@@ -190,7 +190,7 @@ export default function ScholarshipCommentsCommittee() {
                     <div>
                       <p className="text-lg font-semibold text-[#b08d28]">{c.name || 'Anonymous'}</p>
                       {c.email && (
-                        <a href={`mailto:${c.email}`} className="text-sm text-gray-700 hover:underline">
+                        <a href={`mailto:${encodeURIComponent(c.email)}`} className="text-sm text-gray-700 hover:underline">
                           {c.email}
                         </a>
                       )}
