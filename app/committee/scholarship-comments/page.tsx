@@ -28,6 +28,7 @@ const GOLD_BUTTON =
 export default function ScholarshipCommentsCommittee() {
   const [view, setView] = useState<View>('loading')
   const [comments, setComments] = useState<Comment[]>([])
+  const [total, setTotal] = useState(0)
   const [password, setPassword] = useState('')
   const [isWorking, setIsWorking] = useState(false)
 
@@ -41,6 +42,7 @@ export default function ScholarshipCommentsCommittee() {
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       const data = await response.json()
       setComments(data.comments ?? [])
+      setTotal(data.total ?? (data.comments ?? []).length)
       setView('comments')
     } catch (error) {
       console.error('Error loading comments:', error)
@@ -113,7 +115,7 @@ export default function ScholarshipCommentsCommittee() {
 
   const deleteAll = () => {
     const typed = window.prompt(
-      `This permanently deletes all ${comments.length} comment${comments.length === 1 ? '' : 's'} and cannot be undone.\n\nType DELETE to confirm.`
+      `This permanently deletes the ${comments.length} comment${comments.length === 1 ? '' : 's'} shown on this page and cannot be undone.\n\nType DELETE to confirm.`
     )
     if (typed?.trim() !== 'DELETE') return
     // Exactly the comments on screen: anything that arrived since the page loaded
@@ -165,7 +167,9 @@ export default function ScholarshipCommentsCommittee() {
               <p className="text-lg text-gray-800">
                 {comments.length === 0
                   ? 'No comments yet.'
-                  : `${comments.length} comment${comments.length === 1 ? '' : 's'}, newest first`}
+                  : total > comments.length
+                    ? `Showing the newest ${comments.length} of ${total} comments`
+                    : `${comments.length} comment${comments.length === 1 ? '' : 's'}, newest first`}
               </p>
               <div className="flex gap-3">
                 {comments.length > 0 && (

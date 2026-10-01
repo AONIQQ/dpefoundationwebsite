@@ -11,11 +11,11 @@ const hits = new Map<string, number[]>()
 export function tooManyRequests(key: string, limit: number, windowMs: number): boolean {
   const now = Date.now()
   const recent = (hits.get(key) ?? []).filter((t) => now - t < windowMs)
-  if (recent.length >= limit) {
-    hits.set(key, recent)
-    return true
-  }
-  recent.push(now)
+  const limited = recent.length >= limit
+  if (!limited) recent.push(now)
+  // Re-insert on every call, blocked or not, so a client that keeps hammering
+  // after hitting its limit stays "recent" and cannot be evicted (and handed a
+  // fresh allowance) by a flood of new keys.
   hits.delete(key)
   hits.set(key, recent)
 
@@ -27,7 +27,7 @@ export function tooManyRequests(key: string, limit: number, windowMs: number): b
     if (oldest === undefined) break
     hits.delete(oldest)
   }
-  return false
+  return limited
 }
 
 export function clientIp(request: Request): string {
