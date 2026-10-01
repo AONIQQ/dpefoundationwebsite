@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
@@ -22,12 +22,6 @@ export default function ScholarshipInput() {
   const [website, setWebsite] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
-  const formLoadedAtRef = useRef<number>(0)
-
-  useEffect(() => {
-    formLoadedAtRef.current = Date.now()
-  }, [])
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (comments.trim().length < 10) {
@@ -45,7 +39,6 @@ export default function ScholarshipInput() {
           email,
           comments,
           website,
-          elapsedMs: Date.now() - formLoadedAtRef.current,
         }),
       })
       const result = await response.json().catch(() => ({}))
@@ -96,10 +89,7 @@ export default function ScholarshipInput() {
               </p>
               <Button
                 type="button"
-                onClick={() => {
-                  formLoadedAtRef.current = Date.now()
-                  setSent(false)
-                }}
+                onClick={() => setSent(false)}
                 className="bg-gradient-to-r from-[#d4af36] to-[#c5a033] hover:from-[#b08d28] hover:to-[#9a7b22] text-white rounded-full px-8"
               >
                 Send another comment

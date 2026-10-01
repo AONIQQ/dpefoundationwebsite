@@ -13,7 +13,6 @@ const MIN_COMMENT = 10
 const MAX_COMMENT = 10_000
 const MAX_NAME = 200
 const MAX_EMAIL = 320
-const MIN_FILL_MS = 3000
 
 // Deliberately plain: no spaces, quotes, commas, semicolons, angle brackets or
 // "?", so a stored address can never smuggle extra mailto: parameters into the
@@ -55,11 +54,13 @@ export async function POST(request: Request) {
     return fail('That email address does not look right. You can also leave it blank.', 400)
   }
 
-  // Bots: a hidden field a person never fills in, and a form submitted faster
-  // than anyone could write a comment. Answer as if it worked so they do not
-  // learn what tripped the check; store nothing.
-  const elapsedMs = typeof body.elapsedMs === 'number' ? body.elapsedMs : Infinity
-  if (str(body.website).length > 0 || elapsedMs < MIN_FILL_MS) {
+  // Bots: a hidden field a person never fills in. Answer as if it worked so they
+  // do not learn what tripped the check; store nothing. (There is deliberately
+  // no "submitted too fast" check: a brother pasting prepared feedback is
+  // indistinguishable from a bot by timing, and silently dropping a real
+  // comment is worse than letting a spam one through, which the committee can
+  // delete.)
+  if (str(body.website).length > 0) {
     return NextResponse.json({ success: true })
   }
 
