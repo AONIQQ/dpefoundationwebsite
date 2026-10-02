@@ -5,8 +5,8 @@ import { issueToken as issue, safeEqual, verifyToken as verify } from '@/lib/sig
 //
 // The committee shares one password (SCHOLARSHIP_COMMITTEE_PASSWORD). A correct
 // password earns a signed, expiring cookie (see signed-token.ts). The signing
-// key mixes in the password and the service-role key, so changing the password
-// immediately signs everyone out. No extra secret to configure.
+// key mixes in the password and the session signing secret, so changing the password
+// immediately signs everyone out. Configure SESSION_SIGNING_SECRET independently.
 
 export const COMMITTEE_COOKIE = 'scholarship_committee'
 export const COMMITTEE_COOKIE_PATH = '/api/committee'
@@ -16,8 +16,8 @@ const PURPOSE = 'scholarship-committee-v1'
 
 function secrets(): string[] | null {
   const password = process.env.SCHOLARSHIP_COMMITTEE_PASSWORD
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  return password && serviceKey ? [serviceKey, password] : null
+  const signingSecret = process.env.SESSION_SIGNING_SECRET
+  return password && signingSecret ? [signingSecret, password] : null
 }
 
 /** True when the server has what it needs to run the committee area at all. */

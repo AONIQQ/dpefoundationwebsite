@@ -10,7 +10,7 @@ import { clientIp, tooManyRequests } from '@/lib/rate-limit'
 
 export async function POST(request: Request) {
   if (!adminConfigured()) {
-    console.error('Admin credentials (ADMIN_USERNAME / ADMIN_PASSWORD / SUPABASE_SERVICE_ROLE_KEY) are not set in environment variables')
+    console.error('Admin credentials (ADMIN_USERNAME / ADMIN_PASSWORD / SESSION_SIGNING_SECRET) are not set in environment variables')
     return NextResponse.json({ success: false, error: 'Server configuration error' }, { status: 500 })
   }
 

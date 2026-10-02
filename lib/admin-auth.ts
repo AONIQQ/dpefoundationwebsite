@@ -14,8 +14,8 @@ const PURPOSE = 'admin-dashboard-v1'
 function secrets(): string[] | null {
   const username = process.env.ADMIN_USERNAME
   const password = process.env.ADMIN_PASSWORD
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  return username && password && serviceKey ? [serviceKey, username, password] : null
+  const signingSecret = process.env.SESSION_SIGNING_SECRET
+  return username && password && signingSecret ? [signingSecret, username, password] : null
 }
 
 export function adminConfigured(): boolean {
