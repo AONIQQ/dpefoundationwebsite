@@ -986,6 +986,7 @@ export default function AdminDashboard() {
             <div className="bg-[#fdfcf9] p-4 rounded-2xl shadow-lg border-t-2 border-[#d4af36] max-w-4xl w-full h-5/6 flex flex-col">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-bold text-black">File Preview</h2>
+                <a href={`${selectedFile}&attachment=1`} className="text-sm font-medium underline text-black" download>Download document</a>
                 <Button onClick={() => setSelectedFile(null)} variant="ghost">
                   Close
                 </Button>

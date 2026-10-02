@@ -18,6 +18,6 @@ export async function GET(request: Request) {
     }
     const result = await get(pathname, { access: 'private' })
     if (result?.statusCode !== 200) return NextResponse.json({ error: 'File unavailable' }, { status: 404, headers })
-    return new NextResponse(result.stream, { headers: { ...headers, 'Content-Type': result.blob.contentType, 'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(pathname.split('/').pop()!)}` } })
+    return new NextResponse(result.stream, { headers: { ...headers, 'Content-Type': result.blob.contentType, 'Content-Disposition': `${params.get('attachment') === '1' ? 'attachment' : 'inline'}; filename*=UTF-8''${encodeURIComponent(pathname.split('/').pop()!)}` } })
   } catch { return NextResponse.json({ error: 'File unavailable' }, { status: 404, headers }) }
 }
