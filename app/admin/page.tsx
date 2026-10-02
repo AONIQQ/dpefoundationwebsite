@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/app/components/ui/table"
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { Button } from "@/app/components/ui/button"
@@ -75,64 +74,31 @@ export default function AdminDashboard() {
   const [selectedFile, setSelectedFile] = useState<string | null>(null)
   const [editingNotes, setEditingNotes] = useState<{ id: number, notes: string, scholarshipType: ScholarshipType } | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const supabase = createClientComponentClient()
   const router = useRouter()
 
   const fetchSubmissions = useCallback(async () => {
     try {
-      // Fetch Bleakley submissions
-      const { data: bleakleyData, error: bleakleyError } = await supabase
-        .from('bleakley_scholarship_submissions')
-        .select('*')
-        .order('submission_time', { ascending: false })
-
-      if (bleakleyError) throw bleakleyError
-      setBleakleySubmissions(bleakleyData || [])
-
-      // Fetch Weiss submissions
-      const { data: weissData, error: weissError } = await supabase
-        .from('weiss_scholarship_submissions')
-        .select('*')
-        .order('submission_time', { ascending: false })
-
-      if (weissError) throw weissError
-      setWeissSubmissions(weissData || [])
-
-      // Fetch Butts submissions
-      const { data: buttsData, error: buttsError } = await supabase
-        .from('butts_scholarship_submissions')
-        .select('*')
-        .order('submission_time', { ascending: false })
-
-      if (buttsError) throw buttsError
-      setButtsSubmissions(buttsData || [])
-
-      // Fetch LeMoine submissions
-      const { data: lemoineData, error: lemoineError } = await supabase
-        .from('lemoine_scholarship_submissions')
-        .select('*')
-        .order('submission_time', { ascending: false })
-
-      if (lemoineError) throw lemoineError
-      setLeMoineSubmissions(lemoineData || [])
-
-      // Fetch contact submissions
-      const { data: contactData, error: contactError } = await supabase
-        .from('contact_form_submissions')
-        .select('*')
-        .order('submission_time', { ascending: false })
-
-      if (contactError) throw contactError
-      // Coerce `read` so the UI works even before the column exists in the DB.
-      setContactSubmissions(
-        (contactData || []).map((c) => ({ ...c, read: Boolean(c.read) }))
-      )
+      const load = async (table: string) => {
+        const response = await fetch(`/api/admin/submissions?table=${table}`, { cache: 'no-store' })
+        const body = await response.json()
+        if (!response.ok) throw new Error(body.error || 'Failed to load submissions')
+        return body.rows
+      }
+      const [bleakley, weiss, butts, lemoine, contact] = await Promise.all([
+        load('bleakley_scholarship_submissions'), load('weiss_scholarship_submissions'),
+        load('butts_scholarship_submissions'), load('lemoine_scholarship_submissions'), load('contact_form_submissions'),
+      ])
+      setBleakleySubmissions(bleakley)
+      setWeissSubmissions(weiss)
+      setButtsSubmissions(butts)
+      setLeMoineSubmissions(lemoine)
+      setContactSubmissions(contact.map((c: ContactSubmission) => ({ ...c, read: Boolean(c.read) })))
 
     } catch (error) {
       console.error('Error fetching submissions:', error)
       toast.error('Failed to fetch submissions')
     }
-  }, [supabase])
+  }, [])
 
   useEffect(() => {
     fetchSubmissions()
@@ -220,7 +186,7 @@ export default function AdminDashboard() {
     }
   }
 
-  const handleFileClick = (filePath: string, scholarshipType: ScholarshipType, fileType: string) => {
+  const handleFileClick = async (filePath: string, scholarshipType: ScholarshipType, fileType: string) => {
     let bucket = ''
     
     if (scholarshipType === 'bleakley') {
@@ -261,19 +227,24 @@ export default function AdminDashboard() {
         fileType === 'attendance' ? 'attendance-proof' : 'applications'}`
     }
 
-    const publicUrl = supabase.storage.from(bucket).getPublicUrl(filePath).data.publicUrl
-    setSelectedFile(publicUrl)
+    try {
+      const response = await fetch(`/api/admin/files?bucket=${encodeURIComponent(bucket)}&path=${encodeURIComponent(filePath)}`, { cache: 'no-store' })
+      const body = await response.json()
+      if (!response.ok) throw new Error(body.error)
+      setSelectedFile(body.url)
+    } catch { toast.error('Failed to open file') }
+  }
+
+  const updateSubmission = async (table: string, id: number, values: Record<string, string | boolean>) => {
+    const response = await fetch('/api/admin/submissions', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table, id, values }) })
+    const body = await response.json()
+    if (!response.ok) throw new Error(body.error)
   }
 
   const handleStatusChange = async <T extends BaseSubmission>(id: number, status: string, setSubmissions: React.Dispatch<React.SetStateAction<T[]>>) => {
     const table = `${scholarshipType}_scholarship_submissions`
     try {
-      const { error } = await supabase
-        .from(table)
-        .update({ status })
-        .eq('id', id)
-
-      if (error) throw error
+      await updateSubmission(table, id, { status })
 
       // Update local state
       setSubmissions(prevSubmissions => 
@@ -290,12 +261,7 @@ export default function AdminDashboard() {
   const handleReviewedChange = async <T extends BaseSubmission>(id: number, reviewed: boolean, setSubmissions: React.Dispatch<React.SetStateAction<T[]>>) => {
     const table = `${scholarshipType}_scholarship_submissions`
     try {
-      const { error } = await supabase
-        .from(table)
-        .update({ reviewed: reviewed })
-        .eq('id', id)
-
-      if (error) throw error
+      await updateSubmission(table, id, { reviewed })
 
       // Update local state
       setSubmissions(prevSubmissions => 
@@ -313,12 +279,7 @@ export default function AdminDashboard() {
     if (editingNotes) {
       const table = `${editingNotes.scholarshipType}_scholarship_submissions`
       try {
-        const { error } = await supabase
-          .from(table)
-          .update({ admin_notes: editingNotes.notes })
-          .eq('id', editingNotes.id)
-
-        if (error) throw error
+        await updateSubmission(table, editingNotes.id, { admin_notes: editingNotes.notes })
 
         // Update local state
         const updateSubmissions = <T extends BaseSubmission>(submissions: T[]) =>

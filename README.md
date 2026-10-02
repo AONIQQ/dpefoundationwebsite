@@ -1,5 +1,25 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment variables
+
+| Variable | Used for |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public Supabase client |
+| `DATABASE_URL` | Server-only Neon Postgres connection; leave unset only for Supabase rollback |
+| `SUPABASE_SERVICE_ROLE_KEY` | File signing, Supabase fallback and session signing |
+| `DPE_WRITES_PAUSED` | Optional maintenance flag; `true` rejects writes |
+| `ADMIN_USERNAME`, `ADMIN_PASSWORD` | Admin dashboard sign-in (`/admin`). Changing either signs all admins out |
+| `SCHOLARSHIP_COMMITTEE_PASSWORD` | Scholarship Committee sign-in (`/committee/scholarship-comments`). Changing it signs the committee out |
+
+## Scholarship program comments
+
+Brothers send comments at `/scholarships/input`; the Scholarship Committee reads and deletes them at
+`/committee/scholarship-comments`. Neither page is linked from site navigation. The Neon schema is in `db/neon-schema.sql`; migration and rollback instructions are in
+`internal-docs/DPE_DATABASE_MIGRATION.md`. The legacy Supabase setup uses
+`db/scholarship_comments.sql`. That source table has row level
+security with no policies on purpose: do not add a SELECT policy, or the comments become readable with
+the public key.
+
 ## Getting Started
 
 First, run the development server:

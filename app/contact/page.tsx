@@ -5,7 +5,6 @@ import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
 import { Textarea } from "@/app/components/ui/textarea"
-import { supabase } from '@/lib/supabase'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
@@ -49,13 +48,8 @@ export default function Contact() {
     }
 
     try {
-      const { error } = await supabase
-        .from('contact_form_submissions')
-        .insert([
-          { full_name: trimmedName, email, message: trimmedMessage },
-        ])
-
-      if (error) throw error
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ full_name: trimmedName, email, message: trimmedMessage }) })
+      if (!response.ok) throw new Error((await response.json()).error)
 
       toast.success('Your message has been sent successfully!')
       setName('')

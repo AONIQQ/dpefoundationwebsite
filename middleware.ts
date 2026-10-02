@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { ADMIN_COOKIE, verifyAdminToken } from '@/lib/admin-auth'
 
-export function middleware(request: NextRequest) {
-  const session = request.cookies.get('admin_session')
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Allow access to login page and API routes without authentication
@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
 
   // Check for authentication for other admin routes
   if (pathname.startsWith('/admin')) {
-    if (session?.value === 'authenticated') {
+    if (await verifyAdminToken(request.cookies.get(ADMIN_COOKIE)?.value)) {
       return NextResponse.next()
     } else {
       return NextResponse.redirect(new URL('/admin/login', request.url))

@@ -149,13 +149,9 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
       insertPayload.additional_requirements_file_path = additionalFilePath
     }
 
-    const { data, error } = await supabase
-      .from(`${scholarshipType}_scholarship_submissions`)
-      .insert([insertPayload])
+    const response = await fetch('/api/scholarship-applications', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: scholarshipType, ...insertPayload }) })
+    if (!response.ok) throw new Error((await response.json()).error)
 
-    if (error) throw error
-
-    console.log('Submission successful:', data)
     // Reset form
     setFullName('')
     setFiles({ application: null, proof: null, fsot: null, requirements: null })
