@@ -25,8 +25,8 @@ check('admin changes only allowed fields',(await req('/api/admin/submissions','P
 check('admin notes update persists',(await req('/api/admin/submissions','PATCH',{table:'butts_scholarship_submissions',id:Number(app[0].id),values:{admin_notes:tag}},admin.cookie)).status===200);
 check('contact submission writes Neon',(await req('/api/contact','POST',{full_name:tag,email:'dpe-qa@example.com',message:tag+' synthetic contact message'})).status===200);
 if (env.DPE_QA_FILE_BUCKET && env.DPE_QA_FILE_PATH) {
-let file=await req('/api/admin/files?bucket='+encodeURIComponent(env.DPE_QA_FILE_BUCKET)+'&path='+encodeURIComponent(env.DPE_QA_FILE_PATH),'GET',undefined,admin.cookie);check('admin receives expiring uploaded-file URL',file.status===200&&file.data.url.includes('/object/sign/'));
-let bytes=await fetch(file.data.url);check('preserved uploaded file downloads',bytes.status===200);
+let file=await req('/api/admin/files?bucket='+encodeURIComponent(env.DPE_QA_FILE_BUCKET)+'&path='+encodeURIComponent(env.DPE_QA_FILE_PATH),'GET',undefined,admin.cookie);check('admin receives authenticated uploaded-file URL',file.status===200&&file.data.url.startsWith('/api/admin/files?'));
+let bytes=await fetch(new URL(file.data.url,base),{headers:{Cookie:admin.cookie}});check('preserved uploaded file downloads',bytes.status===200);
 }
 check('committee sign-out succeeds',(await req('/api/committee/session','DELETE')).status===200);
 check('heartbeat works with Neon',(await req('/api/heartbeat')).status===200);

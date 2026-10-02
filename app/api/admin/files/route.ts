@@ -1,17 +1,23 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { createClient } from '@supabase/supabase-js'
+import { get, head } from '@vercel/blob'
 import { ADMIN_COOKIE, verifyAdminToken } from '@/lib/admin-auth'
+import { filePath } from '@/lib/file-storage'
 export const dynamic = 'force-dynamic'
-const buckets = ['applications', 'proofs', 'fsot', 'weiss-applications', 'weiss-attendance-proof', 'weiss-intern-proof', 'butts-applications', 'butts-attendance-proof', 'butts-requirements', 'lemoine-applications', 'lemoine-resumes', 'lemoine-transcripts', 'lemoine-recommendations']
 export async function GET(request: Request) {
-  const headers = { 'Cache-Control': 'no-store' }
+  const headers = { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff' }
   if (!(await verifyAdminToken(cookies().get(ADMIN_COOKIE)?.value))) return NextResponse.json({ error: 'Unauthorized' }, { status: 401, headers })
   const params = new URL(request.url).searchParams
-  const bucket = params.get('bucket'), path = params.get('path')
-  if (!bucket || !buckets.includes(bucket) || !path || path.includes('..') || path.length > 1024) return NextResponse.json({ error: 'Invalid file' }, { status: 400, headers })
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } })
-  const { data, error } = await supabase.storage.from(bucket).createSignedUrl(path, 300)
-  if (error) return NextResponse.json({ error: 'File unavailable' }, { status: 404, headers })
-  return NextResponse.json({ url: data.signedUrl }, { headers })
+  const pathname = filePath(params.get('bucket'), params.get('path'))
+  if (!pathname) return NextResponse.json({ error: 'Invalid file' }, { status: 400, headers })
+  try {
+    if (params.get('download') !== '1') {
+      await head(pathname)
+      params.set('download', '1')
+      return NextResponse.json({ url: `/api/admin/files?${params}` }, { headers })
+    }
+    const result = await get(pathname, { access: 'private' })
+    if (result?.statusCode !== 200) return NextResponse.json({ error: 'File unavailable' }, { status: 404, headers })
+    return new NextResponse(result.stream, { headers: { ...headers, 'Content-Type': result.blob.contentType, 'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(pathname.split('/').pop()!)}` } })
+  } catch { return NextResponse.json({ error: 'File unavailable' }, { status: 404, headers }) }
 }

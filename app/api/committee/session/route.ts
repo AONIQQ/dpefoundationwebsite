@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request) {
   if (!committeeConfigured()) {
-    console.error('Committee access is not configured (SCHOLARSHIP_COMMITTEE_PASSWORD / SUPABASE_SERVICE_ROLE_KEY)')
+    console.error('Committee access is not configured (SCHOLARSHIP_COMMITTEE_PASSWORD / SESSION_SIGNING_SECRET)')
     return NextResponse.json({ error: 'Committee access is not set up yet.' }, { status: 500 })
   }
 

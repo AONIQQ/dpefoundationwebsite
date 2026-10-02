@@ -5,7 +5,7 @@ import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
 import { useDropzone } from 'react-dropzone'
-import { supabase } from '@/lib/supabase'
+import { upload } from '@vercel/blob/client'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
@@ -107,7 +107,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
     console.log('Starting file uploads...')
     const formData = new FormData(e.currentTarget)
 
-    // Upload files to Supabase storage
+    // Upload documents to private Vercel Blob storage
     let applicationPath: string | null = null
     let proofPath: string | null = null
     let additionalFilePath: string | null = null
@@ -165,36 +165,12 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 }
 
   const uploadFile = async (file: File, bucket: string): Promise<string> => {
-    if (!file) {
-      throw new Error(`No file provided for ${bucket} upload`)
-    }
-
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`
-    const filePath = `${fileName}`
-
-    console.log(`Uploading file to ${bucket}: ${filePath}`)
-
-    try {
-      const { data, error } = await supabase.storage
-        .from(bucket)
-        .upload(filePath, file)
-
-      if (error) {
-        console.error(`Error uploading file to ${bucket}:`, error)
-        throw error
-      }
-
-      if (!data) {
-        throw new Error(`No data returned from ${bucket} upload`)
-      }
-
-      console.log(`File uploaded successfully to ${bucket}: ${filePath}`)
-      return filePath
-    } catch (error) {
-      console.error(`Error in uploadFile function for ${bucket}:`, error)
-      throw new Error(`Failed to upload file to ${bucket}: ${(error as Error).message}`)
-    }
+    const extension = file.name.split('.').pop()?.toLowerCase()
+    if (!extension || !['pdf', 'doc', 'docx'].includes(extension)) throw new Error('Please upload a PDF or Word document.')
+    if (file.size > 20 * 1024 * 1024) throw new Error('Please keep each document under 20 MB.')
+    const filePath = `${crypto.randomUUID()}.${extension}`
+    await upload(`${bucket}/${filePath}`, file, { access: 'private', handleUploadUrl: '/api/files/upload' })
+    return filePath
   }
 
   return (

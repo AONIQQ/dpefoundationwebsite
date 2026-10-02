@@ -2,7 +2,7 @@
 
 Source: Supabase project `feocmpaoiuifvzhjdtny`, seven public tables and thirteen storage buckets. Destination: dedicated Neon resource `dpe-foundation-neon` (`proud-star-95115511`) in the existing Neon integration of the `info@aoniqq.com` Vercel account. Other websites' databases are not reused.
 
-`lib/data-store.ts` uses Neon when server-only `DATABASE_URL` is present, and the Supabase service key otherwise. Database reads and mutations run through server routes. The public Supabase key is used only for uploads. Admin file viewing uses five-minute signed URLs. Documents remain in Supabase Storage and have separate local checksum backups.
+`lib/data-store.ts` uses Neon exclusively. Private documents are in `dpe-foundation-documents` (`store_6cHi1pChmFkXiTxT`), with original bucket/key paths preserved. Admin download routes authenticate every request and stream private Blob contents. New applications upload through short-lived tokens limited to approved paths, document MIME types and 20 MB. Sessions use an independent `SESSION_SIGNING_SECRET`. No runtime Supabase dependency remains.
 
 ## Preservation and cutover
 
@@ -14,7 +14,7 @@ Source: Supabase project `feocmpaoiuifvzhjdtny`, seven public tables and thirtee
 6. Remove public database read/update/delete privileges and make the application buckets private after deploying the server file route. Keep insert permission for uploads and verify it still works.
 7. Verify production by submitting a synthetic narrative, reading it through committee login, confirming it exists in Neon, then deleting that exact record. Verify admin tables and preserved files too.
 
-A rollback must copy all post-cutover Neon changes back to Supabase before removing `DATABASE_URL` and the source write-freeze triggers. Do not point the app at a stale source or delete the source project/backups.
+The historical cutover steps above describe the original database migration. Before retiring the source, copy all 143 documents, compare every destination SHA-256 hash, reconcile the final source inventory and verify live admin downloads and new uploads. Preserve the private schema, records, files and checksum backup outside Git. A future restoration must use the current Neon and Blob state; the historical source is stale.
 
 ## Verification
 
