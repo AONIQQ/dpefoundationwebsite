@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { createClient } from '@supabase/supabase-js'
+import { updateRow, deleteRows, writesPaused } from '@/lib/data-store'
 import { ADMIN_COOKIE, verifyAdminToken } from '@/lib/admin-auth'
 
 // Contact submissions are mutated only by the admin. The public site uses the
@@ -9,18 +9,8 @@ import { ADMIN_COOKIE, verifyAdminToken } from '@/lib/admin-auth'
 // of the dashboard uses. The middleware lets all /api/ routes through without
 // auth, so the signed-cookie check below is the actual guard for these endpoints.
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
 async function isAdmin(): Promise<boolean> {
   return verifyAdminToken(cookies().get(ADMIN_COOKIE)?.value)
-}
-
-function getAdminClient() {
-  if (!supabaseUrl || !serviceRoleKey) return null
-  return createClient(supabaseUrl, serviceRoleKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  })
 }
 
 async function parseId(request: Request): Promise<number | null> {
@@ -39,10 +29,7 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const supabase = getAdminClient()
-  if (!supabase) {
-    return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
-  }
+  if (writesPaused()) return NextResponse.json({ error: 'Maintenance in progress' }, { status: 503 })
 
   let body: { id?: unknown; read?: unknown }
   try {
@@ -60,15 +47,8 @@ export async function PATCH(request: Request) {
     )
   }
 
-  const { error } = await supabase
-    .from('contact_form_submissions')
-    .update({ read })
-    .eq('id', id)
-
-  if (error) {
-    console.error('Error updating contact submission read state:', error)
-    return NextResponse.json({ error: 'Failed to update submission' }, { status: 500 })
-  }
+  try { await updateRow('contact_form_submissions', id, { read }) }
+  catch (error) { console.error(error); return NextResponse.json({ error: 'Failed to update submission' }, { status: 500 }) }
 
   return NextResponse.json({ success: true })
 }
@@ -79,25 +59,15 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const supabase = getAdminClient()
-  if (!supabase) {
-    return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
-  }
+  if (writesPaused()) return NextResponse.json({ error: 'Maintenance in progress' }, { status: 503 })
 
   const id = await parseId(request)
   if (id === null) {
     return NextResponse.json({ error: 'id (number) is required' }, { status: 400 })
   }
 
-  const { error } = await supabase
-    .from('contact_form_submissions')
-    .delete()
-    .eq('id', id)
-
-  if (error) {
-    console.error('Error deleting contact submission:', error)
-    return NextResponse.json({ error: 'Failed to delete submission' }, { status: 500 })
-  }
+  try { await deleteRows('contact_form_submissions', [id]) }
+  catch (error) { console.error(error); return NextResponse.json({ error: 'Failed to delete submission' }, { status: 500 }) }
 
   return NextResponse.json({ success: true })
 }

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getCommentsClient } from '@/lib/scholarship-comments-db'
+import { insertRow, writesPaused } from '@/lib/data-store'
 import { clientIp, tooManyRequests } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
@@ -74,20 +74,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true })
   }
 
-  const supabase = getCommentsClient()
-  if (!supabase) {
-    console.error('Scholarship comments: Supabase environment variables are not set')
-    return fail('The comment box is not available right now.', 500)
-  }
-
-  const { error } = await supabase
-    .from('scholarship_comments')
-    .insert({ name: name || null, email: email || null, comments })
-
-  if (error) {
+  if (writesPaused()) return fail('Submissions are temporarily paused for maintenance. Please try again shortly.', 503)
+  try {
+    await insertRow('scholarship_comments', { name: name || null, email: email || null, comments })
+    return NextResponse.json({ success: true })
+  } catch (error) {
     console.error('Error saving scholarship comment:', error)
     return fail('We could not save your comment. Please try again.', 500)
   }
-
-  return NextResponse.json({ success: true })
 }

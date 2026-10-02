@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { isCommittee } from '@/lib/committee-auth'
-import { getCommentsClient } from '@/lib/scholarship-comments-db'
+import { listRows, deleteRows, writesPaused } from '@/lib/data-store'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,24 +23,13 @@ function unauthorized() {
 export async function GET() {
   if (!(await isCommittee())) return unauthorized()
 
-  const supabase = getCommentsClient()
-  if (!supabase) {
-    return NextResponse.json({ error: 'Server configuration error' }, { status: 500, headers: NO_STORE })
-  }
-
-  const { data, error, count } = await supabase
-    .from('scholarship_comments')
-    .select('id, created_at, name, email, comments', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .order('id', { ascending: false })
-    .limit(MAX_LIST)
-
-  if (error) {
+  try {
+    const { rows, total } = await listRows('scholarship_comments', 'created_at', MAX_LIST)
+    return NextResponse.json({ comments: rows, total }, { headers: NO_STORE })
+  } catch (error) {
     console.error('Error loading scholarship comments:', error)
     return NextResponse.json({ error: 'Failed to load comments' }, { status: 500, headers: NO_STORE })
   }
-
-  return NextResponse.json({ comments: data ?? [], total: count ?? data?.length ?? 0 }, { headers: NO_STORE })
 }
 
 // Body is either { id: number } to remove one comment, or { ids: number[] } to
@@ -51,10 +40,7 @@ export async function GET() {
 export async function DELETE(request: Request) {
   if (!(await isCommittee())) return unauthorized()
 
-  const supabase = getCommentsClient()
-  if (!supabase) {
-    return NextResponse.json({ error: 'Server configuration error' }, { status: 500, headers: NO_STORE })
-  }
+  if (writesPaused()) return NextResponse.json({ error: 'Maintenance in progress' }, { status: 503, headers: NO_STORE })
 
   let body: { id?: unknown; ids?: unknown }
   try {
@@ -77,17 +63,11 @@ export async function DELETE(request: Request) {
     )
   }
 
-  // One statement, so it is all-or-nothing.
-  const { data, error } = await supabase
-    .from('scholarship_comments')
-    .delete()
-    .in('id', ids)
-    .select('id')
-
-  if (error) {
+  try {
+    const deleted = await deleteRows('scholarship_comments', ids)
+    return NextResponse.json({ success: true, deleted }, { headers: NO_STORE })
+  } catch (error) {
     console.error('Error deleting scholarship comments:', error)
     return NextResponse.json({ error: 'Failed to delete' }, { status: 500, headers: NO_STORE })
   }
-
-  return NextResponse.json({ success: true, deleted: data?.length ?? 0 }, { headers: NO_STORE })
 }
