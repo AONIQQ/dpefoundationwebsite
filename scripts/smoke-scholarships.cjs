@@ -11,8 +11,10 @@ let login=await req('/api/committee/session','POST',{password:env.SCHOLARSHIP_CO
 check('committee cookie cannot access admin',(await req('/api/admin/submissions?table=bleakley_scholarship_submissions','GET',undefined,login.cookie)).status===401);
 check('short comment rejected',(await req('/api/scholarship-comments','POST',{comments:'short'})).status===400);
 check('malformed email rejected',(await req('/api/scholarship-comments','POST',{comments:tag,email:'bad'})).status===400);
-check('fast anonymous feedback saves',(await req('/api/scholarship-comments','POST',{comments:tag+' anonymous narrative 😀'})).status===200);
-let list=await req('/api/committee/comments','GET',undefined,login.cookie);let row=list.data.comments.find(x=>x.comments.startsWith(tag));check('committee reads saved narrative',list.status===200&&!!row&&row.name===null&&row.email===null);
+check('feedback without a name rejected',(await req('/api/scholarship-comments','POST',{comments:tag+' no name given',email:'dpe-qa@example.com'})).status===400);
+check('feedback without an email rejected',(await req('/api/scholarship-comments','POST',{comments:tag+' no email given',name:'DPE QA'})).status===400);
+check('fast feedback with name and email saves',(await req('/api/scholarship-comments','POST',{comments:tag+' narrative 😀',name:'DPE QA',email:'dpe-qa@example.com'})).status===200);
+let list=await req('/api/committee/comments','GET',undefined,login.cookie);let row=list.data.comments.find(x=>x.comments.startsWith(tag));check('committee reads saved narrative with name and email',list.status===200&&!!row&&row.name==='DPE QA'&&row.email==='dpe-qa@example.com');
 check('comments response never cached',list.headers.get('cache-control')==='no-store');
 check('delete validation rejects arbitrary bulk wipe',(await req('/api/committee/comments','DELETE',{ids:[]},login.cookie)).status===400);
 let del=await req('/api/committee/comments','DELETE',{id:row.id},login.cookie);check('committee deletes exact synthetic comment',del.status===200&&del.data.deleted===1);

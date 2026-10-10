@@ -38,8 +38,16 @@ export default function ScholarshipInput() {
       toast.error(`Please keep your comments under ${MAX_COMMENT.toLocaleString('en-US')} characters.`)
       return
     }
+    if (!name.trim()) {
+      toast.error('Please enter your name.')
+      return
+    }
     if (chars(name.trim()) > MAX_NAME) {
       toast.error('That name is too long.')
+      return
+    }
+    if (!email.trim()) {
+      toast.error('Please enter your email address.')
       return
     }
     if (chars(email.trim()) > MAX_EMAIL) {
@@ -91,8 +99,9 @@ export default function ScholarshipInput() {
 
         <div className="max-w-2xl mx-auto">
           <p className="text-lg text-gray-800 leading-relaxed mb-4">
-            The Scholarship Committee welcomes the brotherhood&rsquo;s input. There is no form to
-            fill out: tell us what you think in your own words. Comments go only to the
+            The Scholarship Committee welcomes the brotherhood&rsquo;s input. There is no
+            questionnaire: tell us what you think in your own words, and include your name and
+            email address so the committee can follow up with you. Comments go only to the
             Scholarship Committee, and they are deleted once the committee has finished its review.
           </p>
 
@@ -151,7 +160,7 @@ export default function ScholarshipInput() {
 
               <div>
                 <Label htmlFor="name" className="text-lg font-semibold text-black mb-2 block">
-                  Your name <span className="text-sm font-normal text-gray-600">(optional)</span>
+                  Your name
                 </Label>
                 <Input
                   id="name"
@@ -159,13 +168,15 @@ export default function ScholarshipInput() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className={FIELD_CLASS}
-                  placeholder="Leave blank to comment anonymously"
+                  placeholder="Your full name"
+                  autoComplete="name"
+                  required
                 />
               </div>
 
               <div>
                 <Label htmlFor="email" className="text-lg font-semibold text-black mb-2 block">
-                  Your email <span className="text-sm font-normal text-gray-600">(optional)</span>
+                  Your email
                 </Label>
                 <Input
                   id="email"
@@ -173,7 +184,9 @@ export default function ScholarshipInput() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={FIELD_CLASS}
-                  placeholder="Only if you would like the committee to reply"
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  required
                 />
               </div>
 

@@ -59,9 +59,13 @@ export async function POST(request: Request) {
   if (chars(comments) > MAX_COMMENT) {
     return fail(`Please keep your comments under ${MAX_COMMENT.toLocaleString('en-US')} characters.`, 400)
   }
+  // The Scholarship Committee wants every response attributed and reachable:
+  // name and email are both required.
+  if (!name) return fail('Please enter your name.', 400)
   if (chars(name) > MAX_NAME) return fail('That name is too long.', 400)
-  if (email && (chars(email) > MAX_EMAIL || !EMAIL_PATTERN.test(email))) {
-    return fail('That email address does not look right. You can also leave it blank.', 400)
+  if (!email) return fail('Please enter your email address.', 400)
+  if (chars(email) > MAX_EMAIL || !EMAIL_PATTERN.test(email)) {
+    return fail('That email address does not look right. Please check it and try again.', 400)
   }
 
   // Bots: a hidden field a person never fills in. Answer as if it worked so they
@@ -76,7 +80,7 @@ export async function POST(request: Request) {
 
   if (writesPaused()) return fail('Submissions are temporarily paused for maintenance. Please try again shortly.', 503)
   try {
-    await insertRow('scholarship_comments', { name: name || null, email: email || null, comments })
+    await insertRow('scholarship_comments', { name, email, comments })
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error saving scholarship comment:', error)

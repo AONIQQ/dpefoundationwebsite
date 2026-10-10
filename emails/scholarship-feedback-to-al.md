@@ -4,11 +4,11 @@ The scholarship feedback page is ready. Brothers can submit narrative comments h
 
 https://dpefoundation.org/scholarships/input
 
-They can type or paste their comments into the box and click “Send comments.” There is no questionnaire to complete. Name and email are optional, so they can respond anonymously. This is a website submission page; comments sent by email are not automatically collected.
+They can type or paste their comments into the box and click “Send comments.” There is no questionnaire to complete. Name and email are required, so every response is attributed and the committee can follow up; anonymous responses are not accepted. This is a website submission page; comments sent by email are not automatically collected.
 
 Suggested wording for your request to the brotherhood:
 
-“We welcome your comments on the proposed scholarship program. Please visit https://dpefoundation.org/scholarships/input, type or paste your narrative comments, and click ‘Send comments.’ You may leave your name and email blank if you prefer. Responses are available to the Scholarship Committee through a password-protected page.”
+“We welcome your comments on the proposed scholarship program. Please visit https://dpefoundation.org/scholarships/input, type or paste your narrative comments, and click ‘Send comments.’ Please include your name and email address so the committee can follow up with you. Responses are available to the Scholarship Committee through a password-protected page.”
 
 The committee can read the responses at:
 

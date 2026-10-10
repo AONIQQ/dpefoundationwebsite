@@ -22,4 +22,4 @@ The historical cutover steps above describe the original database migration. Bef
 
 The environment must point at the same Neon database as the server and include admin/committee credentials. Optional `DPE_QA_FILE_BUCKET` / `DPE_QA_FILE_PATH` verify a preserved file; `DPE_QA_PROOF_FILE` saves the result. The script creates and cleans up uniquely tagged synthetic records.
 
-Brothers submit at `https://dpefoundation.org/scholarships/input`; name and email are optional. The committee uses its separate password at `https://dpefoundation.org/committee/scholarship-comments`. Database administrators can technically access stored comments. The ready-to-send email body is `emails/scholarship-feedback-to-al.md`.
+Brothers submit at `https://dpefoundation.org/scholarships/input`; name and email are required (the Scholarship Committee does not accept anonymous responses; comments submitted before this rule may have blank fields). The committee uses its separate password at `https://dpefoundation.org/committee/scholarship-comments`. Database administrators can technically access stored comments. The ready-to-send email body is `emails/scholarship-feedback-to-al.md`.

@@ -213,7 +213,7 @@ export default function ScholarshipCommentsCommittee() {
                 <li key={c.id} className={`p-6 ${CARD_CLASS}`}>
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
                     <div>
-                      <p className="text-lg font-semibold text-[#b08d28]">{c.name || 'Anonymous'}</p>
+                      <p className="text-lg font-semibold text-[#b08d28]">{c.name || 'No name given'}</p>
                       {c.email && (
                         <a href={`mailto:${encodeURIComponent(c.email)}`} className="text-sm text-gray-700 hover:underline">
                           {c.email}
