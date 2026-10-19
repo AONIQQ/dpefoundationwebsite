@@ -196,9 +196,7 @@ type Provider = 'pending' | 'stripe-link' | 'donorbox' | 'paypal' | 'custom'
 
 export const DONATION: { provider: Provider; checkoutBaseUrl: string } = {
   provider: 'donorbox',
-  // Fill in once the Donorbox account and campaign exist,
-  // e.g. 'https://donorbox.org/dpe-foundation'.
-  checkoutBaseUrl: '',
+  checkoutBaseUrl: 'https://donorbox.org/delta-phi-epsilon-foundation',
 }
 
 export function isCheckoutLive(): boolean {
