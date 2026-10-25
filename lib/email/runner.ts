@@ -133,7 +133,12 @@ export async function pollMailbox(opts: { force?: boolean } = {}): Promise<PollR
     }
 
     const sender = senderAddress()
-    const inbox = await searchMessages(`in:inbox newer_than:${days}d -from:me -from:(mailer-daemon OR postmaster) -from:${sender}`, 500)
+    // Deliberately not scoped to in:inbox. Polling only runs while an admin has
+    // the dashboard open, so a reply read (or auto-filtered) and archived before
+    // then would never be counted. Gmail search already leaves out Spam and
+    // Trash, and only messages on a recorded campaign thread are kept below, so
+    // widening this cannot pull in unrelated mail.
+    const inbox = await searchMessages(`newer_than:${days}d -from:me -from:(mailer-daemon OR postmaster) -from:${sender}`, 500)
     const sends = await sendsForThreads(Array.from(new Set(inbox.messages.map((m) => m.threadId))))
     const byThread = new Map(sends.map((s) => [s.threadId, s.id]))
     const known = await knownEventIds(inbox.messages.map((m) => m.id))
