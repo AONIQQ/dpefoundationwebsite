@@ -217,10 +217,27 @@ export async function setCampaignStatus(id: number, status: 'sending' | 'paused'
   return rows.length > 0
 }
 
-export async function deleteCampaign(id: number) {
+/**
+ * Delete a campaign that never went out.
+ *
+ * A campaign that has been queued is kept for good. Its email_sends rows carry
+ * the unsubscribe and click tokens printed into mail already sitting in
+ * people's inboxes, and deleting the campaign would cascade those away: past
+ * recipients would get "link not recognized" from a one-click unsubscribe, the
+ * donation links in delivered appeals would stop resolving, and the deliveries
+ * would drop out of the rolling daily-cap count, letting the next campaign
+ * overshoot the warm-up limit.
+ */
+export async function deleteCampaign(id: number): Promise<'ok' | 'missing' | 'sending' | 'has-sends'> {
   writable()
-  const rows = await sql()`delete from email_campaigns where id = ${id} and status <> 'sending' returning id`
-  return rows.length > 0
+  const db = sql()
+  const [campaign] = await db`select status, queued_at from email_campaigns where id = ${id}`
+  if (!campaign) return 'missing'
+  if (campaign.status === 'sending') return 'sending'
+  if (campaign.queued_at) return 'has-sends'
+  const rows = await db`
+    delete from email_campaigns where id = ${id} and queued_at is null and status <> 'sending' returning id`
+  return rows.length > 0 ? 'ok' : 'missing'
 }
 
 /**

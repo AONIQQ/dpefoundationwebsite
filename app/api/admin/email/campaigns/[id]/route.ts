@@ -53,5 +53,9 @@ export const PATCH = adminHandler(async (request: Request, ctx: Ctx) => {
 export const DELETE = adminHandler(async (_request: Request, ctx: Ctx) => {
   const id = campaignId(ctx)
   if (!id) return fail('Invalid campaign')
-  return (await deleteCampaign(id)) ? ok({ success: true }) : fail('Pause the campaign before deleting it', 409)
+  const result = await deleteCampaign(id)
+  if (result === 'ok') return ok({ success: true })
+  if (result === 'missing') return fail('Campaign not found', 404)
+  if (result === 'sending') return fail('Pause the campaign before deleting it', 409)
+  return fail('This campaign has already been sent. Its delivery records keep the unsubscribe and donation links working for everyone who received it, so it cannot be deleted.', 409)
 })
