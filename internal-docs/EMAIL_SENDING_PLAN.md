@@ -1,51 +1,66 @@
-# Fundraising email sending
+# Fundraising email
 
-Scope from the October 2, 2026 proposal to Al (approved by the trustees October 25): email sending from the Foundation's own domain, admin-panel management of fundraising emails and lead lists, and domain authentication and warm-up. No outside CRM or email service; everything runs through the Foundation's existing Google Workspace and this site's Neon database.
+Scope from the October 2, 2026 proposal to Al (approved by the trustees October 25): email sending from the Foundation's own domain, admin-panel management of fundraising emails and lead lists, and domain authentication and warm-up. There is no outside CRM or email service; everything runs through the Foundation's Google Workspace and this site's Neon database.
 
-## Sending path
+Admins manage everything at `/admin/email` (the **Email** button on the admin dashboard).
 
-- The site sends through the **Gmail API** as `info@dpefoundation.org` (or `give@`), using a Google Cloud service account with domain-wide delegation limited to the `gmail.send` and `gmail.readonly` scopes. Neither the API nor the service account costs anything.
-- Each recipient gets their own message, with no BCC blasts, so merge fields, unsubscribe links and tracking work per person.
-- Google Workspace allows about 2,000 messages per user per day. The queue sends about one message per second and stops at a configurable daily cap that is well under that limit.
-- Sends land in the `info@` Sent folder, and replies come back to the same inbox, so trustees can see the conversations in Gmail.
+## How it works
 
-## Deliverability
+- **Sending:** through the Gmail API as `EMAIL_SENDER` (`info@dpefoundation.org`), using a Google Cloud service account with domain-wide delegation (`lib/email/gmail.ts`). Each recipient gets their own message, never a BCC blast. Sent mail appears in that mailbox's Sent folder, and replies arrive in its inbox.
+- **Queue:** `lib/email/runner.ts`. Each send is claimed atomically, so overlapping runs never double-send. Messages go out about one per second, up to the daily limit (a rolling 24 hours, set in the admin). If Gmail returns a rate limit or server error, the run stops and the message is retried. A send that was cut off mid-way is marked failed, not retried, because a duplicate appeal is worse than a missed one.
+- **What drives the queue:**
+  - The campaign page, every few seconds while it is open.
+  - Vercel Cron at `/api/email/cron`, once a day (`vercel.json`). If the Vercel plan allows it, run it more often (for example `*/10 * * * *`) so sends continue without the page open.
+- **Deliverability built in:**
+  - A one-click `List-Unsubscribe` header (RFC 8058) and a visible unsubscribe link. One is added automatically if a template lacks it.
+  - A plain-text part generated from the HTML.
+  - A `Feedback-ID` header for each campaign, used by Postmaster Tools.
+  - Suppression of unsubscribed, bounced and complained contacts, enforced at queue time and again at send time.
+  - Re-importing a contact never resubscribes them.
+- **Tracking:**
+  - Clicks: `/e/c/<token>/<n>`. It only redirects to links the campaign contained when it was queued.
+  - Opens: `/e/o/<token>`. Approximate, because of Apple Mail Privacy Protection and image blocking.
+  - Unsubscribe: `/e/u/<token>`. A GET shows a confirmation, so link scanners can't unsubscribe anyone; a POST unsubscribes.
+  - Bounces and replies: the sending mailbox is polled for delivery-failure reports (hard bounces only) and for replies in campaign threads.
+- **Templates:** the three appeal emails in `emails/` appear in the campaign editor. The merge fields are `{{FirstName}}`, `{{FirstName|Brother}}` (with a fallback), `{{LastName}}`, `{{DONATE_URL}}`, `{{DESIGNATION_FORM_URL}}` and `{{UnsubscribeURL}}`. The editing notes at the top of each template are stripped before sending.
 
-1. DNS at the registrar (Joe Picozzi's account):
-   - SPF: `v=spf1 include:_spf.google.com ~all`
-   - DKIM: a 2048-bit key generated in Admin console → Apps → Gmail → Authenticate email.
-   - DMARC: start with `p=none; rua=mailto:info@dpefoundation.org`, then move to `quarantine` once the reports are clean.
-2. Every message carries `List-Unsubscribe` and `List-Unsubscribe-Post: List-Unsubscribe=One-Click` (RFC 8058), a plain-text part alongside the HTML, and a visible unsubscribe link.
-3. Suppression: unsubscribes, hard bounces and complaints are never sent to again. This is enforced in the queue, not the UI.
-4. Warm-up: ramp the daily cap (roughly 50 → 100 → 250 → 500 → 1,000) and send to the most engaged list first (trustees, then brothers, then the wider community, which matches the rollout plan).
-5. Register the domain in Google Postmaster Tools to watch reputation and spam rate.
-6. Links use only `dpefoundation.org` URLs, with no shorteners.
+## Go-live checklist
 
-## Tracking
+The **Setup & settings** tab on `/admin/email` checks the Gmail connection and the DNS records live.
 
-- **Clicks:** links are rewritten to `/e/c/<token>`, which logs the click and redirects. The donate link carries the campaign tag so gifts can be traced back to a campaign.
-- **Opens:** a 1×1 pixel at `/e/o/<token>`. Reported as approximate, because Apple Mail Privacy Protection and Gmail's image proxy inflate or mask opens.
-- **Unsubscribes:** `/e/u/<token>`, with a one-click POST plus a confirmation page.
-- **Bounces and replies:** the sender polls the `info@` mailbox through the Gmail API for mailer-daemon DSNs (hard bounces suppress the address) and for replies in campaign threads.
-- Tokens are random per-send IDs stored in the database, so they reveal nothing about the recipient.
+1. **Database:** run `db/email.sql` once on the DPE Neon database. It is idempotent.
+2. **Google Cloud** (any project, owned by the Foundation's Workspace):
+   - Enable the Gmail API.
+   - Create a service account and a JSON key.
+   - In the dpefoundation.org Admin console (Security → API controls → Domain-wide delegation), add the service account's client ID with these scopes:
+     `https://www.googleapis.com/auth/gmail.send,https://www.googleapis.com/auth/gmail.readonly`
+3. **Vercel env:**
+   - `GOOGLE_SERVICE_ACCOUNT_JSON`: the key file contents
+   - `EMAIL_SENDER`: `info@dpefoundation.org`
+   - `CRON_SECRET`: a long random string
+   - Optional: `EMAIL_PUBLIC_BASE_URL`, which defaults to `https://dpefoundation.org`
+4. **DNS at the registrar.** As of October 25, 2026, the MX record already points to Google, but these three are missing:
+   - SPF, TXT on `dpefoundation.org`: `v=spf1 include:_spf.google.com ~all`
+   - DKIM: in the Admin console, go to Apps → Google Workspace → Gmail → Authenticate email and generate a 2048-bit key. Add the TXT record at `google._domainkey`, wait for DNS, then click **Start authentication**.
+   - DMARC, TXT on `_dmarc.dpefoundation.org`: `v=DMARC1; p=none; rua=mailto:info@dpefoundation.org`. Move to `p=quarantine` once the reports are clean.
+5. Register the domain in [Google Postmaster Tools](https://postmaster.google.com).
+6. Send a test to yourself from the campaign editor and check that Gmail's "Show original" reports SPF, DKIM and DMARC as PASS.
+7. **Warm up:** keep the daily limit at 50 in week 1, then 100, 250, 500 and 1,000. Send to trustees first, then brothers, then the wider community. Keep the spam rate in Postmaster Tools under 0.1%.
 
-## Admin dashboard (`/admin` → Email)
+## Code
 
-- **Contacts and lists:** CSV import with column mapping and de-duplication by lowercased email, tags/lists (Trustees, Brothers, Community), manual add/edit, and suppression status.
-- **Campaigns:** compose from the existing templates in `emails/`, merge fields (`{{FirstName}}`, donate and designation-form URLs), preview, a test send to yourself, then queue for a list. Campaigns can be paused and resumed.
-- **Results:** per-campaign sent, bounced, opened (approximate), clicked, unsubscribed and replied counts, plus a per-recipient view.
-- **Settings:** daily cap and warm-up stage, and the from name and reply-to address.
+| Path | What |
+|---|---|
+| `db/email.sql` | Tables: contacts, lists, campaigns, sends, events, settings |
+| `lib/email/gmail.ts` | Service-account auth and Gmail API calls |
+| `lib/email/render.ts` | Merge fields, link tracking, pixel, unsubscribe, plain text |
+| `lib/email/mime.ts` | Raw message with the unsubscribe headers |
+| `lib/email/store.ts` | All database queries |
+| `lib/email/runner.ts`, `bounce.ts` | Queue runner and mailbox poll |
+| `lib/email/health.ts` | Gmail and DNS checklist |
+| `app/admin/email/` | Admin UI |
+| `app/api/admin/email/` | Admin API (signed admin cookie required) |
+| `app/api/email/cron` | Scheduled run (`CRON_SECRET`) |
+| `app/e/` | Public open, click and unsubscribe endpoints |
 
-## Data (Neon)
-
-`email_contacts`, `email_lists`, `email_list_members`, `email_campaigns`, `email_sends` (one row per recipient per campaign: status, token, Gmail message/thread id, timestamps), `email_events` (open, click, unsubscribe, bounce, reply). Migration lives in `db/email.sql`.
-
-## Queue runner
-
-`/api/email/run` sends the next batch within the daily cap and polls for bounces. It is protected by `CRON_SECRET` and called by Vercel Cron. If the Vercel plan only allows daily cron jobs, the campaign page also drives the queue while it is open, so a send never depends on one trigger.
-
-## Needed before go-live
-
-- A Google Cloud project with the Gmail API enabled, a service account key in Vercel env (`GOOGLE_SERVICE_ACCOUNT_JSON`), and domain-wide delegation granted in the dpefoundation.org Admin console.
-- Registrar access for the SPF, DKIM and DMARC records.
-- Contact lists from Sanjay and the Fraternity.
+Tests: `npm run test:email` for the unit tests, and `scripts/email-e2e/` for the full flow against a throwaway database and a mock Gmail.

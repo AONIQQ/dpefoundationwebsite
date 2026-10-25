@@ -6,7 +6,7 @@ export function tableName(value: unknown): value is TableName {
   return typeof value === 'string' && (TABLES as readonly string[]).includes(value)
 }
 let connection: ReturnType<typeof postgres> | undefined
-function sql() {
+export function sql() {
   if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not configured')
   return connection ??= postgres(process.env.DATABASE_URL, { max: 3, idle_timeout: 20, connect_timeout: 15, prepare: false, ssl: 'require' })
 }

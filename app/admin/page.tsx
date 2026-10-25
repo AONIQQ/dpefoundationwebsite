@@ -12,7 +12,7 @@ import { Textarea } from "@/app/components/ui/textarea"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/app/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/app/components/ui/tooltip"
-import { Download, FileText, Edit, LogOut, Trash2 } from 'lucide-react'
+import { Download, FileText, Edit, LogOut, Mail, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast, ToastContainer } from 'react-toastify'
@@ -424,6 +424,12 @@ export default function AdminDashboard() {
             />
           </Link>
           <div className="flex items-center space-x-4">
+            <Link href="/admin/email">
+              <Button variant="outline" className="border-[#d4af36] text-[#b08d28]">
+                <Mail className="mr-2 h-4 w-4" />
+                Email
+              </Button>
+            </Link>
             <Button onClick={handleLogout} className="bg-[#d4af36] hover:bg-[#b08d28] text-white">
               <LogOut className="mr-2 h-4 w-4" />
               Logout
