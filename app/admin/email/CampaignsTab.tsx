@@ -125,7 +125,7 @@ function CampaignDetail({ id, lists, close, duplicate, refreshOverview }: {
       if (result) {
         const r = result.run
         setRunStatus(
-          r.stoppedBy === 'cap' ? `Daily limit reached (${r.sentLast24h}/${r.dailyCap}). The rest go out as the 24-hour window frees up.`
+          r.stoppedBy === 'cap' ? `Daily limit reached (${r.sentLast24h}/${r.dailyCap}). Open this campaign again tomorrow to send the rest.`
           : r.stoppedBy === 'paused' ? 'All sending is paused in Setup & settings.'
           : r.stoppedBy === 'gmail-error' ? `Gmail error: ${r.error}. Will retry.`
           : r.stoppedBy === 'not-configured' ? 'Gmail sending is not set up. See Setup & settings.'
@@ -241,7 +241,7 @@ function CampaignDetail({ id, lists, close, duplicate, refreshOverview }: {
                 <div className="h-2 rounded bg-[#d4af36]" style={{ width: `${Math.round(((campaign.total - campaign.queued) / campaign.total) * 100)}%` }} />
               </div>
             )}
-            {sending && <p className="mt-3 text-sm text-gray-700">{runStatus || 'Sending…'} Keep this page open to send faster; otherwise the daily scheduled run continues it.</p>}
+            {sending && <p className="mt-3 text-sm text-gray-700">{runStatus || 'Sending…'} Sending runs while this page is open. If you close it, it picks up where it left off next time you open the campaign.</p>}
             {(campaign.failed > 0 || campaign.skipped > 0) && (
               <p className="mt-2 text-sm text-gray-600">{campaign.failed} failed · {campaign.skipped} skipped (unsubscribed or bounced before their turn)</p>
             )}

@@ -8,9 +8,9 @@ import {
 } from '@/lib/email/store'
 
 // Drains the send queue within the daily cap, then checks the mailbox for
-// bounces and replies. Called by the cron route and by the campaign page while
-// it is open, so sending never depends on a single trigger. Safe to run
-// concurrently: each send is claimed atomically before it goes out.
+// bounces and replies. The admin campaign page calls it every few seconds
+// while it is open. Safe to run concurrently (two admins with the page open):
+// each send is claimed atomically before it goes out.
 
 const SPACING_MS = 1000
 

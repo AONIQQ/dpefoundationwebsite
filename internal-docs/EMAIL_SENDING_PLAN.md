@@ -8,9 +8,7 @@ Admins manage everything at `/admin/email` (the **Email** button on the admin da
 
 - **Sending:** through the Gmail API as `EMAIL_SENDER` (`info@dpefoundation.org`), using a Google Cloud service account with domain-wide delegation (`lib/email/gmail.ts`). Each recipient gets their own message, never a BCC blast. Sent mail appears in that mailbox's Sent folder, and replies arrive in its inbox.
 - **Queue:** `lib/email/runner.ts`. Each send is claimed atomically, so overlapping runs never double-send. Messages go out about one per second, up to the daily limit (a rolling 24 hours, set in the admin). If Gmail returns a rate limit or server error, the run stops and the message is retried. A send that was cut off mid-way is marked failed, not retried, because a duplicate appeal is worse than a missed one.
-- **What drives the queue:**
-  - The campaign page, every few seconds while it is open.
-  - Vercel Cron at `/api/email/cron`, once a day (`vercel.json`). If the Vercel plan allows it, run it more often (for example `*/10 * * * *`) so sends continue without the page open.
+- **What drives the queue:** the campaign page in the admin, every few seconds while it is open. There is no background job or cron: close the page and sending pauses, and it resumes when the campaign is opened again. Once the daily limit is hit, the rest goes out when the page is opened the next day.
 - **Deliverability built in:**
   - A one-click `List-Unsubscribe` header (RFC 8058) and a visible unsubscribe link. One is added automatically if a template lacks it.
   - A plain-text part generated from the HTML.
@@ -37,9 +35,8 @@ The **Setup & settings** tab on `/admin/email` checks the Gmail connection and t
 3. **Vercel env:**
    - `GOOGLE_SERVICE_ACCOUNT_JSON`: the key file contents
    - `EMAIL_SENDER`: `info@dpefoundation.org`
-   - `CRON_SECRET`: a long random string
    - Optional: `EMAIL_PUBLIC_BASE_URL`, which defaults to `https://dpefoundation.org`
-4. **DNS at the registrar.** As of October 25, 2026, the MX record already points to Google, but these three are missing:
+4. **DNS at the registrar (GoDaddy; nameservers ns51/ns52.domaincontrol.com).** As of October 25, 2026, the MX record already points to Google, but these three are missing:
    - SPF, TXT on `dpefoundation.org`: `v=spf1 include:_spf.google.com ~all`
    - DKIM: in the Admin console, go to Apps → Google Workspace → Gmail → Authenticate email and generate a 2048-bit key. Add the TXT record at `google._domainkey`, wait for DNS, then click **Start authentication**.
    - DMARC, TXT on `_dmarc.dpefoundation.org`: `v=DMARC1; p=none; rua=mailto:info@dpefoundation.org`. Move to `p=quarantine` once the reports are clean.
@@ -60,7 +57,6 @@ The **Setup & settings** tab on `/admin/email` checks the Gmail connection and t
 | `lib/email/health.ts` | Gmail and DNS checklist |
 | `app/admin/email/` | Admin UI |
 | `app/api/admin/email/` | Admin API (signed admin cookie required) |
-| `app/api/email/cron` | Scheduled run (`CRON_SECRET`) |
 | `app/e/` | Public open, click and unsubscribe endpoints |
 
 Tests: `npm run test:email` for the unit tests, and `scripts/email-e2e/` for the full flow against a throwaway database and a mock Gmail.

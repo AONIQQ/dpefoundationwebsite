@@ -60,9 +60,8 @@ r = await call('/api/admin/email/run', 'POST')
 // test send counts as nothing (not in email_sends); cap 3
 assert.equal(r.body.run.sent, 3); assert.equal(r.body.run.stoppedBy, 'cap'); step('cap respected: 3 sent, then stopped')
 await call('/api/admin/email/settings', 'PATCH', { daily_cap: 50 })
-r = await call('/api/email/cron'); assert.equal(r.status, 401)
-r = await fetch(B + '/api/email/cron', { headers: { authorization: 'Bearer cron-test' } }).then(x => x.json())
-assert.equal(r.run.sent, 1); assert.equal(r.run.stoppedBy, 'empty'); step('cron needs CRON_SECRET and finishes the queue')
+r = (await call('/api/admin/email/run', 'POST')).body
+assert.equal(r.run.sent, 1); assert.equal(r.run.stoppedBy, 'empty'); step('raising the limit lets the page finish the queue')
 
 const msgs = sent().slice(-4)
 assert.equal(new Set(msgs.map(m => m.raw.match(/^To: (.*)$/m)[1].trim())).size, 4)
