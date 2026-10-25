@@ -54,13 +54,13 @@ assert.equal(r.body.queued, 0); step('re-queueing a list sends no duplicates')
 await call('/api/admin/email/settings', 'PATCH', { daily_cap: 3 })
 const before = sent().length
 fs.writeFileSync(`${S}/fail-next`, '')
-r = await call('/api/admin/email/run', 'POST')
+r = await call(`/api/admin/email/run?campaign=${id}`, 'POST')
 assert.equal(r.body.run.stoppedBy, 'gmail-error'); assert.equal(sent().length, before); step('Gmail 429 stops the batch and requeues')
-r = await call('/api/admin/email/run', 'POST')
+r = await call(`/api/admin/email/run?campaign=${id}`, 'POST')
 // test send counts as nothing (not in email_sends); cap 3
 assert.equal(r.body.run.sent, 3); assert.equal(r.body.run.stoppedBy, 'cap'); step('cap respected: 3 sent, then stopped')
 await call('/api/admin/email/settings', 'PATCH', { daily_cap: 50 })
-r = (await call('/api/admin/email/run', 'POST')).body
+r = (await call(`/api/admin/email/run?campaign=${id}`, 'POST')).body
 assert.equal(r.run.sent, 1); assert.equal(r.run.stoppedBy, 'empty'); step('raising the limit lets the page finish the queue')
 
 const msgs = sent().slice(-4)
@@ -111,11 +111,20 @@ const id2 = (await call('/api/admin/email/campaigns', 'POST', { name: 'Follow-up
 r = await call(`/api/admin/email/campaigns/${id2}/queue`, 'POST', { listIds: [trustees.id, brothers.id] })
 assert.equal(r.body.queued, 2); step('next campaign excludes the unsubscribed and bounced contacts (2 of 4 queued)')
 await call(`/api/admin/email/campaigns/${id2}`, 'PATCH', { action: 'pause' })
-r = await call('/api/admin/email/run', 'POST'); assert.equal(r.body.run.sent, 0); step('paused campaign does not send')
+r = await call(`/api/admin/email/run?campaign=${id2}`, 'POST'); assert.equal(r.body.run.sent, 0); step('paused campaign does not send')
 await call(`/api/admin/email/campaigns/${id2}`, 'PATCH', { action: 'resume' })
-r = await call('/api/admin/email/run', 'POST'); assert.equal(r.body.run.sent, 2)
+r = await call(`/api/admin/email/run?campaign=${id2}`, 'POST'); assert.equal(r.body.run.sent, 2)
 const last = sent().at(-1).raw
 const lhtml = Buffer.from(last.split('Content-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n')[1].split('\r\n--')[0].replace(/\r\n/g, ''), 'base64').toString()
 assert.match(lhtml, /3222 N Street NW/); assert.match(lhtml, /\/e\/u\//); step('resumed; template without unsubscribe link got the footer added')
-assert.equal((await call(`/api/admin/email/campaigns/${id}`, 'DELETE')).status, 200); step('finished campaign can be deleted')
+assert.equal((await call(`/api/admin/email/campaigns/${id}`, 'DELETE')).status, 409); step('a sent campaign is kept, so delivered unsubscribe links keep working')
+const draft = (await call('/api/admin/email/campaigns', 'POST', { name: 'Draft', subject: 'x', html: '<html><body>x</body></html>' })).body.id
+assert.equal((await call(`/api/admin/email/campaigns/${draft}`, 'DELETE')).status, 200); step('an unsent draft can still be deleted')
+
+// Opening one campaign must not drain another left with recipients queued.
+const id3 = (await call('/api/admin/email/campaigns', 'POST', { name: 'Third', subject: 'Third', html: '<html><body><p>Hi</p></body></html>' })).body.id
+await call(`/api/admin/email/campaigns/${id3}/queue`, 'POST', { listIds: [trustees.id] })
+const beforeScoped = sent().length
+r = await call(`/api/admin/email/run?campaign=${id2}`, 'POST')
+assert.equal(r.body.run.sent, 0); assert.equal(sent().length, beforeScoped); step('running one campaign does not send another campaign\'s queue')
 console.log('ALL E2E CHECKS PASSED')

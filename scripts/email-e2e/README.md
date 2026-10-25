@@ -5,7 +5,7 @@ Runs the real app against a throwaway Postgres and a mock Google API (`mock-goog
 Never point this at the production database.
 
 ```sh
-# 1. A local Postgres with SSL on (lib/data-store.ts requires it), then:
+# 1. A local Postgres, then (pass DATABASE_SSL=disable below if it has no TLS):
 createdb dpe && psql -d dpe -f db/neon-schema.sql -f db/email.sql
 
 # 2. Build and start with the mock

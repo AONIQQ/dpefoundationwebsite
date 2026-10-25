@@ -7,7 +7,8 @@ import {
   knownEventIds, recordBounce, recordReply, sendsForThreads, sentInLast24h,
 } from '@/lib/email/store'
 
-// Drains the send queue within the daily cap, then checks the mailbox for
+// Drains one campaign's send queue within the daily cap, then checks the
+// mailbox for
 // bounces and replies. The admin campaign page calls it every few seconds
 // while it is open. Safe to run concurrently (two admins with the page open):
 // claimNext reserves both the recipient and its slot under the daily cap in a
@@ -29,13 +30,13 @@ export interface RunResult {
   error?: string
 }
 
-export async function runQueue(budgetMs: number): Promise<RunResult> {
+export async function runQueue(budgetMs: number, campaignId: number): Promise<RunResult> {
   const started = Date.now()
   const settings = await getSettings()
   const base = { sent: 0, failed: 0, dailyCap: settings.daily_cap, paused: settings.paused }
   const finish = async (stoppedBy: RunResult['stoppedBy'], error?: string): Promise<RunResult> => {
     await finishCampaigns()
-    return { ...base, configured: gmailConfigured(), queued: await queuedCount(), sentLast24h: await sentInLast24h(), stoppedBy, error }
+    return { ...base, configured: gmailConfigured(), queued: await queuedCount(campaignId), sentLast24h: await sentInLast24h(), stoppedBy, error }
   }
 
   if (!gmailConfigured()) return finish('not-configured')
@@ -45,7 +46,7 @@ export async function runQueue(budgetMs: number): Promise<RunResult> {
   const fromEmail = senderAddress()!
 
   while (Date.now() - started < budgetMs - 3000) {
-    const send = await claimNext(settings.daily_cap)
+    const send = await claimNext(settings.daily_cap, campaignId)
     if (send === 'at-cap') return finish('cap')
     if (!send) return finish('empty')
 

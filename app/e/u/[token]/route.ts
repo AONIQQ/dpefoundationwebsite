@@ -27,7 +27,11 @@ export async function GET(_request: Request, { params }: { params: { token: stri
   if (!validToken(params.token)) return notFound()
   const send = await sendByToken(params.token)
   if (!send) return notFound()
-  if (send.unsubscribed_at || send.contact_status === 'unsubscribed') {
+  // Only the contact's current status decides this. The send's unsubscribed_at
+  // is history: if an admin resubscribed them afterwards from Contacts, they
+  // are eligible for future campaigns, and telling them otherwise (and hiding
+  // the form) would be wrong.
+  if (send.contact_status === 'unsubscribed') {
     return page('Unsubscribed', `<h1>You're unsubscribed</h1><p>${escape(String(send.email))} will not receive further fundraising emails from the Delta Phi Epsilon Foundation.</p>`)
   }
   return page('Unsubscribe', `<h1>Unsubscribe</h1><p>Stop fundraising emails from the Delta Phi Epsilon Foundation to <strong>${escape(String(send.email))}</strong>?</p>

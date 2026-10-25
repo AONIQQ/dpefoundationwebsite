@@ -1,4 +1,4 @@
-import { adminHandler, ok } from '@/lib/email/admin-route'
+import { adminHandler, ok, positiveInt } from '@/lib/email/admin-route'
 import { pollMailbox, runQueue } from '@/lib/email/runner'
 
 export const dynamic = 'force-dynamic'
@@ -13,8 +13,13 @@ export const maxDuration = 60
 // to go out, and a campaign left with queued recipients would otherwise resume
 // from a button that reads as read-only.
 export const POST = adminHandler(async (request: Request) => {
-  const pollOnly = new URL(request.url).searchParams.get('poll') === 'force'
-  const run = pollOnly ? null : await runQueue(25_000)
+  const params = new URL(request.url).searchParams
+  const pollOnly = params.get('poll') === 'force'
+  // Sending is scoped to the campaign whose page is open. Without an id there
+  // is nothing to send, so the call only checks the mailbox: a run must never
+  // drain a different campaign that was left with recipients queued.
+  const campaignId = Number(params.get('campaign'))
+  const run = pollOnly || !positiveInt(campaignId) ? null : await runQueue(25_000, campaignId)
   const poll = await pollMailbox({ force: pollOnly })
   return ok({ run, poll })
 })

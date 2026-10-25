@@ -119,7 +119,7 @@ function CampaignDetail({ id, lists, close, duplicate, refreshOverview }: {
       if (running.current || cancelled) return
       running.current = true
       const result = await api<{ run: { sent: number; stoppedBy: string; queued: number; sentLast24h: number; dailyCap: number; error?: string } }>(
-        '/api/admin/email/run', { method: 'POST', quiet: true })
+        `/api/admin/email/run?campaign=${campaign.id}`, { method: 'POST', quiet: true })
       running.current = false
       if (cancelled) return
       if (result) {
@@ -136,7 +136,7 @@ function CampaignDetail({ id, lists, close, duplicate, refreshOverview }: {
     tick()
     const timer = setInterval(tick, 8000)
     return () => { cancelled = true; clearInterval(timer) }
-  }, [sending, load])
+  }, [sending, load, campaign?.id])
 
   if (!campaign) return <p className="text-gray-600">Loading…</p>
 

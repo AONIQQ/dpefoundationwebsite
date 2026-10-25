@@ -6,9 +6,18 @@ export function tableName(value: unknown): value is TableName {
   return typeof value === 'string' && (TABLES as readonly string[]).includes(value)
 }
 let connection: ReturnType<typeof postgres> | undefined
+/**
+ * TLS is required unless explicitly turned off with DATABASE_SSL=disable.
+ *
+ * Neon only accepts TLS, so production is unaffected. The opt-out exists for a
+ * throwaway local Postgres (scripts/email-e2e), and it is deliberately an
+ * explicit env var rather than a host sniff, so no misread of a connection
+ * string can silently send production traffic unencrypted.
+ */
 export function sql() {
   if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not configured')
-  return connection ??= postgres(process.env.DATABASE_URL, { max: 3, idle_timeout: 20, connect_timeout: 15, prepare: false, ssl: 'require' })
+  const ssl = process.env.DATABASE_SSL === 'disable' ? false : ('require' as const)
+  return connection ??= postgres(process.env.DATABASE_URL, { max: 3, idle_timeout: 20, connect_timeout: 15, prepare: false, ssl })
 }
 export function writesPaused() { return process.env.DPE_WRITES_PAUSED === 'true' }
 function writable() { if (writesPaused()) throw new Error('Submissions are temporarily paused for maintenance. Please try again shortly.') }

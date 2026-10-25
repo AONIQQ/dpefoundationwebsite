@@ -308,10 +308,15 @@ export async function sentInLast24h(): Promise<number> {
   return num(count)
 }
 
-export async function queuedCount(): Promise<number> {
-  const [{ count }] = await sql()`
-    select count(*)::integer as count from email_sends s join email_campaigns c on c.id = s.campaign_id
-    where s.status = 'queued' and c.status = 'sending'`
+export async function queuedCount(campaignId?: number): Promise<number> {
+  const db = sql()
+  const [{ count }] = campaignId === undefined
+    ? await db`
+        select count(*)::integer as count from email_sends s join email_campaigns c on c.id = s.campaign_id
+        where s.status = 'queued' and c.status = 'sending'`
+    : await db`
+        select count(*)::integer as count from email_sends s join email_campaigns c on c.id = s.campaign_id
+        where s.status = 'queued' and c.status = 'sending' and s.campaign_id = ${campaignId}`
   return num(count)
 }
 
@@ -348,8 +353,14 @@ export interface ClaimedSend {
 export type ClaimOutcome = ClaimedSend | 'at-cap' | null
 
 /**
- * Atomically take the next queued send, so overlapping runs never send the
- * same message twice and never exceed the daily cap between them.
+ * Atomically take the next queued send for ONE campaign, so overlapping runs
+ * never send the same message twice and never exceed the daily cap between
+ * them.
+ *
+ * Claims are scoped to the campaign whose page is open. Draining every sending
+ * campaign would mean opening one campaign silently resumed another that had
+ * been left with recipients queued, which is exactly what closing its page is
+ * supposed to prevent.
  *
  * The cap is enforced inside the same statement that claims the row, counting
  * both messages already sent in the window and any currently in flight. Two
@@ -357,13 +368,13 @@ export type ClaimOutcome = ClaimedSend | 'at-cap' | null
  * slot: whichever claim lands second sees the first as 'sending' and matches
  * no row. (Stale 'sending' rows from a dead run are cleared by prepareQueue.)
  */
-export async function claimNext(dailyCap: number): Promise<ClaimOutcome> {
+export async function claimNext(dailyCap: number, campaignId: number): Promise<ClaimOutcome> {
   const db = sql()
   const [claimed] = await db`
     update email_sends set status = 'sending', claimed_at = now()
     where id = (
       select s.id from email_sends s join email_campaigns c on c.id = s.campaign_id
-      where s.status = 'queued' and c.status = 'sending'
+      where s.status = 'queued' and c.status = 'sending' and s.campaign_id = ${campaignId}
         and (
           select count(*) from email_sends d
           where d.sent_at > now() - interval '24 hours' or d.status = 'sending'
@@ -376,7 +387,7 @@ export async function claimNext(dailyCap: number): Promise<ClaimOutcome> {
     // blocks it, so ask which it was.
     const [{ count }] = await db`
       select count(*)::integer as count from email_sends s join email_campaigns c on c.id = s.campaign_id
-      where s.status = 'queued' and c.status = 'sending'`
+      where s.status = 'queued' and c.status = 'sending' and s.campaign_id = ${campaignId}`
     return num(count) > 0 ? 'at-cap' : null
   }
   const [row] = await db`
@@ -386,7 +397,7 @@ export async function claimNext(dailyCap: number): Promise<ClaimOutcome> {
     where s.id = ${claimed.id}`
   if (row.contact_status !== 'subscribed') {
     await db`update email_sends set status = 'skipped', error = ${`Contact is ${row.contact_status ?? 'deleted'}`} where id = ${claimed.id}`
-    return claimNext(dailyCap)
+    return claimNext(dailyCap, campaignId)
   }
   return { ...row, id: num(row.id), campaign_id: num(row.campaign_id), links: row.links as string[] } as ClaimedSend
 }
