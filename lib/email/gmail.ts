@@ -101,10 +101,32 @@ export async function sendRaw(mime: string): Promise<{ id: string; threadId: str
   return gmail('/messages/send', { method: 'POST', body: JSON.stringify({ raw: b64url(mime) }) })
 }
 
-export async function searchMessages(q: string, maxResults = 100): Promise<{ id: string; threadId: string }[]> {
-  const params = new URLSearchParams({ q, maxResults: String(maxResults) })
-  const body = await gmail<{ messages?: { id: string; threadId: string }[] }>(`/messages?${params}`)
-  return body.messages ?? []
+export interface MessageSearch {
+  messages: { id: string; threadId: string }[]
+  /** False when `limit` was reached with pages still unread. */
+  complete: boolean
+}
+
+/**
+ * Search the mailbox, following Gmail's page tokens up to `limit`.
+ *
+ * `complete` lets the caller tell "that was everything" from "there is more I
+ * did not read", which matters because advancing a polling checkpoint past an
+ * unread page would lose those messages for good once they age out of the
+ * search window.
+ */
+export async function searchMessages(q: string, limit = 100): Promise<MessageSearch> {
+  const messages: { id: string; threadId: string }[] = []
+  let pageToken: string | undefined
+  for (;;) {
+    const params = new URLSearchParams({ q, maxResults: String(Math.min(500, limit - messages.length)) })
+    if (pageToken) params.set('pageToken', pageToken)
+    const body = await gmail<{ messages?: { id: string; threadId: string }[]; nextPageToken?: string }>(`/messages?${params}`)
+    messages.push(...(body.messages ?? []))
+    pageToken = body.nextPageToken
+    if (!pageToken) return { messages, complete: true }
+    if (messages.length >= limit) return { messages, complete: false }
+  }
 }
 
 export interface GmailMessage {

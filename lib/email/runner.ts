@@ -121,8 +121,8 @@ export async function pollMailbox(opts: { force?: boolean } = {}): Promise<PollR
   const days = lookbackDays(settings.last_poll_at)
   const result: PollResult = { bounces: 0, replies: 0 }
   try {
-    const reports = await searchMessages(`from:(mailer-daemon OR postmaster) newer_than:${days}d`, 100)
-    for (const ref of reports) {
+    const reports = await searchMessages(`from:(mailer-daemon OR postmaster) newer_than:${days}d`, 500)
+    for (const ref of reports.messages) {
       const message = await getMessage(ref.id)
       const bounce = parseBounce(message.headers, message.text)
       if (!bounce) continue
@@ -132,21 +132,24 @@ export async function pollMailbox(opts: { force?: boolean } = {}): Promise<PollR
     }
 
     const sender = senderAddress()
-    const inbox = await searchMessages(`in:inbox newer_than:${days}d -from:me -from:(mailer-daemon OR postmaster) -from:${sender}`, 200)
-    const sends = await sendsForThreads(Array.from(new Set(inbox.map((m) => m.threadId))))
+    const inbox = await searchMessages(`in:inbox newer_than:${days}d -from:me -from:(mailer-daemon OR postmaster) -from:${sender}`, 500)
+    const sends = await sendsForThreads(Array.from(new Set(inbox.messages.map((m) => m.threadId))))
     const byThread = new Map(sends.map((s) => [s.threadId, s.id]))
-    const known = await knownEventIds(inbox.map((m) => m.id))
-    for (const ref of inbox) {
+    const known = await knownEventIds(inbox.messages.map((m) => m.id))
+    for (const ref of inbox.messages) {
       const sendId = byThread.get(ref.threadId)
       if (!sendId || known.has(ref.id)) continue
       const message = await getMessage(ref.id)
       if (await recordReply(sendId, ref.id, message.snippet ?? '')) result.replies++
     }
-    // Only now that the window was processed in full does the checkpoint move.
-    // Advancing it up front would skip whatever the failed run never read.
-    // Re-reading a window is harmless: bounces and replies are both recorded
-    // against the Gmail message id, so a second pass records nothing twice.
-    await notePoll()
+    // Only once the window was processed in full does the checkpoint move.
+    // Advancing it up front would skip whatever the failed run never read, and
+    // advancing it past an unread page would lose those messages for good once
+    // they age out of the window. Re-reading a window is harmless: bounces and
+    // replies are both recorded against the Gmail message id, so a second pass
+    // records nothing twice.
+    if (reports.complete && inbox.complete) await notePoll()
+    else result.error = 'More mailbox messages than one check can read. Check again to continue.'
   } catch (error) {
     result.error = error instanceof Error ? error.message : String(error)
   }
