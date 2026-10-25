@@ -67,11 +67,18 @@ async function accessToken(): Promise<string> {
   })
   const body = await response.json().catch(() => ({}))
   if (!response.ok || typeof body.access_token !== 'string') {
-    throw new Error(`Google sign-in failed: ${body.error_description || body.error || response.status}`)
+    throw new GmailAuthError(`Google sign-in failed: ${body.error_description || body.error || response.status}`)
   }
   cached = { token: body.access_token, expiresAt: Date.now() + Number(body.expires_in ?? 3600) * 1000 }
   return cached.token
 }
+
+/**
+ * The service account could not get a token at all: bad key, missing or wrong
+ * domain-wide delegation, or a token-endpoint outage. Nothing reached Gmail,
+ * so the recipient must stay queued rather than being marked failed.
+ */
+export class GmailAuthError extends Error {}
 
 export class GmailError extends Error {
   constructor(message: string, readonly status: number) { super(message) }

@@ -311,18 +311,41 @@ export interface ClaimedSend {
   links: string[]
 }
 
-/** Atomically take the next queued send, so overlapping runs never send the same message twice. */
-export async function claimNext(): Promise<ClaimedSend | null> {
+/** Nothing left to claim, or the daily cap is already accounted for. */
+export type ClaimOutcome = ClaimedSend | 'at-cap' | null
+
+/**
+ * Atomically take the next queued send, so overlapping runs never send the
+ * same message twice and never exceed the daily cap between them.
+ *
+ * The cap is enforced inside the same statement that claims the row, counting
+ * both messages already sent in the window and any currently in flight. Two
+ * admins with the campaign page open therefore cannot each reserve the last
+ * slot: whichever claim lands second sees the first as 'sending' and matches
+ * no row. (Stale 'sending' rows from a dead run are cleared by prepareQueue.)
+ */
+export async function claimNext(dailyCap: number): Promise<ClaimOutcome> {
   const db = sql()
   const [claimed] = await db`
     update email_sends set status = 'sending', claimed_at = now()
     where id = (
       select s.id from email_sends s join email_campaigns c on c.id = s.campaign_id
       where s.status = 'queued' and c.status = 'sending'
+        and (
+          select count(*) from email_sends d
+          where d.sent_at > now() - interval '24 hours' or d.status = 'sending'
+        ) < ${dailyCap}
       order by s.id limit 1 for update of s skip locked
     )
     returning id`
-  if (!claimed) return null
+  if (!claimed) {
+    // The claim matches nothing both when the queue is empty and when the cap
+    // blocks it, so ask which it was.
+    const [{ count }] = await db`
+      select count(*)::integer as count from email_sends s join email_campaigns c on c.id = s.campaign_id
+      where s.status = 'queued' and c.status = 'sending'`
+    return num(count) > 0 ? 'at-cap' : null
+  }
   const [row] = await db`
     select s.id, s.campaign_id, s.email, s.token, ct.first_name, ct.last_name, ct.status as contact_status,
       c.subject, c.html, c.links
@@ -330,7 +353,7 @@ export async function claimNext(): Promise<ClaimedSend | null> {
     where s.id = ${claimed.id}`
   if (row.contact_status !== 'subscribed') {
     await db`update email_sends set status = 'skipped', error = ${`Contact is ${row.contact_status ?? 'deleted'}`} where id = ${claimed.id}`
-    return claimNext()
+    return claimNext(dailyCap)
   }
   return { ...row, id: num(row.id), campaign_id: num(row.campaign_id), links: row.links as string[] } as ClaimedSend
 }

@@ -1,4 +1,4 @@
-import { GmailError, getMessage, gmailConfigured, searchMessages, senderAddress, sendRaw } from '@/lib/email/gmail'
+import { GmailAuthError, GmailError, getMessage, gmailConfigured, searchMessages, senderAddress, sendRaw } from '@/lib/email/gmail'
 import { parseBounce } from '@/lib/email/bounce'
 import { buildMime } from '@/lib/email/mime'
 import { renderForRecipient } from '@/lib/email/render'
@@ -10,7 +10,8 @@ import {
 // Drains the send queue within the daily cap, then checks the mailbox for
 // bounces and replies. The admin campaign page calls it every few seconds
 // while it is open. Safe to run concurrently (two admins with the page open):
-// each send is claimed atomically before it goes out.
+// claimNext reserves both the recipient and its slot under the daily cap in a
+// single statement, so overlapping runs neither double-send nor overshoot.
 
 const SPACING_MS = 1000
 
@@ -42,11 +43,10 @@ export async function runQueue(budgetMs: number): Promise<RunResult> {
   await prepareQueue()
 
   const fromEmail = senderAddress()!
-  let alreadySent = await sentInLast24h()
 
   while (Date.now() - started < budgetMs - 3000) {
-    if (alreadySent >= settings.daily_cap) return finish('cap')
-    const send = await claimNext()
+    const send = await claimNext(settings.daily_cap)
+    if (send === 'at-cap') return finish('cap')
     if (!send) return finish('empty')
 
     try {
@@ -65,12 +65,16 @@ export async function runQueue(budgetMs: number): Promise<RunResult> {
       const result = await sendRaw(mime)
       await markSent(send.id, result.id, result.threadId)
       base.sent++
-      alreadySent++
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       const transient = error instanceof GmailError && error.transient
-      await markFailed(send.id, message, transient)
-      if (transient || (error instanceof GmailError && (error.status === 401 || error.status === 403))) {
+      // Nothing reached Gmail: a token could not be obtained, or Gmail refused
+      // the credentials outright. Keep the recipient queued so the campaign can
+      // resume once the configuration is fixed, instead of burning them.
+      const auth = error instanceof GmailAuthError
+        || (error instanceof GmailError && (error.status === 401 || error.status === 403))
+      await markFailed(send.id, message, auth || transient)
+      if (auth || transient) {
         // Rate limited, Google is having trouble, or the credentials are
         // wrong: every following send would fail the same way.
         return finish('gmail-error', message)
