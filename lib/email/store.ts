@@ -199,15 +199,31 @@ export async function createCampaign(values: { name: string; subject: string; ht
   return num(row.id)
 }
 
-/** Content can change until the first recipient is queued; after that only the name can. */
+/**
+ * Content can change until the first recipient is queued; after that only the
+ * name can.
+ *
+ * The lock is part of the UPDATE rather than a check before it. Reading
+ * queued_at in a separate statement leaves a window where queueCampaign() can
+ * freeze the link targets and commit in between, after which this would
+ * overwrite the subject or HTML of a campaign that is already going out: the
+ * new content would be delivered against the old frozen tracking links, and
+ * recipients claimed before and after the overwrite would get different mail.
+ */
 export async function updateCampaign(id: number, values: { name?: string; subject?: string; html?: string }) {
   writable()
   const db = sql()
-  const [campaign] = await db`select status, queued_at from email_campaigns where id = ${id}`
+  const touchesContent = values.subject !== undefined || values.html !== undefined
+  const rows = touchesContent
+    ? await db`update email_campaigns set ${db(values as Record<string, unknown>)}, updated_at = now()
+        where id = ${id} and queued_at is null returning id`
+    : await db`update email_campaigns set ${db(values as Record<string, unknown>)}, updated_at = now()
+        where id = ${id} returning id`
+  if (rows.length > 0) return 'ok'
+  // Nothing matched: either the campaign is gone, or it was queued under us.
+  const [campaign] = await db`select queued_at from email_campaigns where id = ${id}`
   if (!campaign) return 'missing'
-  if (campaign.queued_at && (values.subject !== undefined || values.html !== undefined)) return 'locked'
-  await db`update email_campaigns set ${db(values as Record<string, unknown>)}, updated_at = now() where id = ${id}`
-  return 'ok'
+  return touchesContent && campaign.queued_at ? 'locked' : 'missing'
 }
 
 export async function setCampaignStatus(id: number, status: 'sending' | 'paused') {

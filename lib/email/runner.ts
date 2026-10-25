@@ -90,6 +90,27 @@ export async function runQueue(budgetMs: number): Promise<RunResult> {
 
 export interface PollResult { bounces: number; replies: number; skipped?: boolean; error?: string }
 
+const MIN_LOOKBACK_DAYS = 4
+const MAX_LOOKBACK_DAYS = 30
+
+/**
+ * How far back to search, based on when the mailbox was last polled
+ * successfully.
+ *
+ * A fixed window would silently drop everything older than itself: nobody opens
+ * the campaign page for a week after a send (there is no background poll), and
+ * the bounces from the first days are then never seen, leaving hard-bounced
+ * addresses subscribed and liable to be mailed again. One extra day of overlap
+ * covers the gap between polls, and Gmail's newer_than is day-granular anyway.
+ */
+function lookbackDays(lastPollAt: string | null): number {
+  if (!lastPollAt) return MIN_LOOKBACK_DAYS
+  const elapsed = Date.now() - new Date(lastPollAt).getTime()
+  if (!Number.isFinite(elapsed)) return MIN_LOOKBACK_DAYS
+  const days = Math.ceil(elapsed / 86_400_000) + 1
+  return Math.min(Math.max(days, MIN_LOOKBACK_DAYS), MAX_LOOKBACK_DAYS)
+}
+
 /** Check the sending mailbox for bounce reports and replies to campaign mail. */
 export async function pollMailbox(opts: { force?: boolean } = {}): Promise<PollResult> {
   if (!gmailConfigured()) return { bounces: 0, replies: 0, skipped: true }
@@ -97,10 +118,10 @@ export async function pollMailbox(opts: { force?: boolean } = {}): Promise<PollR
   if (!opts.force && settings.last_poll_at && Date.now() - new Date(settings.last_poll_at).getTime() < 5 * 60_000) {
     return { bounces: 0, replies: 0, skipped: true }
   }
-  await notePoll()
+  const days = lookbackDays(settings.last_poll_at)
   const result: PollResult = { bounces: 0, replies: 0 }
   try {
-    const reports = await searchMessages('from:(mailer-daemon OR postmaster) newer_than:4d', 100)
+    const reports = await searchMessages(`from:(mailer-daemon OR postmaster) newer_than:${days}d`, 100)
     for (const ref of reports) {
       const message = await getMessage(ref.id)
       const bounce = parseBounce(message.headers, message.text)
@@ -111,7 +132,7 @@ export async function pollMailbox(opts: { force?: boolean } = {}): Promise<PollR
     }
 
     const sender = senderAddress()
-    const inbox = await searchMessages(`in:inbox newer_than:4d -from:me -from:(mailer-daemon OR postmaster) -from:${sender}`, 200)
+    const inbox = await searchMessages(`in:inbox newer_than:${days}d -from:me -from:(mailer-daemon OR postmaster) -from:${sender}`, 200)
     const sends = await sendsForThreads(Array.from(new Set(inbox.map((m) => m.threadId))))
     const byThread = new Map(sends.map((s) => [s.threadId, s.id]))
     const known = await knownEventIds(inbox.map((m) => m.id))
@@ -121,6 +142,11 @@ export async function pollMailbox(opts: { force?: boolean } = {}): Promise<PollR
       const message = await getMessage(ref.id)
       if (await recordReply(sendId, ref.id, message.snippet ?? '')) result.replies++
     }
+    // Only now that the window was processed in full does the checkpoint move.
+    // Advancing it up front would skip whatever the failed run never read.
+    // Re-reading a window is harmless: bounces and replies are both recorded
+    // against the Gmail message id, so a second pass records nothing twice.
+    await notePoll()
   } catch (error) {
     result.error = error instanceof Error ? error.message : String(error)
   }
