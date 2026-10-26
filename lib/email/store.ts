@@ -247,13 +247,23 @@ export async function setCampaignStatus(id: number, status: 'sending' | 'paused'
 export async function deleteCampaign(id: number): Promise<'ok' | 'missing' | 'sending' | 'has-sends'> {
   writable()
   const db = sql()
-  const [campaign] = await db`select status, queued_at from email_campaigns where id = ${id}`
+  const [campaign] = await db`select status from email_campaigns where id = ${id}`
   if (!campaign) return 'missing'
   if (campaign.status === 'sending') return 'sending'
-  if (campaign.queued_at) return 'has-sends'
+  // The thing worth protecting is the delivery records, not the fact that the
+  // campaign was once queued: email_sends rows carry the tokens behind every
+  // unsubscribe and donation link already in someone's inbox, and the foreign
+  // key cascades. A campaign queued against an empty or fully unsubscribed list
+  // has no such rows, so it is just a draft that was pointed at nobody.
   const rows = await db`
-    delete from email_campaigns where id = ${id} and queued_at is null and status <> 'sending' returning id`
-  return rows.length > 0 ? 'ok' : 'missing'
+    delete from email_campaigns
+    where id = ${id}
+      and status <> 'sending'
+      and not exists (select 1 from email_sends where campaign_id = ${id})
+    returning id`
+  if (rows.length > 0) return 'ok'
+  const [kept] = await db`select 1 as found from email_campaigns where id = ${id}`
+  return kept ? 'has-sends' : 'missing'
 }
 
 /**
