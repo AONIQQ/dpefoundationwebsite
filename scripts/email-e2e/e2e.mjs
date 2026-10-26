@@ -121,6 +121,16 @@ assert.equal((await call(`/api/admin/email/campaigns/${id}`, 'DELETE')).status, 
 const draft = (await call('/api/admin/email/campaigns', 'POST', { name: 'Draft', subject: 'x', html: '<html><body>x</body></html>' })).body.id
 assert.equal((await call(`/api/admin/email/campaigns/${draft}`, 'DELETE')).status, 200); step('an unsent draft can still be deleted')
 
+// Queued against a list whose members are all unsubscribed: no email_sends rows
+// exist, so there are no delivered links to protect and it stays deletable.
+const nobodyList = (await call('/api/admin/email/lists', 'POST', { name: 'Unsubscribed only' })).body.id
+await call('/api/admin/email/contacts', 'PATCH', { ids: [unsub.id], addToList: nobodyList })
+const empty = (await call('/api/admin/email/campaigns', 'POST', { name: 'Nobody', subject: 'x', html: '<html><body>x</body></html>' })).body.id
+r = await call(`/api/admin/email/campaigns/${empty}/queue`, 'POST', { listIds: [nobodyList] })
+assert.equal(r.body.queued, 0)
+await call(`/api/admin/email/campaigns/${empty}`, 'PATCH', { action: 'pause' })
+assert.equal((await call(`/api/admin/email/campaigns/${empty}`, 'DELETE')).status, 200); step('a campaign queued to nobody has no delivery records, so it can be deleted')
+
 // Opening one campaign must not drain another left with recipients queued.
 const id3 = (await call('/api/admin/email/campaigns', 'POST', { name: 'Third', subject: 'Third', html: '<html><body><p>Hi</p></body></html>' })).body.id
 await call(`/api/admin/email/campaigns/${id3}/queue`, 'POST', { listIds: [trustees.id] })
