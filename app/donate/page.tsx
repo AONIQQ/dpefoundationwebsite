@@ -108,6 +108,11 @@ export default function DonatePage() {
               puts those opportunities directly into students’ hands.
             </p>
           </AnimatedSection>
+          <AnimatedSection delay={0.45}>
+            <p className="mt-6 text-sm sm:text-base text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              All Foundation Trustees have committed to supporting this effort with their own gifts. Thanks to a generous matching gift from a Trustee, every first-time gift from an Alpha Brother — up to $100 — will be matched dollar-for-dollar, doubling your impact.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -325,12 +330,8 @@ export default function DonatePage() {
                   <h3 className="text-lg font-semibold text-[#b08d28]">By check</h3>
                 </div>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Make checks payable to <span className="font-semibold">{ORG.legalName}</span> and mail to:
-                </p>
-                <p className="text-sm text-gray-800 mt-3 leading-relaxed">
-                  {ORG.addressName}
-                  <br />
-                  {ORG.addressLine}
+                  Make checks payable to <span className="font-semibold">{ORG.legalName}</span> and for address information please email{' '}
+                  <a href="mailto:info@dpefoundation.org" className="text-[#b08d28] hover:text-[#9a7b22] underline">info@dpefoundation.org</a>.
                 </p>
                 <p className="text-sm text-gray-700 mt-4 leading-relaxed">
                   To direct your gift to a particular fund, print the{' '}
