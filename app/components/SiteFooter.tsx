@@ -23,7 +23,7 @@ export default function SiteFooter() {
             height={80}
             className="h-12 sm:h-14 w-auto mx-auto"
           />
-          <p className="text-[#b08d28] text-xs tracking-[0.3em] mt-4">EST. 1962</p>
+          <p className="text-[#b08d28] text-xs tracking-[0.3em] mt-4">EST. 1960</p>
           <div className="flex items-center justify-center gap-2 mt-5" aria-hidden="true">
             <span className="h-px w-14 bg-[#d4af36]/60" />
             <span className="text-[#d4af36] text-[8px]">&#9670;</span>
@@ -43,7 +43,7 @@ export default function SiteFooter() {
           <div className="text-center md:text-left">
             <h4 className="text-[#b08d28] text-xs tracking-[0.2em] uppercase mb-4">The Foundation</h4>
             <p className="text-gray-600 text-sm leading-relaxed">
-              Founded in 1962, promoting the virtues of foreign service and educating the next generation of American global statesmen.
+              Founded in 1960, promoting the virtues of foreign service and educating the next generation of American global statesmen.
             </p>
           </div>
           <div className="text-center">
