@@ -103,7 +103,7 @@ export default function DonatePage() {
           </AnimatedSection>
           <AnimatedSection delay={0.35}>
             <p className="mt-6 text-sm sm:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Since 1962, the {ORG.legalName} has advanced the study and practice of foreign
+              Since 1960, the {ORG.legalName} has advanced the study and practice of foreign
               service through scholarships, awards, lectures, and student programming. Your gift
               puts those opportunities directly into students’ hands.
             </p>
