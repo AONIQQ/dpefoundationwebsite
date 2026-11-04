@@ -9,7 +9,7 @@
     • {{DONATE_URL}}        -> the live donate page / chosen platform link (e.g. https://dpefoundation.org/donate)
     • {{DESIGNATION_FORM_URL}} -> the printable designation form (e.g. https://dpefoundation.org/donate/designation-form)
     • {{UnsubscribeURL}}    -> your email platform's unsubscribe merge tag
-    • {{FirstName}}         -> optional personalization (or remove the merge tag)
+    • {{FirstName}}         -> first name, falls back to "Brother"
   Signed by Joseph S. Picozzi as President. Set the From name to his name, and the
   Reply-To to info@dpefoundation.org: the letter invites replies about stock,
   DAF, and major gifts, and the attachment asks donors to send back an email or
@@ -68,7 +68,7 @@
                 Keep the doors of foreign service open
               </h1>
               <p style="margin:0 0 16px 0; font-size:16px; line-height:1.65; color:#333333;">
-                Dear Brother,
+                Dear {{FirstName|Brother}},
               </p>
               <p style="margin:0 0 16px 0; font-size:16px; line-height:1.65; color:#333333;">
                 You know what Delta Phi Epsilon meant at Georgetown: a brotherhood built around
