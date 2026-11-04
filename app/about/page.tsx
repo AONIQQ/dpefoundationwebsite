@@ -80,7 +80,7 @@ export default function AboutUs() {
         "After finishing law school he served a tour of duty with the U.S. Coast Guard. Though trained as a lawyer, Jack spent the remainder of his professional life working in the insurance business in Fairfax County, Virginia.",
         "Jack is best remembered for his political leadership. From 1975 to 1987 he chaired the Fairfax County Board of Supervisors and was credited with guiding the county’s remarkable growth. He dominated Northern Virginia politics for decades, had the Fairfax County Parkway named in his honor in 1995, and ran unsuccessfully for governor of Virginia in 2001.",
         "Jack joined Alpha Chapter of Delta Phi Epsilon in 1956 as an undergraduate pledge initiate on the 72nd Line.",
-        "He was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving from 1960 to 1960 in the years before incorporation."
+        "He was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving from 1960 to 1962 in the years before incorporation."
       ]
     },
     {
@@ -98,7 +98,7 @@ export default function AboutUs() {
         "In 1989 he joined the Board of Directors, serving until 1997. During that period he co-founded the Washington AIDS Walk.",
         "In April 1992, von Stroebel was invested as a Knight of Justice, one of the ruling Knights in the Sovereign Military Hospitaller Order of St. John of Jerusalem, Rhodes, and Malta, an international relief agency with roots in the 1070s.",
         "In December 1995, he became the second American admitted to the First Class of the Order and joined the Order’s governance with the honorific title of Fra’.",
-        "Brother von Stroebel was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving as a trustee from 1960 until 2005 and as Secretary from 1983 until 2020.",
+        "Brother von Stroebel was one of the original trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, serving as a trustee from 1962 until 2005 and as Secretary from 1983 until 2020.",
         "He was the National President of Delta Phi Epsilon Professional Foreign Service Fraternity from 1998 to 2020."
       ]
     },
@@ -109,7 +109,7 @@ export default function AboutUs() {
         "After the war, Rocco returned to Washington, D.C., completed his education, and ultimately earned a Ph.D. in Philosophy at Catholic University while working as an intelligence analyst at the State Department.",
         "Upon receiving his doctorate, he served as a philosophy professor at Catholic University before joining Georgetown University’s School of Foreign Service faculty. He became chair of Georgetown’s Philosophy Department and later served as dean of both the Graduate School and the Summer School.",
         "Rocco’s interests extended beyond teaching. He founded the Georgetown University Community Action Program (GUCAP) and the Community Scholars Program for inner-city youth, and co-founded the Georgetown University Employee Credit Union.",
-        "He joined Delta Phi Epsilon as a faculty brother in 1961 with the 83rd Line and became one of the original faculty trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, continuing his service from the Foundation’s incorporation in 1960 until his death in 2015."
+        "He joined Delta Phi Epsilon as a faculty brother in 1961 with the 83rd Line and became one of the original faculty trustees of the Delta Phi Epsilon Foundation for Foreign Service Education, continuing his service from the Foundation’s incorporation in 1962 until his death in 2015."
       ]
     }
   ]
@@ -153,7 +153,7 @@ export default function AboutUs() {
           <div className="bg-[#f5f0e8] p-6 sm:p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36] text-base sm:text-lg space-y-4 leading-relaxed text-left max-w-4xl mx-auto">
             <p>The Foundation was originally formed in 1960 by student, alumni and faculty Brothers of Alpha Chapter of Delta Phi Epsilon Fraternity.</p>
             <p>The following individuals served as trustees of the unincorporated Foundation: Walter Giles, John Herrity, Charles Kaleta, John Koch, John Leahy, Joseph LeMoine, Vincent Norelli, and Dirck Teller.</p>
-            <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1960 and filed in the District of Columbia on May 23, 1960.</p>
+            <p>The Foundation was later incorporated with the adoption of a Certificate of Incorporation on May 16, 1962 and filed in the District of Columbia on May 23, 1962.</p>
             <p>The original Certificate had four Articles detailing the name, duration, purposes and number of Trustees. These Articles remain unchanged to the current date, although the number of Trustees was reduced to seven in 1984.</p>
             <p>To assure that all three classes of Alpha Chapter Brothers would be represented on the governing board of the Foundation, the initial Trustees included three undergraduate brothers, three alumni brothers and three Georgetown faculty brothers. The following individuals constituted the initial Board of Trustees:</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -232,39 +232,39 @@ export default function AboutUs() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl">
       <ul className="pl-6 space-y-2">
         <li>Kenneth Bleakley 2023 - 2024</li>
-        <li>James Condren 1960 - 1970</li>
+        <li>James Condren 1962 - 1970</li>
         <li>Eduardo (Eddie) Deschapelles 2025 - present</li>
         <li>Matthew Ellison 2020 - 2023</li>
         <li>Michael Eriksen 2005 - present</li>
-        <li>Walter Giles 1960 - 1960</li>
+        <li>Walter Giles 1960 - 1962</li>
         <li>Francis Gorman 1989 - 1994</li>
         <li>Albert Grasso 2023 - present</li>
-        <li>John Herrity 1960 - 1960</li>
-        <li>Charles Kaleta 1960 - 1960</li>
+        <li>John Herrity 1960 - 1962</li>
+        <li>Charles Kaleta 1960 - 1962</li>
       </ul>
       <ul className="pl-6 space-y-2">
-        <li>John Koch 1960 - 1960</li>
+        <li>John Koch 1960 - 1962</li>
         <li>Marcus King 2005 - 2023</li>
         <li>John Leahy 1960 - 1970</li>
         <li>Joseph LeMoine 1960 - 1994</li>
         <li>Matthew Mixa 2005 - 2023</li>
         <li>Sanjay J. Mullick 2026 - present</li>
         <li>Vincent Norelli 1960 - 2005</li>
-        <li>Philip O&apos;Reilly 1960 - 1989</li>
+        <li>Philip O&apos;Reilly 1962 - 1989</li>
         <li>Joseph Picozzi 2020 - present</li>
         <li>Stratton Poland 2020 - 2023</li>
-        <li>Rocco Porreco 1960 - 2013</li>
+        <li>Rocco Porreco 1962 - 2013</li>
       </ul>
       <ul className="pl-6 space-y-2">
-        <li>Louis Postiglione 1960 - 2005</li>
+        <li>Louis Postiglione 1962 - 2005</li>
         <li>Carlos F. Roa 2023 - 2026</li>
         <li>Timothy Rosenberger 2023 - present</li>
         <li>Thomas Stewart 2020 - present</li>
         <li>Andrew Sullivan 2005 - 2020</li>
-        <li>Dirck Teller 1960 - 1960</li>
+        <li>Dirck Teller 1960 - 1962</li>
         <li>Reginald Tyson 1994 - 2019</li>
-        <li>James-Michael von Stroebel 1960 - 2005</li>
-        <li>Bailey Walsh 1960 - 2005</li>
+        <li>James-Michael von Stroebel 1962 - 2005</li>
+        <li>Bailey Walsh 1962 - 2005</li>
       </ul>
     </div>
             </div>        
