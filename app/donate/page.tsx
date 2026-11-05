@@ -325,12 +325,8 @@ export default function DonatePage() {
                   <h3 className="text-lg font-semibold text-[#b08d28]">By check</h3>
                 </div>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Make checks payable to <span className="font-semibold">{ORG.legalName}</span> and mail to:
-                </p>
-                <p className="text-sm text-gray-800 mt-3 leading-relaxed">
-                  {ORG.addressName}
-                  <br />
-                  {ORG.addressLine}
+                  Make checks payable to <span className="font-semibold">{ORG.legalName}</span>. For where to send it, please email{' '}
+                  <a href="mailto:info@dpefoundation.org" className="text-[#b08d28] hover:text-[#9a7b22] underline">info@dpefoundation.org</a>.
                 </p>
                 <p className="text-sm text-gray-700 mt-4 leading-relaxed">
                   To direct your gift to a particular fund, print the{' '}
