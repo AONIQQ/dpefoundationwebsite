@@ -75,6 +75,15 @@ export interface Summary {
   byDesignation: Bucket[]
   rows: ReportRow[]
   notCounted: ReportRow[]
+  /** True when built from notification emails: no refund, fee or net figures exist. */
+  limited: boolean
+  /** Donorbox emails that look like gifts but could not be read with confidence. */
+  unreadable: { subject: string; date: string; reason: string }[]
+}
+
+export interface SummaryOptions {
+  limited?: boolean
+  unreadable?: Summary['unreadable']
 }
 
 function donorName(d: DonorboxDonation): string {
@@ -97,7 +106,7 @@ const sorted = (map: Map<string, Bucket>) => Array.from(map.values()).sort((a, b
  * (pending, failed, refunded outright) is listed separately so nothing is
  * silently dropped. Amounts are treated as US dollars.
  */
-export function summarize(month: string, donations: DonorboxDonation[]): Summary {
+export function summarize(month: string, donations: DonorboxDonation[], options: SummaryOptions = {}): Summary {
   const inMonth = donations.filter((d) => localDay(d.donation_date).startsWith(month))
   const toRow = (d: DonorboxDonation): ReportRow => ({
     date: localDay(d.donation_date),
@@ -156,11 +165,14 @@ export function summarize(month: string, donations: DonorboxDonation[]): Summary
     byDesignation: sorted(designations),
     rows,
     notCounted,
+    limited: options.limited ?? false,
+    unreadable: options.unreadable ?? [],
   }
 }
 
 export function reportSubject(s: Summary): string {
-  return s.gifts ? `Donation report for ${s.label}: ${formatMoney(s.gross)} from ${s.gifts} ${s.gifts === 1 ? 'gift' : 'gifts'}` : `Donation report for ${s.label}: no donations`
+  const base = s.gifts ? `Donation report for ${s.label}: ${formatMoney(s.gross)} from ${s.gifts} ${s.gifts === 1 ? 'gift' : 'gifts'}` : `Donation report for ${s.label}: no donations`
+  return s.unreadable.length ? `${base} (needs a look)` : base
 }
 
 const TD = 'padding:6px 8px;border-bottom:1px solid #e5e0d0;font-size:13px;vertical-align:top'
@@ -188,12 +200,13 @@ export function renderReport(s: Summary): { html: string; text: string } {
     ['Largest gift', s.largest ? `${formatMoney(s.largest.amount)} (${s.largest.name})` : '-'],
     ['One-time', `${formatMoney(s.oneTime.total)} from ${s.oneTime.count}`],
     ['Monthly (recurring)', `${formatMoney(s.recurring.total)} from ${s.recurring.count}`],
-    ['Refunded', formatMoney(s.refunded)],
-    ['Net of refunds', formatMoney(s.net)],
-    ['Processing fees', formatMoney(s.fees)],
+    ...(s.limited ? [] : ([['Refunded', formatMoney(s.refunded)], ['Net of refunds', formatMoney(s.net)], ['Processing fees', formatMoney(s.fees)]] as [string, string][])),
   ]
   const GIFT_HEAD = ['Date', 'Donor', 'Email', 'Amount', 'Type', 'Campaign / designation', 'Note']
-  const foot = 'Online gifts through Donorbox only. Checks, stock and other gifts received by mail are not included. Dates are Eastern time.'
+  const foot = s.limited
+    ? 'Built from the Donorbox gift notification emails in this inbox. Gross amounts only: refunds, failed payments and processing fees are not in those emails, and checks, stock and other gifts received by mail are not included. Dates are Eastern time.'
+    : 'Online gifts through Donorbox only. Checks, stock and other gifts received by mail are not included. Dates are Eastern time.'
+  const unreadableRows = s.unreadable.map((u) => [u.date, u.subject, u.reason])
 
   const html =
     `<div style="font-family:Georgia,serif;color:#222;max-width:760px">` +
@@ -204,6 +217,7 @@ export function renderReport(s: Summary): { html: string; text: string } {
     (s.byDesignation.length ? `<h3 style="margin:0">By designation</h3>${table(['Designation', 'Gifts', 'Total'], buckets(s.byDesignation), [1, 2])}` : '') +
     (s.rows.length ? `<h3 style="margin:0">All gifts</h3>${table(GIFT_HEAD, giftRows(s.rows), [3])}` : '<p>No donations were recorded this month.</p>') +
     (s.notCounted.length ? `<h3 style="margin:0">Not counted (status other than paid)</h3>${table([...GIFT_HEAD, 'Status'], giftRows(s.notCounted).map((r, i) => [...r, s.notCounted[i].status]), [3])}` : '') +
+    (s.unreadable.length ? `<h3 style="margin:0;color:#a33">Needs a look: ${s.unreadable.length} Donorbox ${s.unreadable.length === 1 ? 'email' : 'emails'} could not be counted</h3>${table(['Date', 'Subject', 'Why'], unreadableRows)}` : '') +
     `<p style="color:#777;font-size:12px">${escapeHtml(foot)}</p></div>`
 
   const lines = [
@@ -213,6 +227,7 @@ export function renderReport(s: Summary): { html: string; text: string } {
     ...(s.byDesignation.length ? ['By designation', ...s.byDesignation.map((b) => `  ${b.name}: ${formatMoney(b.total)} (${b.count})`), ''] : []),
     ...(s.rows.length ? ['All gifts', ...s.rows.map((r) => `  ${r.date}  ${r.name} <${r.email}>  ${formatMoney(r.amount)}  ${r.kind}${r.campaign ? `  ${r.campaign}` : ''}${r.designation ? ` / ${r.designation}` : ''}`), ''] : ['No donations were recorded this month.', '']),
     ...(s.notCounted.length ? ['Not counted', ...s.notCounted.map((r) => `  ${r.date}  ${r.name}  ${formatMoney(r.amount)}  ${r.status}`), ''] : []),
+    ...(s.unreadable.length ? [`NEEDS A LOOK: ${s.unreadable.length} Donorbox email(s) could not be counted`, ...s.unreadable.map((u) => `  ${u.date}  ${u.subject}  (${u.reason})`), ''] : []),
     foot,
   ]
   return { html, text: lines.join('\n') }

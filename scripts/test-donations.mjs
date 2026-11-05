@@ -4,6 +4,7 @@ import assert from 'node:assert/strict'
 import { createServer } from 'node:http'
 import { test } from 'node:test'
 import { fetchDonations } from '../lib/donations/donorbox.ts'
+import { parseDonatedAt, parseNotice } from '../lib/donations/notices.ts'
 import { localDay, previousMonth, queryRange, renderReport, reportSubject, summarize } from '../lib/donations/report.ts'
 
 const gift = (id, over = {}) => ({
@@ -103,4 +104,59 @@ test('fetchDonations stops when the server ignores paging, and explains bad cred
   denied.server.close()
   delete process.env.DONORBOX_EMAIL
   await assert.rejects(fetchDonations('a', 'b'), /credentials are not set/)
+})
+
+// Layout copied from real Donorbox notices received at info@dpefoundation.org.
+const notice = (over = {}, body) => ({
+  subject: 'Donation from sanjay mullick of $100 (New Donor)', from: 'Donorbox <support@mail2.donorbox.org>', date: 'Sun, 25 Oct 2026 14:14:03 +0000 (UTC)',
+  text: body ?? `Congrats DELTA PHI EPSILON FOUNDATION,\nYou have a new donation for Delta Phi Epsilon Foundation\nDonor Name: sanjay mullick\nDonor Email: SanjayMullickDC@gmail.com\nCampaign: Delta Phi Epsilon Foundation\nAmount: $100\nDonation Interval: One-time\nReceipt #: 73034669\nPayment Method: American Express 2001\nDonated At: 10/25/2026 10:12:48 EDT\nDonor Comment: Thank you!\nYou can contact the donor by replying to this email. Cheers, Donorbox Team`,
+  ...over,
+})
+
+test('a real gift notice is read into a donation', () => {
+  const r = parseNotice(notice())
+  assert.equal(r.kind, 'donation')
+  assert.deepEqual([r.donation.id, r.donation.amount, r.donation.recurring, r.donation.donation_date], [73034669, '100.00', false, '2026-10-25T14:12:48.000Z'])
+  assert.equal(r.donation.donor.email, 'sanjaymullickdc@gmail.com')
+  assert.equal(r.donation.comment, 'Thank you!')
+})
+
+test('gift notices in HTML, with commas, cents and monthly gifts, are read too', () => {
+  const html = '<html><style>p{}</style><body><p>Donor Name: <b>Ann &amp; Bo O&#39;Neil</b></p><p>Donor Email: a@b.co</p><p>Amount: <b>$1,250.50</b></p><p>Donation Interval: <b>Monthly</b></p><p>Receipt #: <b>5</b></p><p>Donated At: 1/2/2026 9:05 PM EST</p></body></html>'
+  assert.equal(parseNotice(notice({ subject: 'Donation from Ann of $1,250.50' }, html)).kind, 'unreadable') // "9:05 PM" is not a layout we have seen
+  const ok = parseNotice(notice({ subject: 'Donation from Ann of $1,250.50' }, html.replace(' PM EST', ' EST').replace('9:05', '21:05')))
+  assert.equal(ok.kind, 'donation')
+  assert.deepEqual([ok.donation.donor.name, ok.donation.amount, ok.donation.recurring, ok.donation.donation_date], ["Ann & Bo O'Neil", '1250.50', true, '2026-01-03T02:05:00.000Z'])
+})
+
+test('marketing mail is ignored; look-alike gift mail is flagged, never guessed', () => {
+  assert.equal(parseNotice(notice({ subject: '[Webinar] Find and Convert More AI Donors' }, 'Join us for a webinar about donations!')).kind, 'ignored')
+  assert.equal(parseNotice(notice({ from: 'Evil <x@example.com>' })).kind, 'ignored')
+  assert.equal(parseNotice(notice({ from: 'x@donorbox.org.evil.com' })).kind, 'ignored')
+  const why = (over, body) => parseNotice(notice(over, body)).reason
+  assert.match(why({ subject: 'Refund issued for donation from sanjay of $100' }), /refund/i)
+  assert.match(why({ subject: 'Donation from sanjay mullick of $90 (New Donor)' }), /disagree/)
+  assert.match(why({}, 'Donor Name: A\nAmount: lots\nReceipt #: 1\nDonated At: 10/25/2026 10:12:48 EDT'), /Amount not understood/)
+  assert.match(why({}, 'Donor Name: A\nAmount: $5\nReceipt #: 1\nDonated At: 10/25/2026 10:12:48 XYZ'), /Date not understood/)
+  assert.match(why({}, 'Donor Name: A\nAmount: $5\nDonated At: 10/25/2026 10:12:48 EDT'), /receipt/i)
+})
+
+test('donated-at times convert to the right instant and reject impossible dates', () => {
+  assert.equal(parseDonatedAt('10/19/2026 19:22:30 EDT'), '2026-10-19T23:22:30.000Z')
+  assert.equal(parseDonatedAt('12/31/2026 23:59:59 EST'), '2027-01-01T04:59:59.000Z')
+  assert.equal(parseDonatedAt('2/30/2026 10:00:00 EST'), null)
+  assert.equal(parseDonatedAt('13/01/2026 10:00:00 EST'), null)
+})
+
+test('a report built from notices omits refund and fee lines and lists unreadable emails', () => {
+  const d = parseNotice(notice()).donation
+  const s = summarize('2026-10', [d], { limited: true, unreadable: [{ date: 'Mon, 26 Oct 2026', subject: 'Refund <b>', reason: 'Looks like a refund' }] })
+  const { html, text } = renderReport(s)
+  assert.equal(s.gross, 10000)
+  assert.doesNotMatch(text, /Processing fees|Net of refunds|Refunded/)
+  assert.match(text, /NEEDS A LOOK: 1/)
+  assert.match(html, /Needs a look/)
+  assert.match(html, /Refund &lt;b&gt;/)
+  assert.match(reportSubject(s), /\(needs a look\)$/)
+  assert.match(text, /refunds, failed payments and processing fees are not in those emails/)
 })

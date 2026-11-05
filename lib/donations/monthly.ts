@@ -1,6 +1,7 @@
 import { gmailConfigured, senderAddress, sendRaw } from '@/lib/email/gmail'
 import { buildMime } from '@/lib/email/mime'
-import { fetchDonations } from '@/lib/donations/donorbox'
+import { donorboxConfigured, fetchDonations } from '@/lib/donations/donorbox'
+import { fetchMailboxDonations } from '@/lib/donations/mailbox'
 import { type Summary, queryRange, renderReport, reportSubject, summarize } from '@/lib/donations/report'
 
 // Builds the monthly donation report and emails it to the Foundation inbox.
@@ -11,7 +12,11 @@ export const isMonth = (v: unknown): v is string => typeof v === 'string' && /^\
 
 export async function buildSummary(month: string): Promise<Summary> {
   const { from, to } = queryRange(month)
-  return summarize(month, await fetchDonations(from, to))
+  // The Donorbox API, when connected, has exact data (refunds, fees). Without it the report is built from the gift notice emails.
+  if (donorboxConfigured()) return summarize(month, await fetchDonations(from, to))
+  if (!gmailConfigured()) throw new Error('Gmail is not set up, so the Donorbox notification emails cannot be read.')
+  const { donations, unreadable } = await fetchMailboxDonations(from, to)
+  return summarize(month, donations, { limited: true, unreadable })
 }
 
 async function deliver(subject: string, html: string, text: string) {

@@ -146,8 +146,8 @@ export function SetupTab({ overview, refresh }: { overview: Overview; refresh: (
         <CardHeader><CardTitle>Monthly donation report</CardTitle></CardHeader>
         <CardContent>
           <p className="mb-3 text-xs text-gray-500">
-            Emailed to info@dpefoundation.org on the 2nd of every month with last month&apos;s online gifts from Donorbox: totals, donors, campaigns and every gift.
-            Needs the Donorbox API connected. Use this to preview a month or send one now.
+            Emailed to info@dpefoundation.org on the 2nd of every month with last month&apos;s online gifts: totals, donors, campaigns and every gift.
+            Built from the Donorbox gift notification emails that arrive in this inbox, so it needs nothing else set up. Use this to preview a month or send one now.
           </p>
           <div className="flex flex-wrap items-center gap-2">
             <Input type="month" value={reportMonth} onChange={(e) => setReportMonth(e.target.value)} className="w-44" />
