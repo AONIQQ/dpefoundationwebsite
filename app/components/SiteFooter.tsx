@@ -62,8 +62,9 @@ export default function SiteFooter() {
           </div>
           <div className="text-center md:text-right">
             <h4 className="text-[#b08d28] text-xs tracking-[0.2em] uppercase mb-4">Contact</h4>
-            <p className="text-gray-600 text-sm">Georgetown Court</p>
-            <p className="text-gray-600 text-sm mb-3">3222 N Street NW, Washington DC 20007</p>
+            <p className="text-gray-600 text-sm mb-3">
+              <a href="mailto:info@dpefoundation.org" className="hover:text-[#b08d28] transition duration-300">info@dpefoundation.org</a>
+            </p>
             <Link href="/contact" className="text-[#b08d28] hover:text-[#9a7b22] transition duration-300 text-sm font-medium">
               Send us a message &rarr;
             </Link>

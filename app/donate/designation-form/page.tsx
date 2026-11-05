@@ -113,7 +113,7 @@ export default function DesignationFormPage() {
             <h1 className="text-2xl sm:text-3xl print:text-xl font-bold text-black">Designation of Contribution</h1>
             <p className="mt-2 text-sm print:text-xs text-gray-600">{ORG.legalName}</p>
             <p className="text-sm print:text-xs text-gray-600">
-              {ORG.addressName}, {ORG.addressLine}
+              <a href="mailto:info@dpefoundation.org">info@dpefoundation.org</a>
             </p>
           </header>
 
@@ -195,8 +195,8 @@ export default function DesignationFormPage() {
 
           <footer className="mt-8 pt-5 print:mt-4 print:pt-3 border-t border-[#d4af36]/40 text-xs print:text-[10px] text-gray-600 leading-relaxed">
             <p>
-              Please return this form with your contribution to {ORG.addressName},{' '}
-              {ORG.addressLine}. Make checks payable to {ORG.legalName}.
+              Please email info@dpefoundation.org for where to send this form and your contribution. Make
+              checks payable to {ORG.legalName}.
             </p>
             <p className="mt-2">
               The Foundation is a 501(c)(3) tax-exempt organization (EIN {ORG.ein}). Contributions are
