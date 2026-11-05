@@ -19,6 +19,25 @@ export function SetupTab({ overview, refresh }: { overview: Overview; refresh: (
   const { settings } = overview
   const [form, setForm] = useState({ daily_cap: String(settings.daily_cap), from_name: settings.from_name, reply_to: settings.reply_to ?? '' })
   const [newList, setNewList] = useState('')
+  const [reportMonth, setReportMonth] = useState(() => {
+    const d = new Date()
+    d.setDate(1)
+    d.setMonth(d.getMonth() - 1)
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+  })
+  const [reportBusy, setReportBusy] = useState(false)
+  const [reportSummary, setReportSummary] = useState('')
+
+  const runReport = async (dryRun: boolean) => {
+    setReportBusy(true)
+    const r = await api<{ sent: boolean; gifts: number; gross: number; refunded?: number; donors?: number }>(
+      '/api/admin/donations/report', { method: 'POST', json: { month: reportMonth, dryRun } })
+    setReportBusy(false)
+    if (!r) return
+    const usd = (cents: number) => (cents / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+    setReportSummary(`${reportMonth}: ${usd(r.gross)} from ${r.gifts} ${r.gifts === 1 ? 'gift' : 'gifts'}${r.donors !== undefined ? ` by ${r.donors} donors` : ''}.`)
+    if (!dryRun) toast.success('Report emailed to info@dpefoundation.org')
+  }
 
   const save = async () => {
     const ok = await api('/api/admin/email/settings', {
@@ -121,6 +140,21 @@ export function SetupTab({ overview, refresh }: { overview: Overview; refresh: (
               ))}
             </ul>
           )}
+        </CardContent>
+      </Card>
+      <Card className="lg:col-span-2">
+        <CardHeader><CardTitle>Monthly donation report</CardTitle></CardHeader>
+        <CardContent>
+          <p className="mb-3 text-xs text-gray-500">
+            Emailed to info@dpefoundation.org on the 2nd of every month with last month&apos;s online gifts: totals, donors, campaigns and every gift.
+            Built from the Donorbox gift notification emails that arrive in this inbox, so it needs nothing else set up. Use this to preview a month or send one now.
+          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <Input type="month" value={reportMonth} onChange={(e) => setReportMonth(e.target.value)} className="w-44" />
+            <Button variant="outline" size="sm" disabled={reportBusy || !reportMonth} onClick={() => runReport(true)}>Preview numbers</Button>
+            <Button size="sm" className={GOLD_BUTTON} disabled={reportBusy || !reportMonth} onClick={() => runReport(false)}>Email this report</Button>
+          </div>
+          {reportSummary && <p className="mt-3 text-sm text-gray-700">{reportSummary}</p>}
         </CardContent>
       </Card>
     </div>
