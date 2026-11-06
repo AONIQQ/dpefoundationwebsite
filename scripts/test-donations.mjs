@@ -160,3 +160,8 @@ test('a report built from notices omits refund and fee lines and lists unreadabl
   assert.match(reportSubject(s), /\(needs a look\)$/)
   assert.match(text, /refunds, failed payments and processing fees are not in those emails/)
 })
+
+test('a Line Number custom question shows up in the gift note', () => {
+  const r = parseNotice(notice({ subject: 'Donation from A of $5' }, 'Donor Name: A\nAmount: $5\nReceipt #: 1\nDonated At: 10/25/2026 10:12:48 EDT\nLine Number: 214\nDonor Comment: Hi'))
+  assert.equal(r.donation.comment, 'Hi | Line number 214')
+})

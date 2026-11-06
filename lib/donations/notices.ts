@@ -102,7 +102,7 @@ export function parseNotice(input: NoticeInput): NoticeResult {
       donor: { name, email: (f.get('donor email') ?? '').trim().toLowerCase() || null },
       campaign: f.get('campaign') ? { id: 0, name: f.get('campaign')! } : null,
       designation: f.get('designation') || null,
-      comment: f.get('donor comment') || null,
+      comment: [f.get('donor comment'), f.get('line number') ? `Line number ${f.get('line number')}` : ''].filter(Boolean).join(' | ') || null,
       donation_type: f.get('payment method') || undefined,
     },
   }

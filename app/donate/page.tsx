@@ -108,6 +108,11 @@ export default function DonatePage() {
               puts those opportunities directly into students’ hands.
             </p>
           </AnimatedSection>
+          <AnimatedSection delay={0.45}>
+            <p className="mt-6 text-sm sm:text-base text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              All Foundation Trustees have committed to supporting this effort with their own gifts. Thanks to a generous matching gift from a Trustee, every first-time gift from an Alpha Brother, up to $100, will be matched dollar-for-dollar, doubling your impact.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
