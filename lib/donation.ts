@@ -81,7 +81,7 @@ export const GIVING_LEVELS: GivingLevel[] = [
     monthly: 100,
     title: 'Expand programming',
     description:
-      'Helps grow scholarships, Georgetown School of Foreign Service Science & Technology and International Affairs (STIA) awards, the lecture series, and student programming across the Foundation.',
+      'Helps grow scholarships, Georgetown School of Foreign Service Science, Technology and International Affairs (STIA) awards, the lecture series, and student programming across the Foundation.',
   },
 ]
 

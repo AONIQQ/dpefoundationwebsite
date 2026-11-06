@@ -240,7 +240,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, scholarshipType
 
         {/* STIA Awards Section */}
         <section className="mb-20 max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black text-center">Georgetown School of Foreign Service Science &amp; Technology and International Affairs (STIA) Awards</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-black text-center">Georgetown School of Foreign Service Science, Technology and International Affairs (STIA) Awards</h2>
           <p className="text-2xl font-semibold mb-4 text-[#b08d28] text-center">School of Foreign Service</p>
           <OrnamentalDivider className="mb-8" />
           <div className="bg-[#fdfcf9] p-8 rounded-2xl shadow-[0_2px_15px_-3px_rgba(212,175,54,0.08),0_10px_20px_-2px_rgba(0,0,0,0.04)] border-t-2 border-[#d4af36]">
