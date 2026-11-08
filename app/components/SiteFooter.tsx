@@ -7,6 +7,7 @@ const EXPLORE_LINKS = [
   { href: '/scholarships', label: 'Awards and Scholarships' },
   { href: '/facilities', label: 'Facilities' },
   { href: '/policies', label: 'Policies' },
+  { href: '/honored-greeks', label: 'Honored Greeks' },
   { href: '/donate', label: 'Donate' },
   { href: '/contact', label: 'Contact' },
 ]
