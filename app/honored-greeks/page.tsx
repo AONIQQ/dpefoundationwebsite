@@ -18,6 +18,18 @@ export default function HonoredGreeksPage() {
           </p>
         </header>
 
+        <section aria-labelledby="recognition-levels" className="mt-12 border-y border-[#d4af36]/40 py-8">
+          <h2 id="recognition-levels" className="text-2xl font-semibold mb-6">Recognition levels</h2>
+          <dl className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-3">
+            {recognitionLevels.map((level) => (
+              <div key={level.name} className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-base">
+                <dt className="font-semibold text-[#80651d]">{level.name}</dt>
+                <dd className="text-gray-700 tabular-nums">{level.range}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
         <div className="mt-12 space-y-12">
           {populatedLevels.map((level) => (
             <section key={level.name} id={level.name.toLowerCase()} aria-labelledby={`${level.name.toLowerCase()}-heading`} className="scroll-mt-32 border-t border-[#d4af36]/40 pt-8">
