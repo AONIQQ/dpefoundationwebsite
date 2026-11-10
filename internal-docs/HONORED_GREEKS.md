@@ -6,14 +6,14 @@ Updated November 9, 2026 using `Updated donors to Fd list.PDF` and Al's confirme
 - 774 individual donors, alphabetized by surname within each populated level. Individual amounts and chapter/class information are omitted.
 - The two alumni associations are excluded because the recognition is for brothers.
 - All individual source records are classified by their printed amount, with Al's explicit placements taking precedence. Higher groups already supplied by Al are preserved except Boyle's corrected placement.
-- The recognition-level summary and group shortcuts preceding Spartans are removed. Each populated group retains its heading and contribution range.
+- The 19-level recognition summary is shown before Spartans. Only the duplicative group-shortcut navigation is removed. Each populated group retains its heading and contribution range.
 - Source asterisks are omitted without assigning a meaning, since the PDF supplies no legend. The source PDF is not published.
 
 ## Confirmed corrections and placements
 
 - Raleigh W. Dawson and Ernest A. Fuggiano are included under Spartans, per Al's confirmation. Fuggiano uses Al's corrected spelling rather than the source's `Fuggian`.
 - `Day` is Daniel Daly, under Lysander.
-- Guerette is shown as `D. R. Guerette`, using the confirmed initials without guessing the full first name.
+- Guerette is shown as `Donald R. Guerette`, following the confirmed full-name correction.
 - Lysander begins at $7,501, eliminating the overlap with Aristotle.
 - James C. Abely is under Pythagoras, using his source spelling (Al wrote `Abeley`).
 - Joseph P. Urban is under Hippocrates.
