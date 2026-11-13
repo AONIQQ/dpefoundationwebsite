@@ -10,7 +10,7 @@ Prepared November 13, 2026. Route: `/alpha-lineage`.
 
 ## Content handling
 
-`content/alpha-lineage.json` holds the recent rosters, seasons, counts, and photo paths. Names, diacritics, scripts, order, and capitalization follow the email. Standalone trailing line-number artifacts (`207`, `208`, and `2`), stray trailing commas, and excess whitespace are removed; spellings are not inferred or rewritten.
+`content/alpha-lineage.json` holds the recent rosters, seasons, counts, and photo paths. Names, diacritics, scripts, and order follow the email. At Andrew’s request, capitalized surnames are displayed in normal name capitalization, including McInnis, von Brandt, and Turkish Yalçın. Standalone trailing line-number artifacts (`207`, `208`, and `2`), stray trailing commas, and excess whitespace are removed; spellings are not inferred or rewritten.
 
 Photo associations follow the email's HTML heading/image placement, not filenames. In particular, `210th Line.PNG` is placed under the **211th Line** heading in the source email and is published as `line-211.png`. `210th Line a.jpeg` accompanies the 210th Line. Other images follow the corresponding 206th–209th and 212th headings.
 
