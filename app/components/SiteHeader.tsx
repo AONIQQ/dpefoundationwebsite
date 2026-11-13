@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { href: '/scholarships', label: 'Awards and Scholarships' },
   { href: '/policies', label: 'Policies' },
   { href: '/honored-greeks', label: 'Honored Greeks' },
+  { href: '/alpha-lineage', label: 'Alpha Lineage' },
   { href: '/contact', label: 'Contact Us' },
 ]
 
@@ -45,7 +46,7 @@ export default function SiteHeader() {
         </Link>
 
         <div className="flex items-center gap-3 sm:gap-4">
-          <nav className="hidden xl:flex items-center space-x-4">
+          <nav className="hidden 2xl:flex items-center space-x-4">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
@@ -65,7 +66,7 @@ export default function SiteHeader() {
 
           <Button
             variant="ghost"
-            className="xl:hidden text-[#b08d28]"
+            className="2xl:hidden text-[#b08d28]"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Open menu"
             aria-expanded={mobileMenuOpen}
@@ -80,7 +81,7 @@ export default function SiteHeader() {
       {mobileMenuOpen && (
         <div
           ref={mobileMenuRef}
-          className="xl:hidden bg-white py-4 px-4 absolute top-full left-0 right-0 shadow-lg border-t border-[#d4af36]/20"
+          className="2xl:hidden bg-white py-4 px-4 absolute top-full left-0 right-0 shadow-lg border-t border-[#d4af36]/20"
         >
           <div className="flex justify-end mb-2">
             <Button variant="ghost" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
