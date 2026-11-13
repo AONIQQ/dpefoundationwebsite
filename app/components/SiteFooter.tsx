@@ -8,6 +8,7 @@ const EXPLORE_LINKS = [
   { href: '/facilities', label: 'Facilities' },
   { href: '/policies', label: 'Policies' },
   { href: '/honored-greeks', label: 'Honored Greeks' },
+  { href: '/alpha-lineage', label: 'Alpha Lineage' },
   { href: '/donate', label: 'Donate' },
   { href: '/contact', label: 'Contact' },
 ]
