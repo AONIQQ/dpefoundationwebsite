@@ -45,9 +45,16 @@ export default function AlphaLineagePage() {
               <article key={group.title} className="rounded-lg border border-[#d4af36]/30 bg-white p-5 sm:p-8">
                 <h3 className="text-2xl font-semibold text-[#80651d]">{group.title}</h3>
                 <p className="mt-2 text-gray-700">{group.dates}</p>
-                <a href={group.photo.src} target="_blank" rel="noopener noreferrer" aria-label={`View the ${group.title.toLowerCase()} photographs in a new tab`} className="mt-6 block">
-                  <Image src={group.photo.src} alt={`${group.title} portraits and identifying captions from the historical directory`} width={group.photo.width} height={group.photo.height} sizes="(min-width: 1024px) 1000px, 100vw" className="mx-auto h-auto w-full" style={{ maxWidth: group.photo.width }} />
-                </a>
+                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
+                  {group.members.map((member) => (
+                    <figure key={member.name} className="min-w-0">
+                      <a href={member.portrait.src} target="_blank" rel="noopener noreferrer" aria-label={`View the portrait of ${member.name} in a new tab`}>
+                        <Image src={member.portrait.src} alt={`Portrait of ${member.name}`} width={member.portrait.width} height={member.portrait.height} sizes="(min-width: 1024px) 150px, (min-width: 640px) 180px, 45vw" className="mx-auto h-auto max-h-48 w-auto max-w-full" />
+                      </a>
+                      <figcaption className="mt-2 break-words text-center text-sm leading-relaxed text-gray-800">{member.name}</figcaption>
+                    </figure>
+                  ))}
+                </div>
                 <details className="mt-6 border-t border-[#d4af36]/30 pt-5">
                   <summary className="cursor-pointer font-semibold text-[#80651d]">View {group.members.length} member records</summary>
                   <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
