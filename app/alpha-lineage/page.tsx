@@ -3,13 +3,14 @@ import SiteHeader from '@/app/components/SiteHeader'
 import SiteFooter from '@/app/components/SiteFooter'
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
 import recentLines from '@/content/alpha-lineage.json'
+import foundingGroups from '@/content/alpha-lineage-founders.json'
 
 const directories = [
   {
-    title: 'Charter members through the 100th Line',
-    description: 'The charter members of Alpha Chapter and the pledge lines through the 100th Line.',
-    pages: 124,
-    href: '/alpha-lineage/alpha-directory-through-100th-line.pdf',
+    title: 'First through the 100th Line',
+    description: 'The numbered pledge lines of Alpha Chapter, beginning with the First Line, initiated December 5, 1920.',
+    pages: 116,
+    href: '/alpha-lineage/alpha-directory-first-through-100th-line.pdf',
   },
   {
     title: 'Since the 100th Line',
@@ -32,6 +33,46 @@ export default function AlphaLineagePage() {
             from its founding in 1920 through the 212th Line in spring 2026.
           </p>
         </header>
+
+        <section aria-labelledby="founding-heading" className="mt-12 border-t border-[#d4af36]/40 pt-8">
+          <h2 id="founding-heading" className="text-3xl font-semibold">Charter members and early initiations</h2>
+          <p className="mt-4 max-w-3xl leading-relaxed text-gray-700">
+            These charter members and early initiations precede the numbered pledge lines,
+            which begin with the First Line on December 5, 1920.
+          </p>
+          <div className="mt-8 space-y-10">
+            {foundingGroups.map((group) => (
+              <article key={group.title} className="rounded-lg border border-[#d4af36]/30 bg-white p-5 sm:p-8">
+                <h3 className="text-2xl font-semibold text-[#80651d]">{group.title}</h3>
+                <p className="mt-2 text-gray-700">{group.dates}</p>
+                <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4 lg:grid-cols-6">
+                  {group.members.map((member) => (
+                    <figure key={member.name} className="min-w-0">
+                      <a href={member.portrait.src} target="_blank" rel="noopener noreferrer" aria-label={`View the portrait of ${member.name} in a new tab`}>
+                        <Image src={member.portrait.src} alt={`Portrait of ${member.name}`} width={member.portrait.width} height={member.portrait.height} sizes="(min-width: 1024px) 150px, (min-width: 640px) 180px, 45vw" className="h-40 w-full object-contain sm:h-44" />
+                      </a>
+                      <figcaption className="mt-2 break-words text-center text-sm leading-relaxed text-gray-800">{member.name}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+                <details className="mt-6 border-t border-[#d4af36]/30 pt-5">
+                  <summary className="cursor-pointer font-semibold text-[#80651d]">View {group.members.length} member records</summary>
+                  <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {group.members.map((member) => (
+                      <li key={member.name} className="break-words">
+                        <p className="font-semibold text-gray-900">{member.name}</p>
+                        <dl className="mt-2 text-sm leading-relaxed text-gray-700">
+                          <div><dt className="inline font-semibold">Born: </dt><dd className="inline">{member.born}</dd></div>
+                          <div><dt className="inline font-semibold">Died: </dt><dd className="inline">{member.died}</dd></div>
+                        </dl>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section aria-labelledby="directories-heading" className="mt-12 border-t border-[#d4af36]/40 pt-8">
           <h2 id="directories-heading" className="mb-6 text-3xl font-semibold">Alpha directories</h2>
