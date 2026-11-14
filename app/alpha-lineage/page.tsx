@@ -49,7 +49,7 @@ export default function AlphaLineagePage() {
                   {group.members.map((member) => (
                     <figure key={member.name} className="min-w-0">
                       <a href={member.portrait.src} target="_blank" rel="noopener noreferrer" aria-label={`View the portrait of ${member.name} in a new tab`}>
-                        <Image src={member.portrait.src} alt={`Portrait of ${member.name}`} width={member.portrait.width} height={member.portrait.height} sizes="(min-width: 1024px) 150px, (min-width: 640px) 180px, 45vw" className="mx-auto h-auto max-h-48 w-auto max-w-full" />
+                        <Image src={member.portrait.src} alt={`Portrait of ${member.name}`} width={member.portrait.width} height={member.portrait.height} sizes="(min-width: 1024px) 150px, (min-width: 640px) 180px, 45vw" className="h-40 w-full object-contain sm:h-44" />
                       </a>
                       <figcaption className="mt-2 break-words text-center text-sm leading-relaxed text-gray-800">{member.name}</figcaption>
                     </figure>
