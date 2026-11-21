@@ -13,7 +13,7 @@ export const CHAPTERS: Chapter[] = [
   { name: 'Theta', installed: 'March 11, 1939', school: 'School of Business', university: 'Northwestern University', location: 'Evanston, IL' },
   { name: 'Iota', installed: 'April 29, 1939', university: 'University of Wisconsin', location: 'Madison, WI' },
   { name: 'Kappa', installed: 'November 13, 1949', university: 'Leland Stanford Junior University', location: 'Palo Alto, CA' },
-  { name: 'Lambda', installed: 'October 14, 1949', university: 'The American Institute for Foreign Trade', location: 'Glendale, AZ' },
+  { name: 'Lambda', installed: 'May 15, 1949', university: 'The American Institute for Foreign Trade', location: 'Glendale, AZ' },
   { name: 'Mu', installed: 'November 19, 1955', university: 'Michigan State University', location: 'East Lansing, MI' },
   { name: 'Nu', installed: 'April 8, 1966', university: 'University of Michigan', location: 'Ann Arbor, MI' },
   { name: 'Xi', installed: 'May 25, 1966', university: 'Texas Technical College', location: 'Lubbock, TX' },

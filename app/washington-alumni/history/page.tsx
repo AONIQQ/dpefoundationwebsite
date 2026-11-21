@@ -1,5 +1,7 @@
 import SectionPage from '@/app/components/SectionPage'
 import { WAA_FIRST_YEAR, WAA_FOUNDING as F } from '@/content/fraternity/waa-history'
+import { PhotoGroup } from '@/app/components/HistoryPhoto'
+import { WAA_HISTORY_PHOTOS } from '@/content/fraternity/photos'
 
 export default function WaaHistoryPage() {
   return (
@@ -12,7 +14,12 @@ export default function WaaHistoryPage() {
         <h2 className="text-2xl font-semibold text-black">{F.headline}</h2>
         <p className="mt-2 italic text-gray-600">{F.dek}</p>
         <div className="mt-6 space-y-5">
-          {F.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          {F.paragraphs.map((p, i) => (
+            <div key={i}>
+              <p>{p}</p>
+              <PhotoGroup photos={WAA_HISTORY_PHOTOS.filter((ph) => ph.after === i)} />
+            </div>
+          ))}
           <blockquote className="space-y-3 border-l-4 border-[#d4af36] bg-white px-6 py-4 italic text-gray-700">
             {F.preamble.map((p, i) => <p key={i}>{p}</p>)}
           </blockquote>

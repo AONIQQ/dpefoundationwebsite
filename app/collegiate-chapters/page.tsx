@@ -1,5 +1,7 @@
 import SectionPage from '@/app/components/SectionPage'
 import { CHAPTERS } from '@/content/fraternity/chapters'
+import { PhotoGroup } from '@/app/components/HistoryPhoto'
+import { CHAPTER_PHOTOS } from '@/content/fraternity/photos'
 
 export default function ChapterRollPage() {
   return (
@@ -15,6 +17,10 @@ export default function ChapterRollPage() {
           </li>
         ))}
       </ul>
+      <section aria-labelledby="chapter-photos" className="mx-auto mt-14 max-w-4xl border-t border-[#d4af36]/40 pt-8">
+        <h2 id="chapter-photos" className="text-2xl font-semibold text-black text-center">Chapter photographs</h2>
+        <PhotoGroup photos={CHAPTER_PHOTOS} />
+      </section>
     </SectionPage>
   )
 }
