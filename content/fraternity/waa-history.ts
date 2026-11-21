@@ -1,0 +1,33 @@
+// Washington Alumni Association History, from the Alpha Chapter Pledge Manual (2020).
+// The manual reprints two early accounts: one from the Association's founding in 1929 and one a year later.
+
+export const WAA_FOUNDING = {
+  headline: 'Alumni Association Launched in Washington, D. C.',
+  dek: 'Twenty-five graduate members of Alpha Chapter formed an organization for promotion of both social and professional interests. Similar graduate bodies are expected to be established throughout the country.',
+  paragraphs: [
+    'Washington, D.C., has an assured place in history as the capital of these United States. It will also go down in the records as the birth-place of Delta Phi Epsilon, the world’s first foreign service fraternity. It is therefore eminently befitting that the first alumni organization of this fraternity should also have been launched in this city. The formal organization was accomplished on February 2, 1929, in the City Club when twenty-five graduate members ratified a constitution, elected officers and inaugurated a policy for future action.',
+    'Brother Walter H. E. Jaeger, Al-’24; was the founder and provisional first president of the new association. It was through his efforts that an organizing body of alumni agreed to meet.',
+    'The first regularly-elected officers for the Association were Thomas F. Dolan, President; Leo J. Schaben, Vice President; George W. O’Keefe, Secretary-Treasurer; Joseph H. Barkmeier, Corresponding Secretary, and William F. Jones, Social Manager. Right at this point a word or two is in order in connection with the President-elect, with whom perhaps some of the later members of Delta Phi may not be familiar. Brother Dolan was one of the “old guard” in the days of Hal Butts, Harry Sandager, Jack Walsh, et al., and was high in the councils of the organization. Becoming a lawyer and benedict, he gradually faded from the fraternity picture and it is only recently that he has returned actively to the fold. Dolan is well known in official Washington, having at various times organized a Coolidge Club, acted as delegate to the Democratic National Convention, and recently he rode in President Hoover’s inaugural parade.',
+    'The object of the new association is set forth in detail in the constitution; but, in a word, it is to enable the graduate members to get together and keep them in touch with one another’s activities and with the fraternity. For this purpose, fortnightly luncheon meetings are held, usually in the Cosmos Club, where Bro. Notz happens to be a member. It is rumored that Bro. Jones, the social manager, is planning a series of dances, bridge parties, tea parties and what not.',
+    'The Preamble of the Constitution adopted by the Washington Alumni Association is so good that it is reproduced here in the hope that it will stimulate the formation of similar alumni organizations elsewhere:',
+  ],
+  preamble: [
+    '“Whereas, We as Brothers should cherish our Fraternity for which we have sentiments of sincere gratitude, an affectionate interest in its welfare and progress; and',
+    'Whereas, the best expression of these sentiments is the desire and effort on our part to promote good fellowship among our members and strengthen our Fraternity;',
+    'Whereas, emulation in so laudable a cause, while furthering the end proposed, will draw more closely the bonds of Brotherhood between us;',
+    'Resolved, That we, the Alumni members of Delta Phi Epsilon, Alpha Chapter, do organize ourselves into a Society for the purposes before recited, and adopt for its government the following Constitution.”',
+  ],
+  closing: [
+    'The Washington alumni organization had hardly been in existence a week when news came that Beta Chapter in New York had taken a leaf out of Alpha’s book and formed a similar organization. It is believed that in view of the success of these two ventures, alumni associations will some day be functioning in the different parts of the country where the fraternity has active chapters.',
+    'Before concluding this narrative, it may be of interest to point out a unique and distinctive feature of the constitution that the Alpha alumni organization has adopted. This feature is its “waiveability.” At every meeting thus far, with the full approval of President Dolan, the constitution has been waived. It was waived at the election of officers; it was waived to elect an honorary member; it has been waived for this and for that. Our eminent and distinguished brother Dr. Harvey took occasion at one meeting to discourse at length on this subject of waiving and to suggest that the organization might take for its motto “Long may it waive.”',
+    'With Dolan as President, a membership of enthusiastic brothers behind him, an unusually elastic constitution, the new alumni association of Alpha Chapter is launched on a career which is certain to result in renewed interest among the graduate members and aid and encouragement to the active chapter.',
+  ],
+}
+
+export const WAA_FIRST_YEAR: string[] = [
+  'The Washington Alumni Association has been organized for over a year. It secured its start at the celebration of the ninth anniversary of the founding of Delta Phi Epsilon, held at the Alpha Chapter House on January 25, 1929. Shortly thereafter, on February 2, at a meeting at the Washington City Club, officers were elected for the year as follows: Dr. William F. Notz, Honorary President; Thomas F. Dolan, President; Leo J. Schaben, Vice-President; George W. O’Keefe, Secretary-Treasurer; Joseph H. Barkmeier, Corresponding Secretary and William F. Jones, Social Manager.',
+  'The purposes of the organization are: to maintain interest in the welfare and progress of the Fraternity; to promote good fellowship among the members and to strengthen the Fraternity; and to draw the bonds of Brotherhood more closely.',
+  'During the first year, the Association has held many noon day luncheons at the Cosmos Club, the University Club, and the City Club, gathering many Brothers living within the vicinity of Washington within its fold, and giving welcoming and send-off parties to those brothers arriving from and departing to foreign lands.',
+  'At the noonday luncheon held March 18, 1930, the Association entertained as guest of honor, Brother Dr. Rufus B. von KleinSmid, De-’23, President of the University of Southern California and a member of Delta Chapter.',
+  'Recently, the Washington Alumni Association elected, for its second set of officers, the following: Dr. William F. Notz, Honorary President; Leo J. Schaben, President; Edward J. Breyere, Vice-President; Harold Dotterer, Recording Secretary-Treasurer; Lawrence W. Cain, Corresponding Secretary; and James J. Window, Social Manager.',
+]
