@@ -4,7 +4,6 @@ import SiteFooter from '@/app/components/SiteFooter'
 import OrnamentalDivider from '@/app/components/OrnamentalDivider'
 import recentLines from '@/content/alpha-lineage.json'
 import foundingGroups from '@/content/alpha-lineage-founders.json'
-import InMemoriam from './InMemoriam'
 
 const directories = [
   {
@@ -131,7 +130,6 @@ export default function AlphaLineagePage() {
             ))}
           </div>
         </section>
-        <InMemoriam />
       </div>
       <SiteFooter />
     </div>

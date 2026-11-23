@@ -37,6 +37,7 @@ export const NAV_SECTIONS: NavSection[] = [
     title: 'Alpha Chapter',
     links: [
       { href: '/alpha-lineage', label: 'Alpha Lineage' },
+      { href: '/alpha-chapter/in-memoriam', label: 'In Memoriam' },
       { href: '/alpha-chapter/history', label: 'Pictorial History' },
       { href: '/alpha-chapter/presidents', label: 'Presidents of Alpha Chapter' },
     ],
